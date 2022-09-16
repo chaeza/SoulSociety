@@ -4,12 +4,13 @@ using UnityEngine;
 
 public class RandomSkill : MonoBehaviour
 {
-    int skillNum = 1;
-    int skillRan = 0;
-    public void GetRandomSkill(GameObject player)
+    int skillNum = 2;//ÃÑ ½ºÅ³ °¹¼ö
+    int skillRan = 0;//·£´ýÀ¸·Î »ÌÀ» ½ºÅ³ ¹øÈ£
+    public void GetRandomSkill(GameObject player)// ·£´ý½ºÅ³ Áö±Þ
     {
-        skillRan= Random.Range(1, skillNum + 1);
-        Debug.Log(skillRan);
+        skillRan= Random.Range(1, skillNum + 1);//½ºÅ³¹øÈ£ »Ì±â
         if (skillRan == 1) player.AddComponent<Skill>();
+        if (skillRan == 2) player.AddComponent<Skill2>();
     }
+
 }
