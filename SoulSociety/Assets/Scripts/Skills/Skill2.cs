@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Skill : MonoBehaviour
+public class Skill2 : MonoBehaviour
 {
-   void SkillFire()
+    void SkillFire()
     {
-        Debug.Log("skill 1");
+        Debug.Log("skill 2");
     }
 }

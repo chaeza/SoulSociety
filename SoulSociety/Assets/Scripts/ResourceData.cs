@@ -6,5 +6,6 @@ public class ResourceData : ScriptableObject
 {
     public GameObject effData1;
 
+
 }
 
