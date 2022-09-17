@@ -27,6 +27,5 @@ public class PlayerInput : MonoBehaviour
         if (Input.GetKeyUp(KeyCode.D)) SendMessage("SkillFire", SendMessageOptions.DontRequireReceiver);
 
         if (Input.GetKeyUp(KeyCode.S)) GameMgr.Instance.playerMove.moveStop();
-
     }
 }
