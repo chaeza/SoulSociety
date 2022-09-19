@@ -2,8 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using Photon.Pun;
 using Photon.Realtime;
+using TMPro;
+using Photon.Pun;
+
 
 
 public class NetworkManager : MonoBehaviourPunCallbacks
@@ -12,9 +14,12 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     public GameObject DisconnectPanel;
     public GameObject RobbyPanel;
 
-    [SerializeField] Button btnConnect = null;
+    public GameObject prefab;
 
-    public Text nickName = null;
+    [SerializeField] Button btnConnect = null;
+    [SerializeField] TextMeshProUGUI[] nickName = null;
+
+
     private void Awake()
     {
         Screen.SetResolution(1920, 1080, false);
@@ -46,30 +51,63 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     // 이름 입력 컨트롤(inputField)
     public void OnEndEdit(string instr)
     {
+        Debug.Log("!!!!!");
         PhotonNetwork.NickName = instr; //닉네임 할당
+        
     }
 
     public void OnClick_Connected()
     {
         if (string.IsNullOrEmpty(PhotonNetwork.NickName) == true)
             return;
-
-        Debug.Log("dd");
+ 
         PhotonNetwork.JoinOrCreateRoom("myroom", new RoomOptions { MaxPlayers = 4 }, null);
         DisconnectPanel.SetActive(false);
         RobbyPanel.SetActive(true);
+        //PhotonNetwork.LocalPlayer.NickName = nickName.text;
+
     }
     public override void OnJoinedRoom()
     {
-        PhotonNetwork.LocalPlayer.NickName = nickName.text;
+        Instantiate(prefab);
 
+        Debug.Log("방으로들어옴");
+        int actorNumber = PhotonNetwork.LocalPlayer.ActorNumber;
+        Player[] sortedPlayers = PhotonNetwork.PlayerList;
+
+        Debug.Log(actorNumber + "##번호");
+        for(int i = 0; i < sortedPlayers.Length; i++)
+        {
+            if (sortedPlayers[i].ActorNumber == actorNumber)
+            { 
+                nickName[i].text = PhotonNetwork.LocalPlayer.NickName;
+            }       
+            
+        }
+
+        //StartCoroutine(check());
+        
+       
 
     }
+
+   IEnumerator check()
+    {
+        yield return new WaitForSeconds(10);
+        Debug.Log(PhotonNetwork.CountOfPlayersInRooms + "##나 제외 현재인원");
+    }
+
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape) && PhotonNetwork.IsConnected) PhotonNetwork.Disconnect();
-        
+
+        if (PhotonNetwork.CountOfPlayersInRooms == 4)
+        {
+            Debug.Log("다음씬으로");
+            PhotonNetwork.LoadLevel("GameScene");
+        }
+
     }
 
     
