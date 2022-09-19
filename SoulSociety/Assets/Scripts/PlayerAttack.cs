@@ -4,8 +4,11 @@ using UnityEngine;
 
 public class PlayerAttack : MonoBehaviour
 {
-   
-
+    private void Update()
+    {
+        if (GameMgr.Instance.playerInput.inputKey == KeyCode.A) Debug.Log("공격");
+        if (GameMgr.Instance.playerInput.inputKey == KeyCode.F) SendMessage("SkillFire", SendMessageOptions.DontRequireReceiver);
+    }
     public void Attack()
     {
         //모션 
