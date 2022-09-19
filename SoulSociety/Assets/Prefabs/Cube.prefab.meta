@@ -1,6 +1,12 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:SoulSociety/Assets/Models.meta
+guid: 7c4017b548bf47741a58249f5ba0c742
+folderAsset: yes
+DefaultImporter:
+========
 guid: 6e2be6be155623f4e8df563e9165bd7e
 PrefabImporter:
+>>>>>>>> 86e55e1c117a55c3d721e2d2e70617182562259f:SoulSociety/Assets/Prefabs/Cube.prefab.meta
   externalObjects: {}
   userData: 
   assetBundleName: 
