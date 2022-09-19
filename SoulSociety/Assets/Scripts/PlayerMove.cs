@@ -10,8 +10,6 @@ public class PlayerMove : MonoBehaviour
     {
         if (GameMgr.Instance.playerInput.inputKey == KeyCode.Mouse1)
         {
-            
-            
             Debug.Log("마우스클릭");
         }
     }

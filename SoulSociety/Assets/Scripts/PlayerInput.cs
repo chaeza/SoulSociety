@@ -18,6 +18,8 @@ public class PlayerInput : MonoBehaviour
         else if (Input.GetKeyDown(KeyCode.D)) inputKey = KeyCode.D;
         else if (Input.GetKeyDown(KeyCode.F)) inputKey = KeyCode.F;
         else inputKey = KeyCode.Alpha0;
+        if (Input.GetKeyDown(KeyCode.Alpha1)) GameMgr.Instance.randomItem.GetRandomitem(gameObject);
+
         Debug.Log(inputKey);
         
     }
