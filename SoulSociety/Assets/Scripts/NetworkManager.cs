@@ -14,7 +14,6 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     public GameObject DisconnectPanel;
     public GameObject RobbyPanel;
 
-    public GameObject prefab;
 
     [SerializeField] Button btnConnect = null;
     [SerializeField] TextMeshProUGUI[] nickName = null;
@@ -25,6 +24,8 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         Screen.SetResolution(1920, 1080, false);
         PhotonNetwork.SendRate = 60;
         PhotonNetwork.SerializationRate = 30;
+        PhotonNetwork.AutomaticallySyncScene = true;
+
 
     }
     private void Start()
@@ -67,47 +68,81 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         //PhotonNetwork.LocalPlayer.NickName = nickName.text;
 
     }
+
     public override void OnJoinedRoom()
     {
-        Instantiate(prefab);
+        Debug.Log("새로운 플레이어가 참가하셨습니다");
+        //int actorNumber = PhotonNetwork.LocalPlayer.ActorNumber;
+        /* Player[] sortedPlayers = PhotonNetwork.PlayerList;
+         Debug.Log("현재 방에 나 등장");
+         //Debug.Log(actorNumber + "##번호");
+         for (int i = 0; i < sortedPlayers.Length; i++)
+         {
+             Debug.Log(sortedPlayers[i].NickName);
+             nickName[i].text = sortedPlayers[i].NickName;
+         }*/
+        SortedPlayer();
+    }
 
-        Debug.Log("방으로들어옴");
-        int actorNumber = PhotonNetwork.LocalPlayer.ActorNumber;
+    public override void OnPlayerEnteredRoom(Player newPlayer)
+    {
+        Debug.Log("새로운 플레이어가 참가하셨습니다");
+        SortedPlayer();
+        LoadScene();
+    }
+
+    public override void OnPlayerLeftRoom(Player otherPlayer)
+    {
+        Debug.Log("누가나감");
         Player[] sortedPlayers = PhotonNetwork.PlayerList;
 
-        Debug.Log(actorNumber + "##번호");
-        for(int i = 0; i < sortedPlayers.Length; i++)
+   
+        for (int i = 0; i < nickName.Length; i++)
         {
-            if (sortedPlayers[i].ActorNumber == actorNumber)
-            { 
-                nickName[i].text = PhotonNetwork.LocalPlayer.NickName;
-            }       
-            
+            Debug.Log("비워");
+            nickName[i].text = " ";
         }
-
-        //StartCoroutine(check());
-        
-       
-
+        SortedPlayer();
     }
 
-   IEnumerator check()
+    public void SortedPlayer()
     {
-        yield return new WaitForSeconds(10);
-        Debug.Log(PhotonNetwork.CountOfPlayersInRooms + "##나 제외 현재인원");
+        //int actorNumber = PhotonNetwork.LocalPlayer.ActorNumber;
+        Player[] sortedPlayers = PhotonNetwork.PlayerList;
+        Debug.Log(sortedPlayers.Length);
+     
+        for (int i = 0; i < sortedPlayers.Length; i++)
+        {
+            Debug.Log(sortedPlayers[i].NickName);
+            nickName[i].text = sortedPlayers[i].NickName;
+        }
     }
 
+    public void LoadScene()
+    {
+        // 마스터일때만 해당 함수 실행 가능
+        if (PhotonNetwork.IsMasterClient)
+        {
+            Debug.LogError("나는 마스터가 아닙니다");
+            if (PhotonNetwork.CurrentRoom.PlayerCount > 3)
+            {
+                Debug.Log("다음씬으로");
+                PhotonNetwork.LoadLevel("GameScene");
+            }
+        }
+        Debug.Log(PhotonNetwork.CurrentRoom.PlayerCount);
+    }
+
+    public override void OnMasterClientSwitched(Player newMasterClient)
+    {
+        Debug.Log("마스터 클라이언트 변경:" + newMasterClient.ToString());
+    }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape) && PhotonNetwork.IsConnected) PhotonNetwork.Disconnect();
+        if (Input.GetKeyDown(KeyCode.Escape) && PhotonNetwork.IsConnected) PhotonNetwork.LeaveRoom();
 
-        if (PhotonNetwork.CountOfPlayersInRooms == 4)
-        {
-            Debug.Log("다음씬으로");
-            PhotonNetwork.LoadLevel("GameScene");
-        }
-
+        
     }
 
     

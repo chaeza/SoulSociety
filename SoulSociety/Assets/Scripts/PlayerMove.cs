@@ -46,10 +46,10 @@ public class PlayerMove : MonoBehaviour
         RaycastHit hit;
 
         Ray ray = Camera.main.ScreenPointToRay(mousePos);
+        int mask = 1 << LayerMask.NameToLayer("Terrain");
+        Physics.Raycast(Camera.main.ScreenPointToRay(mousePos), out hit, 20f, mask);
 
-        Physics.Raycast(Camera.main.ScreenPointToRay(mousePos), out hit, float.MaxValue);
-
-        Debug.DrawRay(ray.origin, ray.direction * 200f, Color.red, 5f);
+        Debug.DrawRay(ray.origin, ray.direction * 20f, Color.red, 5f);
         Debug.Log(hit.collider.tag.ToString());
         Debug.Log(hit.ToString());
 
@@ -59,7 +59,7 @@ public class PlayerMove : MonoBehaviour
             desiredDir.y = transform.position.y;
             targetDir = desiredDir - transform.position;
             transform.rotation = Quaternion.LookRotation(targetDir);
-            Debug.Log(targetDir.ToString());
+         //   Debug.Log(targetDir.ToString());
             isMove = true;
         }
     }
@@ -69,6 +69,6 @@ public class PlayerMove : MonoBehaviour
         myAnimator.SetBool("isMove", false);
         gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
         isMove = false;
-        Debug.Log("false");
+       Debug.Log(isMove.ToString());
     }
 }
