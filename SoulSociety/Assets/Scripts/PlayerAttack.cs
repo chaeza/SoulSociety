@@ -4,16 +4,62 @@ using UnityEngine;
 
 public class PlayerAttack : MonoBehaviour
 {
+    Animator myAnimator;
+    bool isAttack=true;
+
+    private void Start()
+    {
+        myAnimator =GetComponent<Animator>();
+    }
+
     private void Update()
     {
-        if (GameMgr.Instance.playerInput.inputKey == KeyCode.A) Debug.Log("공격");
+        if (GameMgr.Instance.playerInput.inputKey == KeyCode.A)
+        {
+            Debug.Log("공격");
+            Attack();
+        }
+
+        if (GameMgr.Instance.playerInput.inputKey == KeyCode.Q) SendMessage("ItemFire", SendMessageOptions.DontRequireReceiver);
+        if (GameMgr.Instance.playerInput.inputKey == KeyCode.W) SendMessage("ItemFire", SendMessageOptions.DontRequireReceiver);
+        if (GameMgr.Instance.playerInput.inputKey == KeyCode.E) SendMessage("ItemFire", SendMessageOptions.DontRequireReceiver);
+        if (GameMgr.Instance.playerInput.inputKey == KeyCode.R) SendMessage("ItemFire", SendMessageOptions.DontRequireReceiver);
         if (GameMgr.Instance.playerInput.inputKey == KeyCode.F) SendMessage("SkillFire", SendMessageOptions.DontRequireReceiver);
     }
     public void Attack()
     {
         //모션 
+        if (isAttack == true)
+        {
+            isAttack = false;
+            //모션 랜덤 설정 
+            int motionNum = Random.Range(0, 3);
+            switch (motionNum)
+            {
+                case 0:
+                    myAnimator.SetTrigger("isAttack1");
+                    break;
+                case 1:
+                    myAnimator.SetTrigger("isAttack2");
+                    break;
+                case 2:
+                    myAnimator.SetTrigger("isAttack3");
+                    break;
+            }
+            //코루틴으로 딜레이 생성
+            StartCoroutine(AttackDelay());
+        }
         //사운드
         //전달 함수 
-        //코루틴으로 딜레이 생성
+        
     }
+    //평타 딜레이 
+    IEnumerator AttackDelay()
+    {
+        GetComponent<PlayerMove>().MoveStop();
+        yield return new WaitForSeconds(1);
+        isAttack =true;
+    }
+
+
 }
