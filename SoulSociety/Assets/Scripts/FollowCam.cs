@@ -25,19 +25,19 @@ public class FollowCam : MonoBehaviour
         }
   
         //Full HD ±âÁØ 1920/1080
-        if (Input.mousePosition.x >= 1916.86 && transform.position.x <= 50)
+        if (Input.mousePosition.x >= 1916.86 )//&& transform.position.x <= 50)
         {
             transform.position = transform.position + Vector3.right * cameraSpeed;
         }
-        if (Input.mousePosition.x <= 0.88 && transform.position.x >= -50)
+        if (Input.mousePosition.x <= 0.88 )//&& transform.position.x >= -50)
         {
             transform.position = transform.position - Vector3.right * cameraSpeed;
         }
-        if (Input.mousePosition.y >= 1080 && transform.position.z <= 50)
+        if (Input.mousePosition.y >= 1080)// && transform.position.z <= 50)
         {
             transform.position = transform.position + Vector3.forward * cameraSpeed;
         }
-        if (Input.mousePosition.y <= 2.30 && transform.position.z >= -50)
+        if (Input.mousePosition.y <= 2.30)// && transform.position.z >= -50)
         {
             transform.position = transform.position - Vector3.forward * cameraSpeed;
         }

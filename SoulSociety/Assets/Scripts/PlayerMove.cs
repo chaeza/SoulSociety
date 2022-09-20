@@ -21,7 +21,7 @@ public class PlayerMove : MonoBehaviour
 
     private void Update()
     {
-        if (GameMgr.Instance.playerInput.inputKey==KeyCode.Mouse1)
+        if (GameMgr.Instance.playerInput.inputKey == KeyCode.Mouse1)
         {
             Move(Input.mousePosition);
         }
@@ -31,14 +31,11 @@ public class PlayerMove : MonoBehaviour
             if (Vector3.Distance(desiredDir, transform.position) > 0.1f)
             {
                 myAnimator.SetBool("isMove", true);
+
                 gameObject.GetComponent<Rigidbody>().velocity = targetDir.normalized * moveSpeed;
             }
             else
-            {
-                myAnimator.SetBool("isMove", false);
-                gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
-                isMove = false;
-            }
+                MoveStop();
         }
     }
     public void Move(Vector3 mousePos)
@@ -50,20 +47,28 @@ public class PlayerMove : MonoBehaviour
 
         Ray ray = Camera.main.ScreenPointToRay(mousePos);
 
-        Physics.Raycast(Camera.main.ScreenPointToRay(mousePos), out hit, int.MaxValue);
+        Physics.Raycast(Camera.main.ScreenPointToRay(mousePos), out hit, float.MaxValue);
 
-        Debug.DrawRay(ray.origin, ray.direction * 20f, Color.red, 5f);
+        Debug.DrawRay(ray.origin, ray.direction * 200f, Color.red, 5f);
+        Debug.Log(hit.collider.tag.ToString());
+        Debug.Log(hit.ToString());
 
         if (hit.collider.tag == "Ground")
         {
-            Debug.Log(isMove);
-          //  moveTarget = mousePos;
             desiredDir = hit.point;
             desiredDir.y = transform.position.y;
             targetDir = desiredDir - transform.position;
             transform.rotation = Quaternion.LookRotation(targetDir);
-
+            Debug.Log(targetDir.ToString());
             isMove = true;
         }
+    }
+
+    public void MoveStop()
+    {
+        myAnimator.SetBool("isMove", false);
+        gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
+        isMove = false;
+        Debug.Log("false");
     }
 }
