@@ -4,13 +4,41 @@ using UnityEngine;
 
 public class PlayerMove : MonoBehaviour
 {
+    [SerializeField] float moveSpeed = 1;
+
+    Animator myAnimator;
+
     bool isMove = false;
+
+    Vector3 moveTarget;
+    Vector3 desiredDir;
+    Vector3 targetDir;
+
+    private void Start()
+    {
+        myAnimator = GetComponent<Animator>();
+    }
 
     private void Update()
     {
-        if (GameMgr.Instance.playerInput.inputKey == KeyCode.Mouse1)
+        if (GameMgr.Instance.playerInput.inputKey==KeyCode.Mouse1)
         {
-            Debug.Log("마우스클릭");
+            Move(Input.mousePosition);
+        }
+
+        if (isMove == true)
+        {
+            if (Vector3.Distance(desiredDir, transform.position) > 0.1f)
+            {
+                myAnimator.SetBool("isMove", true);
+                gameObject.GetComponent<Rigidbody>().velocity = targetDir.normalized * moveSpeed;
+            }
+            else
+            {
+                myAnimator.SetBool("isMove", false);
+                gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
+                isMove = false;
+            }
         }
     }
     public void Move(Vector3 mousePos)
@@ -18,31 +46,24 @@ public class PlayerMove : MonoBehaviour
         // 움직임 애니메이션
         // 사운드
         // 실제 움직임 (포지션 변경)
-        // 코루틴으로 실행 ]
-        Coroutine move=null;//이동 코루틴 선언
-        if (isMove == true)//이동하던 코루틴을 멈춘다.
-            StopCoroutine(move);
-            move = StartCoroutine(MoveCorutine());//지정한 곳으로 이동하는 코루틴 시작.
+        RaycastHit hit;
 
+        Ray ray = Camera.main.ScreenPointToRay(mousePos);
 
-    }
+        Physics.Raycast(Camera.main.ScreenPointToRay(mousePos), out hit, int.MaxValue);
 
-    IEnumerator MoveCorutine()
-    {
-        isMove = true;
-        while(true)
+        Debug.DrawRay(ray.origin, ray.direction * 20f, Color.red, 5f);
+
+        if (hit.collider.tag == "Ground")
         {
-            Debug.Log("가는중");
-            yield return null;
-            if (isMove == false) break;//중간에 moveStop으로 멈출시 코루틴 정지
+            Debug.Log(isMove);
+          //  moveTarget = mousePos;
+            desiredDir = hit.point;
+            desiredDir.y = transform.position.y;
+            targetDir = desiredDir - transform.position;
+            transform.rotation = Quaternion.LookRotation(targetDir);
+
+            isMove = true;
         }
-        isMove = false;
-        yield break;
     }
-
-    public void moveStop()
-    {
-        isMove = false;
-    }
-
 }
