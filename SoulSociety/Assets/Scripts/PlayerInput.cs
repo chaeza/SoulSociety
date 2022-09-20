@@ -8,7 +8,7 @@ public class PlayerInput : MonoBehaviour
     public KeyCode inputKey { get; set; }
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Mouse1)) inputKey = KeyCode.Mouse1;
+        if (Input.GetKey(KeyCode.Mouse1)) inputKey = KeyCode.Mouse1;
         else if (Input.GetKeyDown(KeyCode.Q)) inputKey = KeyCode.Q;
         else if (Input.GetKeyDown(KeyCode.W)) inputKey = KeyCode.W;
         else if (Input.GetKeyDown(KeyCode.E)) inputKey = KeyCode.E;
@@ -20,7 +20,7 @@ public class PlayerInput : MonoBehaviour
         else inputKey = KeyCode.Alpha0;
         if (Input.GetKeyDown(KeyCode.Alpha1)) GameMgr.Instance.randomItem.GetRandomitem(gameObject);
 
-        Debug.Log(inputKey);
+    //    Debug.Log(inputKey);
         
     }
 }
