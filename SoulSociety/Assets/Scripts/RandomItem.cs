@@ -10,17 +10,17 @@ public class RandomItem : MonoBehaviour
     {
         itemRan = Random.Range(1, itemNum + 1);//아이템번호 뽑기
         if (GameMgr.Instance.inventory.InvetoryCount(1) != true && GameMgr.Instance.inventory.InvetoryCount(2) != true && GameMgr.Instance.inventory.InvetoryCount(3) != true && GameMgr.Instance.inventory.InvetoryCount(4) != true)
-        {
+        {//인벤토리 1,2,3,4의 칸이 모두 찼을때 리턴
             Debug.Log("인벤토리가 가득 찼습니다.");// 아이템이 4개일시 경고창
             return;
         }
         while (true)
         {
-            if (itemRan == 1 && GameMgr.Instance.inventory.ContainInvetory(1) == false)
+            if (itemRan == 1 && GameMgr.Instance.inventory.ContainInvetory(1) == false)//뽑은 번호가 1번일시 인벤토리에 1번스킬이 있는지 확인하고 없으면 1번아이템 지급.
             {
-                player.AddComponent<Item1>();
+                player.AddComponent<Item1>();//아이템 컴포넌트 추가
                 Cheak(player);
-                GameMgr.Instance.inventory.AddInventory(itemRan);
+                GameMgr.Instance.inventory.AddInventory(itemRan);//인벤토리에 현재 아이템 번호를 리스트에 저장
                 break;
             }
             else if (itemRan == 2 && GameMgr.Instance.inventory.ContainInvetory(2) == false)
@@ -50,7 +50,7 @@ public class RandomItem : MonoBehaviour
 
         //UI 매니저에  현재 인벤토리순서를 넘겨서 해당 칸에 아이콘을 표시
     }
-    void Cheak(GameObject player)
+    void Cheak(GameObject player)//현재 비어있는 인벤토리 칸수에 현재 아이템번호를 매김
     {
         if (GameMgr.Instance.inventory.InvetoryCount(1) == true) player.SendMessage("GetItem", 1, SendMessageOptions.DontRequireReceiver);//아이템 컴포넌트에 남은 인벤토리창에 순서 저장
         else if (GameMgr.Instance.inventory.InvetoryCount(2) == true) player.SendMessage("GetItem", 2, SendMessageOptions.DontRequireReceiver);//아이템 컴포넌트에 남은 인벤토리창에 순서 저장
