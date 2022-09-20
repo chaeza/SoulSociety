@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Item2 : MonoBehaviour
+public class Item2 : MonoBehaviour, ItemMethod
 {
     [SerializeField]
     int itemNum = 0;
@@ -21,6 +21,7 @@ public class Item2 : MonoBehaviour
     }
     public void ItemSkill()
     {
+        GameMgr.Instance.uIMgr.UseItem(itemNum);
         GameMgr.Instance.inventory.RemoveInventory(itemNum);
         Destroy(GetComponent<Item2>());
     }
