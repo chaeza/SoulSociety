@@ -6,7 +6,7 @@ public class Inventory : MonoBehaviour
 {
 
     //이 스크립트는 플레이어에게 지급됩니다.
-    public List<int> inventory = new List<int>();//현재 들어있는 스킬 비교
+    List<int> inventory = new List<int>();//현재 들어있는 스킬 비교
     private void Start()
     {
         inventory.Add(0);//리스트 0번배열은 안쓰고 1,2,3,4배열에 0을넣어 비어있음으로 만듬
@@ -47,8 +47,12 @@ public class Inventory : MonoBehaviour
     {
         inventory[Num] = 0;
     }
-    public bool ContainInvetory(int Num)//인벤토리에 해당 아이템번호가 있는지 확인함
+    public bool ContainInventory(int Num)//인벤토리에 해당 아이템번호가 있는지 확인함
     {
         return inventory.Contains(Num);
+    }
+    public int GetInventory(int Num)
+    {
+        return inventory[Num];
     }
 }
