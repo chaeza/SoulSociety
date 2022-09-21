@@ -4,8 +4,11 @@ using UnityEngine;
 
 public class PlayerAttack : MonoBehaviour
 {
+    [SerializeField] GameObject hitBox = null;
+
     Animator myAnimator;
     bool isAttack=true;
+
 
     private void Start()
     {
@@ -25,6 +28,7 @@ public class PlayerAttack : MonoBehaviour
         if (GameMgr.Instance.playerInput.inputKey == KeyCode.E) SendMessage("ItemFire", SendMessageOptions.DontRequireReceiver);
         if (GameMgr.Instance.playerInput.inputKey == KeyCode.R) SendMessage("ItemFire", SendMessageOptions.DontRequireReceiver);
         if (GameMgr.Instance.playerInput.inputKey == KeyCode.F) SendMessage("SkillFire", SendMessageOptions.DontRequireReceiver);
+        if (GameMgr.Instance.playerInput.inputKey == KeyCode.Alpha1) GameMgr.Instance.randomItem.GetRandomitem(gameObject);
     }
     public void Attack()
     {
@@ -56,8 +60,10 @@ public class PlayerAttack : MonoBehaviour
     //∆Ú≈∏ µÙ∑π¿Ã 
     IEnumerator AttackDelay()
     {
+        hitBox.GetComponent<BoxCollider>().enabled = true;  
         GetComponent<PlayerMove>().MoveStop();
         yield return new WaitForSeconds(1);
+        hitBox.GetComponent<BoxCollider>().enabled = false;
         isAttack =true;
     }
 

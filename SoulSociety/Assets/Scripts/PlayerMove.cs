@@ -73,6 +73,6 @@ public class PlayerMove : MonoBehaviour
         myAnimator.SetBool("isMove", false);
         gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
         isMove = false;
-       Debug.Log(isMove.ToString());
+        //Debug.Log(isMove.ToString());
     }
 }
