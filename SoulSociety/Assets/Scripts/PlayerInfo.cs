@@ -9,9 +9,14 @@ public class PlayerInfo : MonoBehaviour
     [SerializeField] float HPrecovery =0.5f;
     [SerializeField] float basicAttackDamage = 10;
 
-    // Update is called once per frame
-    void Update()
+
+    private void OnTriggerEnter(Collider other)
     {
-        
+        other.SendMessage("hit",SendMessageOptions.DontRequireReceiver);  
+    }
+
+    void hit()
+    {
+        Debug.Log("¸ÂÀ½");
     }
 }

@@ -7,7 +7,13 @@ public class FollowCam : MonoBehaviour
     [SerializeField] float distanceFromPlayerZ = 3f;
     [SerializeField] float distanceFromPlayerY = 15f;
     [SerializeField] float cameraSpeed = 0.1f;
-    [SerializeField] Transform playerPos;
+    Transform playerPos;
+
+    public void playerStart(Transform player)
+    {
+        playerPos = player;
+    }
+
 
     private void Start()
     {
