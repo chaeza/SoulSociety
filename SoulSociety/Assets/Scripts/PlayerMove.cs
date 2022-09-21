@@ -30,6 +30,10 @@ public class PlayerMove : MonoBehaviour
             if(Input.mousePosition != null) Move(Input.mousePosition);
         }
 
+        if (GameMgr.Instance.playerInput.inputKey == KeyCode.S)
+        {
+            MoveStop();
+        }
         if (isMove == true)
         {
             if (Vector3.Distance(desiredDir, transform.position) > 0.1f)
@@ -71,6 +75,6 @@ public class PlayerMove : MonoBehaviour
         myAnimator.SetBool("isMove", false);
         gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
         isMove = false;
-       Debug.Log(isMove.ToString());
+        //Debug.Log(isMove.ToString());
     }
 }

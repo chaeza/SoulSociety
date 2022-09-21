@@ -4,19 +4,22 @@ using UnityEngine;
 
 public class PlayerAttack : MonoBehaviour
 {
+    [SerializeField] GameObject hitBox = null;
+
     Animator myAnimator;
     bool isAttack=true;
+
 
     private void Start()
     {
         myAnimator =GetComponent<Animator>();
-        GameMgr.Instance.randomSkill.GetRandomSkill(gameObject);
     }
 
     private void Update()
     {
         if (GameMgr.Instance.playerInput.inputKey == KeyCode.A)
         {
+            Debug.Log("공격");
             Attack();
         }
 
@@ -25,14 +28,13 @@ public class PlayerAttack : MonoBehaviour
         if (GameMgr.Instance.playerInput.inputKey == KeyCode.E) SendMessage("ItemFire", SendMessageOptions.DontRequireReceiver);
         if (GameMgr.Instance.playerInput.inputKey == KeyCode.R) SendMessage("ItemFire", SendMessageOptions.DontRequireReceiver);
         if (GameMgr.Instance.playerInput.inputKey == KeyCode.F) SendMessage("SkillFire", SendMessageOptions.DontRequireReceiver);
-        if(GameMgr.Instance.playerInput.inputKey == KeyCode.Alpha1) GameMgr.Instance.randomItem.GetRandomitem(gameObject);
+        if (GameMgr.Instance.playerInput.inputKey == KeyCode.Alpha1) GameMgr.Instance.randomItem.GetRandomitem(gameObject);
     }
     public void Attack()
     {
         //모션 
         if (isAttack == true)
         {
-            Debug.Log("공격");
             isAttack = false;
             //모션 랜덤 설정 
             int motionNum = Random.Range(0, 3);
@@ -58,8 +60,10 @@ public class PlayerAttack : MonoBehaviour
     //평타 딜레이 
     IEnumerator AttackDelay()
     {
+        hitBox.GetComponent<BoxCollider>().enabled = true;  
         GetComponent<PlayerMove>().MoveStop();
         yield return new WaitForSeconds(1);
+        hitBox.GetComponent<BoxCollider>().enabled = false;
         isAttack =true;
     }
 

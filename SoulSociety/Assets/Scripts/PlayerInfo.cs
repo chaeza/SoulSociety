@@ -4,15 +4,19 @@ using UnityEngine;
 
 public class PlayerInfo : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+
+    [SerializeField] float HP=100;
+    [SerializeField] float HPrecovery =0.5f;
+    [SerializeField] float basicAttackDamage = 10;
+
+
+    private void OnTriggerEnter(Collider other)
     {
-        
+        other.SendMessage("hit",SendMessageOptions.DontRequireReceiver);  
     }
 
-    // Update is called once per frame
-    void Update()
+    void hit()
     {
-        
+        Debug.Log("¸ÂÀ½");
     }
 }
