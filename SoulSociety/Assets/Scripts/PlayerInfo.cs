@@ -4,11 +4,10 @@ using UnityEngine;
 
 public class PlayerInfo : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+
+    [SerializeField] float HP=100;
+    [SerializeField] float HPrecovery =0.5f;
+    [SerializeField] float basicAttackDamage = 10;
 
     // Update is called once per frame
     void Update()

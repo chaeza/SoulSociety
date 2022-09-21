@@ -26,6 +26,10 @@ public class PlayerMove : MonoBehaviour
             Move(Input.mousePosition);
         }
 
+        if (GameMgr.Instance.playerInput.inputKey == KeyCode.S)
+        {
+            MoveStop();
+        }
         if (isMove == true)
         {
             if (Vector3.Distance(desiredDir, transform.position) > 0.1f)
