@@ -10,5 +10,8 @@ public class ResourceData : ScriptableObject
     public Image ItemIcon2 = null;
     public Image ItemIcon3 = null;
     public Image ItemIcon4 = null;
+
+    [SerializeField]
+    GameObject pre = null;
 }
 
