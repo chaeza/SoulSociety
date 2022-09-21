@@ -16,34 +16,34 @@ public class RandomItem : MonoBehaviour
         }
         while (true)
         {
-            if (itemRan == 1 && GameMgr.Instance.inventory.ContainInvetory(1) == false)//뽑은 번호가 1번일시 인벤토리에 1번스킬이 있는지 확인하고 없으면 1번아이템 지급.
+            if (itemRan == 1 && GameMgr.Instance.inventory.ContainInventory(1) == false)//뽑은 번호가 1번일시 인벤토리에 1번 아이템이 있는지 확인하고 없으면 1번아이템 지급.
             {
                 player.AddComponent<Item1>();//아이템 컴포넌트 추가
                 Cheak(player);
                 GameMgr.Instance.inventory.AddInventory(itemRan);//인벤토리에 현재 아이템 번호를 리스트에 저장
                 break;
             }
-            else if (itemRan == 2 && GameMgr.Instance.inventory.ContainInvetory(2) == false)
+            else if (itemRan == 2 && GameMgr.Instance.inventory.ContainInventory(2) == false)
             {
                 player.AddComponent<Item2>();
                 Cheak(player);
                 GameMgr.Instance.inventory.AddInventory(itemRan);
                 break;
             }
-            else if (itemRan == 3 && GameMgr.Instance.inventory.ContainInvetory(3) == false)
+            else if (itemRan == 3 && GameMgr.Instance.inventory.ContainInventory(3) == false)
             {
                 player.AddComponent<Item3>();
                 Cheak(player);
                 GameMgr.Instance.inventory.AddInventory(itemRan);
                 break;
             }
-            else if (itemRan == 4 && GameMgr.Instance.inventory.ContainInvetory(4) == false)
+            else if (itemRan == 4 && GameMgr.Instance.inventory.ContainInventory(4) == false)
             {
                 player.AddComponent<Item4>();
                 Cheak(player);
                 GameMgr.Instance.inventory.AddInventory(itemRan);
                 break;
-            }
+            }//아이템 추가시 여기에 else if 추가
             else itemRan = Random.Range(1, itemNum + 1);//중복시 다시 랜덤
         }
         player.SendMessage("SameItem", itemRan, SendMessageOptions.DontRequireReceiver);//인벤토리 컴포넌트에 소지한 아이템 종류를 리스트에 더함
