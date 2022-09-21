@@ -1,8 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public class PlayerAttack : MonoBehaviour
+using Photon.Pun;
+public class PlayerAttack : MonoBehaviourPun
 {
     [SerializeField] GameObject hitBox = null;
 
@@ -17,9 +17,9 @@ public class PlayerAttack : MonoBehaviour
 
     private void Update()
     {
+        if (photonView.IsMine == false) return;
         if (GameMgr.Instance.playerInput.inputKey == KeyCode.A)
         {
-            Debug.Log("공격");
             Attack();
         }
 
@@ -35,6 +35,7 @@ public class PlayerAttack : MonoBehaviour
         //모션 
         if (isAttack == true)
         {
+            Debug.Log("공격");
             isAttack = false;
             //모션 랜덤 설정 
             int motionNum = Random.Range(0, 3);
@@ -51,7 +52,7 @@ public class PlayerAttack : MonoBehaviour
                     break;
             }
             //코루틴으로 딜레이 생성
-            StartCoroutine(AttackDelay());
+           StartCoroutine(AttackDelay());
         }
         //사운드
         //전달 함수 
@@ -60,10 +61,10 @@ public class PlayerAttack : MonoBehaviour
     //평타 딜레이 
     IEnumerator AttackDelay()
     {
-        hitBox.GetComponent<BoxCollider>().enabled = true;  
+        hitBox.SetActive(true); 
         GetComponent<PlayerMove>().MoveStop();
         yield return new WaitForSeconds(1);
-        hitBox.GetComponent<BoxCollider>().enabled = false;
+        hitBox.SetActive(false);
         isAttack =true;
     }
 
