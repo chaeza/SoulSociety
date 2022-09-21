@@ -19,7 +19,7 @@ MonoBehaviour:
     width: 1920
     height: 1117
   m_ShowMode: 4
-  m_Title: Game
+  m_Title: Project
   m_RootView: {fileID: 2}
   m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
@@ -120,7 +120,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 200}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
-  controlID: 135
+  controlID: 113
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -145,7 +145,7 @@ MonoBehaviour:
   m_MinSize: {x: 100, y: 200}
   m_MaxSize: {x: 8096, y: 16192}
   vertical: 1
-  controlID: 136
+  controlID: 120
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -191,8 +191,8 @@ MonoBehaviour:
     y: 537
     width: 985
     height: 530
-  m_MinSize: {x: 200, y: 200}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 201, y: 221}
+  m_MaxSize: {x: 4001, y: 4021}
   m_ActualView: {fileID: 15}
   m_Panes:
   - {fileID: 15}
@@ -222,7 +222,7 @@ MonoBehaviour:
   m_MinSize: {x: 100, y: 200}
   m_MaxSize: {x: 8096, y: 16192}
   vertical: 1
-  controlID: 116
+  controlID: 83
 --- !u!114 &10
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -242,8 +242,8 @@ MonoBehaviour:
     y: 0
     width: 391
     height: 534
-  m_MinSize: {x: 200, y: 200}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 202, y: 221}
+  m_MaxSize: {x: 4002, y: 4021}
   m_ActualView: {fileID: 17}
   m_Panes:
   - {fileID: 17}
@@ -299,7 +299,7 @@ MonoBehaviour:
   m_MinSize: {x: 100, y: 200}
   m_MaxSize: {x: 8096, y: 16192}
   vertical: 1
-  controlID: 49
+  controlID: 114
 --- !u!114 &13
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -411,7 +411,7 @@ MonoBehaviour:
     m_VAllowExceedBaseRangeMax: 1
     m_ScaleWithWindow: 0
     m_HSlider: 0
-    m_VSlider: 0
+    m_VSlider: 1
     m_IgnoreScrollWheelUntilClicked: 0
     m_EnableMouseInput: 1
     m_EnableSliderZoomHorizontal: 0
@@ -424,7 +424,7 @@ MonoBehaviour:
       y: 21
       width: 984
       height: 488
-    m_Scale: {x: 0.45185187, y: 0.45185184}
+    m_Scale: {x: 0.47129634, y: 0.4712963}
     m_Translation: {x: 492, y: 244}
     m_MarginLeft: 0
     m_MarginRight: 0
@@ -432,12 +432,12 @@ MonoBehaviour:
     m_MarginBottom: 0
     m_LastShownAreaInsideMargins:
       serializedVersion: 2
-      x: -1088.8524
-      y: -540
-      width: 2177.7048
-      height: 1080
+      x: -1043.9292
+      y: -517.721
+      width: 2087.8584
+      height: 1035.442
     m_MinimalGUI: 1
-  m_defaultScale: 0.45185184
+  m_defaultScale: 0.4712963
   m_LastWindowPixelSize: {x: 984, y: 509}
   m_ClearInEditMode: 1
   m_NoCameraWarning: 1
@@ -720,7 +720,7 @@ MonoBehaviour:
   m_Rotation:
     m_Target: {x: 0.026427586, y: 0.9696185, z: -0.2106204, w: 0.12163612}
     speed: 2
-    m_Value: {x: 0.026427394, y: 0.96961147, z: -0.21061887, w: 0.121635236}
+    m_Value: {x: 0.026427586, y: 0.9696185, z: -0.2106204, w: 0.121636115}
   m_Size:
     m_Target: 7.822495
     speed: 2
@@ -780,9 +780,9 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 
+      m_SelectedIDs: b6220000
       m_LastClickedID: 0
-      m_ExpandedIDs: fc7df4ff42b2f4ff0ee4f4ff001ff5ffe222f5ff3a23f5ff6a4cf5ffb65af5ffba5af5ff6abcf5ff32c2f5ff8ec2f5ff7aecf5ffc6faf5ffcafaf5ff86daf6ff0eeaf6ff8625f7ff0c69f7ffccd1f7ff0aeef7ff66a5f8ff8cb5f8ffe4b5f8ff14dff8ff60edf8ff64edf8ff901ef9ffa05cf9fffcaef9ff54aff9ff84d8f9ffd0e6f9ffd4e6f9ff9871faff6277faff8e78faff2c87faff0c96faffbc53fbff7290fbfffea0fbff56a1fbff1acdfbff78dbfbff80dbfbff34ddfbffd009fcffd410fcff581afcff7443fcff0a53fcff445afcff9c5afcff5486fcffa894fcffae94fcff4051fdffc886ffffb6b2ffff0eb5ffff22b5ffffbce7ffff16fafffff4ffffff00750100b07a010050210300be240300b6350400
+      m_ExpandedIDs: f6f9ffff
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -847,22 +847,22 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Scripts/RobbyScene
+    - Assets/Scripts
     m_Globs: []
     m_OriginalText: 
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/Scripts/RobbyScene
+  - Assets/Scripts
   m_LastFoldersGridSize: -1
   m_LastProjectPath: C:\Users\User\Desktop\onechance03\Soya\SoulSociety\SoulSociety
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 125f0000
-    m_LastClickedID: 24338
-    m_ExpandedIDs: 00000000505e0000525e0000545e0000565e0000585e00005a5e0000e45e000000ca9a3b
+    m_SelectedIDs: 8e6d0000
+    m_LastClickedID: 28046
+    m_ExpandedIDs: 000000000c6d00000e6d0000106d0000126d0000146d0000166d00008e6d000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -890,7 +890,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000505e0000525e0000545e0000565e0000585e00005a5e0000
+    m_ExpandedIDs: 000000000c6d00000e6d0000106d0000126d0000146d0000166d0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -942,7 +942,7 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
     m_NewAssetIndexInList: -1
-    m_ScrollPosition: {x: 0, y: 0}
+    m_ScrollPosition: {x: 0, y: 180}
     m_GridSize: 64
   m_SkipHiddenPackages: 0
   m_DirectoriesAreaWidth: 151
