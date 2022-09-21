@@ -13,7 +13,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     public InputField NickNameInput;
     public GameObject DisconnectPanel;
     public GameObject RobbyPanel;
-
+    public GameObject[] soulEff;
 
     [SerializeField] Button btnConnect = null;
     [SerializeField] TextMeshProUGUI[] nickName = null;
@@ -29,7 +29,10 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
     }
     private void Start()
-    {
+    {   for(int i = 0; i < soulEff.Length; i++)
+        {
+            soulEff[i].SetActive(false);
+        }
         btnConnect.interactable = false; // 버튼 입력 막기
         RobbyPanel.SetActive(false);
         //마스터 서버 접속 요청
@@ -101,6 +104,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         {
             Debug.Log("비워");
             nickName[i].text = " ";
+            soulEff[i].SetActive(false);
         }
         SortedPlayer();
     }
@@ -115,6 +119,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         {
             Debug.Log(sortedPlayers[i].NickName);
             nickName[i].text = sortedPlayers[i].NickName;
+            soulEff[i].SetActive(true);
         }
     }
 
