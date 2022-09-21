@@ -52,6 +52,7 @@ public class UIMgr : MonoBehaviour
         inventory[Num] = null;
     }
 
+    
 
 
 

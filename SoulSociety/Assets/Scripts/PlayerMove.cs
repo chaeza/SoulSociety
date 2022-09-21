@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
-public class PlayerMove : MonoBehaviour
+public class PlayerMove : MonoBehaviourPun
 {
     [SerializeField] float moveSpeed = 1;
 
@@ -21,6 +22,8 @@ public class PlayerMove : MonoBehaviour
 
     private void Update()
     {
+        if (photonView.IsMine == false) return;
+
         if (GameMgr.Instance.playerInput.inputKey == KeyCode.Mouse1)
         {
             Move(Input.mousePosition);

@@ -28,15 +28,16 @@ public class GameMgr : Singleton<GameMgr>
         playerInput = gameObject.AddComponent<PlayerInput>();
         inventory = gameObject.AddComponent<Inventory>();
         uIMgr = FindObjectOfType<UIMgr>();
+        followCam = FindObjectOfType<FollowCam>();
     }
 
     private void Start()
     {
-        Instantiate(palyer, new Vector3(-2, 49, -8), Quaternion.identity);
+        //Instantiate(palyer, new Vector3(-2, 49, -8), Quaternion.identity);
       
-        GameObject playerr = GameObject.Find("Character_Chost(Clone)");
-        followCam = FindObjectOfType<FollowCam>();
-        followCam.playerStart(playerr.transform);
+/*        GameObject playerr = GameObject.Find("Player(clone)");
+        
+        followCam.playerStart(playerr.transform);*/
     }
 
 }
