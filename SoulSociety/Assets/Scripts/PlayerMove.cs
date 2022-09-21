@@ -21,9 +21,13 @@ public class PlayerMove : MonoBehaviour
 
     private void Update()
     {
+        if (Input.mousePosition.x > 680 && Input.mousePosition.x < 760 && Input.mousePosition.y > 25 && Input.mousePosition.y < 105 && GameMgr.Instance.inventory.InvetoryCount(1)==false) Debug.Log("Q");
+        else if (Input.mousePosition.x > 845 && Input.mousePosition.x < 915 && Input.mousePosition.y > 25 && Input.mousePosition.y < 105 && GameMgr.Instance.inventory.InvetoryCount(2) == false) Debug.Log("W");
+        else if (Input.mousePosition.x > 1005 && Input.mousePosition.x < 1080 && Input.mousePosition.y > 25 && Input.mousePosition.y < 105 && GameMgr.Instance.inventory.InvetoryCount(3) == false) Debug.Log("E");
+        else if (Input.mousePosition.x > 1160 && Input.mousePosition.x < 1240 && Input.mousePosition.y > 25 && Input.mousePosition.y < 105 && GameMgr.Instance.inventory.InvetoryCount(4) == false) Debug.Log("R");
         if (GameMgr.Instance.playerInput.inputKey == KeyCode.Mouse1)
         {
-            Move(Input.mousePosition);
+            if(Input.mousePosition != null) Move(Input.mousePosition);
         }
 
         if (isMove == true)
@@ -50,8 +54,6 @@ public class PlayerMove : MonoBehaviour
         Physics.Raycast(Camera.main.ScreenPointToRay(mousePos), out hit, 20f, mask);
 
         Debug.DrawRay(ray.origin, ray.direction * 20f, Color.red, 5f);
-        Debug.Log(hit.collider.tag.ToString());
-        Debug.Log(hit.ToString());
 
         if (hit.collider.tag == "Ground")
         {

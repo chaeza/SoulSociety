@@ -8,10 +8,10 @@ public class UIMgr : MonoBehaviour
     GameObject itemUI = null;
     GameObject[] inventory = new GameObject[5];
     [SerializeField] GameObject ItemIcon1;
+    [SerializeField] GameObject ItemIcon1Explantion;
     [SerializeField] GameObject ItemIcon2;
     [SerializeField] GameObject ItemIcon3;
     [SerializeField] GameObject ItemIcon4;
-
 
     public void SkillUI(int Num)
     {
@@ -50,6 +50,10 @@ public class UIMgr : MonoBehaviour
         inventory[Num].SetActive(false);
         inventory[Num].transform.position=new Vector3(725f, 60f,0);
         inventory[Num] = null;
+    }
+    public void OnExplantionItem(int Num)
+    {
+        
     }
 
 

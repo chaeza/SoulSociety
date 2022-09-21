@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class GameMgr : Singleton<GameMgr>
 {
+    public FollowCam followCam;
     public PlayerInput playerInput;
     public Inventory inventory;
     public RandomSkill randomSkill;
@@ -15,6 +16,7 @@ public class GameMgr : Singleton<GameMgr>
     private void Awake()
     {
         //Instantiate(test, Vector3.zero, Quaternion.identity);
+        followCam = FindObjectOfType<FollowCam>();
         randomSkill = gameObject.AddComponent<RandomSkill>();
         randomItem = gameObject.AddComponent<RandomItem>();
         playerInput = gameObject.AddComponent<PlayerInput>();
