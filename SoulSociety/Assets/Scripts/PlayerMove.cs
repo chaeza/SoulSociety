@@ -2,7 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMove : MonoBehaviour
+using Photon.Pun;
+
+
+public class PlayerMove : MonoBehaviourPun
 {
     [SerializeField] float moveSpeed = 1;
 
@@ -21,6 +24,7 @@ public class PlayerMove : MonoBehaviour
 
     private void Update()
     {
+        if (photonView.IsMine == false) return;
         if (GameMgr.Instance.playerInput.inputKey == KeyCode.Mouse1)
         {
             Move(Input.mousePosition);
@@ -50,7 +54,9 @@ public class PlayerMove : MonoBehaviour
         RaycastHit hit;
 
         Ray ray = Camera.main.ScreenPointToRay(mousePos);
+
         int mask = 1 << LayerMask.NameToLayer("Terrain");
+
         Physics.Raycast(Camera.main.ScreenPointToRay(mousePos), out hit, 20f, mask);
 
         Debug.DrawRay(ray.origin, ray.direction * 20f, Color.red, 5f);
@@ -75,4 +81,5 @@ public class PlayerMove : MonoBehaviour
         isMove = false;
         //Debug.Log(isMove.ToString());
     }
+ 
 }

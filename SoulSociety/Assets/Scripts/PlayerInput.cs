@@ -5,9 +5,10 @@ using UnityEngine;
 public class PlayerInput : MonoBehaviour
 {
     //이 스크립트는 플레이어에게 
-    public KeyCode inputKey { get; set; }
+    public KeyCode inputKey { get; private set; }
     void Update()
     {
+    
         if (Input.GetKey(KeyCode.Mouse1)) inputKey = KeyCode.Mouse1;
         else if (Input.GetKeyDown(KeyCode.Q)) inputKey = KeyCode.Q;
         else if (Input.GetKeyDown(KeyCode.W)) inputKey = KeyCode.W;

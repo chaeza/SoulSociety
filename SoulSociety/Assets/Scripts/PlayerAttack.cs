@@ -2,7 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerAttack : MonoBehaviour
+using Photon.Pun;
+
+public class PlayerAttack : MonoBehaviourPun
 {
     [SerializeField] GameObject hitBox = null;
 
@@ -17,6 +19,7 @@ public class PlayerAttack : MonoBehaviour
 
     private void Update()
     {
+        if (photonView.IsMine == false) return;
         if (GameMgr.Instance.playerInput.inputKey == KeyCode.A)
         {
             Debug.Log("공격");
@@ -30,6 +33,7 @@ public class PlayerAttack : MonoBehaviour
         if (GameMgr.Instance.playerInput.inputKey == KeyCode.F) SendMessage("SkillFire", SendMessageOptions.DontRequireReceiver);
         if (GameMgr.Instance.playerInput.inputKey == KeyCode.Alpha1) GameMgr.Instance.randomItem.GetRandomitem(gameObject);
     }
+    [PunRPC]
     public void Attack()
     {
         //모션 
@@ -51,7 +55,9 @@ public class PlayerAttack : MonoBehaviour
                     break;
             }
             //코루틴으로 딜레이 생성
-            StartCoroutine(AttackDelay());
+          //  StartCoroutine(AttackDelay());
+
+            photonView.StartCoroutine(AttackDelay());
         }
         //사운드
         //전달 함수 
@@ -60,10 +66,12 @@ public class PlayerAttack : MonoBehaviour
     //평타 딜레이 
     IEnumerator AttackDelay()
     {
-        hitBox.GetComponent<BoxCollider>().enabled = true;  
+        //hitBox.SetActive(true) ;  
+        hitBox.GetComponentInChildren<BoxCollider>().enabled = true;
         GetComponent<PlayerMove>().MoveStop();
         yield return new WaitForSeconds(1);
-        hitBox.GetComponent<BoxCollider>().enabled = false;
+        //hitBox.SetActive(false) ;  
+        hitBox.GetComponentInChildren<BoxCollider>().enabled =false;
         isAttack =true;
     }
 
