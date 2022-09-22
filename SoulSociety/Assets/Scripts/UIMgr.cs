@@ -2,7 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-public class UIMgr : MonoBehaviour
+using TMPro;
+using Photon.Pun;
+public class UIMgr : MonoBehaviourPun
 {
 
     GameObject itemUI = null;
@@ -28,6 +30,42 @@ public class UIMgr : MonoBehaviour
     [SerializeField] GameObject skill2Explantion;
     bool setItem;
     bool setSkill;
+    [Header("Tap Ό³Έν")]
+    [SerializeField] TextMeshProUGUI[] tapNicknames;
+    public GameObject Tap = null;
+
+
+    private void Start()
+    {
+        Tap.SetActive(false);
+    }
+
+    private void Update()
+    {
+        if (GameMgr.Instance.playerInput.inputKey == KeyCode.Tab)
+        {
+            TapNickname();
+
+        }
+        else
+        {
+            Tap.SetActive(false);
+        }
+
+    }
+
+    public void TapNickname()
+    {
+        Tap.SetActive(true);
+        
+        for (int i = 0; i < PhotonNetwork.CountOfPlayers; ++i)
+        {
+            tapNicknames[i].text = PhotonNetwork.PlayerList[i].NickName;
+        }
+
+    }
+
+
     public void SkillUI(int Num)
     {
         if (Num == 1) skillUI = skill1;
