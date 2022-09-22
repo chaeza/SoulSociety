@@ -2,21 +2,55 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerInfo : MonoBehaviour
+using Photon.Pun;
+using System.IO;
+public class PlayerInfo : MonoBehaviourPun
 {
 
-    [SerializeField] float HP=100;
-    [SerializeField] float HPrecovery =0.5f;
+    [SerializeField] float HP = 100;
+    [SerializeField] float HPrecovery = 0.5f;
     [SerializeField] float basicAttackDamage = 10;
+    Animator myAnimator;
+    GameObject myHit;
 
-
+    private void Start()
+    {
+        if (photonView.IsMine == true)
+        {
+            gameObject.tag = "mainPlayer";
+        }
+    }
     private void OnTriggerEnter(Collider other)
     {
-        other.SendMessage("hit",SendMessageOptions.DontRequireReceiver);  
+        if (other.tag != "mainPlayer" && other.tag == "Player")
+        {
+            other.gameObject.GetPhotonView().RPC("RPC_hit", RpcTarget.All, basicAttackDamage);
+            myHit = other.gameObject;
+        }
+    }
+    public void Win()
+    {
+        //UI 띄움
+        Debug.Log(gameObject.tag.ToString() + "윈!");
     }
 
-    void hit()
+    [PunRPC]
+    void RPC_hit(float bAD)
     {
-        Debug.Log("맞음");
+        HP-=bAD;
+        Debug.Log(gameObject.tag.ToString()+"체력" + HP);
+
+        if (HP <= 0)
+            myHit.GetPhotonView().RPC("Die", RpcTarget.All);
     }
+    [PunRPC]
+    void Die()
+    {
+        GameMgr.Instance.UpdateDie();
+        //myAnimator.SetTrigger("isDie");
+        Destroy(gameObject,3f);
+    }
+   
+
+    
 }
