@@ -36,6 +36,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         //마스터 서버 접속 요청
         PhotonNetwork.ConnectUsingSettings(); //Photon.Pun 내부 클래스
 
+
     }
 
     public override void OnConnectedToMaster()
@@ -97,7 +98,6 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         Debug.Log("누가나감");
         Player[] sortedPlayers = PhotonNetwork.PlayerList;
 
-   
         for (int i = 0; i < nickName.Length; i++)
         {
             Debug.Log("비워");
@@ -105,6 +105,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
             soulEff[i].SetActive(false);
         }
         SortedPlayer();
+        
     }
 
     public void SortedPlayer()

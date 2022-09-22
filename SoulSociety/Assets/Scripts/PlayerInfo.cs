@@ -19,6 +19,7 @@ public class PlayerInfo : MonoBehaviourPun
         if (photonView.IsMine == true)
         {
             gameObject.tag = "mainPlayer";
+            GameMgr.Instance.randomSkill.GetRandomSkill(gameObject);
         }
     }
     private void OnTriggerEnter(Collider other)

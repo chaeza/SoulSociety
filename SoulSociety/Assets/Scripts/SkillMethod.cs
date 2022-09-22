@@ -5,4 +5,5 @@ using UnityEngine;
 public interface SkillMethod
 {
     public void SkillFire();
+    public void ResetCooltime();
 }
