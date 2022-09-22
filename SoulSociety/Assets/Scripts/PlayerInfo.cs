@@ -44,8 +44,7 @@ public class PlayerInfo : MonoBehaviourPun
     void RPC_Die()
     {
         if (isDie == true) return;
-        
-        Debug.Log(gameObject.name.ToString());
+      
         if (photonView.IsMine != true)
             GameMgr.Instance.UpdateDie();
         //myAnimator.SetTrigger("isDie");

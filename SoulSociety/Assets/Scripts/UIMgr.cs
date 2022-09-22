@@ -35,8 +35,8 @@ public class UIMgr : MonoBehaviourPun
     [Header("∞‘¿”")]
     [SerializeField] GameObject win = null;
     [SerializeField] GameObject lose = null;
-    [SerializeField] GameObject tab = null;
-    [SerializeField] GameObject esc = null;
+   // [SerializeField] GameObject tab = null;
+   // [SerializeField] GameObject esc = null;
 
 
     bool setItem;
