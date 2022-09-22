@@ -30,6 +30,11 @@ public class UIMgr : MonoBehaviour
     [Header("스킬 설명")]
     [SerializeField] GameObject skill1Explantion;//스킬 설명
     [SerializeField] GameObject skill2Explantion;
+    [Header("게임")]
+    [SerializeField] GameObject win=null;
+    [SerializeField] GameObject lose = null;
+    [SerializeField] GameObject tab = null;
+    [SerializeField] GameObject esc = null;
     bool setItem;
     bool setSkill;
     public void SkillUI(int Num)//스킬 아이콘 표시
