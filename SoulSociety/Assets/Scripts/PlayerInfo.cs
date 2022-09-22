@@ -12,6 +12,7 @@ public class PlayerInfo : MonoBehaviourPun
     [SerializeField] float basicAttackDamage = 10;
     Animator myAnimator;
     GameObject myHit;
+    bool isDie = false;
 
     private void Start()
     {
@@ -25,32 +26,33 @@ public class PlayerInfo : MonoBehaviourPun
         if (other.tag != "mainPlayer" && other.tag == "Player")
         {
             other.gameObject.GetPhotonView().RPC("RPC_hit", RpcTarget.All, basicAttackDamage);
-            myHit = other.gameObject;
         }
-    }
-    public void Win()
-    {
-        //UI 띄움
-        Debug.Log(gameObject.tag.ToString() + "윈!");
     }
 
     [PunRPC]
     void RPC_hit(float bAD)
     {
-        HP-=bAD;
-        Debug.Log(gameObject.tag.ToString()+"체력" + HP);
-
+        if (isDie == true) return;
+        HP -= bAD;
+        Debug.Log(gameObject.tag.ToString() + "체력" + HP);
         if (HP <= 0)
-            myHit.GetPhotonView().RPC("Die", RpcTarget.All);
+            photonView.RPC("RPC_Die", RpcTarget.All);
+
     }
     [PunRPC]
-    void Die()
+    void RPC_Die()
     {
-        GameMgr.Instance.UpdateDie();
+        if (isDie == true) return;
+        
+        Debug.Log(gameObject.name.ToString());
+        if (photonView.IsMine != true)
+            GameMgr.Instance.UpdateDie();
         //myAnimator.SetTrigger("isDie");
-        Destroy(gameObject,3f);
+        Destroy(gameObject, 3f);
+        gameObject.tag = "DiePlayer";
+        isDie = true;
     }
-   
 
-    
+
+
 }

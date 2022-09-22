@@ -42,6 +42,11 @@ MonoBehaviour:
   - Attack
   - RPC_hit
   - Die
+  - RPC_Die
+  - Lose
+  - Win
+  - End
+  - EndGame
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

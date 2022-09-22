@@ -8,6 +8,7 @@ TagManager:
   - Obstacle
   - hitBox
   - mainPlayer
+  - DiePlayer
   layers:
   - Default
   - TransparentFX

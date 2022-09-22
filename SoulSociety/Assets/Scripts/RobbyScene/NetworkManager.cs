@@ -25,8 +25,6 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         PhotonNetwork.SendRate = 60;
         PhotonNetwork.SerializationRate = 30;
         PhotonNetwork.AutomaticallySyncScene = true;
-
-
     }
     private void Start()
     {   for(int i = 0; i < soulEff.Length; i++)

@@ -2,7 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-public class UIMgr : MonoBehaviour
+
+using Photon.Pun;
+public class UIMgr : MonoBehaviourPun
 {
 
     GameObject itemUI = null;
@@ -26,6 +28,11 @@ public class UIMgr : MonoBehaviour
     [Header("스킬 설명")]
     [SerializeField] GameObject skill1Explantion;
     [SerializeField] GameObject skill2Explantion;
+    [Header("승리")]
+    [SerializeField] GameObject winLogo;
+    [Header("패배")]
+    [SerializeField] GameObject loseLogo;
+
     bool setItem;
     bool setSkill;
     public void SkillUI(int Num)
@@ -34,14 +41,14 @@ public class UIMgr : MonoBehaviour
         else if (Num == 2) skillUI = skill2;
         skillUI.SetActive(true);
     }
-    public void ItemUI(int Num1,int Num2)//Num1은 인벤토리 위치 Num2는 해당 아이템 번호
+    public void ItemUI(int Num1, int Num2)//Num1은 인벤토리 위치 Num2는 해당 아이템 번호
     {
         //해당 아이템 번호를 아이템UI 오브젝트에 넣어서 편하게 사용
         if (Num2 == 1) itemUI = ItemIcon1;
         else if (Num2 == 2) itemUI = ItemIcon2;
         else if (Num2 == 3) itemUI = ItemIcon3;
         else if (Num2 == 4) itemUI = ItemIcon4;
-       
+
         itemUI.SetActive(true);//받은 아이템 UI활성화
 
         //해당아이템 인벤토리 위치를 비교하고 해당 인벤토리 칸에 위치변경및 UI 할당하여 비활성화 할 수 있게함
@@ -65,7 +72,7 @@ public class UIMgr : MonoBehaviour
     public void UseItem(int Num)
     {
         inventory[Num].SetActive(false);
-        inventory[Num].transform.position=new Vector3(725f, 60f,0);
+        inventory[Num].transform.position = new Vector3(725f, 60f, 0);
         inventory[Num] = null;
     }
     public void OnExplantionItem(int Num1, int Num2)//Num1은 인벤토리 위치 Num2는 해당 아이템 번호
@@ -95,7 +102,7 @@ public class UIMgr : MonoBehaviour
                 }
             }
         }
-        if (itemUIExplantion!=null&&Num1 == 5)
+        if (itemUIExplantion != null && Num1 == 5)
         {
             setItem = false;
             itemUIExplantion.transform.position = new Vector3(725f, 260f, 0);
@@ -114,15 +121,23 @@ public class UIMgr : MonoBehaviour
                 skillUIExplantion.SetActive(true);
             }
         }
-        
-        if(skillUIExplantion != null&&setSkill == true&& On==false)
+
+        if (skillUIExplantion != null && setSkill == true && On == false)
         {
             skillUIExplantion.SetActive(false);
             setSkill = false;
         }
     }
-
-
+    [PunRPC]
+    public void EndGame(int dieC)
+    {
+        if (FindObjectOfType<GameMgr>().dieCount==dieC)
+            winLogo.SetActive(true);
+        else
+            loseLogo.SetActive(true);
+     /*   new WaitForSeconds(1);
+        PhotonNetwork.LoadLevel("TitleScene");*/
+    }
 
 
 
