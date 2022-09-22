@@ -31,9 +31,9 @@ public class PlayerMove : MonoBehaviourPun
         else if (Input.mousePosition.x > 1160 && Input.mousePosition.x < 1240 && Input.mousePosition.y > 25 && Input.mousePosition.y < 105 && GameMgr.Instance.inventory.InvetoryCount(4) == false) GameMgr.Instance.uIMgr.OnExplantionItem(4, GameMgr.Instance.inventory.GetInventory(4));
         else GameMgr.Instance.uIMgr.OnExplantionItem(5, 0);
 
-        if (GameMgr.Instance.playerInput.inputKey == KeyCode.Mouse1)
+        if (Input.mousePosition != null&&GameMgr.Instance.playerInput.inputKey == KeyCode.Mouse1)
         {
-            if(Input.mousePosition != null) Move(Input.mousePosition);
+            Move(Input.mousePosition);
         }
 
         if (GameMgr.Instance.playerInput.inputKey == KeyCode.S)
