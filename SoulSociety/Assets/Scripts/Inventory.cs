@@ -14,7 +14,6 @@ public class Inventory : MonoBehaviour
         inventory.Add(0);
         inventory.Add(0);
         inventory.Add(0);
-        Debug.Log(inventory[1]);
     }
     public bool InvetoryCount(int Num)//해당 인벤토리가 비어있는지 판별함
     {

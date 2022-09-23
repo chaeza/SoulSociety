@@ -7,22 +7,24 @@ using Photon.Pun;
 public class PlayerAttack : MonoBehaviourPun
 {
     [SerializeField] GameObject hitBox = null;
-
     Animator myAnimator;
-    bool isAttack=true;
-
+    PlayerInfo playerInfo;
+    bool isAttack = true;
 
     private void Start()
     {
         myAnimator =GetComponent<Animator>();
+        playerInfo = GetComponent<PlayerInfo>();
     }
 
     private void Update()
     {
+        if (GameMgr.Instance.endGame == true) return;
+        if (playerInfo.playerState == state.Die) return;
+        if (playerInfo.playerState == state.Stun) return;
         if (photonView.IsMine == false) return;
         if (GameMgr.Instance.playerInput.inputKey == KeyCode.A)
         {
-            Debug.Log("공격");
             Attack();
         }
         if (GameMgr.Instance.playerInput.inputKey == KeyCode.Q) SendMessage("ItemFire", SendMessageOptions.DontRequireReceiver);
@@ -31,12 +33,13 @@ public class PlayerAttack : MonoBehaviourPun
         if (GameMgr.Instance.playerInput.inputKey == KeyCode.R) SendMessage("ItemFire", SendMessageOptions.DontRequireReceiver);
         if (GameMgr.Instance.playerInput.inputKey == KeyCode.F) SendMessage("SkillFire", SendMessageOptions.DontRequireReceiver);
         if (GameMgr.Instance.playerInput.inputKey == KeyCode.Alpha1) GameMgr.Instance.randomItem.GetRandomitem(gameObject);
+        if (GameMgr.Instance.playerInput.inputKey == KeyCode.Alpha2) gameObject.SendMessage("BlueSoul", SendMessageOptions.DontRequireReceiver);
     }
     [PunRPC]
     public void Attack()
     {
         //모션 
-        if (isAttack == true)
+        if (isAttack==true)
         {
             isAttack = false;
             //모션 랜덤 설정 
@@ -65,15 +68,15 @@ public class PlayerAttack : MonoBehaviourPun
     //평타 딜레이 
     IEnumerator AttackDelay()
     {
+        Debug.Log("공격");
         //hitBox.SetActive(true) ;  
         hitBox.GetComponentInChildren<BoxCollider>().enabled = true;
         GetComponent<PlayerMove>().MoveStop();
         yield return new WaitForSeconds(1);
         //hitBox.SetActive(false) ;  
         hitBox.GetComponentInChildren<BoxCollider>().enabled =false;
-        isAttack =true;
-    
-        
+        isAttack = true;
     }
+
 
 }

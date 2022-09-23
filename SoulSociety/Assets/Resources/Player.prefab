@@ -1846,9 +1846,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6816a5c134ba8034ea68bc8793e6167a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  blueSoul: 0
+  redSoul: 0
   HP: 100
   HPrecovery: 0.5
   basicAttackDamage: 100
+  <playerState>k__BackingField: 0
 --- !u!114 &3862624548079615878
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1900,6 +1903,9 @@ MonoBehaviour:
   - Type: 9
     SynchronizeType: 1
     Name: isAttack3
+  - Type: 9
+    SynchronizeType: 1
+    Name: isDie
   m_SynchronizeLayers:
   - SynchronizeType: 0
     LayerIndex: 0

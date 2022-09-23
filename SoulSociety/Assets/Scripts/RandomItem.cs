@@ -57,5 +57,4 @@ public class RandomItem : MonoBehaviour
         else if (GameMgr.Instance.inventory.InvetoryCount(3) == true) player.SendMessage("GetItem", 3, SendMessageOptions.DontRequireReceiver);//아이템 컴포넌트에 남은 인벤토리창에 순서 저장
         else if (GameMgr.Instance.inventory.InvetoryCount(4) == true) player.SendMessage("GetItem", 4, SendMessageOptions.DontRequireReceiver);//아이템 컴포넌트에 남은 인벤토리창에 순서 저장
     }
-
 }
