@@ -166,7 +166,7 @@ public class UIMgr : MonoBehaviourPun
             lose.SetActive(true);
 
         new WaitForSeconds(1f);
-        PhotonNetwork.LoadLevel("TitleScene");
+       // PhotonNetwork.LoadLevel("TitleScene");
     }
 
 
