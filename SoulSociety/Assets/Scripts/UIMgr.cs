@@ -175,7 +175,8 @@ public class UIMgr : MonoBehaviourPun
     {
         yield return new WaitForSeconds(3);
         PhotonNetwork.AutomaticallySyncScene = true;
-        PhotonNetwork.LoadLevel("TitleScene");
+        PhotonNetwork.LeaveRoom();
+        // PhotonNetwork.LoadLevel("TitleScene");
     }
 
 

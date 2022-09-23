@@ -35,8 +35,6 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         RobbyPanel.SetActive(false);
         //마스터 서버 접속 요청
         PhotonNetwork.ConnectUsingSettings(); //Photon.Pun 내부 클래스
-
-
     }
 
     public override void OnConnectedToMaster()
@@ -105,7 +103,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
             soulEff[i].SetActive(false);
         }
         SortedPlayer();
-        
+       
     }
 
     public void SortedPlayer()
@@ -145,10 +143,5 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape) && PhotonNetwork.IsConnected) PhotonNetwork.LeaveRoom();
-
-        
     }
-
-    
-
 }

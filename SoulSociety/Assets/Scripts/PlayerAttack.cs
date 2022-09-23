@@ -72,7 +72,8 @@ public class PlayerAttack : MonoBehaviourPun
         //hitBox.SetActive(false) ;  
         hitBox.GetComponentInChildren<BoxCollider>().enabled =false;
         isAttack =true;
+    
+        
     }
-
 
 }
