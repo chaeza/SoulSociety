@@ -150,8 +150,6 @@ public class UIMgr : MonoBehaviour
         cooltimeGameobject.SendMessage("ResetCooltime", SendMessageOptions.DontRequireReceiver);//저장해놨던 UI매니저를 호출시킨 객체한테 ResetCooltime을 호출시켜 스킬을 다시 사용하게함
         cooltimeText.text = " ";//텍스트 비활성화대신 그냥 아무것도 출력안함
         yield break;
-
-
     }
 
 
