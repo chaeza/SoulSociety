@@ -14,9 +14,10 @@ public class GameSceneLogic : MonoBehaviourPunCallbacks
         if (PhotonNetwork.IsConnected)
         {
             Vector3 pos = new Vector3(0, 100, -17);
-            GameObject a = PhotonNetwork.Instantiate("Player", pos, Quaternion.identity);
-            GameMgr.Instance.followCam.playerStart(a.transform);
-            GameMgr.Instance.randomSkill.GetRandomSkill(a);
+            
+            GameObject player = PhotonNetwork.Instantiate("Player", pos, Quaternion.identity);
+            GameMgr.Instance.followCam.playerStart(player.transform);
+            
         }
     }
 

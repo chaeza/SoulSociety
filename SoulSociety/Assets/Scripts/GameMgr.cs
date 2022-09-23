@@ -8,20 +8,20 @@ using Photon.Realtime;
 public class GameMgr : Singleton<GameMgr>
 
 {
-   // public FollowCam followCam;
+    // public FollowCam followCam;
     public PlayerInput playerInput;
     public FollowCam followCam;
     public Inventory inventory;
     public RandomSkill randomSkill;
     public RandomItem randomItem;
     public UIMgr uIMgr;
-    public GameObject test; // 나중에 삭제 , 플레이어는 스트링 값으로 프리팹 생성
-    
-  
+
+    public int dieCount = 0;
+
     private void Awake()
     {
         //Instantiate(test, Vector3.zero, Quaternion.identity);
-      
+
         randomSkill = gameObject.AddComponent<RandomSkill>();
         randomItem = gameObject.AddComponent<RandomItem>();
         playerInput = gameObject.AddComponent<PlayerInput>();
@@ -29,4 +29,17 @@ public class GameMgr : Singleton<GameMgr>
         uIMgr = FindObjectOfType<UIMgr>();
         followCam = FindObjectOfType<FollowCam>();
     }
+
+    public void UpdateDie()
+    {
+        dieCount++;
+        Debug.Log("죽음 +1 =" + dieCount);
+        if (dieCount == 3)
+        {
+            Debug.Log("게임종료" + dieCount);
+
+            uIMgr.photonView.RPC("EndGame", RpcTarget.All,dieCount);
+        }
+    }
+
 }
