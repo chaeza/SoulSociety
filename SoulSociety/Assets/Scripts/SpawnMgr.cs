@@ -24,6 +24,7 @@ public class SpawnMgr : MonoBehaviour
     {
         ItemInit();
         SoulInit();
+        StartCoroutine(SoulTime());
     }
 
     //생성할때  //풀링전에 생성을 한다 (매니저)
@@ -76,11 +77,13 @@ public class SpawnMgr : MonoBehaviour
 
     IEnumerator SoulTime()
     {
+        while(true)
+        {
+            yield return new WaitForSeconds(60f);
 
-        yield return new WaitForSeconds(60f);
+            ran2 = Random.Range(0, groundCh.Length);
 
-        ran2 = Random.Range(0, groundCh.Length);
-
-        Instantiate(soulPrefab, groundCh[ran2].transform.position + new Vector3(4, 3, 3.5f), Quaternion.identity);
+            Instantiate(soulPrefab, groundCh[ran2].transform.position + new Vector3(4, 3, 3.5f), Quaternion.identity);
+        }
     }
 }
