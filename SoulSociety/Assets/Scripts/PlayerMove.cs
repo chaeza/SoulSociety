@@ -6,7 +6,7 @@ using Photon.Pun;
 public class PlayerMove : MonoBehaviourPun
 {
     [SerializeField] float moveSpeed = 1;
-
+    PlayerInfo playerInfo;
     Animator myAnimator;
 
     bool isMove = false;
@@ -17,11 +17,15 @@ public class PlayerMove : MonoBehaviourPun
 
     private void Start()
     {
+        playerInfo = GetComponent<PlayerInfo>();
         myAnimator = GetComponent<Animator>();
     }
 
     private void Update()
     {
+        if (GameMgr.Instance.endGame == true) return;
+        if (playerInfo.playerState == state.Die) return;
+        if (playerInfo.playerState == state.Stun) return;
         if (photonView.IsMine == false) return;
         if (Input.mousePosition.x > 85 && Input.mousePosition.x < 170 && Input.mousePosition.y > 25 && Input.mousePosition.y < 105 && GameMgr.Instance) GameMgr.Instance.uIMgr.OnExplantionSkill(true);
         else GameMgr.Instance.uIMgr.OnExplantionSkill(false);

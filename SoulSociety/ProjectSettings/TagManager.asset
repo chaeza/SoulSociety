@@ -9,6 +9,9 @@ TagManager:
   - hitBox
   - mainPlayer
   - DiePlayer
+  - Water
+  - Spawn
+  - Item
   layers:
   - Default
   - TransparentFX

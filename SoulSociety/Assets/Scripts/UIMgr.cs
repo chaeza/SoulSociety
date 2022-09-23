@@ -35,8 +35,18 @@ public class UIMgr : MonoBehaviourPun
     [Header("게임")]
     [SerializeField] GameObject win = null;
     [SerializeField] GameObject lose = null;
-   // [SerializeField] GameObject tab = null;
-   // [SerializeField] GameObject esc = null;
+    [SerializeField] GameObject tab = null;
+    [SerializeField] GameObject esc = null;
+    [SerializeField] GameObject[] redSoul = null;
+    [SerializeField] GameObject[] blueSoul = null;
+
+    private void Update()
+    {
+        if (GameMgr.Instance.playerInput.inputKey == KeyCode.Tab) tab.SetActive(true);
+        else tab.SetActive(false); 
+        if (GameMgr.Instance.playerInput.inputKey == KeyCode.Escape) esc.SetActive(true);
+        else esc.SetActive(false);
+    }
 
 
     bool setItem;
@@ -155,16 +165,87 @@ public class UIMgr : MonoBehaviourPun
         cooltimeText.text = " ";//텍스트 비활성화대신 그냥 아무것도 출력안함
         yield break;
     }
-
-    [PunRPC]
-    public void EndGame(int dieC)
+    public void MyRedSoul(int redsoul)
     {
-        if (GameMgr.Instance.dieCount == dieC)
-            win.SetActive(true);
+        MyBlueSoul(0);
+        if (redsoul == 1) redSoul[0].SetActive(true);
+        else if (redsoul == 2)
+        {
+            redSoul[0].SetActive(true);
+            redSoul[1].SetActive(true);
+        }
+        else if (redsoul == 3)
+        {
+            redSoul[0].SetActive(true);
+            redSoul[1].SetActive(true);
+            redSoul[2].SetActive(true);
+        }
+        else if(redsoul==0)
+        {
+            redSoul[0].SetActive(false);
+            redSoul[1].SetActive(false);
+            redSoul[2].SetActive(false);
+        }
 
-        else
-            lose.SetActive(true);
+    }
+    public void MyBlueSoul(int bluesoul)
+    {
+        if (bluesoul == 1) blueSoul[0].SetActive(true);
+        else if (bluesoul == 2)
+        {
+            blueSoul[0].SetActive(true);
+            blueSoul[1].SetActive(true);
+        }
+        else if (bluesoul == 3)
+        {
+            blueSoul[0].SetActive(true);
+            blueSoul[1].SetActive(true);
+            blueSoul[2].SetActive(true);
+        }
+        else if (bluesoul == 4)
+        {
+            blueSoul[0].SetActive(true);
+            blueSoul[1].SetActive(true);
+            blueSoul[2].SetActive(true);
+            blueSoul[3].SetActive(true);
+        }
+        else if (bluesoul == 5)
+        {
+            blueSoul[0].SetActive(true);
+            blueSoul[1].SetActive(true);
+            blueSoul[2].SetActive(true);
+            blueSoul[3].SetActive(true);
+            blueSoul[4].SetActive(true);
+        }
+        else if(bluesoul == 0)
+        {
+            blueSoul[0].SetActive(false);
+            blueSoul[1].SetActive(false);
+            blueSoul[2].SetActive(false);
+            blueSoul[3].SetActive(false);
+            blueSoul[4].SetActive(false);
+        }
+    }
+    [PunRPC]
+    public void EndGame(int Num,int dieC)
+    {
+        if (Num == 1)
+        {
+            if (GameMgr.Instance.dieCount == dieC)
+                win.SetActive(true);
 
+            else
+                lose.SetActive(true);
+        }
+        else if(Num == 2)
+        {
+            if (GameMgr.Instance.blueCount == dieC)
+                win.SetActive(true);
+
+            else
+                lose.SetActive(true);
+        }
+        GameMgr.Instance.endGame = true;
         new WaitForSeconds(1f);
         //PhotonNetwork.LoadLevel("TitleScene");
     }

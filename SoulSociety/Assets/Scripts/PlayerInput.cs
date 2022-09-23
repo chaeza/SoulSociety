@@ -19,8 +19,10 @@ public class PlayerInput : MonoBehaviour
         else if (Input.GetKeyDown(KeyCode.D)) inputKey = KeyCode.D;
         else if (Input.GetKeyDown(KeyCode.F)) inputKey = KeyCode.F;
         else if (Input.GetKey(KeyCode.Tab)) inputKey = KeyCode.Tab;
+        else if (Input.GetKey(KeyCode.Tab)) inputKey = KeyCode.Escape;
+        else if (Input.GetKeyDown(KeyCode.Alpha2)) inputKey = KeyCode.Alpha2;
+        else if (Input.GetKeyDown(KeyCode.Alpha1)) inputKey = KeyCode.Alpha1;
         else inputKey = KeyCode.Alpha0;
-        if (Input.GetKeyDown(KeyCode.Alpha1)) inputKey = KeyCode.Alpha1;// GameMgr.Instance.randomItem.GetRandomitem(gameObject);
 
     //    Debug.Log(inputKey);
         
