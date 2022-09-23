@@ -14,7 +14,6 @@ public class FollowCam : MonoBehaviour
         playerPos = player;
     }
 
-
     private void Start()
     {
         Cursor.lockState = CursorLockMode.Confined;
@@ -24,6 +23,7 @@ public class FollowCam : MonoBehaviour
 
     private void Update()
     {
+        if (GameMgr.Instance.endGame == true) return;
         if (Input.GetKey(KeyCode.Space))
         {
             transform.position = playerPos.position - Vector3.forward * distanceFromPlayerZ + Vector3.up * distanceFromPlayerY;
@@ -39,7 +39,7 @@ public class FollowCam : MonoBehaviour
         {
             transform.position = transform.position - Vector3.right * cameraSpeed;
         }
-        if (Input.mousePosition.y >= 1080)// && transform.position.z <= 50)
+        if (Input.mousePosition.y >= 980)// && transform.position.z <= 50)
         {
             transform.position = transform.position + Vector3.forward * cameraSpeed;
         }

@@ -16,8 +16,10 @@ public class GameMgr : Singleton<GameMgr>
     public RandomItem randomItem;
     public UIMgr uIMgr;
 
+    public bool endGame { get; set; } = false;
     public int dieCount = 0;
-
+    public int redCount = 0;
+    public int blueCount = 0;
     private void Awake()
     {
         //Instantiate(test, Vector3.zero, Quaternion.identity);
@@ -33,13 +35,26 @@ public class GameMgr : Singleton<GameMgr>
     public void UpdateDie()
     {
         dieCount++;
-        Debug.Log("죽음 +1 =" + dieCount);
         if (dieCount == 3)
         {
-            Debug.Log("게임종료" + dieCount);
-
-            uIMgr.photonView.RPC("EndGame", RpcTarget.All,dieCount);
+            uIMgr.photonView.RPC("EndGame", RpcTarget.All, 1,dieCount);
         }
     }
+    public void GetRedSoul(int redsoul)
+    {
+        if (redsoul == 0) redCount++;
+        else redCount += redsoul+1;
+        uIMgr.MyRedSoul(redCount);
+    }
+    public void GetBuleSoul()
+    {
+        blueCount++;
+        uIMgr.MyBlueSoul(blueCount);
+        if(blueCount>=5)
+        {
+            uIMgr.photonView.RPC("EndGame", RpcTarget.All,2,blueCount);
+        }
+    }
+
 
 }
