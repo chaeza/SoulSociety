@@ -47,7 +47,7 @@ public class PlayerInfo : MonoBehaviourPun
       
         if (photonView.IsMine != true)
             GameMgr.Instance.UpdateDie();
-        //myAnimator.SetTrigger("isDie");
+        myAnimator.SetTrigger("isDie");
         Destroy(gameObject, 3f);
         gameObject.tag = "DiePlayer";
         isDie = true;

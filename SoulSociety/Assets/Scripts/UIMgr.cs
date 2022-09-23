@@ -165,11 +165,19 @@ public class UIMgr : MonoBehaviourPun
         else
             lose.SetActive(true);
 
-        new WaitForSeconds(1f);
+        photonView.StartCoroutine(WinnerTime());
+
+       // new WaitForSeconds(1f);
        // PhotonNetwork.LoadLevel("TitleScene");
     }
 
-
+    IEnumerator WinnerTime()
+    {
+        yield return new WaitForSeconds(3);
+        PhotonNetwork.AutomaticallySyncScene = true;
+        PhotonNetwork.LeaveRoom();
+        // PhotonNetwork.LoadLevel("TitleScene");
+    }
 
 
 }
