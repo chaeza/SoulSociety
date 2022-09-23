@@ -15,6 +15,7 @@ public class GameMgr : Singleton<GameMgr>
     public RandomSkill randomSkill;
     public RandomItem randomItem;
     public UIMgr uIMgr;
+    public HpBarInfo hpBarInfo;
 
     public int dieCount = 0;
 
@@ -26,6 +27,7 @@ public class GameMgr : Singleton<GameMgr>
         randomItem = gameObject.AddComponent<RandomItem>();
         playerInput = gameObject.AddComponent<PlayerInput>();
         inventory = gameObject.AddComponent<Inventory>();
+        hpBarInfo = FindObjectOfType<HpBarInfo>();
         uIMgr = FindObjectOfType<UIMgr>();
         followCam = FindObjectOfType<FollowCam>();
     }

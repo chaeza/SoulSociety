@@ -1,19 +1,25 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using TMPro;
 using Photon.Pun;
 using System.IO;
 public class PlayerInfo : MonoBehaviourPun
 {
-
+    private float curHP = 100;
     [SerializeField] float HP = 100;
     [SerializeField] float HPrecovery = 0.5f;
     [SerializeField] float basicAttackDamage = 10;
+
     Animator myAnimator;
     GameObject myHit;
     bool isDie = false;
+    HpBarInfo myHPbarInfo = null;
 
+    private void Awake()
+    { 
+        myHPbarInfo = FindObjectOfType<HpBarInfo>();
+    }
     private void Start()
     {
         if (photonView.IsMine == true)
@@ -21,7 +27,9 @@ public class PlayerInfo : MonoBehaviourPun
             gameObject.tag = "mainPlayer";
             GameMgr.Instance.randomSkill.GetRandomSkill(gameObject);
         }
+       // myHPbarInfo.SetName(photonView.Controller.NickName);
     }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag != "mainPlayer" && other.tag == "Player")
@@ -30,12 +38,15 @@ public class PlayerInfo : MonoBehaviourPun
         }
     }
 
+
+
     [PunRPC]
     void RPC_hit(float bAD)
     {
         if (isDie == true) return;
-        HP -= bAD;
+        curHP -= bAD;
         Debug.Log(gameObject.tag.ToString() + "Ã¼·Â" + HP);
+        myHPbarInfo.SetHP(curHP, HP);
         if (HP <= 0)
             photonView.RPC("RPC_Die", RpcTarget.All);
 

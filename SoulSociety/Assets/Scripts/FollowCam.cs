@@ -9,6 +9,7 @@ public class FollowCam : MonoBehaviour
     [SerializeField] float cameraSpeed = 0.1f;
     Transform playerPos;
 
+
     public void playerStart(Transform player)
     {
         playerPos = player;
@@ -20,6 +21,7 @@ public class FollowCam : MonoBehaviour
         Cursor.lockState = CursorLockMode.Confined;
         transform.position = playerPos.position - Vector3.forward * distanceFromPlayerZ + Vector3.up * distanceFromPlayerY;
         transform.LookAt(playerPos.position + Vector3.up * 2);
+
     }
 
     private void Update()
