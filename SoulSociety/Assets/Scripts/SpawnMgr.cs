@@ -5,26 +5,29 @@ using UnityEngine;
 public class SpawnMgr : MonoBehaviour
 {
     // 소환할 Object
-    public GameObject itemPrefab;
-    GameObject[] groundCh = null;
+    GameObject[] groundCh = null;     //그라운드태그 모을 장소
+    public GameObject itemPrefab;     //생성될 아이템 프리펩
+    public GameObject soulPrefab;     //생성될 소울 프리펩
     public GameObject[] gameObjects;
-    public BlackHole blackHole;
+
     int ran;
-    int boxCheck;
+    int ran2;
 
     Queue<GameObject> queue = new Queue<GameObject>();
+
     private void Awake()
     {
-        groundCh = GameObject.FindGameObjectsWithTag("Ground");
+        groundCh = GameObject.FindGameObjectsWithTag("Ground");        //그라운드 태그인것 모두 찾아 배열에 넣다
     }
 
     private void Start()
     {
-        Init();
+        ItemInit();
+        SoulInit();
     }
 
     //생성할때  //풀링전에 생성을 한다 (매니저)
-    void Init()
+    void ItemInit()     //아이템 x개 생성
     {
         for (int i = 0; i < 16; i++)
         {
@@ -32,6 +35,16 @@ public class SpawnMgr : MonoBehaviour
             GameObject obj = Create();
         }
     }
+
+    void SoulInit()    //소울 x개 생성
+    {
+        for (int i = 0; i < 5; i++)
+        {
+            ran2 = Random.Range(0, groundCh.Length);
+            Instantiate(soulPrefab, groundCh[ran2].transform.position + new Vector3(4, 3, 3.5f), Quaternion.identity);
+        }
+    }
+
 
     GameObject Create()  //생성한다 (매니저)
     {
@@ -59,5 +72,15 @@ public class SpawnMgr : MonoBehaviour
     {   //큐로 다시 보낸다
         obj.gameObject.SetActive(false);
         queue.Enqueue(obj);
+    }
+
+    IEnumerator SoulTime()
+    {
+
+        yield return new WaitForSeconds(60f);
+
+        ran2 = Random.Range(0, groundCh.Length);
+
+        Instantiate(soulPrefab, groundCh[ran2].transform.position + new Vector3(4, 3, 3.5f), Quaternion.identity);
     }
 }
