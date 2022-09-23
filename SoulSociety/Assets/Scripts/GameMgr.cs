@@ -16,7 +16,7 @@ public class GameMgr : Singleton<GameMgr>
     public RandomItem randomItem;
     public UIMgr uIMgr;
 
-    int dieCount = 0;
+    public int dieCount = 0;
 
     private void Awake()
     {
@@ -33,12 +33,12 @@ public class GameMgr : Singleton<GameMgr>
     public void UpdateDie()
     {
         dieCount++;
-        Debug.Log( dieCount);
+        Debug.Log("죽음 +1 =" + dieCount);
         if (dieCount == 3)
         {
-            Debug.Log("게임종료"+dieCount);
-            PlayerInfo winner = GameObject.FindObjectOfType<PlayerInfo>();
-            winner.Win();
+            Debug.Log("게임종료" + dieCount);
+
+            uIMgr.photonView.RPC("EndGame", RpcTarget.All,dieCount);
         }
     }
 

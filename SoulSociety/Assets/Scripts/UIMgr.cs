@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-public class UIMgr : MonoBehaviour
+
+using Photon.Pun;
+public class UIMgr : MonoBehaviourPun
 {
 
     GameObject cooltimeGameobject = null;//스킬쿨타임을 호출한 객체를 저장함
@@ -31,10 +33,12 @@ public class UIMgr : MonoBehaviour
     [SerializeField] GameObject skill1Explantion;//스킬 설명
     [SerializeField] GameObject skill2Explantion;
     [Header("게임")]
-    [SerializeField] GameObject win=null;
+    [SerializeField] GameObject win = null;
     [SerializeField] GameObject lose = null;
-    [SerializeField] GameObject tab = null;
-    [SerializeField] GameObject esc = null;
+   // [SerializeField] GameObject tab = null;
+   // [SerializeField] GameObject esc = null;
+
+
     bool setItem;
     bool setSkill;
     public void SkillUI(int Num)//스킬 아이콘 표시
@@ -43,14 +47,14 @@ public class UIMgr : MonoBehaviour
         else if (Num == 2) skillUI = skill2;
         skillUI.SetActive(true);
     }
-    public void ItemUI(int Num1,int Num2)//Num1은 인벤토리 위치 Num2는 해당 아이템 번호
+    public void ItemUI(int Num1, int Num2)//Num1은 인벤토리 위치 Num2는 해당 아이템 번호
     {
         //해당 아이템 번호를 아이템UI 오브젝트에 넣어서 편하게 사용
         if (Num2 == 1) itemUI = ItemIcon1;
         else if (Num2 == 2) itemUI = ItemIcon2;
         else if (Num2 == 3) itemUI = ItemIcon3;
         else if (Num2 == 4) itemUI = ItemIcon4;
-       
+
         itemUI.SetActive(true);//받은 아이템 UI활성화
 
         //해당아이템 인벤토리 위치를 비교하고 해당 인벤토리 칸에 위치변경및 UI 할당하여 비활성화 할 수 있게함
@@ -74,7 +78,7 @@ public class UIMgr : MonoBehaviour
     public void UseItem(int Num)//사용한 해당 아이템 아이콘을 없앰
     {
         inventory[Num].SetActive(false);
-        inventory[Num].transform.position=new Vector3(725f, 60f,0);
+        inventory[Num].transform.position = new Vector3(725f, 60f, 0);
         inventory[Num] = null;
     }
     public void OnExplantionItem(int Num1, int Num2)//Num1은 인벤토리 위치 Num2는 해당 아이템 번호
@@ -104,7 +108,7 @@ public class UIMgr : MonoBehaviour
                 }
             }
         }
-        if (itemUIExplantion!=null&&Num1 == 5)//좌표가 같지 않을 때 설명창을 비활성화 시킵니다.
+        if (itemUIExplantion != null && Num1 == 5)//좌표가 같지 않을 때 설명창을 비활성화 시킵니다.
         {
             setItem = false;//bool 값 초기화
             itemUIExplantion.transform.position = new Vector3(725f, 260f, 0);//위치 초기화
@@ -123,8 +127,8 @@ public class UIMgr : MonoBehaviour
                 skillUIExplantion.SetActive(true);//설명UI 활성화
             }
         }
-        
-        if(skillUIExplantion != null&&setSkill == true&& On==false)
+
+        if (skillUIExplantion != null && setSkill == true && On == false)
         {
             skillUIExplantion.SetActive(false);//설명UI 비활성화
             setSkill = false;//bool값 초기화
@@ -140,7 +144,7 @@ public class UIMgr : MonoBehaviour
     }
     IEnumerator Cooltime(int Cool)
     {
-        for (int i = Cool-1; i >= 0; --i)//받은 쿨타임 시간을 i에 저장해서
+        for (int i = Cool - 1; i >= 0; --i)//받은 쿨타임 시간을 i에 저장해서
         {
             yield return new WaitForSeconds(1f);//1초씩 기다리고
             cooltimeText.text = i.ToString();//쿨타임 텍스트를 -1시킴
@@ -152,7 +156,18 @@ public class UIMgr : MonoBehaviour
         yield break;
     }
 
+    [PunRPC]
+    public void EndGame(int dieC)
+    {
+        if (GameMgr.Instance.dieCount == dieC)
+            win.SetActive(true);
 
+        else
+            lose.SetActive(true);
+
+        new WaitForSeconds(1f);
+        PhotonNetwork.LoadLevel("TitleScene");
+    }
 
 
 

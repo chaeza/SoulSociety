@@ -25,8 +25,6 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         PhotonNetwork.SendRate = 60;
         PhotonNetwork.SerializationRate = 30;
         PhotonNetwork.AutomaticallySyncScene = true;
-
-
     }
     private void Start()
     {   for(int i = 0; i < soulEff.Length; i++)
@@ -57,7 +55,8 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     public void OnEndEdit(string instr)
     {
         Debug.Log("!!!!!");
-        PhotonNetwork.NickName = instr; //닉네임 할당
+
+       PhotonNetwork.NickName = instr; //닉네       
         
     }
 
@@ -76,15 +75,9 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     public override void OnJoinedRoom()
     {
         Debug.Log("새로운 플레이어가 참가하셨습니다");
-        //int actorNumber = PhotonNetwork.LocalPlayer.ActorNumber;
-        /* Player[] sortedPlayers = PhotonNetwork.PlayerList;
-         Debug.Log("현재 방에 나 등장");
-         //Debug.Log(actorNumber + "##번호");
-         for (int i = 0; i < sortedPlayers.Length; i++)
-         {
-             Debug.Log(sortedPlayers[i].NickName);
-             nickName[i].text = sortedPlayers[i].NickName;
-         }*/
+
+        
+        
         SortedPlayer();
     }
 
@@ -96,10 +89,10 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     }
 
     public override void OnPlayerLeftRoom(Player otherPlayer)
-    {
+    { 
         Debug.Log("누가나감");
         Player[] sortedPlayers = PhotonNetwork.PlayerList;
-
+        
         for (int i = 0; i < nickName.Length; i++)
         {
             Debug.Log("비워");
@@ -107,7 +100,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
             soulEff[i].SetActive(false);
         }
         SortedPlayer();
-        
+         
     }
 
     public void SortedPlayer()

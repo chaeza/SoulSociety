@@ -1848,7 +1848,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HP: 100
   HPrecovery: 0.5
-  basicAttackDamage: 10
+  basicAttackDamage: 100
 --- !u!114 &3862624548079615878
 MonoBehaviour:
   m_ObjectHideFlags: 0
