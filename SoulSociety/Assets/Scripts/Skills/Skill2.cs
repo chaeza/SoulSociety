@@ -20,4 +20,4 @@ public class Skill2 : MonoBehaviour, SkillMethod
         }
     }
 }
-}
+

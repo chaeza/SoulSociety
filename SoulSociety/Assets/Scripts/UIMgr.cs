@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-public class UIMgr : MonoBehaviour
+using Photon.Pun;
+using Photon.Realtime;
+public class UIMgr : MonoBehaviourPunCallbacks
 {
 
     GameObject cooltimeGameobject = null;//스킬쿨타임을 호출한 객체를 저장함
@@ -32,6 +34,29 @@ public class UIMgr : MonoBehaviour
     [SerializeField] GameObject skill2Explantion;
     bool setItem;
     bool setSkill;
+
+    [Header("탭 UI")]
+    [SerializeField] GameObject Tap = null;
+
+    private void Start()
+    {
+        
+    }
+
+    private void Update()
+    {
+        if (GameMgr.Instance.playerInput.inputKey == KeyCode.Tab)
+        {
+            Tap.SetActive(true);
+            
+        }
+        else
+        {
+            Tap.SetActive(false);
+        }
+
+    }
+
     public void SkillUI(int Num)//스킬 아이콘 표시
     {
         if (Num == 1) skillUI = skill1;//가진 스킬을 스킬UI에 저장해서 사용
