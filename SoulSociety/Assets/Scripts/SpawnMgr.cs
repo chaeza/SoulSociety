@@ -10,8 +10,9 @@ public class SpawnMgr : MonoBehaviour
     public GameObject soulPrefab;     //생성될 소울 프리펩
     public GameObject[] gameObjects;
 
-    int ran;
-    int ran2;
+    int ran;   //아이템 랜덤 위치
+    int ran2;  //소울 랜덤 위치
+    int ran3;  //새로운 아이템 랜덤 위치
 
     Queue<GameObject> queue = new Queue<GameObject>();
 
@@ -42,7 +43,7 @@ public class SpawnMgr : MonoBehaviour
         for (int i = 0; i < 5; i++)
         {
             ran2 = Random.Range(0, groundCh.Length);
-            Instantiate(soulPrefab, groundCh[ran2].transform.position + new Vector3(4, 3, 3.5f), Quaternion.identity);
+            Instantiate(soulPrefab, groundCh[ran2].transform.position + new Vector3(4, 4, 3.5f), Quaternion.identity);
         }
     }
 
@@ -57,12 +58,14 @@ public class SpawnMgr : MonoBehaviour
     //풀에서 내보낼때   // 이건 박스지?
     public GameObject Get()
     {
+        ran3 = Random.Range(0, groundCh.Length);
+
         GameObject obj;
 
         //있다면 큐에서 빼내서 쓴다 
         obj = queue.Dequeue();
 
-        obj.transform.position = groundCh[ran].transform.position;
+        obj.transform.position = groundCh[ran3].transform.position + new Vector3(4, 3, 3.5f);
         obj.gameObject.SetActive(true);
 
         return obj;
@@ -73,11 +76,13 @@ public class SpawnMgr : MonoBehaviour
     {   //큐로 다시 보낸다
         obj.gameObject.SetActive(false);
         queue.Enqueue(obj);
+
+        StartCoroutine(TenSec());
     }
 
     IEnumerator SoulTime()
     {
-        while(true)
+        while (true)
         {
             yield return new WaitForSeconds(60f);
 
@@ -85,5 +90,12 @@ public class SpawnMgr : MonoBehaviour
 
             Instantiate(soulPrefab, groundCh[ran2].transform.position + new Vector3(4, 3, 3.5f), Quaternion.identity);
         }
+    }
+
+    IEnumerator TenSec()
+    {
+        yield return new WaitForSeconds(10f);
+
+        Get();
     }
 }

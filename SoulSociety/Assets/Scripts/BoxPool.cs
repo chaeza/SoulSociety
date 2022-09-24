@@ -8,17 +8,12 @@ public class BoxPool : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.tag == "Player")
+        if(other.tag == "mainPlayer")
         {
+            // gameObject.SetActive(false);
+            spawnMgr = FindObjectOfType<SpawnMgr>();
             spawnMgr.Relase(gameObject);
-            SpawnItem();
+            //StartCoroutine("SpawnItem");  
         }
     }
-
-    IEnumerator SpawnItem()
-    {
-        yield return new WaitForSeconds(5f);
-        spawnMgr.Get();
-    }
-
 }
