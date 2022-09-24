@@ -75,6 +75,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         //PhotonNetwork.LocalPlayer.NickName = nickName.text;
 
     }
+    //입장할 방이 없으면 새로운 방 생성
     public override void OnJoinRandomFailed(short returnCode, string message)
     {
         Debug.Log("조인 실패");
