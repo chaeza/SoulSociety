@@ -15,7 +15,7 @@ public class SpawnMgr : MonoBehaviour
     int ran3;  //새로운 아이템 랜덤 위치
     int ran4;  //새로운 소울 랜덤 위치
 
-    Queue<GameObject> queue = new Queue<GameObject>();
+    Queue<GameObject> queue = new Queue<GameObject>();    //풀 저장할 큐
 
     private void Awake()
     {
@@ -24,7 +24,7 @@ public class SpawnMgr : MonoBehaviour
 
     private void Start()
     {
-        ItemInit();
+        ItemInit();    // 아이템 소울 생성
         SoulInit();
 
     }
@@ -57,7 +57,7 @@ public class SpawnMgr : MonoBehaviour
     }
 
     //풀에서 내보낼때
-    public GameObject ItemGet()
+    public GameObject ItemGet()   //플레이어가 박스에 닿으면
     {
         ran3 = Random.Range(0, groundCh.Length);
 
@@ -72,7 +72,7 @@ public class SpawnMgr : MonoBehaviour
         return obj;
     }
 
-    public GameObject SoulGet()
+    public GameObject SoulGet()  //소울에 닿으면
     {
         ran4 = Random.Range(0, groundCh.Length);
 
@@ -91,10 +91,10 @@ public class SpawnMgr : MonoBehaviour
     //풀에 들어올때
     public void Relase(GameObject obj)
     {   //큐로 다시 보낸다
-        obj.gameObject.SetActive(false);
-        queue.Enqueue(obj);
+        obj.gameObject.SetActive(false);   //플레이어에 닿으면 false시키고 큐에 저장
+        queue.Enqueue(obj);                
 
-        StartCoroutine(TenSec());
+        StartCoroutine(TenSec());    //x초 코루틴 실행
     }
 
     public void SoulRelase(GameObject obj)
