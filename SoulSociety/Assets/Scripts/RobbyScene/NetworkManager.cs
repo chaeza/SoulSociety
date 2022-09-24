@@ -57,18 +57,29 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         
     }
 
+    // 닉네임 밑에 커넥트 버튼 클릭시 
     public void OnClick_Connected()
     {
         if (string.IsNullOrEmpty(PhotonNetwork.NickName) == true)
             return;
- 
-        PhotonNetwork.JoinOrCreateRoom("myroom", new RoomOptions { MaxPlayers = 4 }, null);
+
+        // PhotonNetwork.JoinOrCreateRoom("myroom", new RoomOptions { MaxPlayers = 4 }, null);
+       
+        //조인랜덤룸으로 생성방 우선 참가로직 
+        PhotonNetwork.JoinRandomRoom();
+
+        //기존 커넥트 버튼 오프 
         DisconnectPanel.SetActive(false);
+        //로비패널 온 
         RobbyPanel.SetActive(true);
         //PhotonNetwork.LocalPlayer.NickName = nickName.text;
 
     }
-
+    public override void OnJoinRandomFailed(short returnCode, string message)
+    {
+        Debug.Log("조인 실패");
+        PhotonNetwork.CreateRoom(null, new RoomOptions { MaxPlayers = 4 });
+    }
     public override void OnJoinedRoom()
     {
         Debug.Log("새로운 플레이어가 참가하셨습니다");
