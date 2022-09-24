@@ -13,6 +13,7 @@ public class SpawnMgr : MonoBehaviour
     int ran;   //아이템 랜덤 위치
     int ran2;  //소울 랜덤 위치
     int ran3;  //새로운 아이템 랜덤 위치
+    int ran4;  //새로운 소울 랜덤 위치
 
     Queue<GameObject> queue = new Queue<GameObject>();
 
@@ -25,7 +26,7 @@ public class SpawnMgr : MonoBehaviour
     {
         ItemInit();
         SoulInit();
-        StartCoroutine(SoulTime());
+
     }
 
     //생성할때  //풀링전에 생성을 한다 (매니저)
@@ -55,8 +56,8 @@ public class SpawnMgr : MonoBehaviour
         return obj;
     }
 
-    //풀에서 내보낼때   // 이건 박스지?
-    public GameObject Get()
+    //풀에서 내보낼때
+    public GameObject ItemGet()
     {
         ran3 = Random.Range(0, groundCh.Length);
 
@@ -71,6 +72,22 @@ public class SpawnMgr : MonoBehaviour
         return obj;
     }
 
+    public GameObject SoulGet()
+    {
+        ran4 = Random.Range(0, groundCh.Length);
+
+        GameObject obj;
+
+        //있다면 큐에서 빼내서 쓴다 
+        obj = queue.Dequeue();
+
+        obj.transform.position = groundCh[ran3].transform.position + new Vector3(4, 4, 3.5f);
+        obj.gameObject.SetActive(true);
+
+        return obj;
+    }
+
+
     //풀에 들어올때
     public void Relase(GameObject obj)
     {   //큐로 다시 보낸다
@@ -80,22 +97,26 @@ public class SpawnMgr : MonoBehaviour
         StartCoroutine(TenSec());
     }
 
-    IEnumerator SoulTime()
+    public void SoulRelase(GameObject obj)
     {
-        while (true)
-        {
-            yield return new WaitForSeconds(60f);
+        obj.gameObject.SetActive(false);
+        queue.Enqueue(obj);
 
-            ran2 = Random.Range(0, groundCh.Length);
-
-            Instantiate(soulPrefab, groundCh[ran2].transform.position + new Vector3(4, 3, 3.5f), Quaternion.identity);
-        }
+        StartCoroutine(Minute());
     }
+
 
     IEnumerator TenSec()
     {
         yield return new WaitForSeconds(10f);
 
-        Get();
+        ItemGet();
+    }
+
+    IEnumerator Minute()
+    {
+        yield return new WaitForSeconds(60f);
+
+        SoulGet();
     }
 }

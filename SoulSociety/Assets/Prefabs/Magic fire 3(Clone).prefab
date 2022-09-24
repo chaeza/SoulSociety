@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8827411558037925257}
   - component: {fileID: 8827411558037925258}
   - component: {fileID: 1093613977264223266}
-  - component: {fileID: 776260807691980573}
+  - component: {fileID: -4467077213220382229}
   m_Layer: 0
   m_Name: Magic fire 3(Clone)
   m_TagString: Untagged
@@ -4840,7 +4840,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &776260807691980573
+--- !u!114 &-4467077213220382229
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4849,7 +4849,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8827411558037925259}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dd1a3d9ddf0875d439a46b2388bcea3f, type: 3}
+  m_Script: {fileID: 11500000, guid: ab7bcbbac8b1185469e20d844082bbb3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   spawnMgr: {fileID: 0}
