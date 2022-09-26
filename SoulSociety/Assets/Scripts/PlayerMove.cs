@@ -8,6 +8,7 @@ public class PlayerMove : MonoBehaviourPun
     [SerializeField] float moveSpeed = 1;
     PlayerInfo playerInfo;
     Animator myAnimator;
+    AudioSource audioSource;
 
     bool isMove = false;
 
@@ -38,11 +39,13 @@ public class PlayerMove : MonoBehaviourPun
         if (Input.mousePosition != null && GameMgr.Instance.playerInput.inputKey == KeyCode.Mouse1)
         {
             Move(Input.mousePosition);
+            audioSource.Play();
         }
 
         if (GameMgr.Instance.playerInput.inputKey == KeyCode.S)
         {
             MoveStop();
+            audioSource.Pause();
         }
         if (isMove == true)
         {
