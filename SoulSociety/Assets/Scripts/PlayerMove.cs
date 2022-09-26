@@ -35,7 +35,7 @@ public class PlayerMove : MonoBehaviourPun
         else if (Input.mousePosition.x > 1160 && Input.mousePosition.x < 1240 && Input.mousePosition.y > 25 && Input.mousePosition.y < 105 && GameMgr.Instance.inventory.InvetoryCount(4) == false) GameMgr.Instance.uIMgr.OnExplantionItem(4, GameMgr.Instance.inventory.GetInventory(4));
         else GameMgr.Instance.uIMgr.OnExplantionItem(5, 0);
 
-        if (Input.mousePosition != null&&GameMgr.Instance.playerInput.inputKey == KeyCode.Mouse1)
+        if (Input.mousePosition != null && GameMgr.Instance.playerInput.inputKey == KeyCode.Mouse1)
         {
             Move(Input.mousePosition);
         }
@@ -75,7 +75,7 @@ public class PlayerMove : MonoBehaviourPun
             desiredDir.y = transform.position.y;
             targetDir = desiredDir - transform.position;
             transform.rotation = Quaternion.LookRotation(targetDir);
-         //   Debug.Log(targetDir.ToString());
+            //   Debug.Log(targetDir.ToString());
             isMove = true;
         }
     }
