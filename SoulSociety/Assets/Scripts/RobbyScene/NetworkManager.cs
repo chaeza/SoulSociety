@@ -14,9 +14,12 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     public GameObject DisconnectPanel;
     public GameObject RobbyPanel;
     public GameObject[] soulEff;
+    public GameObject[] reddyButton;
 
     [SerializeField] Button btnConnect = null;
     [SerializeField] TextMeshProUGUI[] nickName = null;
+    //준비완료 상태를 받는 변수 하나 필요
+
 
 
     private void Awake()
@@ -30,6 +33,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     {   for(int i = 0; i < soulEff.Length; i++)
         {
             soulEff[i].SetActive(false);
+            reddyButton[i].GetComponent<Button>().interactable = false;
         }
         btnConnect.interactable = false; // 버튼 입력 막기
         RobbyPanel.SetActive(false);
@@ -113,6 +117,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
             Debug.Log("비워");
             nickName[i].text = " ";
             soulEff[i].SetActive(false);
+            reddyButton[i].GetComponent<Button>().interactable = false;
         }
         SortedPlayer();
        
@@ -129,6 +134,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
             Debug.Log(sortedPlayers[i].NickName);
             nickName[i].text = sortedPlayers[i].NickName;
             soulEff[i].SetActive(true);
+            reddyButton[i].GetComponent<Button>().interactable = true;
         }
     }
 

@@ -25850,6 +25850,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3d35e81bdc5955041be098ef22e82a3b, type: 3}
+--- !u!1 &1878943693 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5876490540687048603, guid: 4c75de694105a8841ab77168501780d1, type: 3}
+  m_PrefabInstance: {fileID: 1855747413}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1880853205 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 481908, guid: dee3db12ee2f57c41af34c16d2fde197, type: 3}
@@ -26655,6 +26660,26 @@ PrefabInstance:
       propertyPath: nickName.Array.data[3]
       value: 
       objectReference: {fileID: 65798251}
+    - target: {fileID: 1794308154174523397, guid: 0e7c65f2247e1b647975ffffdabe7aa2, type: 3}
+      propertyPath: reddyButton.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1794308154174523397, guid: 0e7c65f2247e1b647975ffffdabe7aa2, type: 3}
+      propertyPath: reddyButton.Array.data[0]
+      value: 
+      objectReference: {fileID: 1878943693}
+    - target: {fileID: 1794308154174523397, guid: 0e7c65f2247e1b647975ffffdabe7aa2, type: 3}
+      propertyPath: reddyButton.Array.data[1]
+      value: 
+      objectReference: {fileID: 1326485331}
+    - target: {fileID: 1794308154174523397, guid: 0e7c65f2247e1b647975ffffdabe7aa2, type: 3}
+      propertyPath: reddyButton.Array.data[2]
+      value: 
+      objectReference: {fileID: 1296108055}
+    - target: {fileID: 1794308154174523397, guid: 0e7c65f2247e1b647975ffffdabe7aa2, type: 3}
+      propertyPath: reddyButton.Array.data[3]
+      value: 
+      objectReference: {fileID: 210971395}
     - target: {fileID: 1794308154174523418, guid: 0e7c65f2247e1b647975ffffdabe7aa2, type: 3}
       propertyPath: m_Name
       value: NetworkManager
