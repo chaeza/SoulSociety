@@ -171,7 +171,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
                 Debug.Log("i : " + i);
                 myButtonNum = i;
                 reddyButton[myButtonNum].GetComponent<Button>().interactable = true;
-                transform.LookAt
+                
             }
             nickName[i].text = sortedPlayers[i].NickName;
             soulEff[i].SetActive(true);
