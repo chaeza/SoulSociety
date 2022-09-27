@@ -19,6 +19,8 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     [SerializeField] Button btnConnect = null;
     [SerializeField] TextMeshProUGUI[] nickName = null;
 
+    [SerializeField] Button soloStart = null;
+
     ReadyState myReadyState = ReadyState.None;
 
     int readyCount = 0;
@@ -102,19 +104,22 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     {
         Debug.Log("새로운 플레이어가 참가하셨습니다");
         myReadyState = ReadyState.UnReady;
-        SortedPlayer();
+        //SortedPlayer();
+        gameObject.GetPhotonView().RPC("SortedPlayer", RpcTarget.All);
     }
     //타인이 들어올때
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
         Debug.Log("새로운 플레이어가 참가하셨습니다");
-        SortedPlayer();
+        //SortedPlayer();
+        gameObject.GetPhotonView().RPC("SortedPlayer", RpcTarget.All);
     }
    //플레이어가 나갈때
     public override void OnPlayerLeftRoom(Player otherPlayer)
     {
         ClearLobby();
-        SortedPlayer();
+       // SortedPlayer();
+        gameObject.GetPhotonView().RPC("SortedPlayer", RpcTarget.All);
     }
     public override void OnMasterClientSwitched(Player newMasterClient)
     {
@@ -149,6 +154,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
 
     #region 플레이어 정렬
+    [PunRPC]
     public void SortedPlayer()
     {
         readyCount = 0;
@@ -176,6 +182,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
             LoadScene();
         }
         Debug.Log("레디 숫자 : " + readyCount);
+      
     }
     #endregion
     //각각의 플레이어 상태에 따른 색 표현 
@@ -216,6 +223,11 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     {
         readyCount--;
     }
+    
+    public void SoloClick()
+    {
+        PhotonNetwork.LoadLevel("GameScene");
+    }
 
 
     #region 버튼 클릭
@@ -229,7 +241,8 @@ public class NetworkManager : MonoBehaviourPunCallbacks
             // gameObject.GetPhotonView().RPC("UnReadyCounT", RpcTarget.All);
 
             //2번째
-            SortedPlayer();
+            //SortedPlayer();
+            gameObject.GetPhotonView().RPC("SortedPlayer", RpcTarget.All);
         }
         else
         {
@@ -239,8 +252,9 @@ public class NetworkManager : MonoBehaviourPunCallbacks
             //레디 전환 후 시작 확인 
 
             //2번째
-            SortedPlayer();
-         
+            //SortedPlayer();
+            gameObject.GetPhotonView().RPC("SortedPlayer", RpcTarget.All);
+
         }
     }
 
