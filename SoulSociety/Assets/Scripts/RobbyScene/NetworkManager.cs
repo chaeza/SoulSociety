@@ -199,11 +199,14 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         if (state == ReadyState.Ready)
         {
             readyCount++;
+            reddyButton[myButtonNum].GetComponent<Image>().color = Color.red;
             LoadScene();
         }
         else
         {
             readyCount--;
+            reddyButton[myButtonNum].GetComponent<Image>().color = Color.gray;
+
         }
 
         Debug.Log("레디 숫자 : " + readyCount);
