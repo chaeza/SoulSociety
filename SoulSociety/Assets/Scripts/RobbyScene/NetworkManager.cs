@@ -82,6 +82,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     }
     public override void OnJoinedRoom()
     {
+
         Debug.Log("새로운 플레이어가 참가하셨습니다");
         //int actorNumber = PhotonNetwork.LocalPlayer.ActorNumber;
         /* Player[] sortedPlayers = PhotonNetwork.PlayerList;
@@ -105,6 +106,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     public override void OnPlayerLeftRoom(Player otherPlayer)
     {
         Debug.Log("누가나감");
+
         Player[] sortedPlayers = PhotonNetwork.PlayerList;
 
         for (int i = 0; i < nickName.Length; i++)

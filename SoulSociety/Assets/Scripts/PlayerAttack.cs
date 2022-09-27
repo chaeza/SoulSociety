@@ -32,8 +32,6 @@ public class PlayerAttack : MonoBehaviourPun
         if (GameMgr.Instance.playerInput.inputKey == KeyCode.E) SendMessage("ItemFire", SendMessageOptions.DontRequireReceiver);
         if (GameMgr.Instance.playerInput.inputKey == KeyCode.R) SendMessage("ItemFire", SendMessageOptions.DontRequireReceiver);
         if (GameMgr.Instance.playerInput.inputKey == KeyCode.F) SendMessage("SkillFire", SendMessageOptions.DontRequireReceiver);
-        if (GameMgr.Instance.playerInput.inputKey == KeyCode.Alpha1) GameMgr.Instance.randomItem.GetRandomitem(gameObject);
-        if (GameMgr.Instance.playerInput.inputKey == KeyCode.Alpha2) gameObject.SendMessage("BlueSoul", SendMessageOptions.DontRequireReceiver);
     }
     [PunRPC]
     public void Attack()

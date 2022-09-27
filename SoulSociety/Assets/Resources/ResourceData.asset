@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd21381a807a24849adf0e8dffe31cda, type: 3}
   m_Name: ResourceData
   m_EditorClassIdentifier: 
+  fire1Eff: {fileID: 8369563389089556663, guid: b71451549311fed42be1ac5f25226ef9, type: 3}
   effobj: {fileID: 100014, guid: 93f175331b13808429d4b085140d308c, type: 3}
   hp: 10

@@ -13,6 +13,7 @@ public class BoxPool : MonoBehaviour
             // gameObject.SetActive(false);
             spawnMgr = FindObjectOfType<SpawnMgr>();
             spawnMgr.Relase(gameObject);
+            GameMgr.Instance.randomItem.GetRandomitem(other.gameObject);
             //StartCoroutine("SpawnItem");  
         }
     }
