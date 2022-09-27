@@ -18,6 +18,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
     [SerializeField] Button btnConnect = null;
     [SerializeField] TextMeshProUGUI[] nickName = null;
+    [SerializeField] Button soloStart = null;
 
     ReadyState myReadyState = ReadyState.None;
 
@@ -31,7 +32,10 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         Ready,
         UnReady,
     }
-
+    public void SoloClick()
+    {
+        PhotonNetwork.LoadLevel("GameScene");
+    }
 
     private void Awake()
     {
@@ -156,6 +160,8 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
         for (int i = 0; i < sortedPlayers.Length; i++)
         {
+            nickName[i].text = sortedPlayers[i].NickName;
+            soulEff[i].SetActive(true);
             //자신의 버튼만 활성화 하기 
             if (sortedPlayers[i].NickName == PhotonNetwork.NickName)
             {
@@ -173,9 +179,6 @@ public class NetworkManager : MonoBehaviourPunCallbacks
                 gameObject.GetPhotonView().RPC("ReadyCounT", RpcTarget.MasterClient);
 
             }
-            nickName[i].text = sortedPlayers[i].NickName;
-            soulEff[i].SetActive(true);
-            LoadScene();
         }
         
     }
