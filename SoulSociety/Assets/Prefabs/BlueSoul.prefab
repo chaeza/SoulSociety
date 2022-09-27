@@ -14,8 +14,8 @@ GameObject:
   - component: {fileID: 1093613977264223266}
   - component: {fileID: -4467077213220382229}
   m_Layer: 0
-  m_Name: Magic fire 3(Clone)
-  m_TagString: Ground
+  m_Name: BlueSoul
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

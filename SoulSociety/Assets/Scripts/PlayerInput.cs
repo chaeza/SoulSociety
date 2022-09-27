@@ -10,6 +10,7 @@ public class PlayerInput : MonoBehaviour
     {
     
         if (Input.GetKey(KeyCode.Mouse1)) inputKey = KeyCode.Mouse1;
+        else if (Input.GetKey(KeyCode.Mouse0)) inputKey = KeyCode.Mouse0;
         else if (Input.GetKeyDown(KeyCode.Q)) inputKey = KeyCode.Q;
         else if (Input.GetKeyDown(KeyCode.W)) inputKey = KeyCode.W;
         else if (Input.GetKeyDown(KeyCode.E)) inputKey = KeyCode.E;

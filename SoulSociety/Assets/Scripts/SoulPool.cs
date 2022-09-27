@@ -13,6 +13,7 @@ public class SoulPool : MonoBehaviour
             gameObject.SetActive(false);
             spawnMgr = FindObjectOfType<SpawnMgr>();
             spawnMgr.SoulRelase(gameObject);
+            other.gameObject.SendMessage("BlueSoul", SendMessageOptions.DontRequireReceiver);
             //StartCoroutine("SpawnItem");  
         }
     }
