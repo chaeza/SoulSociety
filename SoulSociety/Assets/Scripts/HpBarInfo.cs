@@ -46,7 +46,8 @@ public class HpBarInfo : MonoBehaviourPun
     {
         //transform.position=playerPos.position + Vector3.up * 2+Vector3.forward*2 ;
         //transform.position = player.position;
-        transform.LookAt(transform.position + cam.rotation * Vector3.forward, cam.rotation * Vector3.up);
+        this.transform.position = new Vector3(this.GetComponentInParent<GameObject>().transform.position.x + 3f, this.GetComponentInParent<GameObject>().transform.position.y, this.GetComponentInParent<GameObject>().transform.position.z);
+        transform.LookAt(transform.position+new Vector3(0,0,2) + cam.rotation * Vector3.forward, cam.rotation * Vector3.up + new Vector3(0, 2, 2));
     }
 
 }
