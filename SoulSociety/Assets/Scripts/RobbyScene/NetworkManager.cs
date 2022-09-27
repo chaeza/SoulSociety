@@ -19,6 +19,8 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     [SerializeField] Button btnConnect = null;
     [SerializeField] TextMeshProUGUI[] nickName = null;
 
+    [SerializeField] Button soloStart = null;
+
     ReadyState myReadyState = ReadyState.None;
 
     int readyCount = 0;
@@ -35,6 +37,8 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
     private void Awake()
     {
+
+        PhotonNetwork.AutomaticallySyncScene = true;
         Screen.SetResolution(1920, 1080, false);
         PhotonNetwork.SendRate = 60;
         PhotonNetwork.SerializationRate = 30;
@@ -110,7 +114,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         Debug.Log("새로운 플레이어가 참가하셨습니다");
         SortedPlayer();
     }
-   //플레이어가 나갈때
+    //플레이어가 나갈때
     public override void OnPlayerLeftRoom(Player otherPlayer)
     {
         ClearLobby();
@@ -131,7 +135,10 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     /// </summary>
 
 
-
+    public void SoloClick()
+    {
+        PhotonNetwork.LoadLevel("GameScene");
+    }
 
     #region 플레이어 자리 초기화
     public void ClearLobby()
@@ -156,33 +163,31 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
         for (int i = 0; i < sortedPlayers.Length; i++)
         {
+            nickName[i].text = sortedPlayers[i].NickName;
+            soulEff[i].SetActive(true);
             //자신의 버튼만 활성화 하기 
             if (sortedPlayers[i].NickName == PhotonNetwork.NickName)
             {
                 Debug.Log("i : " + i);
                 myButtonNum = i;
                 reddyButton[myButtonNum].GetComponent<Button>().interactable = true; //나만 누르기 위해 활성화
-                
+
                 //내 상태가 레디면 노란색 -->그런데 이건 RPC상에서 표현 해줘야해
-                 gameObject.GetPhotonView().RPC("ButtonColor", RpcTarget.All, myReadyState, myButtonNum);
+                gameObject.GetPhotonView().RPC("ButtonColor", RpcTarget.All, myReadyState, myButtonNum);
             }
             // gameObject.GetPhotonView().RPC("stateCheck", RpcTarget.All, myReadyState, i);
 
             if (reddyButton[i].GetComponent<Image>().color == Color.yellow)
             {
                 gameObject.GetPhotonView().RPC("ReadyCounT", RpcTarget.MasterClient);
-
             }
-            nickName[i].text = sortedPlayers[i].NickName;
-            soulEff[i].SetActive(true);
-            LoadScene();
         }
-        
+
     }
     #endregion
     //각각의 플레이어 상태에 따른 색 표현 
     [PunRPC]
-    public void ButtonColor(ReadyState readyState,int buttonNum)
+    public void ButtonColor(ReadyState readyState, int buttonNum)
     {
         if (readyState == ReadyState.Ready)
             reddyButton[buttonNum].GetComponent<Image>().color = Color.yellow;
@@ -194,14 +199,17 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     public void LoadScene()
     {
         // 마스터일때만 해당 함수 실행 가능
-        
+        if (PhotonNetwork.IsMasterClient)
+        {
             if (readyCount == 4)
             {
                 Debug.Log("시작");
                 //4명 레디 완료시 2초후 게임 실행 
                 photonView.StartCoroutine(MainStartTimer());
             }
-        
+        }
+
+
         // Debug.Log(PhotonNetwork.CurrentRoom.PlayerCount);
     }
     #endregion
@@ -221,7 +229,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     {
         if (PhotonNetwork.IsMasterClient)
         {
-            readyCount=0;
+            readyCount = 0;
             Debug.Log("레디 숫자 : " + readyCount);
         }
     }
@@ -233,7 +241,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         if (myReadyState == ReadyState.Ready)
         {
             myReadyState = ReadyState.UnReady;
-            //상태 전환 후 마스터 레디카운트 타운
+            //상태 전환 후 마스터 레디카운트 다운
             // gameObject.GetPhotonView().RPC("UnReadyCounT", RpcTarget.All);
 
             //2번째
@@ -248,7 +256,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
             //2번째
             SortedPlayer();
-         
+
         }
     }
     #endregion 
@@ -257,7 +265,9 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     {
         yield return new WaitForSeconds(2);
         if (readyCount == 4)
+        {
             PhotonNetwork.LoadLevel("GameScene");
+        }
         else Debug.Log("누군가 레디 취소함");
     }
 }
