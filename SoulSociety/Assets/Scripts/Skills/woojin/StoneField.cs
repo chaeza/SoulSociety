@@ -45,7 +45,7 @@ public class StoneField : MonoBehaviourPun , SkillMethod
                 a.AddComponent<SkillHit>();//이펙트에 히트 스크립트를 넣습니다.
                 a.SendMessage("AttackerName", gameObject.GetPhotonView().ViewID, SendMessageOptions.DontRequireReceiver);//이펙트에 공격자를 지정합니다.
                 a.transform.LookAt(desiredDir);
-               
+                a.transform.Translate(0, 1, 0);
                 StartCoroutine(Fire(a));//큐브 이동시키는 코루틴
                 skillCool = true;//쿨타임 온 시켜 다시 사용 못하게함
                 skillClick = false;
@@ -56,6 +56,7 @@ public class StoneField : MonoBehaviourPun , SkillMethod
     }
     IEnumerator Fire(GameObject skill)//큐브 이동시키기
     {
+        skill.transform.position = this.transform.position - new Vector3(0, 0, 0);
         yield return null;
     }
 }
