@@ -136,11 +136,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
                 Debug.Log("i : " + i);
                 myButtonNum = i;
                 reddyButton[myButtonNum].GetComponent<Button>().interactable = true;
-              /*  if (reddyButton[i].GetComponent<NetworkManager>().myReadyState == ReadyState.Ready)
-                {
-                    reddyButton[i].GetComponent<Image>().color = Color.red;
-                    readyCount++;
-                }*/
+             
             }
             nickName[i].text = sortedPlayers[i].NickName;
             soulEff[i].SetActive(true);
@@ -182,7 +178,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         {
             Debug.Log("맞아");
             myReadyState = ReadyState.Ready;
-            reddyButton[myButtonNum].GetComponent<Image>().color = Color.red;
+            reddyButton[myButtonNum].GetComponent<Image>().color = Color.yellow;
             LoadScene();
         }
         else
@@ -190,19 +186,21 @@ public class NetworkManager : MonoBehaviourPunCallbacks
             myReadyState = ReadyState.UnReady;
             reddyButton[myButtonNum].GetComponent<Image>().color = Color.gray;
         }
-        gameObject.GetPhotonView().RPC("MyState", RpcTarget.All, myReadyState);
+        gameObject.GetPhotonView().RPC("MyState", RpcTarget.All, myReadyState,myButtonNum);
     }
     #region 플레이어 레디 상태 
     [PunRPC]
-    public void MyState(ReadyState state)
+    public void MyState(ReadyState state,int buttonNum)
     {
         if (state == ReadyState.Ready)
         {
             readyCount++;
+            reddyButton[buttonNum].GetComponent<Image>().color = Color.yellow;
             LoadScene();
         }
         else
         {
+            reddyButton[buttonNum].GetComponent<Image>().color = Color.gray;
             readyCount--;
         }
 

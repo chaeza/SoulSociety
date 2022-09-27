@@ -1,8 +1,14 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:SoulSociety/Assets/Meterials/New Material 1.mat.meta
+guid: 0f355b4cf5abc7b4995553fae42860ff
+NativeFormatImporter:
+========
 guid: 0ca8e4db042b6ff4c87d9d1047597d76
 folderAsset: yes
 DefaultImporter:
+>>>>>>>> main:SoulSociety/Assets/Scenes/GameScene.meta
   externalObjects: {}
+  mainObjectFileID: 2100000
   userData: 
   assetBundleName: 
   assetBundleVariant: 
