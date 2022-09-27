@@ -23,6 +23,8 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
     int readyCount = 0;
     int myButtonNum = 0;
+    int myNum = 0;
+    int leftNum = 0;
 
     //준비완료 상태를 받는 변수 하나 필요
     public enum ReadyState
@@ -101,7 +103,18 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     //자신이 들어갈때 
     public override void OnJoinedRoom()
     {
-        Debug.Log("새로운 플레이어가 참가하셨습니다");
+        Player[] sortedPlayers = PhotonNetwork.PlayerList;
+        for (int i = 0; i < sortedPlayers.Length; i++)
+        {
+            //자신의 버튼만 활성화 하기 
+            if (sortedPlayers[i].NickName == PhotonNetwork.NickName)
+            {
+                myNum = i;
+            }
+        }//들어 왔을때 고유넘버를 가짐
+
+
+
         myReadyState = ReadyState.UnReady;
         //싹다 초기화 재설정
         for (int i = 0; i < nickName.Length; i++)
@@ -112,7 +125,8 @@ public class NetworkManager : MonoBehaviourPunCallbacks
             reddyButton[i].GetComponent<Button>().interactable = false;
         }
         SortedPlayer();
-       
+        //photonView.RPC("YourReady", RpcTarget.All);
+
     }
     //타인이 들어올때
     public override void OnPlayerEnteredRoom(Player newPlayer)
@@ -121,40 +135,31 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
         SortedPlayer();
     }
-    [PunRPC]
-    public void CheckLeaveName(string nickname,ReadyState mystate)
-    {
-        Debug.Log("남은 사람 이름 : "+nickname.ToString()+mystate.ToString());
-        if (mystate == ReadyState.Ready)
-        {
-            readyCount++;
-        }
-    }
-
     public override void OnPlayerLeftRoom(Player otherPlayer)
     {
-        //초기화 
-        readyCount = 0;
-
-        for (int i = 0; i < nickName.Length; i++)
-        {
-            nickName[i].text = " ";
-            soulEff[i].SetActive(false);
-            reddyButton[i].GetComponent<Image>().color = Color.gray;
-            reddyButton[i].GetComponent<Button>().interactable = false;
-        }
         SortedPlayer();
         //남은 사람 확인
-        photonView.RPC("CheckLeaveName", RpcTarget.All, PhotonNetwork.NickName,myReadyState);
-        Debug.Log("초기화된 카운트 : " + readyCount);
+            readyCount--;
+            Debug.Log("초기화된 카운트 : " + readyCount);
+            photonView.RPC("YourReady", RpcTarget.All);
     }
 
     #region 플레이어 정렬
     public void SortedPlayer()
     {
         Player[] sortedPlayers = PhotonNetwork.PlayerList;
-        readyCount = 0;
+        for (int i = 0; i < sortedPlayers.Length; i++)
+        {
+            //자신의 버튼만 활성화 하기 
+            if (sortedPlayers[i].NickName == PhotonNetwork.NickName)
+            {
+                leftNum = i;
+            }
+        }
+        if (leftNum != myNum) leftNum++;
 
+
+        Player[] sortedPlayers = PhotonNetwork.PlayerList;
         //대기창 초기화 
         for (int i = 0; i < nickName.Length; i++)
         {
@@ -166,12 +171,12 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
         for (int i = 0; i < sortedPlayers.Length; i++)
         {
+            //자신의 버튼만 활성화 하기 
             if (sortedPlayers[i].NickName == PhotonNetwork.NickName)
             {
                 Debug.Log("i : " + i);
                 myButtonNum = i;
                 reddyButton[myButtonNum].GetComponent<Button>().interactable = true;
-                
             }
             nickName[i].text = sortedPlayers[i].NickName;
             soulEff[i].SetActive(true);
@@ -201,22 +206,17 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     #region 버튼 클릭
     public void PushReady()
     {
-        Debug.Log("누름");
-
-        Debug.Log("내꺼");
         if (myReadyState != ReadyState.Ready)
         {
-            Debug.Log("맞아");
             myReadyState = ReadyState.Ready;
             reddyButton[myButtonNum].GetComponent<Image>().color = Color.yellow;
-            LoadScene();
         }
         else
         {
             myReadyState = ReadyState.UnReady;
             reddyButton[myButtonNum].GetComponent<Image>().color = Color.gray;
         }
-        gameObject.GetPhotonView().RPC("MyState", RpcTarget.All, myReadyState,myButtonNum);
+        gameObject.GetPhotonView().RPC("MyState", RpcTarget.All, myReadyState, myButtonNum);
     }
     #endregion
 
@@ -233,37 +233,63 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
     #region 플레이어 버튼 클릭시 색 변환 전환
     [PunRPC]
-    public void MyState(ReadyState state,int buttonNum)
+    public void MyState(ReadyState state, int buttonNum)
     {
         if (state == ReadyState.Ready)
         {
-          //  readyCount++;
             reddyButton[buttonNum].GetComponent<Image>().color = Color.yellow;
-            LoadScene();
+
+            if (photonView.IsMine)
+            {
+                photonView.RPC("IamReady", RpcTarget.MasterClient, state);
+                LoadScene();
+            }
         }
         else
         {
-            reddyButton[buttonNum].GetComponent<Image>().color = Color.gray;
-          //  readyCount--;
+            if (photonView.IsMine)
+            {
+                photonView.RPC("IamReady", RpcTarget.MasterClient, state);
+                reddyButton[buttonNum].GetComponent<Image>().color = Color.gray;
+            }
         }
-
-        Debug.Log("레디 숫자 : " + readyCount);
     }
     #endregion
-
-    #region 상태 체크
-    [PunRPC]
-    public void stateCheck(ReadyState state, int buttonNum)
-    {
-        if (state == ReadyState.Ready)
-            reddyButton[buttonNum].GetComponent<Image>().color = Color.yellow;
-    }
-    #endregion
-
 
     IEnumerator MainStartTimer()
     {
         yield return new WaitForSeconds(2);
         PhotonNetwork.LoadLevel("GameScene");
+    }
+    [PunRPC]
+    void YourReady()
+    {
+        if (myReadyState != ReadyState.Ready)
+        {
+            myReadyState = ReadyState.Ready;
+            reddyButton[myButtonNum].GetComponent<Image>().color = Color.yellow;
+        }
+        else
+        {
+            myReadyState = ReadyState.UnReady;
+            reddyButton[myButtonNum].GetComponent<Image>().color = Color.gray;
+        }
+        gameObject.GetPhotonView().RPC("MyState", RpcTarget.All, myReadyState, myButtonNum);
+    }
+    [PunRPC]
+    void IamReady(ReadyState pstate)
+    {
+        if (pstate == ReadyState.Ready)
+        {
+            if (PhotonNetwork.IsMasterClient)
+                readyCount++;
+            Debug.Log(readyCount);
+        }
+        else
+        {
+            if (PhotonNetwork.IsMasterClient)
+                readyCount--;
+            Debug.Log(readyCount);
+        }
     }
 }
