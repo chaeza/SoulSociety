@@ -8,9 +8,9 @@ public class RandomSkill : MonoBehaviour
     public int skillRan { get; set; } = 0;//랜덤으로 뽑을 스킬 번호
     public void GetRandomSkill(GameObject player)// 랜덤스킬 지급
     {
-        skillRan = Random.Range(1, skillNum + 1);//스킬번호 뽑기
-        if (skillRan == 1) player.AddComponent<Skill>();
-        if (skillRan == 2) player.AddComponent<Skill2>();
+        skillRan = Random.Range(0, skillNum);//스킬번호 뽑기
+        if (skillRan == 0) player.AddComponent<Skill>();
+        if (skillRan == 1) player.AddComponent<Skill2>();
         GameMgr.Instance.uIMgr.SkillUI(skillRan);
     }
     

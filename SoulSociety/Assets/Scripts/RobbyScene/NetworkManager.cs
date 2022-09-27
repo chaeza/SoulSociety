@@ -151,7 +151,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     #region 플레이어 정렬
     public void SortedPlayer()
     {
-        readyCount = 0;
+        gameObject.GetPhotonView().RPC("ZeroCounT", RpcTarget.MasterClient);
         Player[] sortedPlayers = PhotonNetwork.PlayerList;
 
         for (int i = 0; i < sortedPlayers.Length; i++)
@@ -168,14 +168,16 @@ public class NetworkManager : MonoBehaviourPunCallbacks
             }
             // gameObject.GetPhotonView().RPC("stateCheck", RpcTarget.All, myReadyState, i);
 
-            if (reddyButton[i].GetComponent<Image>().color==Color.yellow)
-                readyCount++;
+            if (reddyButton[i].GetComponent<Image>().color == Color.yellow)
+            {
+                gameObject.GetPhotonView().RPC("ReadyCounT", RpcTarget.MasterClient);
 
+            }
             nickName[i].text = sortedPlayers[i].NickName;
             soulEff[i].SetActive(true);
             LoadScene();
         }
-        Debug.Log("레디 숫자 : " + readyCount);
+        
     }
     #endregion
     //각각의 플레이어 상태에 따른 색 표현 
@@ -192,36 +194,42 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     public void LoadScene()
     {
         // 마스터일때만 해당 함수 실행 가능
-        if (PhotonNetwork.IsMasterClient)
-        {
+        
             if (readyCount == 4)
             {
                 Debug.Log("시작");
                 //4명 레디 완료시 2초후 게임 실행 
                 photonView.StartCoroutine(MainStartTimer());
             }
-        }
+        
         // Debug.Log(PhotonNetwork.CurrentRoom.PlayerCount);
     }
     #endregion
 
     [PunRPC]
-    public void ReadyCounT(string nickname)
+    void ReadyCounT()
     {
-        readyCount++;
+        if (PhotonNetwork.IsMasterClient)
+        {
+            readyCount++;
+            LoadScene();
+            Debug.Log("레디 숫자 : " + readyCount);
+        }
     }
-
     [PunRPC]
-    public void UnReadyCounT()
+    void ZeroCounT()
     {
-        readyCount--;
+        if (PhotonNetwork.IsMasterClient)
+        {
+            readyCount=0;
+            Debug.Log("레디 숫자 : " + readyCount);
+        }
     }
-
 
     #region 버튼 클릭
     public void ButtonClick()
     {
-        readyCount = 0;
+        gameObject.GetPhotonView().RPC("ZeroCounT", RpcTarget.MasterClient);
         if (myReadyState == ReadyState.Ready)
         {
             myReadyState = ReadyState.UnReady;
@@ -243,22 +251,13 @@ public class NetworkManager : MonoBehaviourPunCallbacks
          
         }
     }
-
-
     #endregion 
-
-
-
-
-
-
-
-
-
     //게임 시작 2초 지연
     IEnumerator MainStartTimer()
     {
         yield return new WaitForSeconds(2);
-        PhotonNetwork.LoadLevel("GameScene");
+        if (readyCount == 4)
+            PhotonNetwork.LoadLevel("GameScene");
+        else Debug.Log("누군가 레디 취소함");
     }
 }
