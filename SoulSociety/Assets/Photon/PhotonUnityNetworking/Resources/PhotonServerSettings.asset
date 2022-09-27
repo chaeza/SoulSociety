@@ -50,6 +50,8 @@ MonoBehaviour:
   - RPC_redSoul
   - RedSoul
   - ChangeColor
+  - MyState
+  - stateCheck
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1
