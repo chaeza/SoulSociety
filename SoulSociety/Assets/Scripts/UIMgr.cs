@@ -31,15 +31,13 @@ public class UIMgr : MonoBehaviourPun
     [SerializeField] GameObject ItemIcon4Explantion;
 
     [Header("스킬 아이콘")]
-    [SerializeField] GameObject skill1;//스킬 아이콘
-    [SerializeField] GameObject skill2;
+    
     [SerializeField] GameObject stoneField;//최우진
     [SerializeField] GameObject spearCrash;//최우진
     [SerializeField] GameObject swordRain;//최우진
 
     [Header("스킬 설명")]
-    [SerializeField] GameObject skill1Explantion;//스킬 설명
-    [SerializeField] GameObject skill2Explantion;
+  
     [SerializeField] GameObject stoneFieldExplantion;//최우진
     [SerializeField] GameObject spearCrashExplantion;//최우진
     [SerializeField] GameObject swordRainExplantion;//최우진
@@ -65,11 +63,10 @@ public class UIMgr : MonoBehaviourPun
     bool setSkill;
     public void SkillUI(int Num)//스킬 아이콘 표시
     {
-        if (Num == 1) skillUI = skill1;//가진 스킬을 스킬UI에 저장해서 사용
-        else if (Num == 2) skillUI = skill2;
-        else if (Num == 3) skillUI = stoneField;
-        else if (Num == 4) skillUI = spearCrash;
-        else if (Num == 5) skillUI = swordRain;
+        
+        if (Num == 1) skillUI = stoneField;
+        else if (Num == 2) skillUI = spearCrash;
+        else if (Num == 3) skillUI = swordRain;
         skillUI.SetActive(true);
     }
     public void ItemUI(int Num1, int Num2)//Num1은 인벤토리 위치 Num2는 해당 아이템 번호
@@ -147,11 +144,10 @@ public class UIMgr : MonoBehaviourPun
             if (On == true)
             {
                 setSkill = true;
-                if (GameMgr.Instance.randomSkill.skillRan == 1) skillUIExplantion = skill1Explantion;//해당 스킬 설명을 설명UI에 넣음
-                else if (GameMgr.Instance.randomSkill.skillRan == 2) skillUIExplantion = skill2Explantion;
-                else if (GameMgr.Instance.randomSkill.skillRan == 3) skillUIExplantion = stoneFieldExplantion;
-                else if (GameMgr.Instance.randomSkill.skillRan == 4) skillUIExplantion = spearCrashExplantion;
-                else if (GameMgr.Instance.randomSkill.skillRan == 5) skillUIExplantion = swordRainExplantion;
+               
+                if (GameMgr.Instance.randomSkill.skillRan == 1) skillUIExplantion = stoneFieldExplantion;
+                else if (GameMgr.Instance.randomSkill.skillRan == 2) skillUIExplantion = spearCrashExplantion;
+                else if (GameMgr.Instance.randomSkill.skillRan == 3) skillUIExplantion = swordRainExplantion;
                 skillUIExplantion.SetActive(true);//설명UI 활성화
             }
         }
