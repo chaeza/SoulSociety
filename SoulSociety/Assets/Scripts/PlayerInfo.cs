@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 using Photon.Pun;
+using Photon.Realtime;
 using System.IO;
     [field: SerializeField] public enum state
     {
@@ -15,21 +16,13 @@ public class PlayerInfo : MonoBehaviourPun
 {
     [SerializeField] int blueSoul = 0;
     [SerializeField] int redSoul = 0;
-    [SerializeField] float maxHP = 100;
+    [SerializeField] float HP = 100;
     [SerializeField] float HPrecovery = 0.5f;
     [SerializeField] float basicAttackDamage = 10;
-    private float curHP = 100;
-
-    HpBarInfo myHPbarInfo = null;
-
     Animator myAnimator;
     GameObject myHit;
+    int myNum = 0;
     [field:SerializeField] public state playerState { get; set; } = state.None;//플레이어 상태
-    private void Awake()
-    {
-        myHPbarInfo = GetComponentInChildren<HpBarInfo>();
-        Debug.Log(myHPbarInfo);
-    }
 
     private void Start()
     {
@@ -39,7 +32,18 @@ public class PlayerInfo : MonoBehaviourPun
             gameObject.tag = "mainPlayer";
             GameMgr.Instance.randomSkill.GetRandomSkill(gameObject);
         }
-        myHPbarInfo.SetName(photonView.Controller.NickName);
+        if (photonView.IsMine == true)//시작 때 자기 자신의 번호를 저장합니다.
+        {
+            Player[] sortedPlayers = PhotonNetwork.PlayerList;
+            for (int i = 0; i < sortedPlayers.Length; i++)
+            {
+                if (sortedPlayers[i].NickName == PhotonNetwork.NickName)
+                {
+                    myNum = i;
+                }
+            }
+        }
+        photonView.RPC("ChangeColor", RpcTarget.All,myNum);//자기번호를 넘겨 플레이어의 색상을 모두에게 바꿉니다. 
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -53,9 +57,8 @@ public class PlayerInfo : MonoBehaviourPun
     void RPC_hit(float bAD,int viewID1)
     {
         if (playerState==state.Die) return;
-        curHP -= bAD;
-        myHPbarInfo.SetHP(curHP, maxHP);
-        if (curHP <= 0)
+        HP -= bAD;
+        if (HP <= 0)
             photonView.RPC("RPC_Die", RpcTarget.All,viewID1);
     }
     [PunRPC]
@@ -89,7 +92,7 @@ public class PlayerInfo : MonoBehaviourPun
         }
         else Debug.Log("빨간영혼을 얻으면 파란 영혼은 모을 수 없습니다.");
     }
-    GameObject PunFindObject(int viewID3)
+    GameObject PunFindObject(int viewID3)//뷰아이디를 넘겨받아 포톤상의 오브젝트를 찾는다.
     {
         GameObject find = null;
         PhotonView[] viewObject = FindObjectsOfType<PhotonView>();
@@ -99,7 +102,74 @@ public class PlayerInfo : MonoBehaviourPun
         }
         return find;
     }
+    bool isattack;
+    void att()
+    {
+       isattack = true;
 
+
+
+        photonView.RPC("attack", RpcTarget.All, isattack);
+    }
+    [PunRPC]
+    void ChangeColor(int Num)
+    {
+        if (photonView.IsMine)//색상바뀌는게 자신이면 자신의 고유번호로 색을바꿉니다.
+        {
+            if (myNum == 1)
+            {
+                Renderer[] mat = GetComponentsInChildren<Renderer>();
+                for (int i = 0; i < mat.Length; i++)
+                    mat[i].material.color = Color.magenta;
+            }
+            else if (myNum == 2)
+            {
+                Renderer[] mat = GetComponentsInChildren<Renderer>();
+                for (int i = 0; i < mat.Length; i++)
+                    mat[i].material.color = Color.green;
+            }
+            else if (myNum == 3)
+            {
+                Renderer[] mat = GetComponentsInChildren<Renderer>();
+                for (int i = 0; i < mat.Length; i++)
+                    mat[i].material.color = Color.yellow;
+            }
+            else if (myNum == 4)
+            {
+                Renderer[] mat = GetComponentsInChildren<Renderer>();
+                for (int i = 0; i < mat.Length; i++)
+                    mat[i].material.color = Color.white;
+            }
+        }
+        else//자신이 아니면 포톤상 넘겨받은 번호로 색상을 바꿉니다.
+        {
+            if (Num == 1)
+            {
+                Renderer[] mat = GetComponentsInChildren<Renderer>();
+                for (int i = 0; i < mat.Length; i++)
+                    mat[i].material.color = Color.magenta;
+            }
+            else if (Num == 2)
+            {
+                Renderer[] mat = GetComponentsInChildren<Renderer>();
+                for (int i = 0; i < mat.Length; i++)
+                    mat[i].material.color = Color.green;
+            }
+            else if (Num == 3)
+            {
+                Renderer[] mat = GetComponentsInChildren<Renderer>();
+                for (int i = 0; i < mat.Length; i++)
+                    mat[i].material.color = Color.yellow;
+            }
+            else if (Num == 4)
+            {
+                Renderer[] mat = GetComponentsInChildren<Renderer>();
+                for (int i = 0; i < mat.Length; i++)
+                    mat[i].material.color = Color.white;
+            }
+        }
+
+    }
 
 
 }
