@@ -8,6 +8,10 @@ public class ResourceData : ScriptableObject
     [Header("스킬 이펙트 목록")]
     public GameObject fire1Eff = null;
     public GameObject effobj = null;
+    public GameObject stoneField = null;
+    public GameObject spearCrash = null;
+    public GameObject swordRain = null;
+    public GameObject duelRoom = null;
     public int hp = 10;
 }
 
