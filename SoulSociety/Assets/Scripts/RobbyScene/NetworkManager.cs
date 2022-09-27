@@ -71,7 +71,6 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     {
         Debug.Log("!!!!!");
         PhotonNetwork.NickName = instr; //닉네임 할당
-
     }
 
     // 닉네임 밑에 커넥트 버튼 클릭시 
@@ -103,58 +102,40 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     {
         Debug.Log("새로운 플레이어가 참가하셨습니다");
         myReadyState = ReadyState.UnReady;
-        //싹다 초기화 재설정
-        for (int i = 0; i < nickName.Length; i++)
-        {
-            nickName[i].text = " ";
-            soulEff[i].SetActive(false);
-            reddyButton[i].GetComponent<Image>().color = Color.gray;
-            reddyButton[i].GetComponent<Button>().interactable = false;
-        }
         SortedPlayer();
-       
     }
     //타인이 들어올때
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
         Debug.Log("새로운 플레이어가 참가하셨습니다");
-
         SortedPlayer();
     }
-    [PunRPC]
-    public void CheckLeaveName(string nickname,ReadyState mystate)
-    {
-        Debug.Log("남은 사람 이름 : "+nickname.ToString()+mystate.ToString());
-        if (mystate == ReadyState.Ready)
-        {
-            readyCount++;
-        }
-    }
-
+   //플레이어가 나갈때
     public override void OnPlayerLeftRoom(Player otherPlayer)
     {
-        //초기화 
-        readyCount = 0;
-
-        for (int i = 0; i < nickName.Length; i++)
-        {
-            nickName[i].text = " ";
-            soulEff[i].SetActive(false);
-            reddyButton[i].GetComponent<Image>().color = Color.gray;
-            reddyButton[i].GetComponent<Button>().interactable = false;
-        }
+        ClearLobby();
         SortedPlayer();
-        //남은 사람 확인
-        photonView.RPC("CheckLeaveName", RpcTarget.All, PhotonNetwork.NickName,myReadyState);
-        Debug.Log("초기화된 카운트 : " + readyCount);
+    }
+    public override void OnMasterClientSwitched(Player newMasterClient)
+    {
+        Debug.Log("마스터 클라이언트 변경:" + newMasterClient.ToString());
     }
 
-    #region 플레이어 정렬
-    public void SortedPlayer()
+    private void Update()
     {
-        Player[] sortedPlayers = PhotonNetwork.PlayerList;
-        readyCount = 0;
+        if (Input.GetKeyDown(KeyCode.Escape) && PhotonNetwork.IsConnected) PhotonNetwork.LeaveRoom();
+    }
 
+    /// <summary>
+    /// --------------------------------------
+    /// </summary>
+
+
+
+
+    #region 플레이어 자리 초기화
+    public void ClearLobby()
+    {
         //대기창 초기화 
         for (int i = 0; i < nickName.Length; i++)
         {
@@ -163,22 +144,49 @@ public class NetworkManager : MonoBehaviourPunCallbacks
             reddyButton[i].GetComponent<Image>().color = Color.gray;
             reddyButton[i].GetComponent<Button>().interactable = false;
         }
+    }
+    #endregion
+
+
+    #region 플레이어 정렬
+    public void SortedPlayer()
+    {
+        readyCount = 0;
+        Player[] sortedPlayers = PhotonNetwork.PlayerList;
 
         for (int i = 0; i < sortedPlayers.Length; i++)
         {
+            //자신의 버튼만 활성화 하기 
             if (sortedPlayers[i].NickName == PhotonNetwork.NickName)
             {
                 Debug.Log("i : " + i);
                 myButtonNum = i;
-                reddyButton[myButtonNum].GetComponent<Button>().interactable = true;
+                reddyButton[myButtonNum].GetComponent<Button>().interactable = true; //나만 누르기 위해 활성화
                 
+                //내 상태가 레디면 노란색 -->그런데 이건 RPC상에서 표현 해줘야해
+                 gameObject.GetPhotonView().RPC("ButtonColor", RpcTarget.All, myReadyState, myButtonNum);
             }
+            // gameObject.GetPhotonView().RPC("stateCheck", RpcTarget.All, myReadyState, i);
+
+            if (reddyButton[i].GetComponent<Image>().color==Color.yellow)
+                readyCount++;
+
             nickName[i].text = sortedPlayers[i].NickName;
             soulEff[i].SetActive(true);
             LoadScene();
         }
+        Debug.Log("레디 숫자 : " + readyCount);
     }
     #endregion
+    //각각의 플레이어 상태에 따른 색 표현 
+    [PunRPC]
+    public void ButtonColor(ReadyState readyState,int buttonNum)
+    {
+        if (readyState == ReadyState.Ready)
+            reddyButton[buttonNum].GetComponent<Image>().color = Color.yellow;
+        else
+            reddyButton[buttonNum].GetComponent<Image>().color = Color.grey;
+    }
 
     #region 게임 실행
     public void LoadScene()
@@ -197,70 +205,57 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     }
     #endregion
 
-    //버튼 클릭시 
-    #region 버튼 클릭
-    public void PushReady()
+    [PunRPC]
+    public void ReadyCounT(string nickname)
     {
-        Debug.Log("누름");
+        readyCount++;
+    }
 
-        Debug.Log("내꺼");
-        if (myReadyState != ReadyState.Ready)
-        {
-            Debug.Log("맞아");
-            myReadyState = ReadyState.Ready;
-            reddyButton[myButtonNum].GetComponent<Image>().color = Color.yellow;
-            LoadScene();
-        }
-        else
+    [PunRPC]
+    public void UnReadyCounT()
+    {
+        readyCount--;
+    }
+
+
+    #region 버튼 클릭
+    public void ButtonClick()
+    {
+        readyCount = 0;
+        if (myReadyState == ReadyState.Ready)
         {
             myReadyState = ReadyState.UnReady;
-            reddyButton[myButtonNum].GetComponent<Image>().color = Color.gray;
-        }
-        gameObject.GetPhotonView().RPC("MyState", RpcTarget.All, myReadyState,myButtonNum);
-    }
-    #endregion
+            //상태 전환 후 마스터 레디카운트 타운
+            // gameObject.GetPhotonView().RPC("UnReadyCounT", RpcTarget.All);
 
-    public override void OnMasterClientSwitched(Player newMasterClient)
-    {
-        Debug.Log("마스터 클라이언트 변경:" + newMasterClient.ToString());
-    }
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Escape) && PhotonNetwork.IsConnected) PhotonNetwork.LeaveRoom();
-    }
-
-
-    #region 플레이어 버튼 클릭시 색 변환 전환
-    [PunRPC]
-    public void MyState(ReadyState state,int buttonNum)
-    {
-        if (state == ReadyState.Ready)
-        {
-          //  readyCount++;
-            reddyButton[buttonNum].GetComponent<Image>().color = Color.yellow;
-            LoadScene();
+            //2번째
+            SortedPlayer();
         }
         else
         {
-            reddyButton[buttonNum].GetComponent<Image>().color = Color.gray;
-          //  readyCount--;
+            myReadyState = ReadyState.Ready;
+            //상태 전환 후 마스터 레디카운트 업 
+            //  gameObject.GetPhotonView().RPC("ReadyCounT", RpcTarget.All);
+            //레디 전환 후 시작 확인 
+
+            //2번째
+            SortedPlayer();
+         
         }
-
-        Debug.Log("레디 숫자 : " + readyCount);
     }
-    #endregion
-
-    #region 상태 체크
-    [PunRPC]
-    public void stateCheck(ReadyState state, int buttonNum)
-    {
-        if (state == ReadyState.Ready)
-            reddyButton[buttonNum].GetComponent<Image>().color = Color.yellow;
-    }
-    #endregion
 
 
+    #endregion 
+
+
+
+
+
+
+
+
+
+    //게임 시작 2초 지연
     IEnumerator MainStartTimer()
     {
         yield return new WaitForSeconds(2);
