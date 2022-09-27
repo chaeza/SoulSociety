@@ -44,7 +44,7 @@ public class UIMgr : MonoBehaviourPun
     {
         if (GameMgr.Instance.playerInput.inputKey == KeyCode.Tab) tab.SetActive(true);
         else tab.SetActive(false); 
-        if (GameMgr.Instance.playerInput.inputKey == KeyCode.Escape) esc.SetActive(true);
+        if (GameMgr.Instance.playerInput.Esc == KeyCode.Escape) esc.SetActive(true);
         else esc.SetActive(false);
     }
 
