@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 
-public class StoneField : MonoBehaviour , SkillMethod
+using Photon.Pun;
+
+public class StoneField : MonoBehaviourPun , SkillMethod
 {
     bool skillCool = false;
     bool skillClick = false;
