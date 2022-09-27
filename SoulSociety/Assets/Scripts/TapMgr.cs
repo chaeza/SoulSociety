@@ -7,8 +7,8 @@ using TMPro;
 
 public class TapMgr : MonoBehaviourPun
 {
-    [SerializeField] GameObject[] Raws = null;
-    [SerializeField] TextMeshProUGUI[] Nicknames = null;
+    /*[SerializeField] GameObject[] Raws = null;
+    [SerializeField] TextMeshProUGUI[] Nicknames = null;*/
 
     PhotonView playerInfo;
 

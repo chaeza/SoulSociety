@@ -2,24 +2,27 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
+using UnityEngine.AI;
 
 public class PlayerMove : MonoBehaviourPun
 {
     [SerializeField] float moveSpeed = 1;
     PlayerInfo playerInfo;
     Animator myAnimator;
-    AudioSource audioSource;
+    NavMeshAgent navMeshAgent;
 
     bool isMove = false;
 
-    Vector3 moveTarget;
     Vector3 desiredDir;
-    Vector3 targetDir;
+    Vector3 clickPos = Vector3.one;
 
     private void Start()
     {
         playerInfo = GetComponent<PlayerInfo>();
         myAnimator = GetComponent<Animator>();
+        navMeshAgent = GetComponent<NavMeshAgent>();
+        moveSpeed = 5;
+        navMeshAgent.speed = moveSpeed;
     }
 
     private void Update()
@@ -35,25 +38,26 @@ public class PlayerMove : MonoBehaviourPun
         else if (Input.mousePosition.x > 1005 && Input.mousePosition.x < 1080 && Input.mousePosition.y > 25 && Input.mousePosition.y < 105 && GameMgr.Instance.inventory.InvetoryCount(3) == false) GameMgr.Instance.uIMgr.OnExplantionItem(3, GameMgr.Instance.inventory.GetInventory(3));
         else if (Input.mousePosition.x > 1160 && Input.mousePosition.x < 1240 && Input.mousePosition.y > 25 && Input.mousePosition.y < 105 && GameMgr.Instance.inventory.InvetoryCount(4) == false) GameMgr.Instance.uIMgr.OnExplantionItem(4, GameMgr.Instance.inventory.GetInventory(4));
         else GameMgr.Instance.uIMgr.OnExplantionItem(5, 0);
-
-        if (Input.mousePosition != null && GameMgr.Instance.playerInput.inputKey == KeyCode.Mouse1)
+        if (GameMgr.Instance.playerInput.inputKey == KeyCode.Mouse0) SendMessage("SkillClick",Input.mousePosition,SendMessageOptions.DontRequireReceiver);
+        if (GameMgr.Instance.playerInput.inputKey == KeyCode.Mouse1)
         {
-            Move(Input.mousePosition);
-            audioSource.Play();
+            clickPos = Input.mousePosition;
+            clickPos.z = 18f;
+            //if(Input.mousePosition.x > 200 && Input.mousePosition.x < 1800&& Input.mousePosition.y < 1050&& Input.mousePosition.y >50)
+                Move(clickPos);
         }
 
         if (GameMgr.Instance.playerInput.inputKey == KeyCode.S)
         {
             MoveStop();
-            audioSource.Pause();
         }
         if (isMove == true)
         {
             if (Vector3.Distance(desiredDir, transform.position) > 0.1f)
             {
                 myAnimator.SetBool("isMove", true);
-
-                gameObject.GetComponent<Rigidbody>().velocity = targetDir.normalized * moveSpeed;
+                navMeshAgent.isStopped = false;
+                navMeshAgent.SetDestination(desiredDir);
             }
             else
                 MoveStop();
@@ -68,17 +72,14 @@ public class PlayerMove : MonoBehaviourPun
 
         Ray ray = Camera.main.ScreenPointToRay(mousePos);
         int mask = 1 << LayerMask.NameToLayer("Terrain");
-        Physics.Raycast(Camera.main.ScreenPointToRay(mousePos), out hit, 20f, mask);
+        Physics.Raycast(Camera.main.ScreenPointToRay(mousePos), out hit, 30f, mask);
 
-        Debug.DrawRay(ray.origin, ray.direction * 20f, Color.red, 5f);
+        Debug.DrawRay(ray.origin, ray.direction * 20f, Color.red, 1f);
 
         if (hit.collider.tag == "Ground")
         {
             desiredDir = hit.point;
             desiredDir.y = transform.position.y;
-            targetDir = desiredDir - transform.position;
-            transform.rotation = Quaternion.LookRotation(targetDir);
-            //   Debug.Log(targetDir.ToString());
             isMove = true;
         }
     }
@@ -86,7 +87,7 @@ public class PlayerMove : MonoBehaviourPun
     public void MoveStop()
     {
         myAnimator.SetBool("isMove", false);
-        gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
+        navMeshAgent.isStopped = true;
         isMove = false;
         //Debug.Log(isMove.ToString());
     }

@@ -250,7 +250,4 @@ public class UIMgr : MonoBehaviourPun
         //PhotonNetwork.LoadLevel("TitleScene");
     }
 
-
-
-
 }
