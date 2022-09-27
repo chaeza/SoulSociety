@@ -13,11 +13,19 @@ public class GameSceneLogic : MonoBehaviourPunCallbacks
     {
         if (PhotonNetwork.IsConnected)
         {
-            Vector3 pos = new Vector3(Random.Range(-7f, 7f), 50,-7);
+            Vector3 pos = new Vector3(Random.Range(-7f, 7f), 55,-7);
             
             GameObject player = PhotonNetwork.Instantiate("Player", pos, Quaternion.identity);
             GameMgr.Instance.followCam.playerStart(player.transform);
+
             
+            /*if (player.GetPhotonView().IsMine)
+            {
+                GameMgr.Instance.hpBarInfo.StartPlayerPos(player.transform);
+                GameMgr.Instance.hpBarInfo.SetName(player.GetPhotonView().Controller.NickName);
+                
+
+            }*/
         }
     }
 

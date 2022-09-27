@@ -15,12 +15,21 @@ public class PlayerInfo : MonoBehaviourPun
 {
     [SerializeField] int blueSoul = 0;
     [SerializeField] int redSoul = 0;
-    [SerializeField] float HP = 100;
+    [SerializeField] float maxHP = 100;
     [SerializeField] float HPrecovery = 0.5f;
     [SerializeField] float basicAttackDamage = 10;
+    private float curHP = 100;
+
+    HpBarInfo myHPbarInfo = null;
+
     Animator myAnimator;
     GameObject myHit;
     [field:SerializeField] public state playerState { get; set; } = state.None;//플레이어 상태
+    private void Awake()
+    {
+        myHPbarInfo = GetComponentInChildren<HpBarInfo>();
+        Debug.Log(myHPbarInfo);
+    }
 
     private void Start()
     {
@@ -30,6 +39,7 @@ public class PlayerInfo : MonoBehaviourPun
             gameObject.tag = "mainPlayer";
             GameMgr.Instance.randomSkill.GetRandomSkill(gameObject);
         }
+        myHPbarInfo.SetName(photonView.Controller.NickName);
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -43,8 +53,9 @@ public class PlayerInfo : MonoBehaviourPun
     void RPC_hit(float bAD,int viewID1)
     {
         if (playerState==state.Die) return;
-        HP -= bAD;
-        if (HP <= 0)
+        curHP -= bAD;
+        myHPbarInfo.SetHP(curHP, maxHP);
+        if (curHP <= 0)
             photonView.RPC("RPC_Die", RpcTarget.All,viewID1);
     }
     [PunRPC]
