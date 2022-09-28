@@ -16,9 +16,9 @@ public class PlayerInfo : MonoBehaviourPun
 {
     [SerializeField] int blueSoul = 0;
     [SerializeField] int redSoul = 0;
-    [SerializeField] float HP = 100;
+    [SerializeField] public float HP = 100;
     [SerializeField] float HPrecovery = 0.5f;
-    [SerializeField] float basicAttackDamage = 10;
+    [SerializeField] public float basicAttackDamage = 10;
     Animator myAnimator;
     GameObject myHit;
     int myNum = 0;

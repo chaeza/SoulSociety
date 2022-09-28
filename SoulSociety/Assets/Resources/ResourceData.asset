@@ -12,10 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd21381a807a24849adf0e8dffe31cda, type: 3}
   m_Name: ResourceData
   m_EditorClassIdentifier: 
-  fire1Eff: {fileID: 8369563389089556663, guid: b71451549311fed42be1ac5f25226ef9, type: 3}
-  effobj: {fileID: 100014, guid: 93f175331b13808429d4b085140d308c, type: 3}
-  stoneField: {fileID: 1292620793183676, guid: 874173e3c3049d248bff3997f43fc88c, type: 3}
-  spearCrash: {fileID: 1048464419108118, guid: 27257d009d076f348884ca8062995a57, type: 3}
-  swordRain: {fileID: 1972748599795246, guid: 9630d46af839740fcbcd40a3beccdbd0, type: 3}
-  duelRoom: {fileID: 1522952429677962, guid: e917f1dc900776b4abd7f0d3280fed22, type: 3}
-  hp: 10
+  myTrapEff: {fileID: 1000011365394840, guid: 5142a683d65bbf84abea6f07db9099c7, type: 3}
