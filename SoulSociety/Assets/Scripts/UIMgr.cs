@@ -31,6 +31,31 @@ public class UIMgr : MonoBehaviourPun
     [SerializeField] GameObject esc = null;
     [SerializeField] GameObject[] redSoul = null;
     [SerializeField] GameObject[] blueSoul = null;
+    /*[Header("Ã¼·Â¹Ù")]*/
+    /*[SerializeField] TextMeshProUGUI[] nickname = null;
+    [SerializeField] Slider[] Hpbar = null;
+    private GameObject player = null;
+    [SerializeField] Camera cam = null;*/
+
+    /*private void Start()
+    {
+
+        for(int i =0; i < PhotonNetwork.CurrentRoom.PlayerCount; i++)
+        {
+            if (photonView.IsMine)
+            {
+                nickname[i].text = photonView.Controller.NickName;
+            }
+        }
+        
+        
+    }
+
+    public void PlayerStartPos(GameObject playerPos)
+    {
+        player = playerPos;
+    }*/
+
 
     private void Update()
     {
@@ -38,7 +63,11 @@ public class UIMgr : MonoBehaviourPun
         else tab.SetActive(false); 
         if (GameMgr.Instance.playerInput.Esc == KeyCode.Escape) esc.SetActive(true);
         else esc.SetActive(false);
+  
+/*        nickname.transform.position = cam.WorldToScreenPoint(player.transform.position + new Vector3(0,0,2));
+        Hpbar.transform.position = cam.WorldToScreenPoint(player.transform.position + new Vector3(-1.4f, 0, 2.5f)) ;*/
     }
+
 
 
     bool setItem;
@@ -217,7 +246,7 @@ public class UIMgr : MonoBehaviourPun
     {
         if (Num == 1)
         {
-            if (GameMgr.Instance.dieCount == dieC)
+            if (GameMgr.Instance.redCount == dieC)
                 win.SetActive(true);
 
             else

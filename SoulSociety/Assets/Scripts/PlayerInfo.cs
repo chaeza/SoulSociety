@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 using Photon.Pun;
 using Photon.Realtime;
 using System.IO;
+using TMPro;
+
     [field: SerializeField] public enum state
     {
         None,
@@ -16,9 +18,13 @@ public class PlayerInfo : MonoBehaviourPun
 {
     [SerializeField] int blueSoul = 0;
     [SerializeField] int redSoul = 0;
-    [SerializeField] float HP = 100;
+    [SerializeField] float maxHP = 100;
+    private float curHP = 100;
     [SerializeField] float HPrecovery = 0.5f;
     [SerializeField] float basicAttackDamage = 10;
+
+    HpBarInfo myHPbarInfo = null;
+
     Animator myAnimator;
     GameObject myHit;
     int myNum = 0;
@@ -26,6 +32,9 @@ public class PlayerInfo : MonoBehaviourPun
 
     private void Start()
     {
+        myHPbarInfo = GetComponentInChildren<HpBarInfo>();
+        myHPbarInfo.SetName(photonView.Controller.NickName);
+
         myAnimator = GetComponent<Animator>();
         if (photonView.IsMine == true)
         {
@@ -45,6 +54,8 @@ public class PlayerInfo : MonoBehaviourPun
         }
         photonView.RPC("ChangeColor", RpcTarget.All,myNum);//자기번호를 넘겨 플레이어의 색상을 모두에게 바꿉니다. 
     }
+
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag != "mainPlayer" && other.tag == "Player")
@@ -57,8 +68,9 @@ public class PlayerInfo : MonoBehaviourPun
     void RPC_hit(float bAD,int viewID1)
     {
         if (playerState==state.Die) return;
-        HP -= bAD;
-        if (HP <= 0)
+        curHP -= bAD;
+        myHPbarInfo.SetHP(curHP, maxHP);
+        if (curHP <= 0)
             photonView.RPC("RPC_Die", RpcTarget.All,viewID1);
     }
     [PunRPC]
@@ -67,7 +79,6 @@ public class PlayerInfo : MonoBehaviourPun
 
         if (playerState == state.Die) return;
 
-        if (photonView.IsMine != true) GameMgr.Instance.UpdateDie();
         if (photonView.IsMine == true)
         {
             PunFindObject(viewID2).GetPhotonView().RPC("RPC_redSoul", RpcTarget.All, GameMgr.Instance.redCount);

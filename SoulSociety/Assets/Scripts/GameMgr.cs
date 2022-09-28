@@ -30,23 +30,19 @@ public class GameMgr : Singleton<GameMgr>
         randomItem = gameObject.AddComponent<RandomItem>();
         playerInput = gameObject.AddComponent<PlayerInput>();
         inventory = gameObject.AddComponent<Inventory>();
-        //hpBarInfo = FindObjectOfType<HpBarInfo>();
+        hpBarInfo = FindObjectOfType<HpBarInfo>();
         uIMgr = FindObjectOfType<UIMgr>();
         followCam = FindObjectOfType<FollowCam>();
     }
 
-    public void UpdateDie()
-    {
-        dieCount++;
-        if (dieCount == 3)
-        {
-            uIMgr.photonView.RPC("EndGame", RpcTarget.All, 1,dieCount);
-        }
-    }
     public void GetRedSoul(int redsoul)
     {
         if (redsoul == 0) redCount++;
         else redCount += redsoul+1;
+        if (redCount >= 3)
+        {
+            uIMgr.photonView.RPC("EndGame", RpcTarget.All, 1, redCount);
+        }
         uIMgr.MyRedSoul(redCount);
     }
     public void GetBuleSoul()
