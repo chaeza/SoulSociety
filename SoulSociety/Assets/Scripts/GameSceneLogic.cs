@@ -9,6 +9,12 @@ using Photon.Realtime;
 public class GameSceneLogic : MonoBehaviourPunCallbacks
 {
     int myNum = -1;
+    SpawnMgr spawnMgr = null;
+
+    private void Awake()
+    {
+        spawnMgr = GameObject.FindObjectOfType<SpawnMgr>();
+    }
     void Start()
     {
         Vector3 pos= Vector3.zero;
@@ -27,33 +33,9 @@ public class GameSceneLogic : MonoBehaviourPunCallbacks
             if (myNum == 2) pos = new Vector3(2f, 50, -7);
             if (myNum == 3) pos = new Vector3(7f, 50, -7);
       
-            GameObject player = PhotonNetwork.Instantiate("PlayerPrefab", pos, Quaternion.identity);
-            /*GameMgr.Instance.hpBarInfo.PlayerStartPos(player);*/
-            //if (PhotonNetwork.LocalPlayer.ActorNumber == 1)
-            //{
-            //    Renderer[] mat = player.GetComponentsInChildren<Renderer>();
-            //    for (int i = 0; i < mat.Length; i++)
-            //        mat[i].material.color = Color.magenta;
-            //}
-            //if (PhotonNetwork.LocalPlayer.ActorNumber == 2)
-            //{
-            //    Renderer[] mat = player.GetComponentsInChildren<Renderer>();
-            //    for (int i = 0; i < mat.Length; i++)
-            //        mat[i].material.color = Color.green;
-            //}
-            //if (PhotonNetwork.LocalPlayer.ActorNumber == 3)
-            //{
-            //    Renderer[] mat = player.GetComponentsInChildren<Renderer>();
-            //    for (int i = 0; i < mat.Length; i++)
-            //        mat[i].material.color = Color.yellow;
-            //}
-            //if (PhotonNetwork.LocalPlayer.ActorNumber == 4)
-            //{
-            //    Renderer[] mat = player.GetComponentsInChildren<Renderer>();
-            //    for (int i = 0; i < mat.Length; i++)
-            //        mat[i].material.color = Color.white;
-            //}
-
+            GameObject player = PhotonNetwork.Instantiate("Player", pos, Quaternion.identity);
+            spawnMgr.ItemInit();
+            spawnMgr.SoulInit();
             GameMgr.Instance.followCam.playerStart(player.transform);
             
         }

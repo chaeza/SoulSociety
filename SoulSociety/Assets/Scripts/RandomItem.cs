@@ -8,7 +8,7 @@ public class RandomItem : MonoBehaviour
     int itemRan = 0;//랜덤으로 뽑을 아이템 번호
     public void GetRandomitem(GameObject player)// 랜덤아이템 지급
     {
-        itemRan = Random.Range(1, itemNum + 1);//아이템번호 뽑기
+        itemRan = Random.Range(0, itemNum);//아이템번호 뽑기
         if (GameMgr.Instance.inventory.InvetoryCount(1) != true && GameMgr.Instance.inventory.InvetoryCount(2) != true && GameMgr.Instance.inventory.InvetoryCount(3) != true && GameMgr.Instance.inventory.InvetoryCount(4) != true)
         {//인벤토리 1,2,3,4의 칸이 모두 찼을때 리턴
             Debug.Log("인벤토리가 가득 찼습니다.");// 아이템이 4개일시 경고창
@@ -16,28 +16,28 @@ public class RandomItem : MonoBehaviour
         }
         while (true)
         {
-            if (itemRan == 1 && GameMgr.Instance.inventory.ContainInventory(1) == false)//뽑은 번호가 1번일시 인벤토리에 1번 아이템이 있는지 확인하고 없으면 1번아이템 지급.
+            if (itemRan == 0 && GameMgr.Instance.inventory.ContainInventory(1) == false)//뽑은 번호가 1번일시 인벤토리에 1번 아이템이 있는지 확인하고 없으면 1번아이템 지급.
             {
                 player.AddComponent<Item1>();//아이템 컴포넌트 추가
                 Cheak(player);
                 GameMgr.Instance.inventory.AddInventory(itemRan);//인벤토리에 현재 아이템 번호를 리스트에 저장
                 break;
             }
-            else if (itemRan == 2 && GameMgr.Instance.inventory.ContainInventory(2) == false)
+            else if (itemRan == 1 && GameMgr.Instance.inventory.ContainInventory(2) == false)
             {
                 player.AddComponent<Item2>();
                 Cheak(player);
                 GameMgr.Instance.inventory.AddInventory(itemRan);
                 break;
             }
-            else if (itemRan == 3 && GameMgr.Instance.inventory.ContainInventory(3) == false)
+            else if (itemRan == 2 && GameMgr.Instance.inventory.ContainInventory(3) == false)
             {
                 player.AddComponent<Item3>();
                 Cheak(player);
                 GameMgr.Instance.inventory.AddInventory(itemRan);
                 break;
             }
-            else if (itemRan == 4 && GameMgr.Instance.inventory.ContainInventory(4) == false)
+            else if (itemRan == 3 && GameMgr.Instance.inventory.ContainInventory(4) == false)
             {
                 player.AddComponent<Item4>();
                 Cheak(player);
