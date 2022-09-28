@@ -21,9 +21,9 @@ public class PlayerInfo : MonoBehaviourPun
     [SerializeField] int blueSoul = 0;
     [SerializeField] int redSoul = 0;
     [SerializeField] float maxHP = 100;
-    private float curHP = 100;
+    public float curHP = 100;   
     [SerializeField] float HPrecovery = 0.5f;
-    [SerializeField] float basicAttackDamage = 10;
+    [SerializeField] public float basicAttackDamage = 10;
     float damageDecrease = 0; // 데미지 감소
 
     HpBarInfo myHPbarInfo = null;

@@ -269,7 +269,11 @@ public class UIMgr : MonoBehaviourPun
         if (Num == 1)
         {
             if (GameMgr.Instance.redCount == dieC)
+            {
+                //승리 이펙트 활성화 
+                winEff.SetActive(true);
                 win.SetActive(true);
+            }
 
             else
                 lose.SetActive(true);
@@ -277,7 +281,11 @@ public class UIMgr : MonoBehaviourPun
         else if(Num == 2)
         {
             if (GameMgr.Instance.blueCount == dieC)
+            {
+                //승리 이펙트 활성화 
+                winEff.SetActive(true);
                 win.SetActive(true);
+            }
 
             else
                 lose.SetActive(true);
@@ -285,13 +293,7 @@ public class UIMgr : MonoBehaviourPun
         //종료 타이머
         photonView.StartCoroutine(Endtimer());
 
-      //승리 이펙트 활성화 
-        winEff.SetActive(true);
-        
-
         GameMgr.Instance.endGame = true;
-   
-        //PhotonNetwork.LoadLevel("TitleScene");
     }
     IEnumerator Endtimer()
     {
