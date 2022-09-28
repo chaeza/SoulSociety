@@ -217,7 +217,7 @@ public class UIMgr : MonoBehaviourPun
     {
         if (Num == 1)
         {
-            if (GameMgr.Instance.dieCount == dieC)
+            if (GameMgr.Instance.redCount == dieC)
                 win.SetActive(true);
 
             else
