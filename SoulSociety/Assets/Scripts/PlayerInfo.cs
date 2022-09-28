@@ -67,7 +67,6 @@ public class PlayerInfo : MonoBehaviourPun
 
         if (playerState == state.Die) return;
 
-        if (photonView.IsMine != true) GameMgr.Instance.UpdateDie();
         if (photonView.IsMine == true)
         {
             PunFindObject(viewID2).GetPhotonView().RPC("RPC_redSoul", RpcTarget.All, GameMgr.Instance.redCount);

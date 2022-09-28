@@ -83631,6 +83631,26 @@ PrefabInstance:
       propertyPath: ItemIconExplantion.Array.data[3]
       value: 
       objectReference: {fileID: 1954273919}
+    - target: {fileID: 8808335372526478326, guid: 8c753b17f6a419144a21f3f9fbfd7eb6, type: 3}
+      propertyPath: ItemIconExplantion.Array.data[4]
+      value: 
+      objectReference: {fileID: 1954273919}
+    - target: {fileID: 8808335372526478326, guid: 8c753b17f6a419144a21f3f9fbfd7eb6, type: 3}
+      propertyPath: ItemIconExplantion.Array.data[5]
+      value: 
+      objectReference: {fileID: 1954273919}
+    - target: {fileID: 8808335372526478326, guid: 8c753b17f6a419144a21f3f9fbfd7eb6, type: 3}
+      propertyPath: ItemIconExplantion.Array.data[6]
+      value: 
+      objectReference: {fileID: 1954273919}
+    - target: {fileID: 8808335372526478326, guid: 8c753b17f6a419144a21f3f9fbfd7eb6, type: 3}
+      propertyPath: ItemIconExplantion.Array.data[7]
+      value: 
+      objectReference: {fileID: 1954273919}
+    - target: {fileID: 8808335372526478326, guid: 8c753b17f6a419144a21f3f9fbfd7eb6, type: 3}
+      propertyPath: ItemIconExplantion.Array.data[8]
+      value: 
+      objectReference: {fileID: 1954273919}
     - target: {fileID: 8808335372526478327, guid: 8c753b17f6a419144a21f3f9fbfd7eb6, type: 3}
       propertyPath: m_RootOrder
       value: 9
