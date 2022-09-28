@@ -31,6 +31,7 @@ public class UIMgr : MonoBehaviourPun
     [SerializeField] GameObject esc = null;
     [SerializeField] GameObject[] redSoul = null;
     [SerializeField] GameObject[] blueSoul = null;
+    [SerializeField] GameObject winEff = null;
     [Header("플레이어")]
     [SerializeField] Text[] playerNick = null;
     bool[] redSetBool = new bool[15];
@@ -281,9 +282,22 @@ public class UIMgr : MonoBehaviourPun
             else
                 lose.SetActive(true);
         }
+        //종료 타이머
+        photonView.StartCoroutine(Endtimer());
+
+      //승리 이펙트 활성화 
+        winEff.SetActive(true);
+        
+
         GameMgr.Instance.endGame = true;
-        new WaitForSeconds(1f);
+   
         //PhotonNetwork.LoadLevel("TitleScene");
     }
-
+    IEnumerator Endtimer()
+    {
+        yield return new WaitForSeconds(3);
+        PhotonNetwork.LeaveRoom();
+        PhotonNetwork.LoadLevel("TitleScene");
+        
+    }
 }

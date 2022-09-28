@@ -57,6 +57,4 @@ public class GameMgr : Singleton<GameMgr>
             uIMgr.photonView.RPC("EndGame", RpcTarget.All,2,blueCount);
         }
     }
-
-
 }
