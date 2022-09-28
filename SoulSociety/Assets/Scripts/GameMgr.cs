@@ -40,6 +40,7 @@ public class GameMgr : Singleton<GameMgr>
 
     public void GetRedSoul(int redsoul)
     {
+        blueCount=0;
         if (redsoul == 0) redCount++;
         else redCount += redsoul+1;
         if (redCount >= 3)

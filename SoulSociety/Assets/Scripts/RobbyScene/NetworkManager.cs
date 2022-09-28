@@ -32,11 +32,6 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         Ready,
         UnReady,
     }
-    public void SoloClick()
-    {
-        PhotonNetwork.LoadLevel("GameScene");
-    }
-
     private void Awake()
     {
 
