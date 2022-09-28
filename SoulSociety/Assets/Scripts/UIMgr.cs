@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-
+using Photon.Realtime;
 using Photon.Pun;
 public class UIMgr : MonoBehaviourPun
 {
@@ -31,44 +31,90 @@ public class UIMgr : MonoBehaviourPun
     [SerializeField] GameObject esc = null;
     [SerializeField] GameObject[] redSoul = null;
     [SerializeField] GameObject[] blueSoul = null;
-    /*[Header("체력바")]*/
-    /*[SerializeField] TextMeshProUGUI[] nickname = null;
-    [SerializeField] Slider[] Hpbar = null;
-    private GameObject player = null;
-    [SerializeField] Camera cam = null;*/
-
-    /*private void Start()
-    {
-
-        for(int i =0; i < PhotonNetwork.CurrentRoom.PlayerCount; i++)
-        {
-            if (photonView.IsMine)
-            {
-                nickname[i].text = photonView.Controller.NickName;
-            }
-        }
-        
-        
-    }
-
-    public void PlayerStartPos(GameObject playerPos)
-    {
-        player = playerPos;
-    }*/
-
-
+    [Header("플레이어")]
+    [SerializeField] Text[] playerNick = null;
+    bool[] redSetBool = new bool[15];
+    bool[] blueSetBool = new bool[25];
     private void Update()
     {
-        if (GameMgr.Instance.playerInput.inputKey == KeyCode.Tab) tab.SetActive(true);
-        else tab.SetActive(false); 
+        if (GameMgr.Instance.playerInput.inputKey == KeyCode.Tab)
+        {
+            tab.SetActive(true);
+            TabSoulRender(1);
+        }
+        else
+        {
+            tab.SetActive(false);
+            TabSoulRender(0);
+        }
         if (GameMgr.Instance.playerInput.Esc == KeyCode.Escape) esc.SetActive(true);
         else esc.SetActive(false);
-  
-/*        nickname.transform.position = cam.WorldToScreenPoint(player.transform.position + new Vector3(0,0,2));
-        Hpbar.transform.position = cam.WorldToScreenPoint(player.transform.position + new Vector3(-1.4f, 0, 2.5f)) ;*/
     }
-
-
+    public void TabNickName(int Num,state myState)
+    {
+        Player[] sortedPlayers = PhotonNetwork.PlayerList;
+        playerNick[Num].text = sortedPlayers[Num].NickName;
+        if (myState == state.Die) playerNick[Num].color = Color.red;
+    }
+    public void RedTabSoul(int Num, int Rnum)
+    {
+        if (Rnum >= 1)
+        {
+            redSetBool[3 * (Num + 1)] = true;
+            if (Rnum >= 2) redSetBool[1 + 3 * (Num + 1)] = true;
+            if (Rnum == 3) redSetBool[2 + 3 * (Num + 1)] = true;
+        }
+        else if (Rnum == 0)
+        {
+            redSetBool[3 * (Num + 1)] = false;
+            redSetBool[1 + 3 * (Num + 1)] = false;
+            redSetBool[2 + 3 * (Num + 1)] = false;
+        }
+    }
+    public void BlueTabSoul(int Num, int Bnum)
+    {
+        if (Bnum >= 1)
+        {
+            blueSetBool[5 * (Num + 1)] = true;
+            if (Bnum >= 2) blueSetBool[1 + 5 * (Num + 1)] = true;
+            if (Bnum >= 3) blueSetBool[2 + 5 * (Num + 1)] = true;
+            if (Bnum >= 4) blueSetBool[3 + 5 * (Num + 1)] = true;
+            if (Bnum == 5) blueSetBool[4 + 5 * (Num + 1)] = true;
+        }
+        else if (Bnum == 0)
+        {
+            blueSetBool[5 * (Num + 1)] = false;
+            blueSetBool[1 + 5 * (Num + 1)] = false;
+            blueSetBool[2 + 5 * (Num + 1)] = false;
+            blueSetBool[3 + 5 * (Num + 1)] = false;
+            blueSetBool[4 + 5 * (Num + 1)] = false;
+        }
+    }
+    public void TabSoulRender(int a)
+    {
+        if (a == 1)
+        {
+            for (int i = 0; i < redSetBool.Length; i++)
+            {
+                if (redSetBool[i] == true) redSoul[i].SetActive(true);
+            }
+            for (int i = 0; i < blueSetBool.Length; i++)
+            {
+                if (blueSetBool[i] == true) blueSoul[i].SetActive(true);
+            }
+        }
+        else if (a == 0)
+        {
+            for (int i = 3; i < redSetBool.Length; i++)
+            {
+                redSoul[i].SetActive(false);
+            }
+            for (int i = 5; i < blueSetBool.Length; i++)
+            {
+                blueSoul[i].SetActive(false);
+            }
+        }
+    }
 
     bool setItem;
     bool setSkill;
@@ -183,19 +229,13 @@ public class UIMgr : MonoBehaviourPun
     public void MyRedSoul(int redsoul)
     {
         MyBlueSoul(0);
-        if (redsoul == 1) redSoul[0].SetActive(true);
-        else if (redsoul == 2)
+        if (redsoul >= 1)
         {
             redSoul[0].SetActive(true);
-            redSoul[1].SetActive(true);
+            if(redsoul>=2) redSoul[1].SetActive(true);
+            if(redsoul>=3) redSoul[2].SetActive(true);
         }
-        else if (redsoul == 3)
-        {
-            redSoul[0].SetActive(true);
-            redSoul[1].SetActive(true);
-            redSoul[2].SetActive(true);
-        }
-        else if(redsoul==0)
+        else if (redsoul == 0)
         {
             redSoul[0].SetActive(false);
             redSoul[1].SetActive(false);
@@ -205,34 +245,15 @@ public class UIMgr : MonoBehaviourPun
     }
     public void MyBlueSoul(int bluesoul)
     {
-        if (bluesoul == 1) blueSoul[0].SetActive(true);
-        else if (bluesoul == 2)
+        if (bluesoul >= 1)
         {
             blueSoul[0].SetActive(true);
-            blueSoul[1].SetActive(true);
+            if(bluesoul>=2) blueSoul[1].SetActive(true);
+            if(bluesoul>=3) blueSoul[2].SetActive(true);
+            if(bluesoul>=4) blueSoul[3].SetActive(true);
+            if(bluesoul==5) blueSoul[4].SetActive(true);
         }
-        else if (bluesoul == 3)
-        {
-            blueSoul[0].SetActive(true);
-            blueSoul[1].SetActive(true);
-            blueSoul[2].SetActive(true);
-        }
-        else if (bluesoul == 4)
-        {
-            blueSoul[0].SetActive(true);
-            blueSoul[1].SetActive(true);
-            blueSoul[2].SetActive(true);
-            blueSoul[3].SetActive(true);
-        }
-        else if (bluesoul == 5)
-        {
-            blueSoul[0].SetActive(true);
-            blueSoul[1].SetActive(true);
-            blueSoul[2].SetActive(true);
-            blueSoul[3].SetActive(true);
-            blueSoul[4].SetActive(true);
-        }
-        else if(bluesoul == 0)
+        else if (bluesoul == 0)
         {
             blueSoul[0].SetActive(false);
             blueSoul[1].SetActive(false);

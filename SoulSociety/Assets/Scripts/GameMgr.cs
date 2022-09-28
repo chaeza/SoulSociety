@@ -24,6 +24,7 @@ public class GameMgr : Singleton<GameMgr>
     private void Awake()
     {
         //Instantiate(test, Vector3.zero, Quaternion.identity);
+        PhotonNetwork.CurrentRoom.IsOpen = false;
 
         randomSkill = gameObject.AddComponent<RandomSkill>();
         randomItem = gameObject.AddComponent<RandomItem>();
@@ -36,6 +37,7 @@ public class GameMgr : Singleton<GameMgr>
 
     public void GetRedSoul(int redsoul)
     {
+        blueCount=0;
         if (redsoul == 0) redCount++;
         else redCount += redsoul+1;
         if (redCount >= 3)
