@@ -16,6 +16,7 @@ public class GameMgr : Singleton<GameMgr>
     public RandomItem randomItem;
     public UIMgr uIMgr;
     public HpBarInfo hpBarInfo;
+    public SpawnMgr spawnMgr;
 
     public bool endGame { get; set; } = false;
     public int dieCount = 0;
@@ -24,6 +25,7 @@ public class GameMgr : Singleton<GameMgr>
     private void Awake()
     {
         //Instantiate(test, Vector3.zero, Quaternion.identity);
+        if(PhotonNetwork.IsMasterClient)
         PhotonNetwork.CurrentRoom.IsOpen = false;
 
         randomSkill = gameObject.AddComponent<RandomSkill>();
@@ -33,6 +35,7 @@ public class GameMgr : Singleton<GameMgr>
         hpBarInfo = FindObjectOfType<HpBarInfo>();
         uIMgr = FindObjectOfType<UIMgr>();
         followCam = FindObjectOfType<FollowCam>();
+        spawnMgr = FindObjectOfType<SpawnMgr>();
     }
 
     public void GetRedSoul(int redsoul)

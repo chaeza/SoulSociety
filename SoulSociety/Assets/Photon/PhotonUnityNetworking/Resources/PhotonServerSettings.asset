@@ -59,6 +59,12 @@ MonoBehaviour:
   - ZeroCounT
   - Relase
   - SoulRelase
+  - ItemInit
+  - SoulInit
+  - FindItemInPool
+  - FindSoulInPool
+  - ItemGet
+  - SoulGet
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

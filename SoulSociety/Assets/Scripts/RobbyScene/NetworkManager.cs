@@ -20,8 +20,6 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     [SerializeField] TextMeshProUGUI[] nickName = null;
     [SerializeField] Button soloStart = null;
 
-    [SerializeField] Button soloStart = null;
-
     ReadyState myReadyState = ReadyState.None;
 
     int readyCount = 0;
@@ -138,12 +136,6 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     /// <summary>
     /// --------------------------------------
     /// </summary>
-
-
-    public void SoloClick()
-    {
-        PhotonNetwork.LoadLevel("GameScene");
-    }
 
     #region 플레이어 자리 초기화
     public void ClearLobby()
