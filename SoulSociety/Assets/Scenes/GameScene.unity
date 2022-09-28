@@ -31877,6 +31877,7 @@ MonoBehaviour:
   randomItem: {fileID: 0}
   uIMgr: {fileID: 0}
   hpBarInfo: {fileID: 0}
+  spawnMgr: {fileID: 0}
   dieCount: 0
   redCount: 0
   blueCount: 0

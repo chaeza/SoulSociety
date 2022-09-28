@@ -65,6 +65,7 @@ MonoBehaviour:
   - FindSoulInPool
   - ItemGet
   - SoulGet
+  - TabUpdate
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

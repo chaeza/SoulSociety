@@ -24,6 +24,7 @@ public class PlayerInfo : MonoBehaviourPun
     private float curHP = 100;
     [SerializeField] float HPrecovery = 0.5f;
     [SerializeField] float basicAttackDamage = 10;
+    float damageDecrease = 0; // 데미지 감소
 
     HpBarInfo myHPbarInfo = null;
 
