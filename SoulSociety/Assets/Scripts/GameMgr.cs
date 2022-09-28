@@ -24,12 +24,13 @@ public class GameMgr : Singleton<GameMgr>
     private void Awake()
     {
         //Instantiate(test, Vector3.zero, Quaternion.identity);
+        PhotonNetwork.CurrentRoom.IsOpen = false;
 
         randomSkill = gameObject.AddComponent<RandomSkill>();
         randomItem = gameObject.AddComponent<RandomItem>();
         playerInput = gameObject.AddComponent<PlayerInput>();
         inventory = gameObject.AddComponent<Inventory>();
-        //hpBarInfo = FindObjectOfType<HpBarInfo>();
+        hpBarInfo = FindObjectOfType<HpBarInfo>();
         uIMgr = FindObjectOfType<UIMgr>();
         followCam = FindObjectOfType<FollowCam>();
     }

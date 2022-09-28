@@ -14,6 +14,8 @@ public class TranslateMove : MonoBehaviour {
     void Start()
     {
         m_Time = Time.time;
+
+        Destroy(gameObject, 5f);
     }
 
 	void Update () {

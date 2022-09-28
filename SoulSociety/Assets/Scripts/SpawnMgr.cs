@@ -48,6 +48,7 @@ public class SpawnMgr : MonoBehaviourPun
 
     //생성할때  //풀링전에 생성을 한다 (매니저)
     public void ItemInit()     //아이템 x개 생성
+
     {
         for (int i = 0; i < 16; i++)
         {

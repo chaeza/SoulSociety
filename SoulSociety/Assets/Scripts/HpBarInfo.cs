@@ -7,47 +7,62 @@ using UnityEngine.UI;
 using Photon.Pun;
 public class HpBarInfo : MonoBehaviourPun
 {
-    [SerializeField] TextMeshProUGUI txtName = null;
-    [SerializeField] Slider sliHP = null;
+    [SerializeField] TextMeshProUGUI nickname = null;
+    [SerializeField] Slider Hpbar = null;
+    /*private GameObject player = null;*/
+    Transform cam = null;
 
-
-    //Transform playerPos = null;
-    [SerializeField] Transform player;
-
-
-
-    /*public void StartPlayerPos(Transform player)
+    /*public void PlayerStartPos(GameObject playerPos)
     {
-        playerPos = player;
-
+         
+        
+        for (int i=0; i < PhotonNetwork.CurrentRoom.PlayerCount; ++i)
+        {
+            player[i] = playerPos;
+            Debug.Log(player[i].transform.position);
+        }
+       
     }*/
 
-    Transform cam;
+
+
     private void Start()
     {
-        /*transform.Rotate(180, 0, 180);
-        transform.Translate(0, 0, 2);*/
         cam = Camera.main.transform;
+        /*for(int i=0; i < PhotonNetwork.CurrentRoom.PlayerCount; i++)
+        {
+            if (photonView.IsMine)
+            {
+                nickname[i].text = PhotonNetwork.CurrentRoom.Players[i].NickName;
+                Debug.Log(PhotonNetwork.CurrentRoom.Players[i].NickName);
+            }
+        }*/
     }
     //이름을 출력
     public void SetName(string name)
     {
-        Debug.Log("내가등장");
-        txtName.text = name;
+        nickname.text = name;
     }
 
     //hp 출력
     public void SetHP(float curHP, float maxHP)
     {
-        sliHP.value = curHP / maxHP;
+        Hpbar.value = curHP / maxHP;
     }
 
     private void Update()
     {
-        //transform.position=playerPos.position + Vector3.up * 2+Vector3.forward*2 ;
-        //transform.position = player.position;
-        this.transform.position = new Vector3(this.GetComponentInParent<GameObject>().transform.position.x + 3f, this.GetComponentInParent<GameObject>().transform.position.y, this.GetComponentInParent<GameObject>().transform.position.z);
-        transform.LookAt(transform.position+new Vector3(0,0,2) + cam.rotation * Vector3.forward, cam.rotation * Vector3.up + new Vector3(0, 2, 2));
+        /*for (int i = 0; i < PhotonNetwork.CurrentRoom.PlayerCount; i++)
+        {
+            if (photonView.IsMine)
+            {
+                nickname[i].transform.position = cam.WorldToScreenPoint(player.transform.position + new Vector3(0, 0, 2));
+                Hpbar[i].transform.position = cam.WorldToScreenPoint(player.transform.position + new Vector3(-1.4f, 0, 2.5f));
+            }
+             
+        }*/
+            transform.LookAt(transform.position + cam.rotation * Vector3.forward, cam.rotation * Vector3.up);
+        
     }
 
 }
