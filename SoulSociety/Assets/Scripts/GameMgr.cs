@@ -29,7 +29,7 @@ public class GameMgr : Singleton<GameMgr>
         randomItem = gameObject.AddComponent<RandomItem>();
         playerInput = gameObject.AddComponent<PlayerInput>();
         inventory = gameObject.AddComponent<Inventory>();
-        //hpBarInfo = FindObjectOfType<HpBarInfo>();
+        hpBarInfo = FindObjectOfType<HpBarInfo>();
         uIMgr = FindObjectOfType<UIMgr>();
         followCam = FindObjectOfType<FollowCam>();
     }
