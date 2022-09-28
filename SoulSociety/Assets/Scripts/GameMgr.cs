@@ -24,6 +24,7 @@ public class GameMgr : Singleton<GameMgr>
     private void Awake()
     {
         //Instantiate(test, Vector3.zero, Quaternion.identity);
+        PhotonNetwork.CurrentRoom.IsOpen = false;
 
         randomSkill = gameObject.AddComponent<RandomSkill>();
         randomItem = gameObject.AddComponent<RandomItem>();

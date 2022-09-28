@@ -99,7 +99,8 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     public override void OnJoinRandomFailed(short returnCode, string message)
     {
         Debug.Log("조인 실패");
-        PhotonNetwork.CreateRoom(null, new RoomOptions { MaxPlayers = 4 });
+        //맥스 인원과 방 상태 표현 (시작인지 아닌지)
+        PhotonNetwork.CreateRoom(null, new RoomOptions { MaxPlayers = 4,IsOpen=true });
     }
     //자신이 들어갈때 
     public override void OnJoinedRoom()
