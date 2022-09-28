@@ -12,6 +12,7 @@ public class SimpleObjectMake : _ObjectMakeBase {
             GameObject m_obj = Instantiate(m_makeObjs[i], transform.position, transform.rotation);
             m_obj.transform.parent = this.transform;
             m_obj.transform.rotation *= Quaternion.Euler(GetRandomVector(m_randomRotationValue));
+          
 
             if (m_movePos){ 
                 if(m_obj.GetComponent<MoveToObject>()){ 

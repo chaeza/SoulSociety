@@ -17,30 +17,29 @@ public class GameMgr : Singleton<GameMgr>
     public UIMgr uIMgr;
     public HpBarInfo hpBarInfo;
     public SpawnMgr spawnMgr;
-
+    public ResourceData resourceData;
     public bool endGame { get; set; } = false;
     public int dieCount = 0;
     public int redCount = 0;
     public int blueCount = 0;
+
     private void Awake()
     {
         //Instantiate(test, Vector3.zero, Quaternion.identity);
-        if(PhotonNetwork.IsMasterClient)
-        PhotonNetwork.CurrentRoom.IsOpen = false;
 
         randomSkill = gameObject.AddComponent<RandomSkill>();
         randomItem = gameObject.AddComponent<RandomItem>();
         playerInput = gameObject.AddComponent<PlayerInput>();
         inventory = gameObject.AddComponent<Inventory>();
-        hpBarInfo = FindObjectOfType<HpBarInfo>();
+        //hpBarInfo = FindObjectOfType<HpBarInfo>();
         uIMgr = FindObjectOfType<UIMgr>();
         followCam = FindObjectOfType<FollowCam>();
         spawnMgr = FindObjectOfType<SpawnMgr>();
+        resourceData = Resources.Load<ResourceData>("ResourceData");
     }
 
     public void GetRedSoul(int redsoul)
     {
-        blueCount=0;
         if (redsoul == 0) redCount++;
         else redCount += redsoul+1;
         if (redCount >= 3)
