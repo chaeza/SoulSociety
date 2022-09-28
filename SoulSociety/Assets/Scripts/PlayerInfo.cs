@@ -25,6 +25,7 @@ public class PlayerInfo : MonoBehaviourPun
 
     HpBarInfo myHPbarInfo = null;
 
+    RectTransform myrect = null;
     Animator myAnimator;
     GameObject myHit;
     int myNum = 0;
@@ -34,6 +35,9 @@ public class PlayerInfo : MonoBehaviourPun
     {
         myHPbarInfo = GetComponentInChildren<HpBarInfo>();
         myHPbarInfo.SetName(photonView.Controller.NickName);
+
+        transform.Find("SkillRange").gameObject.SetActive(false);
+        
 
         myAnimator = GetComponent<Animator>();
         if (photonView.IsMine == true)

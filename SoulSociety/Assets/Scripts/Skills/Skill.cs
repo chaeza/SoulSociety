@@ -24,6 +24,7 @@ public class Skill : MonoBehaviourPun, SkillMethod
     {
         if (skillClick == true)
         {
+           
             RaycastHit hit;
             Vector3 desiredDir = Vector3.zero;
             Ray ray = Camera.main.ScreenPointToRay(Pos);

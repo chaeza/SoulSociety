@@ -20,7 +20,6 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     [SerializeField] TextMeshProUGUI[] nickName = null;
     [SerializeField] Button soloStart = null;
 
-    [SerializeField] Button soloStart = null;
 
     ReadyState myReadyState = ReadyState.None;
 
@@ -34,10 +33,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         Ready,
         UnReady,
     }
-    public void SoloClick()
-    {
-        PhotonNetwork.LoadLevel("GameScene");
-    }
+
 
     private void Awake()
     {
