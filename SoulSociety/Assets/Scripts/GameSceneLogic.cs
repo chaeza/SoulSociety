@@ -33,7 +33,7 @@ public class GameSceneLogic : MonoBehaviourPunCallbacks
             if (myNum == 2) pos = new Vector3(2f, 50, -7);
             if (myNum == 3) pos = new Vector3(7f, 50, -7);
       
-            GameObject player = PhotonNetwork.Instantiate("Player", pos, Quaternion.identity);
+            GameObject player = PhotonNetwork.Instantiate("PlayerPrefab", pos, Quaternion.identity);
             spawnMgr.ItemInit();
             spawnMgr.SoulInit();
             GameMgr.Instance.followCam.playerStart(player.transform);
