@@ -879,7 +879,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   blueSoul: 0
   redSoul: 0
-  maxHP: 100
+  HP: 100
   HPrecovery: 0.5
   basicAttackDamage: 100
   <playerState>k__BackingField: 0

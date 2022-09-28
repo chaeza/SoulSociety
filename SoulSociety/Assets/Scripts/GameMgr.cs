@@ -16,6 +16,8 @@ public class GameMgr : Singleton<GameMgr>
     public RandomItem randomItem;
     public UIMgr uIMgr;
     public HpBarInfo hpBarInfo;
+    public SpawnMgr spawnMgr;
+    public ResourceData resourceData;
     public bool endGame { get; set; } = false;
     public int dieCount = 0;
     public int redCount = 0;
@@ -32,6 +34,8 @@ public class GameMgr : Singleton<GameMgr>
         //hpBarInfo = FindObjectOfType<HpBarInfo>();
         uIMgr = FindObjectOfType<UIMgr>();
         followCam = FindObjectOfType<FollowCam>();
+        spawnMgr = FindObjectOfType<SpawnMgr>();
+        resourceData = Resources.Load<ResourceData>("ResourceData");
     }
 
     public void GetRedSoul(int redsoul)

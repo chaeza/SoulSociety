@@ -5,8 +5,6 @@ using Photon.Pun;
 
 public class Trap : MonoBehaviourPun, ItemMethod
 {
-    ResourceData resourceData;
-    [SerializeField]
     int itemNum = 0;
 
     public void GetItem(int itemnum)
@@ -26,7 +24,7 @@ public class Trap : MonoBehaviourPun, ItemMethod
     {
 
         GameObject a = PhotonNetwork.Instantiate("TrapTrigger", transform.position, Quaternion.identity);//이펙트를 포톤 인스턴스를 합니다.
-        Instantiate(resourceData.myTrapEff , transform.position, Quaternion.identity);
+        Instantiate(GameMgr.Instance.resourceData.myTrapEff , transform.position, Quaternion.identity);
         GameMgr.Instance.uIMgr.UseItem(itemNum);
         GameMgr.Instance.inventory.RemoveInventory(itemNum);
         Destroy(GetComponent<Trap>());
