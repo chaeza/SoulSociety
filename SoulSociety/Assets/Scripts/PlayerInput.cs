@@ -6,13 +6,16 @@ public class PlayerInput : MonoBehaviour
 {
     //이 스크립트는 플레이어에게 
     public KeyCode inputKey { get; private set; }
+    public KeyCode inputKey2 { get; private set; }
     public KeyCode Esc { get; private set; }
     bool escDown;
     void Update()
     {
     
-        if (Input.GetKey(KeyCode.Mouse1)) inputKey = KeyCode.Mouse1;
-        else if (Input.GetKey(KeyCode.Mouse0)) inputKey = KeyCode.Mouse0;
+        if (Input.GetKey(KeyCode.Mouse1)) inputKey2 = KeyCode.Mouse1;
+        else inputKey2 = KeyCode.Alpha0;
+
+        if (Input.GetKey(KeyCode.Mouse0)) inputKey = KeyCode.Mouse0;
         else if (Input.GetKeyDown(KeyCode.Q)) inputKey = KeyCode.Q;
         else if (Input.GetKeyDown(KeyCode.W)) inputKey = KeyCode.W;
         else if (Input.GetKeyDown(KeyCode.E)) inputKey = KeyCode.E;

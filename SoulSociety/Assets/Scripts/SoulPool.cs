@@ -2,17 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SoulPool : MonoBehaviour
+using Photon.Pun;
+
+public class SoulPool : MonoBehaviourPun
 {
-    public SpawnMgr spawnMgr;
+
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "mainPlayer")
         {
             gameObject.SetActive(false);
-            spawnMgr = FindObjectOfType<SpawnMgr>();
-            spawnMgr.SoulRelase(gameObject);
+            SpawnMgr.spawnMgr.photonView.RPC("SoulRelase", RpcTarget.All,gameObject);
+           // spawnMgr.SoulRelase(gameObject);
             other.gameObject.SendMessage("BlueSoul", SendMessageOptions.DontRequireReceiver);
             //StartCoroutine("SpawnItem");  
         }

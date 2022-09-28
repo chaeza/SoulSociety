@@ -14,34 +14,16 @@ public class UIMgr : MonoBehaviourPun
     GameObject skillUI = null;//여러개의 스킬종류를 이 오브젝트에 저장
     GameObject skillUIExplantion = null;//여러개의 스킬 설명을 이 오브젝트에 저장
     GameObject[] inventory = new GameObject[5];// 인벤토리 UI
-
     [Header("쿨타임")]
     [SerializeField] TextMeshProUGUI cooltimeText;//쿨타임 텍스트
-
     [Header("아이템 아이콘")]
-    [SerializeField] GameObject ItemIcon1;//아이템 아이콘
-    [SerializeField] GameObject ItemIcon2;
-    [SerializeField] GameObject ItemIcon3;
-    [SerializeField] GameObject ItemIcon4;
-
+    [SerializeField] GameObject[] ItemIcon;//아이템 아이콘
     [Header("아이템 설명")]
-    [SerializeField] GameObject ItemIcon1Explantion;//아이템 설명
-    [SerializeField] GameObject ItemIcon2Explantion;
-    [SerializeField] GameObject ItemIcon3Explantion;
-    [SerializeField] GameObject ItemIcon4Explantion;
-
+    [SerializeField] GameObject[] ItemIconExplantion;//아이템 설명
     [Header("스킬 아이콘")]
-    
-    [SerializeField] GameObject stoneField;//최우진
-    [SerializeField] GameObject spearCrash;//최우진
-    [SerializeField] GameObject swordRain;//최우진
-
+    [SerializeField] GameObject[] skill;//스킬 아이콘
     [Header("스킬 설명")]
-  
-    [SerializeField] GameObject stoneFieldExplantion;//최우진
-    [SerializeField] GameObject spearCrashExplantion;//최우진
-    [SerializeField] GameObject swordRainExplantion;//최우진
-
+    [SerializeField] GameObject[] skillExplantion;//스킬 설명
     [Header("게임")]
     [SerializeField] GameObject win = null;
     [SerializeField] GameObject lose = null;
@@ -63,19 +45,13 @@ public class UIMgr : MonoBehaviourPun
     bool setSkill;
     public void SkillUI(int Num)//스킬 아이콘 표시
     {
-        
-        if (Num == 1) skillUI = stoneField;
-        else if (Num == 2) skillUI = spearCrash;
-        else if (Num == 3) skillUI = swordRain;
+        skillUI = skill[Num];//가진 스킬을 스킬UI에 저장해서 사용
         skillUI.SetActive(true);
     }
     public void ItemUI(int Num1, int Num2)//Num1은 인벤토리 위치 Num2는 해당 아이템 번호
     {
         //해당 아이템 번호를 아이템UI 오브젝트에 넣어서 편하게 사용
-        if (Num2 == 1) itemUI = ItemIcon1;
-        else if (Num2 == 2) itemUI = ItemIcon2;
-        else if (Num2 == 3) itemUI = ItemIcon3;
-        else if (Num2 == 4) itemUI = ItemIcon4;
+        itemUI = ItemIcon[Num2];
 
         itemUI.SetActive(true);//받은 아이템 UI활성화
 
@@ -108,10 +84,8 @@ public class UIMgr : MonoBehaviourPun
 
         if (setItem == false)//bool 값을 사용하여 스킬 설명은 한번만 띄움
         {
-            if (Num2 == 1) itemUIExplantion = ItemIcon1Explantion;//해당스킬 설명을 설명UI저장
-            else if (Num2 == 2) itemUIExplantion = ItemIcon2Explantion;
-            else if (Num2 == 3) itemUIExplantion = ItemIcon3Explantion;
-            else if (Num2 == 4) itemUIExplantion = ItemIcon4Explantion;
+            itemUIExplantion = ItemIconExplantion[Num2];//해당스킬 설명을 설명UI저장
+            
             if (itemUIExplantion != null)//저장해둔 설명UI가 있을시
             {
                 itemUIExplantion.SetActive(true);//저장해둔 설명UI 활성화
@@ -144,10 +118,8 @@ public class UIMgr : MonoBehaviourPun
             if (On == true)
             {
                 setSkill = true;
-               
-                if (GameMgr.Instance.randomSkill.skillRan == 1) skillUIExplantion = stoneFieldExplantion;
-                else if (GameMgr.Instance.randomSkill.skillRan == 2) skillUIExplantion = spearCrashExplantion;
-                else if (GameMgr.Instance.randomSkill.skillRan == 3) skillUIExplantion = swordRainExplantion;
+                skillUIExplantion = skillExplantion[GameMgr.Instance.randomSkill.skillRan];//해당 스킬 설명을 설명UI에 넣음
+
                 skillUIExplantion.SetActive(true);//설명UI 활성화
             }
         }

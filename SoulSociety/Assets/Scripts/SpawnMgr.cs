@@ -2,9 +2,27 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpawnMgr : MonoBehaviour
+using Photon.Pun;
+
+public class SpawnMgr : MonoBehaviourPun
 {
-    // 소환할 Object
+    private static SpawnMgr spawn_instance = null;
+    public static SpawnMgr spawnMgr
+    {
+        get
+        {
+            if (spawn_instance == null)
+            {
+                spawn_instance = GameObject.FindObjectOfType<SpawnMgr>();
+                if (spawn_instance == null)
+                {
+                    spawn_instance= new SpawnMgr();
+                }
+            }
+            return spawn_instance;
+        }
+            
+    }    // 소환할 Object
     GameObject[] groundCh = null;     //그라운드태그 모을 장소
     public GameObject itemPrefab;     //생성될 아이템 프리펩
     public GameObject soulPrefab;     //생성될 소울 프리펩
@@ -26,35 +44,36 @@ public class SpawnMgr : MonoBehaviour
     {
         ItemInit();    // 아이템 소울 생성
         SoulInit();
-
     }
 
     //생성할때  //풀링전에 생성을 한다 (매니저)
-    void ItemInit()     //아이템 x개 생성
+    public void ItemInit()     //아이템 x개 생성
     {
         for (int i = 0; i < 16; i++)
         {
             ran = Random.Range(0, groundCh.Length);
-            GameObject obj = Create();
+            GameObject obj = PhotonNetwork.Instantiate("ItemBox", groundCh[ran].transform.position + new Vector3(4, 4, 3.5f), Quaternion.identity);
         }
     }
 
-    void SoulInit()    //소울 x개 생성
+    public void SoulInit()    //소울 x개 생성
     {
         for (int i = 0; i < 5; i++)
         {
             ran2 = Random.Range(0, groundCh.Length);
-            Instantiate(soulPrefab, groundCh[ran2].transform.position + new Vector3(4, 4, 3.5f), Quaternion.identity);
+           //Instantiate(soulPrefab, groundCh[ran2].transform.position + new Vector3(4, 4, 3.5f), Quaternion.identity);
+            PhotonNetwork.Instantiate("BlueSoul", groundCh[ran2].transform.position + new Vector3(4, 4, 3.5f), Quaternion.identity);
+
         }
     }
 
-
+/*
     GameObject Create()  //생성한다 (매니저)
     {
         GameObject obj = Instantiate(itemPrefab, groundCh[ran].transform.position + new Vector3(4, 3, 3.5f), Quaternion.identity);
 
         return obj;
-    }
+    }*/
 
     //풀에서 내보낼때
     public GameObject ItemGet()   //플레이어가 박스에 닿으면
@@ -73,7 +92,7 @@ public class SpawnMgr : MonoBehaviour
     }
 
     public GameObject SoulGet()  //소울에 닿으면
-    {
+    {   
         ran4 = Random.Range(0, groundCh.Length);
 
         GameObject obj;
@@ -87,16 +106,18 @@ public class SpawnMgr : MonoBehaviour
         return obj;
     }
 
-
+    //아이템
     //풀에 들어올때
+    [PunRPC]
     public void Relase(GameObject obj)
     {   //큐로 다시 보낸다
         obj.gameObject.SetActive(false);   //플레이어에 닿으면 false시키고 큐에 저장
-        queue.Enqueue(obj);                
+        queue.Enqueue(obj);
 
         StartCoroutine(TenSec());    //x초 코루틴 실행
     }
-
+    [PunRPC]
+    //영혼 오브젝트 풀
     public void SoulRelase(GameObject obj)
     {
         obj.gameObject.SetActive(false);
