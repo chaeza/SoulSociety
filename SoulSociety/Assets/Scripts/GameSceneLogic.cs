@@ -9,6 +9,12 @@ using Photon.Realtime;
 public class GameSceneLogic : MonoBehaviourPunCallbacks
 {
     int myNum = -1;
+    SpawnMgr spawnMgr = null;
+
+    private void Awake()
+    {
+        spawnMgr = GameObject.FindObjectOfType<SpawnMgr>();
+    }
     void Start()
     {
         Vector3 pos= Vector3.zero;
@@ -28,7 +34,8 @@ public class GameSceneLogic : MonoBehaviourPunCallbacks
             if (myNum == 3) pos = new Vector3(7f, 50, -7);
       
             GameObject player = PhotonNetwork.Instantiate("Player", pos, Quaternion.identity);
-
+            spawnMgr.ItemInit();
+            spawnMgr.SoulInit();
             GameMgr.Instance.followCam.playerStart(player.transform);
             
         }

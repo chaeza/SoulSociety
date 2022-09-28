@@ -2,17 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BoxPool : MonoBehaviour
+using Photon.Pun;
+public class BoxPool : MonoBehaviourPun
 {
-    public SpawnMgr spawnMgr;
-
     private void OnTriggerEnter(Collider other)
     {
         if(other.tag == "mainPlayer")
         {
             // gameObject.SetActive(false);
-            spawnMgr = FindObjectOfType<SpawnMgr>();
-            spawnMgr.Relase(gameObject);
+
+            SpawnMgr. spawnMgr.photonView.RPC("Relase", RpcTarget.All,gameObject);
+            //spawnMgr.Relase(gameObject);
             GameMgr.Instance.randomItem.GetRandomitem(other.gameObject);
             //StartCoroutine("SpawnItem");  
         }
