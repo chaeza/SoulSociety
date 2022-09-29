@@ -31,6 +31,7 @@ public class UIMgr : MonoBehaviourPun
     [SerializeField] GameObject esc = null;
     [SerializeField] GameObject[] redSoul = null;
     [SerializeField] GameObject[] blueSoul = null;
+    [SerializeField] GameObject winEff = null;
     [Header("플레이어")]
     [SerializeField] Text[] playerNick = null;
     bool[] redSetBool = new bool[15];
@@ -279,7 +280,10 @@ public class UIMgr : MonoBehaviourPun
         if (Num == 1)
         {
             if (GameMgr.Instance.redCount == dieC)
+            {
                 win.SetActive(true);
+                winEff.SetActive(true);
+            }
 
             else
                 lose.SetActive(true);
@@ -287,14 +291,26 @@ public class UIMgr : MonoBehaviourPun
         else if(Num == 2)
         {
             if (GameMgr.Instance.blueCount == dieC)
+            {
                 win.SetActive(true);
+                winEff.SetActive(true);
+            }
 
             else
                 lose.SetActive(true);
         }
         GameMgr.Instance.endGame = true;
-        new WaitForSeconds(1f);
+        photonView.StartCoroutine(EndTimer());
         //PhotonNetwork.LoadLevel("TitleScene");
     }
+
+    IEnumerator EndTimer()
+    {
+        yield return new WaitForSeconds(3);
+        PhotonNetwork.LoadLevel("TitleScene");
+        PhotonNetwork.LeaveRoom();
+    }
+
+
 
 }
