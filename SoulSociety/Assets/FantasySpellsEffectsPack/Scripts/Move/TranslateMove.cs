@@ -9,6 +9,7 @@ public class TranslateMove : MonoBehaviour {
     public bool m_fowardMove;
     public bool m_rightMove;
     public bool m_upMove;
+    
     float m_Time;
 
     void Start()
