@@ -66,7 +66,7 @@ public class PlayerInfo : MonoBehaviourPun
     {
         if (other.tag != "mainPlayer" && other.tag == "Player")
         {
-            other.gameObject.GetPhotonView().RPC("RPC_hit", RpcTarget.All,basicAttackDamage,gameObject.GetPhotonView().ViewID,state.None,0f);
+            other.gameObject.GetPhotonView().RPC("RPC_hit", RpcTarget.All,basicAttackDamage,gameObject.GetPhotonView().ViewID,state.Stun,2f);
         }
         
     }
@@ -100,7 +100,7 @@ public class PlayerInfo : MonoBehaviourPun
         if (photonView.IsMine == true)
         {
             StopCoroutine(RecoveryHp);
-            PunFindObject(viewID2).GetPhotonView().RPC("RPC_redSoul", RpcTarget.All, GameMgr.Instance.redCount);
+            GameMgr.Instance.PunFindObject(viewID2).GetPhotonView().RPC("RPC_redSoul", RpcTarget.All, GameMgr.Instance.redCount);
 
             GameMgr.Instance.uIMgr.MyRedSoul(0);
         }
@@ -129,16 +129,6 @@ public class PlayerInfo : MonoBehaviourPun
             photonView.RPC("TabUpdate", RpcTarget.All, myNum, playerState, 3, GameMgr.Instance.blueCount);//자신의 번호를 넘겨 탭상태를 갱신합니다.
         }
         else Debug.Log("빨간영혼을 얻으면 파란 영혼은 모을 수 없습니다.");
-    }
-    GameObject PunFindObject(int viewID3)//뷰아이디를 넘겨받아 포톤상의 오브젝트를 찾는다.
-    {
-        GameObject find = null;
-        PhotonView[] viewObject = FindObjectsOfType<PhotonView>();
-        for (int i = 0; i<viewObject.Length;i++ )
-        {
-            if (viewObject[i].ViewID == viewID3) find = viewObject[i].gameObject;
-        }
-        return find;
     }
     bool isattack;
     void att()
@@ -239,7 +229,7 @@ public class PlayerInfo : MonoBehaviourPun
     IEnumerator MyStun(float time)
     {
         GameObject player = PhotonNetwork.Instantiate("Stun", transform.position, Quaternion.identity);
-        Destroy(player,time);
+        GameMgr.Instance.DestroyTarget(player.GetPhotonView().ViewID, time);
         yield return new WaitForSeconds(time);
         playerState = state.None;
 
@@ -248,7 +238,7 @@ public class PlayerInfo : MonoBehaviourPun
     {
         GetComponent<PlayerMove>().ChageSpeed(GetComponent<PlayerMove>().moveSpeed);
         GameObject player = PhotonNetwork.Instantiate("Slow", transform.position, Quaternion.identity);
-        Destroy(player, time);
+        GameMgr.Instance.DestroyTarget(player.GetPhotonView().ViewID,time);
         GetComponent<PlayerMove>().ChageSpeed(GetComponent<PlayerMove>().moveSpeed * (1 - (slow / 100)));
         yield return new WaitForSeconds(time);
         GetComponent<PlayerMove>().ChageSpeed(GetComponent<PlayerMove>().moveSpeed);
