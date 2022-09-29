@@ -32,6 +32,7 @@ public class Recovery : MonoBehaviourPun, ItemMethod//아이템 인터페이스 상속
         if(playerInfo.curHP<=100)
         playerInfo.curHP += 30f;
 
+        GameMgr.Instance.DestroyTarget(a, 2f);
         //
         GameMgr.Instance.uIMgr.UseItem(itemNum);
         GameMgr.Instance.inventory.RemoveInventory(itemNum);//인벤토리에서 이 스킬을 소유한 것을 초기화함
