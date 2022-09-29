@@ -22,7 +22,7 @@ public class Slash : MonoBehaviourPun, ItemMethod
     }
     public void ItemSkill()
     {
-        GameObject a = PhotonNetwork.Instantiate("Slash", transform.position, Quaternion.identity);//이펙트를 포톤 인스턴스를 합니다.
+        GameObject a = PhotonNetwork.Instantiate("Slash", transform.position, Quaternion.identity);//표창을 포톤 인스턴스를 합니다.
        // gameObject.GetComponent<PlayerInfo>();
 
        // GameMgr.Instance.DestroyTarget(a, 2f);

@@ -95,7 +95,7 @@ public class StoneField : MonoBehaviourPun , SkillMethod
             if (skillCool == false)//스킬 사용 가능이면
             {
                 GameObject a = PhotonNetwork.Instantiate("StonField", transform.position, Quaternion.identity);//이펙트를 포톤 인스턴스를 합니다.
-                a.AddComponent<SkillHit>();//이펙트에 히트 스크립트를 넣습니다.
+                a.AddComponent<StonFieldHit>();//이펙트에 히트 스크립트를 넣습니다.
                 a.SendMessage("AttackerName", gameObject.GetPhotonView().ViewID, SendMessageOptions.DontRequireReceiver);//이펙트에 공격자를 지정합니다.
                 a.transform.LookAt(desiredDir);
                 a.transform.Rotate(-90, 0, 0);
@@ -105,7 +105,7 @@ public class StoneField : MonoBehaviourPun , SkillMethod
                 skillCool = true;//쿨타임 온 시켜 다시 사용 못하게함
                 skillClick = false;
                 Debug.Log("스킬사용");
-                GameMgr.Instance.uIMgr.SkillCooltime(gameObject, 10);//UI매니저에 쿨타임 10초를 보냄
+                GameMgr.Instance.uIMgr.SkillCooltime(gameObject, 25);//UI매니저에 쿨타임 10초를 보냄
             }
         }
     }
