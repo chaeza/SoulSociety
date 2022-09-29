@@ -83383,6 +83383,20 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 6287915290545540305, guid: 8c753b17f6a419144a21f3f9fbfd7eb6, type: 3}
+      propertyPath: m_Name
+      value: swampFieldExplantion
+      objectReference: {fileID: 0}
+    - target: {fileID: 8808335371960152587, guid: 8c753b17f6a419144a21f3f9fbfd7eb6, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: bffe2bd035d54a946b6b09649eeed0e1, type: 3}
+    - target: {fileID: 8808335372411815947, guid: 8c753b17f6a419144a21f3f9fbfd7eb6, type: 3}
+      propertyPath: m_text
+      value: "\uCCB4\uB825\uC758 \uD1A0\uD15C\n\uCCB4\uB825\uC744 \uC601\uAD6C\uC801\uC73C\uB85C
+        \uC0C1\uC2B9 \uC2DC\uCF1C \uC8FC\uB098 \uB9DB\uC740 \uC7A5\uB2F4 \uBABB\uD55C\uB2E4.\n\n\uCCB4\uB825
+        +30"
+      objectReference: {fileID: 0}
     - target: {fileID: 8808335372526478320, guid: 8c753b17f6a419144a21f3f9fbfd7eb6, type: 3}
       propertyPath: sceneViewId
       value: 2
