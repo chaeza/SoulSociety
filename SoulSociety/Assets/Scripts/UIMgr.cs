@@ -299,16 +299,18 @@ public class UIMgr : MonoBehaviourPun
             else
                 lose.SetActive(true);
         }
-        GameMgr.Instance.endGame = true;
+
         photonView.StartCoroutine(EndTimer());
+        GameMgr.Instance.endGame = true;
         //PhotonNetwork.LoadLevel("TitleScene");
     }
 
     IEnumerator EndTimer()
     {
         yield return new WaitForSeconds(3);
-        PhotonNetwork.LoadLevel("TitleScene");
+
         PhotonNetwork.LeaveRoom();
+        PhotonNetwork.LoadLevel("TitleScene");
     }
 
 

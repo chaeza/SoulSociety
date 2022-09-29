@@ -74,6 +74,9 @@ public class SwordCrash : MonoBehaviourPun
             {
                 return;
             }
+            myskillRangerect.gameObject.SetActive(false);
+            skilla.SetActive(false);
+
             RaycastHit hit;
             Vector3 desiredDir = Vector3.zero;
             Ray ray = Camera.main.ScreenPointToRay(Pos);
