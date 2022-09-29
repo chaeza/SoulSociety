@@ -222,15 +222,19 @@ public class PlayerInfo : MonoBehaviourPun
         while(playerState!=state.Die)
         {
             yield return new WaitForSeconds(1f);
-            if(curHP<=maxHP) curHP+=HPrecovery;
+            if (curHP >= maxHP)
+                curHP = maxHP;
+            else
+                curHP += HPrecovery;
             myHPbarInfo.SetHP(curHP, maxHP);
             yield return null;
         }
     }
     IEnumerator MyStun(float time)
     {
+        GetComponent<PlayerMove>().MoveStop();
         //GameObject player = PhotonNetwork.Instantiate("Stun", transform.position, Quaternion.identity);
-       // GameMgr.Instance.DestroyTarget(player, time);
+        // GameMgr.Instance.DestroyTarget(player, time);
         yield return new WaitForSeconds(time);
         playerState = state.None;
 

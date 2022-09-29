@@ -39,7 +39,7 @@ public class Skill_basicDash : MonoBehaviour
         {
             if (Vector3.Distance(desiredDir, transform.position) > 0.1f)
             {
-                myAnimator.SetBool("isBasicDash",true);
+                myAnimator.SetTrigger("isBasicDash");
                 navMeshAgent.isStopped = false;
                 navMeshAgent.SetDestination(desiredDir);
             }
@@ -90,7 +90,6 @@ public class Skill_basicDash : MonoBehaviour
     //∏ÿ√„ ¡∂∞«
     public void DashStop()
     {
-        myAnimator.SetBool("isBasicDash", false);
         navMeshAgent.speed = dashSpeed/4;
         navMeshAgent.isStopped = true;
         skillState = SkillState.CoolTime;
