@@ -99,8 +99,7 @@ public class PlayerInfo : MonoBehaviourPun
 
         if (photonView.IsMine == true)
         {
-            if(stunState!=null)
-            StopCoroutine(stunState);
+            if(stunState != null) StopCoroutine(stunState);
             StopCoroutine(RecoveryHp);
             GameMgr.Instance.PunFindObject(viewID2).GetPhotonView().RPC("RPC_redSoul", RpcTarget.All, GameMgr.Instance.redCount);
 
@@ -230,8 +229,8 @@ public class PlayerInfo : MonoBehaviourPun
     }
     IEnumerator MyStun(float time)
     {
-        GameObject player = PhotonNetwork.Instantiate("Stun", transform.position, Quaternion.identity);
-        GameMgr.Instance.DestroyTarget(player.GetPhotonView().ViewID, time);
+        //GameObject player = PhotonNetwork.Instantiate("Stun", transform.position, Quaternion.identity);
+       // GameMgr.Instance.DestroyTarget(player, time);
         yield return new WaitForSeconds(time);
         playerState = state.None;
 
@@ -239,8 +238,8 @@ public class PlayerInfo : MonoBehaviourPun
     IEnumerator MySlow (float time,float slow)
     {
         GetComponent<PlayerMove>().ChageSpeed(GetComponent<PlayerMove>().moveSpeed);
-        GameObject player = PhotonNetwork.Instantiate("Slow", transform.position, Quaternion.identity);
-        GameMgr.Instance.DestroyTarget(player.GetPhotonView().ViewID,time);
+        //GameObject player = PhotonNetwork.Instantiate("Slow", transform.position, Quaternion.identity);
+        //GameMgr.Instance.DestroyTarget(player,time);
         GetComponent<PlayerMove>().ChageSpeed(GetComponent<PlayerMove>().moveSpeed * (1 - (slow / 100)));
         yield return new WaitForSeconds(time);
         GetComponent<PlayerMove>().ChageSpeed(GetComponent<PlayerMove>().moveSpeed);

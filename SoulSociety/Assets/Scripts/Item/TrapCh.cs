@@ -10,11 +10,11 @@ public class TrapCh : MonoBehaviourPun
     {
         if (other.tag != "mainPlayer" && other.tag == "Player")
         {
-            GameObject a = PhotonNetwork.Instantiate("Trap", transform.position, Quaternion.identity);//¿Ã∆Â∆Æ∏¶ ∆˜≈Ê ¿ŒΩ∫≈œΩ∫∏¶ «’¥œ¥Ÿ.
-            other.gameObject.GetPhotonView().RPC("RPC_hit", RpcTarget.All, 10f, gameObject.GetPhotonView().ViewID);
+            GameObject a = PhotonNetwork.Instantiate("Trap", transform.position, Quaternion.identity);//∆¯πﬂ¿Ã∆Â∆Æ
+            other.gameObject.GetPhotonView().RPC("RPC_hit", RpcTarget.All, 10f, gameObject.GetPhotonView().ViewID,state.Stun,1f);
 
-            Destroy(a, 2f);
-            Destroy(gameObject , 2f);
+            GameMgr.Instance.DestroyTarget(a, 2f);
+            GameMgr.Instance.DestroyTarget(gameObject, 2f);
             
         }
     }

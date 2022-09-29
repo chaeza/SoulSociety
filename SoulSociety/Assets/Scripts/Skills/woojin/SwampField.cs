@@ -48,7 +48,7 @@ public class SwampField : MonoBehaviourPun
                 a.transform.position = gameObject.transform.position + new Vector3(0f, 2f, 0f);
                 a.transform.Rotate(-90f, 0f, 0f);
 
-                Destroy(a, 10f);
+                GameMgr.Instance.DestroyTarget(gameObject, 8f);
 
 
 
