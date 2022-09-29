@@ -43,7 +43,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         Screen.SetResolution(1920, 1080, false);
         PhotonNetwork.SendRate = 60;
         PhotonNetwork.SerializationRate = 30;
-        PhotonNetwork.AutomaticallySyncScene = true;
+
     }
     private void Start()
     {
