@@ -150,6 +150,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
             PhotonNetwork.LoadLevel("TitleScene");
             PhotonNetwork.LeaveRoom();
         }
+
     }
 
     /// <summary>
