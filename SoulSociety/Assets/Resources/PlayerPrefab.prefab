@@ -2525,7 +2525,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33e5cc746c8444b459715627a570cf84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 5
 --- !u!114 &7419769239748631481
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2554,9 +2553,7 @@ MonoBehaviour:
   blueSoul: 0
   redSoul: 0
   maxHP: 100
-  curHP: 100
   HPrecovery: 0.5
-  basicAttackDamage: 100
   <playerState>k__BackingField: 0
 --- !u!114 &7852713135524856233
 MonoBehaviour:

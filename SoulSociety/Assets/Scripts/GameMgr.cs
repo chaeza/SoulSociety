@@ -22,6 +22,7 @@ public class GameMgr : Singleton<GameMgr>
     public int dieCount = 0;
     public int redCount = 0;
     public int blueCount = 0;
+    int playerNum = 3;
 
     private void Awake()
     {
@@ -37,12 +38,19 @@ public class GameMgr : Singleton<GameMgr>
         spawnMgr = FindObjectOfType<SpawnMgr>();
         resourceData = Resources.Load<ResourceData>("ResourceData");
     }
-
     public void GetRedSoul(int redsoul)
     {
+        int num = 0;
+        PlayerInfo[] playerinfo = FindObjectsOfType<PlayerInfo>();
+        for (int i = 0; i < playerinfo.Length; i++)
+        {
+            if (playerinfo[i].playerState == state.Die) num++;
+        }
+
+
         if (redsoul == 0) redCount++;
         else redCount += redsoul+1;
-        if (redCount >= 3)
+        if (PhotonNetwork.PlayerList.Length-num==1)
         {
             uIMgr.photonView.RPC("EndGame", RpcTarget.All, 1, redCount);
         }
@@ -56,5 +64,26 @@ public class GameMgr : Singleton<GameMgr>
         {
             uIMgr.photonView.RPC("EndGame", RpcTarget.All,2,blueCount);
         }
+    }
+    public GameObject PunFindObject(int viewID3)//뷰아이디를 넘겨받아 포톤상의 오브젝트를 찾는다.
+    {
+        GameObject find = null;
+        PhotonView[] viewObject = FindObjectsOfType<PhotonView>();
+        for (int i = 0; i < viewObject.Length; i++)
+        {
+            if (viewObject[i].ViewID == viewID3) find = viewObject[i].gameObject;
+        }
+        return find;
+    }
+    public void DestroyTarget(int desObject,float time)
+    {
+        photonView.RPC("PunDestroyObject", RpcTarget.All, desObject, time);
+
+
+    }
+    [PunRPC]
+    public void PunDestroyObject(int viewid,float time)
+    {
+        Destroy(PunFindObject(viewid),time);
     }
 }

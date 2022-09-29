@@ -6,7 +6,7 @@ using UnityEngine.AI;
 
 public class PlayerMove : MonoBehaviourPun
 {
-    [SerializeField] float moveSpeed = 1;
+    [SerializeField] public float moveSpeed { get; set; } = 5;
     PlayerInfo playerInfo;
     Animator myAnimator;
     NavMeshAgent navMeshAgent;
@@ -24,12 +24,20 @@ public class PlayerMove : MonoBehaviourPun
         moveSpeed = 5;
         navMeshAgent.speed = moveSpeed;
     }
+    public void ChageSpeed(float speed)
+    {
+        navMeshAgent.speed = speed;
+    }
 
     private void Update()
     {
         if (GameMgr.Instance.endGame == true) return;
         if (playerInfo.playerState == state.Die) return;
-        if (playerInfo.playerState == state.Stun) return;
+        if (playerInfo.playerState == state.Stun)
+        {
+            isMove = false;
+            return;
+        }
         if (photonView.IsMine == false) return;
         if (Input.mousePosition.x > 85 && Input.mousePosition.x < 170 && Input.mousePosition.y > 25 && Input.mousePosition.y < 105 && GameMgr.Instance) GameMgr.Instance.uIMgr.OnExplantionSkill(true);
         else GameMgr.Instance.uIMgr.OnExplantionSkill(false);
