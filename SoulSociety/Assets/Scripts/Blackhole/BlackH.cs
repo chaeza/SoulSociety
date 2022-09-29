@@ -2,7 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BlackH : MonoBehaviour
+using Photon.Pun;
+
+public class BlackH : MonoBehaviourPun
 {
     // 행성과 별들을 담아 둘 배열을 만든다.
     Collider[] stars;
@@ -64,8 +66,13 @@ public class BlackH : MonoBehaviour
             {
                 // 블랙홀을 꺼버린다.
                 this.gameObject.SetActive(false);
-
-                Destroy(star.gameObject);
+                if (star.tag == "Player" || star.tag == "mainPlayer")
+                {
+                    star.GetComponent<PlayerInfo>().playerState = state.Die;
+                    GameMgr.Instance.GetRedSoul(0);
+                }
+                else
+                    Destroy(star.gameObject);
             }
         }
     }
