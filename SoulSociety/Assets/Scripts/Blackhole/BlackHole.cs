@@ -16,7 +16,7 @@ public class BlackHole : MonoBehaviourPun
     {
         if (PhotonNetwork.IsMasterClient)
         {
-            ran = Random.Range(0, 9);
+            ran = Random.Range(0, 8);
             photonView.RPC("BlackHolePos", RpcTarget.All, ran);
         }
 
