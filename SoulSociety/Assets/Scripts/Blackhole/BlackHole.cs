@@ -2,7 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BlackHole : MonoBehaviour
+using Photon.Pun;
+
+public class BlackHole : MonoBehaviourPun
 {
     [SerializeField] GameObject[] blackHole = null;
     float time = 0;
@@ -12,7 +14,14 @@ public class BlackHole : MonoBehaviour
 
     private void Start()
     {
-        ran = Random.Range(0, 9);     //랜덤 으로 배열에 있는 것을 켜준다
+        if (PhotonNetwork.IsMasterClient)
+        {
+            ran = Random.Range(0, 9);
+            photonView.RPC("BlackHolePos", RpcTarget.All, ran);
+        }
+
+ 
+      //랜덤 으로 배열에 있는 것을 켜준다
     }
 
     private void Update()
@@ -35,5 +44,12 @@ public class BlackHole : MonoBehaviour
             }
         }
     }
+    [PunRPC]
+    public void BlackHolePos(int Ran)
+    {
+        ran = Ran;
+    }
+
+
 }
 
