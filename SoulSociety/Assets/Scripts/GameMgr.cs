@@ -51,7 +51,7 @@ public class GameMgr : Singleton<GameMgr>
         if (redsoul == 0) redCount++;
         else redCount += redsoul+1;
 
-        hpBarInfo.MudererName(photonView.Controller.NickName);
+        
 
         if (PhotonNetwork.PlayerList.Length-num==1)
         {
