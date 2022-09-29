@@ -99,6 +99,7 @@ public class PlayerInfo : MonoBehaviourPun
 
         if (photonView.IsMine == true)
         {
+            if(stunState!=null)
             StopCoroutine(stunState);
             StopCoroutine(RecoveryHp);
             GameMgr.Instance.PunFindObject(viewID2).GetPhotonView().RPC("RPC_redSoul", RpcTarget.All, GameMgr.Instance.redCount);

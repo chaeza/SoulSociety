@@ -83459,6 +83459,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1662544794, guid: 8c753b17f6a419144a21f3f9fbfd7eb6, type: 3}
+      propertyPath: m_RootOrder
+      value: 16
+      objectReference: {fileID: 0}
     - target: {fileID: 6287915290545540305, guid: 8c753b17f6a419144a21f3f9fbfd7eb6, type: 3}
       propertyPath: m_Name
       value: swampFieldExplantion
@@ -83481,6 +83485,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: UIMgr
       objectReference: {fileID: 0}
+    - target: {fileID: 8808335372526478326, guid: 8c753b17f6a419144a21f3f9fbfd7eb6, type: 3}
+      propertyPath: winEff
+      value: 
+      objectReference: {fileID: 2046181930}
     - target: {fileID: 8808335372526478326, guid: 8c753b17f6a419144a21f3f9fbfd7eb6, type: 3}
       propertyPath: skill.Array.data[2]
       value: 
@@ -91319,6 +91327,11 @@ PrefabInstance:
 --- !u!4 &2046181929 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4249281835466652, guid: 26255240385821a4185c7163c7a7aec6, type: 3}
+  m_PrefabInstance: {fileID: 2046181928}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2046181930 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1032870836932200, guid: 26255240385821a4185c7163c7a7aec6, type: 3}
   m_PrefabInstance: {fileID: 2046181928}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2046578190
