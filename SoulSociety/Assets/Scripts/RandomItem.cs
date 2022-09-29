@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class RandomItem : MonoBehaviour
 {
-    int itemNum = 3;//총 아이템 갯수
+    int itemNum = 4;//총 아이템 갯수
     int itemRan = 0;//랜덤으로 뽑을 아이템 번호
     public void GetRandomitem(GameObject player)// 랜덤아이템 지급
     {
@@ -39,7 +39,7 @@ public class RandomItem : MonoBehaviour
             }
             else if (itemRan == 3 && GameMgr.Instance.inventory.ContainInventory(3) == false)
             {
-                player.AddComponent<Item4>();
+                player.AddComponent<Slash>();
                 Cheak(player);
                 GameMgr.Instance.inventory.AddInventory(itemRan);
                 break;
