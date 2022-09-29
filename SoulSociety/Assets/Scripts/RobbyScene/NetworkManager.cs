@@ -83,7 +83,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     {
         if (string.IsNullOrEmpty(PhotonNetwork.NickName) == true)
             return;
-
+       
         // PhotonNetwork.JoinOrCreateRoom("myroom", new RoomOptions { MaxPlayers = 4 }, null);
 
         //조인랜덤룸으로 생성방 우선 참가로직 
@@ -107,6 +107,22 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     public override void OnJoinedRoom()
     {
         Debug.Log("새로운 플레이어가 참가하셨습니다");
+        Player[] nickNameCheck = PhotonNetwork.PlayerList;
+        int checkNum=0;
+        for (int i = 0; i < PhotonNetwork.PlayerList.Length; i++)
+        {
+            if (nickNameCheck[i].NickName == PhotonNetwork.NickName)
+            {
+                checkNum++;
+                if (checkNum > 1)
+                {
+
+                    PhotonNetwork.LeaveRoom();
+                    PhotonNetwork.LoadLevel("TitleScene");
+                }
+            }
+        }
+
         myReadyState = ReadyState.UnReady;
         SortedPlayer();
     }

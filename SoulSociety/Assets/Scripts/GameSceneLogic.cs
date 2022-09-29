@@ -34,7 +34,6 @@ public class GameSceneLogic : MonoBehaviourPunCallbacks
             if (myNum == 3) pos = new Vector3(7f, 50, -7);
 
 
-
             GameObject player = PhotonNetwork.Instantiate("PlayerPrefab", pos, Quaternion.identity);
             GameMgr.Instance.followCam.playerStart(player.transform);
 
@@ -43,10 +42,8 @@ public class GameSceneLogic : MonoBehaviourPunCallbacks
             {
                 GameMgr.Instance.spawnMgr.photonView.RPC("ItemInit", RpcTarget.MasterClient);
                 GameMgr.Instance.spawnMgr.photonView.RPC("SoulInit", RpcTarget.MasterClient);
+                PhotonNetwork.CurrentRoom.IsOpen = false;
             }
-
-
-
         }
     }
     //마스터클라이언트가 바뀌면 호출되는 함수

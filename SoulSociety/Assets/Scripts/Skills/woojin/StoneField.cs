@@ -6,9 +6,22 @@ using Photon.Pun;
 
 public class StoneField : MonoBehaviourPun , SkillMethod
 {
+    int skillRange = 10;
     bool skillCool = false;
     bool skillClick = false;
     ResourceData eff;
+
+    RectTransform myskillRangerect = null;
+    GameObject skilla;
+    private void Start()
+    {
+        myskillRangerect = GetComponentInChildren<SkillRange>().gameObject.GetComponent<RectTransform>();
+        myskillRangerect.gameObject.SetActive(false);
+
+        skilla = GameObject.Find("Skilla");
+        skilla.SetActive(false);
+    }
+
     public void ResetCooltime()
     {
         skillCool = false;//스킬을 다시 사용 가능하게함
@@ -18,14 +31,43 @@ public class StoneField : MonoBehaviourPun , SkillMethod
     {
         if (skillCool == false)
         {
-            if (skillClick == false) skillClick = true;
+            if (skillClick == false)
+            {
+                skilla.SetActive(true);
+                myskillRangerect.gameObject.SetActive(true);
+                myskillRangerect.sizeDelta = new Vector2(skillRange, skillRange);
+
+                skillClick = true;
+            } 
+            
             else skillClick = false;
+        }
+    }
+
+    private void Update()
+    {
+        if (skillClick == true)
+        {
+
+            Vector3 mousePos = Input.mousePosition;
+
+            Vector3 target;
+            target.x = mousePos.x;
+            target.y = mousePos.y;
+            target.z = 0;
+
+            skilla.transform.position = target;
+
         }
     }
     public void SkillClick(Vector3 Pos)
     {
         if (skillClick == true)
         {
+
+            myskillRangerect.gameObject.SetActive(false);
+            skilla.SetActive(false);
+
             RaycastHit hit;
             Vector3 desiredDir = Vector3.zero;
             Ray ray = Camera.main.ScreenPointToRay(Pos);
