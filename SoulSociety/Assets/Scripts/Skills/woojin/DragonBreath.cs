@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 
-public class DragonBreath : MonoBehaviourPun
+public class DragonBreath : MonoBehaviourPun , SkillMethod
 {
     int skillRange = 10;
     bool skillCool = false;
@@ -91,7 +91,7 @@ public class DragonBreath : MonoBehaviourPun
             }
             if (skillCool == false)//스킬 사용 가능이면
             {
-                GameObject a = PhotonNetwork.Instantiate("SwampField", transform.position, Quaternion.identity);//이펙트를 포톤 인스턴스를 합니다.
+                GameObject a = PhotonNetwork.Instantiate("DragonBreath", transform.position, Quaternion.identity);//이펙트를 포톤 인스턴스를 합니다.
                 a.AddComponent<SkillHit>();//이펙트에 히트 스크립트를 넣습니다.
                 a.SendMessage("AttackerName", gameObject.GetPhotonView().ViewID, SendMessageOptions.DontRequireReceiver);//이펙트에 공격자를 지정합니다.
 

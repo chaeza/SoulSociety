@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 
-public class SwordRain : MonoBehaviourPun
+public class SwordRain : MonoBehaviourPun , SkillMethod
 {
     int skillRange = 10;
     bool skillCool = false;

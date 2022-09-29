@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
-public class Item4 : MonoBehaviour, ItemMethod
+public class Slash : MonoBehaviourPun, ItemMethod
 {
     [SerializeField]
     int itemNum = 0;
@@ -21,8 +22,14 @@ public class Item4 : MonoBehaviour, ItemMethod
     }
     public void ItemSkill()
     {
+        GameObject a = PhotonNetwork.Instantiate("Slash", transform.position, Quaternion.identity);//이펙트를 포톤 인스턴스를 합니다.
+       // gameObject.GetComponent<PlayerInfo>();
+
+       // GameMgr.Instance.DestroyTarget(a, 2f);
+
+
         GameMgr.Instance.uIMgr.UseItem(itemNum);
         GameMgr.Instance.inventory.RemoveInventory(itemNum);
-        Destroy(GetComponent<Item4>());
+        Destroy(GetComponent<Slash>());
     }
 }
