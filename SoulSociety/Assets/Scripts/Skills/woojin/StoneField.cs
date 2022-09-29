@@ -44,8 +44,9 @@ public class StoneField : MonoBehaviourPun , SkillMethod
                 GameObject a = PhotonNetwork.Instantiate("StonField", transform.position, Quaternion.identity);//이펙트를 포톤 인스턴스를 합니다.
                 a.AddComponent<SkillHit>();//이펙트에 히트 스크립트를 넣습니다.
                 a.SendMessage("AttackerName", gameObject.GetPhotonView().ViewID, SendMessageOptions.DontRequireReceiver);//이펙트에 공격자를 지정합니다.
-                
+                a.transform.LookAt(desiredDir);
                 a.transform.Rotate(-90, 0, 0);
+               
 
                 // StartCoroutine(Fire(a));//큐브 이동시키는 코루틴
                 skillCool = true;//쿨타임 온 시켜 다시 사용 못하게함

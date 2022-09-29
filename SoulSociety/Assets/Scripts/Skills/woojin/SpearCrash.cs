@@ -82,11 +82,15 @@ public class SpearCrash : MonoBehaviour
             }
             if (skillCool == false)//스킬 사용 가능이면
             {
-                GameObject a = PhotonNetwork.Instantiate("SpearCrash", desiredDir, Quaternion.identity);//이펙트를 포톤 인스턴스를 합니다.
+                GameObject a = PhotonNetwork.Instantiate("SpearCrash", transform.position, Quaternion.identity);//이펙트를 포톤 인스턴스를 합니다.
                 a.AddComponent<SkillHit>();//이펙트에 히트 스크립트를 넣습니다.
                 a.SendMessage("AttackerName", gameObject.GetPhotonView().ViewID, SendMessageOptions.DontRequireReceiver);//이펙트에 공격자를 지정합니다.
 
-                a.transform.Rotate(-70, 0, 0);
+                a.transform.LookAt(desiredDir);
+                a.transform.position = gameObject.transform.position + new Vector3(3f,3f,0f);
+               a.transform.Rotate(-100f, 0f, 0f);
+
+                
 
                 skillCool = true;//쿨타임 온 시켜 다시 사용 못하게함
                 skillClick = false;

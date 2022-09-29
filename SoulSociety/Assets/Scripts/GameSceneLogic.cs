@@ -17,11 +17,11 @@ public class GameSceneLogic : MonoBehaviourPunCallbacks
     }
     void Start()
     {
-        Vector3 pos= Vector3.zero;
+        Vector3 pos = Vector3.zero;
         Player[] sortedPlayers = PhotonNetwork.PlayerList;
-        for(int i = 0; i < sortedPlayers.Length; i++)
+        for (int i = 0; i < sortedPlayers.Length; i++)
         {
-            if(sortedPlayers[i].NickName == PhotonNetwork.NickName)
+            if (sortedPlayers[i].NickName == PhotonNetwork.NickName)
             {
                 myNum = i;
             }
@@ -32,12 +32,16 @@ public class GameSceneLogic : MonoBehaviourPunCallbacks
             if (myNum == 1) pos = new Vector3(-2f, 50, -7);
             if (myNum == 2) pos = new Vector3(2f, 50, -7);
             if (myNum == 3) pos = new Vector3(7f, 50, -7);
-      
+
             GameObject player = PhotonNetwork.Instantiate("PlayerPrefab", pos, Quaternion.identity);
-            spawnMgr.ItemInit();
-            spawnMgr.SoulInit();
             GameMgr.Instance.followCam.playerStart(player.transform);
-            
+
+            //내가 마스터클라이언트일 경우만 아이템 및 파란 영혼 생성
+            if (PhotonNetwork.IsMasterClient)
+            {
+                GameMgr.Instance.spawnMgr.photonView.RPC("ItemInit", RpcTarget.MasterClient);
+                GameMgr.Instance.spawnMgr.photonView.RPC("SoulInit", RpcTarget.MasterClient);
+            }
         }
     }
     //마스터클라이언트가 바뀌면 호출되는 함수
