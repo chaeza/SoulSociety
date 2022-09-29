@@ -97,7 +97,7 @@ public class SwordCrash : MonoBehaviourPun
                 a.transform.position = gameObject.transform.position + new Vector3(2f, 0f, 0f);
                 //a.transform.Rotate(-100f, 0f, 0f);
 
-                GameMgr.Instance.DestroyTarget(gameObject, 4f);  //4초뒤 삭제
+                GameMgr.Instance.DestroyTarget(a, 4f);  //4초뒤 삭제
 
                 skillCool = true;//쿨타임 온 시켜 다시 사용 못하게함
                 skillClick = false;
