@@ -48,36 +48,44 @@ public class PlayerAttack : MonoBehaviourPun
             switch (motionNum)
             {
                 case 0:
-                    myAnimator.SetTrigger("isAttack1");
-                    GameObject eff = PhotonNetwork.Instantiate("BasicAttackEff", transform.position, Quaternion.identity);
-                    GameMgr.Instance.DestroyTarget(eff.GetPhotonView().ViewID,0.5f);
-                    break;
+                    {
+                        myAnimator.SetTrigger("isAttack1");
+                        break;
+                    }
                 case 1:
-                    myAnimator.SetTrigger("isAttack2");
-                    break;
+                    {
+                        myAnimator.SetTrigger("isAttack2");
+                        break;
+                    }
                 case 2:
-                    myAnimator.SetTrigger("isAttack3");
-                    break;
+                    {
+                        myAnimator.SetTrigger("isAttack3");
+                        break;
+                    }
             }
             //코루틴으로 딜레이 생성
           //  StartCoroutine(AttackDelay());
 
-            photonView.StartCoroutine(AttackDelay());
+            photonView.StartCoroutine(AttackDelay(motionNum));
         }
         //사운드
         //전달 함수 
         
     }
     //평타 딜레이 
-    IEnumerator AttackDelay()
+    IEnumerator AttackDelay(int a)
     {
         Debug.Log("공격");
         //hitBox.SetActive(true) ;  
+        GameObject eff = PhotonNetwork.Instantiate("BasicAttackEff", transform.position + new Vector3(0, 1, 0), Quaternion.identity);
+        GameMgr.Instance.DestroyTarget(eff.GetPhotonView().ViewID, 0.5f);
+        if(a==0||a==1) eff.transform.Rotate(0, 0, -45);
         hitBox.GetComponentInChildren<BoxCollider>().enabled = true;
         GetComponent<PlayerMove>().MoveStop();
-        yield return new WaitForSeconds(1);
-        //hitBox.SetActive(false) ;  
+        yield return new WaitForSeconds(0.1f);
         hitBox.GetComponentInChildren<BoxCollider>().enabled =false;
+        yield return new WaitForSeconds(0.9f);
+        //hitBox.SetActive(false) ;  
         isAttack = true;
     }
 
