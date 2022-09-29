@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 
-public class SwordRain : MonoBehaviour
+public class SwordRain : MonoBehaviourPun
 {
 
     bool skillCool = false;

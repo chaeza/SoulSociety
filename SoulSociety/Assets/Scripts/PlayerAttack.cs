@@ -49,6 +49,8 @@ public class PlayerAttack : MonoBehaviourPun
             {
                 case 0:
                     myAnimator.SetTrigger("isAttack1");
+                    GameObject eff = PhotonNetwork.Instantiate("BasicAttackEff", transform.position, Quaternion.identity);
+                    GameMgr.Instance.DestroyTarget(eff.GetPhotonView().ViewID,0.5f);
                     break;
                 case 1:
                     myAnimator.SetTrigger("isAttack2");
