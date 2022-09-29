@@ -38,6 +38,7 @@ public class UIMgr : MonoBehaviourPun
     bool[] blueSetBool = new bool[25];
     string[] sortedPlayer=new string[4];
     bool nickSave;
+
     private void Update()
     {
         if (GameMgr.Instance.playerInput.inputKey == KeyCode.Tab)
@@ -309,8 +310,17 @@ public class UIMgr : MonoBehaviourPun
     {
         yield return new WaitForSeconds(3);
 
-        PhotonNetwork.LeaveRoom();
+   
+        if (PhotonNetwork.IsMasterClient)
+        {
+            PhotonNetwork.AutomaticallySyncScene = true;
+            PhotonNetwork.LoadLevel("TitleScene");
+            PhotonNetwork.LeaveRoom();
+
+        }
         PhotonNetwork.LoadLevel("TitleScene");
+        PhotonNetwork.LeaveRoom();
+
     }
 
 

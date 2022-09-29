@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 using UnityEngine.AI;
+using Photon.Pun;
 
-
-public class Skill_basicDash : MonoBehaviour
+public class Skill_basicDash : MonoBehaviourPun
 {
     Animator myAnimator;
     NavMeshAgent navMeshAgent;
@@ -44,7 +44,8 @@ public class Skill_basicDash : MonoBehaviour
                 navMeshAgent.SetDestination(desiredDir);
             }
             else
-                DashStop();
+                photonView.RPC("DashStop", RpcTarget.AllBuffered, "isBasicDash");
+            //DashStop();
         }
     }
     public void DashFire()
@@ -85,10 +86,12 @@ public class Skill_basicDash : MonoBehaviour
     IEnumerator DashTimer()
     {
         yield return new WaitForSeconds(0.2f);
-        DashStop();
+        photonView.RPC("DashStop", RpcTarget.AllBuffered, "isBasicDash");
+        //DashStop();
     }
     //∏ÿ√„ ¡∂∞«
-    public void DashStop()
+    [PunRPC]
+    public void DashStop(string moti)
     {
         myAnimator.SetBool("isBasicDash", false);
         navMeshAgent.speed = dashSpeed/4;
