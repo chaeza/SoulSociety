@@ -6,6 +6,12 @@ using Photon.Pun;
 public class Trap : MonoBehaviourPun, ItemMethod
 {
     int itemNum = 0;
+    GameObject TrapE;
+    int MakerViewID;
+    private void Start()
+    {
+        MakerViewID = gameObject.GetComponent<PhotonView>().ViewID;
+    }
 
     public void GetItem(int itemnum)
     {
@@ -24,7 +30,10 @@ public class Trap : MonoBehaviourPun, ItemMethod
     {
 
         GameObject a = PhotonNetwork.Instantiate("TrapTrigger", transform.position, Quaternion.identity);//이펙트를 포톤 인스턴스를 합니다.
-        Instantiate(GameMgr.Instance.resourceData.myTrapEff , transform.position, Quaternion.identity);
+        a.AddComponent<TrapCh>();
+        a.GetPhotonView().RPC("GetMasterName", RpcTarget.All, MakerViewID);
+        TrapE =  Instantiate(GameMgr.Instance.resourceData.myTrapEff , transform.position, Quaternion.identity);
+        a.GetComponent<TrapCh>().TrapEffInfo(TrapE);
         GameMgr.Instance.uIMgr.UseItem(itemNum);
         GameMgr.Instance.inventory.RemoveInventory(itemNum);
         Destroy(GetComponent<Trap>());
