@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 4164026981177800}
   - component: {fileID: 114910476275396980}
   - component: {fileID: 114660271324207670}
-  - component: {fileID: 6393290884115322335}
-  - component: {fileID: 6007495447391409344}
-  - component: {fileID: 1029609527}
+  - component: {fileID: 1097303544662131048}
+  - component: {fileID: -1124105792162872603}
+  - component: {fileID: 9203225199931800257}
   m_Layer: 0
   m_Name: StonField
   m_TagString: Untagged
@@ -28,14 +28,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1292620793183676}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
-  m_ConstrainProportionsScale: 1
+  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!114 &114910476275396980
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -49,7 +49,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_makeObjs:
-  - {fileID: 1337597010503274, guid: 4ca16c667275fc641840424d987ab2e6, type: 3}
+  - {fileID: 1337597010503274, guid: 90b5309df1b294443b6a30d3dfecae4d, type: 3}
   m_movePos: {fileID: 0}
   m_randomRotationValue: {x: 0, y: 0, z: 0}
 --- !u!114 &114660271324207670
@@ -69,7 +69,7 @@ MonoBehaviour:
   m_fowardMove: 1
   m_rightMove: 0
   m_upMove: 0
---- !u!114 &6393290884115322335
+--- !u!114 &1097303544662131048
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -88,11 +88,11 @@ MonoBehaviour:
   OwnershipTransfer: 0
   observableSearch: 2
   ObservedComponents:
-  - {fileID: 6007495447391409344}
+  - {fileID: -1124105792162872603}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
---- !u!114 &6007495447391409344
+--- !u!114 &-1124105792162872603
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -108,7 +108,7 @@ MonoBehaviour:
   m_SynchronizeRotation: 1
   m_SynchronizeScale: 0
   m_UseLocal: 1
---- !u!65 &1029609527
+--- !u!65 &9203225199931800257
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -119,5 +119,5 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 5.94, y: 25.24, z: 10}
-  m_Center: {x: 0, y: 12.6, z: 3.83}
+  m_Size: {x: 3.96, y: 12.2, z: 3.5}
+  m_Center: {x: 0, y: 6.54, z: 0.15}
