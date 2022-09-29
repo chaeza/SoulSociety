@@ -12,7 +12,7 @@ public class RandomSkill : MonoBehaviour
         if (skillRan == 0) player.AddComponent<StoneField>();
         if (skillRan == 1) player.AddComponent<SwordCrash>();
         if (skillRan == 2) player.AddComponent<SwordRain>();
-        if (skillRan == 3) player.AddComponent<DeathVortex>();
+        if (skillRan == 3) player.AddComponent<SwampField>();
         GameMgr.Instance.uIMgr.SkillUI(skillRan);
     }
     
