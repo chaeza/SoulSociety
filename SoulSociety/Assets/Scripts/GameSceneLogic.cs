@@ -10,6 +10,7 @@ public class GameSceneLogic : MonoBehaviourPunCallbacks
 {
     int myNum = -1;
     SpawnMgr spawnMgr = null;
+    [SerializeField] GameObject[] posStart;
 
     private void Awake()
     {
@@ -28,10 +29,10 @@ public class GameSceneLogic : MonoBehaviourPunCallbacks
         }
         if (PhotonNetwork.IsConnected)
         {
-            if (myNum == 0) pos = new Vector3(-7f, 50, -7);
-            if (myNum == 1) pos = new Vector3(-2f, 50, -7);
-            if (myNum == 2) pos = new Vector3(2f, 50, -7);
-            if (myNum == 3) pos = new Vector3(7f, 50, -7);
+            if (myNum == 0) pos = posStart[0].transform.position;
+            if (myNum == 1) pos = posStart[1].transform.position;
+            if (myNum == 2) pos = posStart[2].transform.position;
+            if (myNum == 3) pos = posStart[3].transform.position;
 
 
             GameObject player = PhotonNetwork.Instantiate("PlayerPrefab", pos, Quaternion.identity);
