@@ -35,6 +35,8 @@ public class UIMgr : MonoBehaviourPun
     [SerializeField] Text[] playerNick = null;
     bool[] redSetBool = new bool[15];
     bool[] blueSetBool = new bool[25];
+    string[] sortedPlayer=new string[4];
+    bool nickSave;
     private void Update()
     {
         if (GameMgr.Instance.playerInput.inputKey == KeyCode.Tab)
@@ -52,8 +54,17 @@ public class UIMgr : MonoBehaviourPun
     }
     public void TabNickName(int Num,state myState)
     {
-        Player[] sortedPlayers = PhotonNetwork.PlayerList;
-        playerNick[Num].text = sortedPlayers[Num].NickName;
+        if(nickSave==false)
+        {
+            nickSave=true;
+            Player[] sortedPlayers = PhotonNetwork.PlayerList;
+            for(int i = 0; i < sortedPlayers.Length; i++)
+            {
+                sortedPlayer[i] = sortedPlayers[i].NickName;
+            }
+
+        }
+        playerNick[Num].text = sortedPlayer[Num];
         if (myState == state.Die) playerNick[Num].color = Color.red;
     }
     public void RedTabSoul(int Num, int Rnum)

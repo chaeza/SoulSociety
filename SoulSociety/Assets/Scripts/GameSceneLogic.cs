@@ -54,4 +54,14 @@ public class GameSceneLogic : MonoBehaviourPunCallbacks
     {
         Debug.Log("마스터 클라이언트 변경:" + newMasterClient.ToString());
     }
+    //public override void OnPlayerLeftRoom(Player otherPlayer)
+    //{
+    //    int num = 0;
+    //    PlayerInfo[] playerNum =FindObjectsOfType<PlayerInfo>();
+    //    for(int i=0;i<playerNum.Length;i++)
+    //    {
+    //        if (playerNum[i].playerState == state.Die) num++;
+    //    }
+    //    GameMgr.Instance.PlayerNum(num);
+    //}
 }

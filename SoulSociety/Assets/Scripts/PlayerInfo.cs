@@ -21,10 +21,10 @@ public class PlayerInfo : MonoBehaviourPun
     [SerializeField] int blueSoul = 0;
     [SerializeField] int redSoul = 0;
     [SerializeField] float maxHP = 100;
-    private float curHP = 100;
+    private float curHP = 50;
     [SerializeField] float HPrecovery = 0.5f;
-    [SerializeField] float basicAttackDamage = 10;
-    float damageDecrease = 0; // 데미지 감소
+    public float basicAttackDamage { get; set; } = 10;
+    public float damageDecrease { get; set; } = 0; // 데미지 감소
 
     HpBarInfo myHPbarInfo = null;
 
@@ -32,12 +32,14 @@ public class PlayerInfo : MonoBehaviourPun
     GameObject myHit;
     int myNum = 0;
     [field:SerializeField] public state playerState { get; set; } = state.None;//플레이어 상태
-
+    Coroutine RecoveryHp=null;
+    Coroutine stunState = null;
+    Coroutine slowState = null;
     private void Start()
     {
         myHPbarInfo = GetComponentInChildren<HpBarInfo>();
         myHPbarInfo.SetName(photonView.Controller.NickName);
-
+        RecoveryHp  = StartCoroutine(HPRecovery());//체력회복 코루틴 실행
         myAnimator = GetComponent<Animator>();
         if (photonView.IsMine == true)
         {
@@ -64,15 +66,27 @@ public class PlayerInfo : MonoBehaviourPun
     {
         if (other.tag != "mainPlayer" && other.tag == "Player")
         {
-            other.gameObject.GetPhotonView().RPC("RPC_hit", RpcTarget.All,basicAttackDamage,gameObject.GetPhotonView().ViewID);
+            other.gameObject.GetPhotonView().RPC("RPC_hit", RpcTarget.All,basicAttackDamage,gameObject.GetPhotonView().ViewID,state.None,0f);
         }
         
     }
     [PunRPC]
-    void RPC_hit(float bAD,int viewID1)
+    void RPC_hit(float bAD,int viewID1,state st,float time)
     {
-        if (playerState==state.Die) return;
-        curHP -= bAD;
+        if (playerState == state.Die) return;
+        if (playerState == state.Unbeatable) return;//무적일시 맞지 않음
+        if(st==state.Stun)
+        {
+            playerState = state.Stun;
+            if(stunState!=null) StopCoroutine(stunState);
+            stunState= StartCoroutine(MyStun(time));
+        }
+        if(st==state.Slow)
+        {
+            if (slowState != null) StopCoroutine(slowState);
+            slowState= StartCoroutine(MySlow(time,bAD));
+        }
+        if (st != state.Slow) curHP -= bAD* (1-damageDecrease);// 1에 데미지감소를 빼줘서 받는 데미지감소
         myHPbarInfo.SetHP(curHP, maxHP);
         if (curHP <= 0)
             photonView.RPC("RPC_Die", RpcTarget.All,viewID1);
@@ -85,6 +99,7 @@ public class PlayerInfo : MonoBehaviourPun
 
         if (photonView.IsMine == true)
         {
+            StopCoroutine(RecoveryHp);
             PunFindObject(viewID2).GetPhotonView().RPC("RPC_redSoul", RpcTarget.All, GameMgr.Instance.redCount);
 
             GameMgr.Instance.uIMgr.MyRedSoul(0);
@@ -92,6 +107,7 @@ public class PlayerInfo : MonoBehaviourPun
         playerState = state.Die;
         myAnimator.SetTrigger("isDie");
         gameObject.tag = "DiePlayer";
+        if (photonView.IsMine == true) photonView.RPC("TabUpdate", RpcTarget.All, myNum, state.Die, 1, 0);//자신의 번호를 넘겨 탭상태를 갱신합니다.
         if (photonView.IsMine == true) photonView.RPC("TabUpdate", RpcTarget.All, myNum, playerState, 2,0);//자신의 번호를 넘겨 탭상태를 갱신합니다.
         //Destroy(gameObject, 3f);
     }
@@ -101,7 +117,6 @@ public class PlayerInfo : MonoBehaviourPun
         if (photonView.IsMine == true)
         {
             GameMgr.Instance.GetRedSoul(redcount);
-            photonView.RPC("TabUpdate", RpcTarget.All, myNum, playerState, 1,0);//자신의 번호를 넘겨 탭상태를 갱신합니다.
             photonView.RPC("TabUpdate", RpcTarget.All, myNum, playerState, 2, GameMgr.Instance.redCount);//자신의 번호를 넘겨 탭상태를 갱신합니다.
             photonView.RPC("TabUpdate", RpcTarget.All, myNum, playerState, 3, 0);//자신의 번호를 넘겨 탭상태를 갱신합니다.
         }
@@ -210,5 +225,32 @@ public class PlayerInfo : MonoBehaviourPun
         {
             GameMgr.Instance.uIMgr.BlueTabSoul(Num, Num3);
         }
+    }
+    IEnumerator HPRecovery()
+    {
+        while(playerState!=state.Die)
+        {
+            yield return new WaitForSeconds(1f);
+            if(curHP<=maxHP) curHP+=HPrecovery;
+            myHPbarInfo.SetHP(curHP, maxHP);
+            yield return null;
+        }
+    }
+    IEnumerator MyStun(float time)
+    {
+        GameObject player = PhotonNetwork.Instantiate("Stun", transform.position, Quaternion.identity);
+        Destroy(player,time);
+        yield return new WaitForSeconds(time);
+        playerState = state.None;
+
+    }
+    IEnumerator MySlow (float time,float slow)
+    {
+        GetComponent<PlayerMove>().ChageSpeed(GetComponent<PlayerMove>().moveSpeed);
+        GameObject player = PhotonNetwork.Instantiate("Slow", transform.position, Quaternion.identity);
+        Destroy(player, time);
+        GetComponent<PlayerMove>().ChageSpeed(GetComponent<PlayerMove>().moveSpeed * (1 - (slow / 100)));
+        yield return new WaitForSeconds(time);
+        GetComponent<PlayerMove>().ChageSpeed(GetComponent<PlayerMove>().moveSpeed);
     }
 }

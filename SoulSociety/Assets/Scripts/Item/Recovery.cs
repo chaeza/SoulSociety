@@ -14,7 +14,6 @@ public class Recovery : MonoBehaviourPun, ItemMethod//아이템 인터페이스 상속
     {
         if (itemNum == 0)
             itemNum = itemnum;
-        playerInfo = GetComponent<PlayerInfo>();
     }
 
     public void ItemFire()//플레이어 Attack에서 키입력시 해당 아이템의 인벤토리 위치를 비교하여 아이템 스킬 사용 
@@ -29,7 +28,7 @@ public class Recovery : MonoBehaviourPun, ItemMethod//아이템 인터페이스 상속
         // 스킬 구현
 
         GameObject a = PhotonNetwork.Instantiate("Recovery", transform.position, Quaternion.identity);//이펙트를 포톤 인스턴스를 합니다.
-        playerInfo.HP += 30f;
+        //playerInfo.HP += 30f;
 
         //
         GameMgr.Instance.uIMgr.UseItem(itemNum);
