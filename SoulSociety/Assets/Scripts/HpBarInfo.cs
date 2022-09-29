@@ -44,6 +44,8 @@ public class HpBarInfo : MonoBehaviourPun
         nickname.text = name;
     }
 
+    
+
     //hp Ãâ·Â
     public void SetHP(float curHP, float maxHP)
     {

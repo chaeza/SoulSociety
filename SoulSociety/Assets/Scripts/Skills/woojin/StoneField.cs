@@ -13,6 +13,8 @@ public class StoneField : MonoBehaviourPun , SkillMethod
 
     RectTransform myskillRangerect = null;
     GameObject skilla;
+
+    Vector3 canSkill;
     private void Start()
     {
         myskillRangerect = GetComponentInChildren<SkillRange>().gameObject.GetComponent<RectTransform>();
@@ -58,13 +60,22 @@ public class StoneField : MonoBehaviourPun , SkillMethod
 
             skilla.transform.position = target;
 
+            RaycastHit hit;
+
+            Ray ray = Camera.main.ScreenPointToRay(mousePos);
+            Physics.Raycast(Camera.main.ScreenPointToRay(mousePos), out hit, 30f);
+            canSkill = hit.point;
+            canSkill.y = transform.position.y;
         }
     }
     public void SkillClick(Vector3 Pos)
     {
         if (skillClick == true)
         {
-
+            if(Vector3.Distance(canSkill, transform.position) > skillRange/2)
+            {
+                return;
+            }
             myskillRangerect.gameObject.SetActive(false);
             skilla.SetActive(false);
 

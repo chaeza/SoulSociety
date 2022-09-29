@@ -5,9 +5,24 @@ using Photon.Pun;
 
 public class SwordCrash : MonoBehaviourPun
 {
+    int skillRange = 10;
     bool skillCool = false;
     bool skillClick = false;
     ResourceData eff;
+
+    RectTransform myskillRangerect = null;
+    GameObject skilla;
+
+    Vector3 canSkill;
+    private void Start()
+    {
+        myskillRangerect = GetComponentInChildren<SkillRange>().gameObject.GetComponent<RectTransform>();
+        myskillRangerect.gameObject.SetActive(false);
+
+        skilla = GameObject.Find("Skilla");
+        skilla.SetActive(false);
+    }
+
     public void ResetCooltime()
     {
         skillCool = false;//스킬을 다시 사용 가능하게함
@@ -17,14 +32,48 @@ public class SwordCrash : MonoBehaviourPun
     {
         if (skillCool == false)
         {
-            if (skillClick == false) skillClick = true;
+            if (skillClick == false)
+            {
+                skilla.SetActive(true);
+                myskillRangerect.gameObject.SetActive(true);
+                myskillRangerect.sizeDelta = new Vector2(skillRange, skillRange);
+
+                skillClick = true;
+            }
+
             else skillClick = false;
+        }
+    }
+    private void Update()
+    {
+        if (skillClick == true)
+        {
+
+            Vector3 mousePos = Input.mousePosition;
+
+            Vector3 target;
+            target.x = mousePos.x;
+            target.y = mousePos.y;
+            target.z = 0;
+
+            skilla.transform.position = target;
+
+            RaycastHit hit;
+
+            Ray ray = Camera.main.ScreenPointToRay(mousePos);
+            Physics.Raycast(Camera.main.ScreenPointToRay(mousePos), out hit, 30f);
+            canSkill = hit.point;
+            canSkill.y = transform.position.y;
         }
     }
     public void SkillClick(Vector3 Pos)
     {
         if (skillClick == true)
         {
+            if (Vector3.Distance(canSkill, transform.position) > skillRange / 2)
+            {
+                return;
+            }
             RaycastHit hit;
             Vector3 desiredDir = Vector3.zero;
             Ray ray = Camera.main.ScreenPointToRay(Pos);
