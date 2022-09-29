@@ -33,6 +33,7 @@ public class GameSceneLogic : MonoBehaviourPunCallbacks
             if (myNum == 2) pos = new Vector3(2f, 50, -7);
             if (myNum == 3) pos = new Vector3(7f, 50, -7);
 
+
             GameObject player = PhotonNetwork.Instantiate("PlayerPrefab", pos, Quaternion.identity);
             GameMgr.Instance.followCam.playerStart(player.transform);
 
@@ -41,6 +42,7 @@ public class GameSceneLogic : MonoBehaviourPunCallbacks
             {
                 GameMgr.Instance.spawnMgr.photonView.RPC("ItemInit", RpcTarget.MasterClient);
                 GameMgr.Instance.spawnMgr.photonView.RPC("SoulInit", RpcTarget.MasterClient);
+                PhotonNetwork.CurrentRoom.IsOpen = false;
             }
         }
     }
@@ -49,4 +51,14 @@ public class GameSceneLogic : MonoBehaviourPunCallbacks
     {
         Debug.Log("마스터 클라이언트 변경:" + newMasterClient.ToString());
     }
+    //public override void OnPlayerLeftRoom(Player otherPlayer)
+    //{
+    //    int num = 0;
+    //    PlayerInfo[] playerNum =FindObjectsOfType<PlayerInfo>();
+    //    for(int i=0;i<playerNum.Length;i++)
+    //    {
+    //        if (playerNum[i].playerState == state.Die) num++;
+    //    }
+    //    GameMgr.Instance.PlayerNum(num);
+    //}
 }
