@@ -33,6 +33,11 @@ public class GameSceneLogic : MonoBehaviourPunCallbacks
             if (myNum == 2) pos = new Vector3(2f, 50, -7);
             if (myNum == 3) pos = new Vector3(7f, 50, -7);
 
+            if (PhotonNetwork.IsMasterClient)
+            {
+                PhotonNetwork.CurrentRoom.IsOpen = false;
+            }
+
             GameObject player = PhotonNetwork.Instantiate("PlayerPrefab", pos, Quaternion.identity);
             GameMgr.Instance.followCam.playerStart(player.transform);
 
