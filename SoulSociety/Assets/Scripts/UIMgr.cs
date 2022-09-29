@@ -309,15 +309,6 @@ public class UIMgr : MonoBehaviourPun
     IEnumerator EndTimer()
     {
         yield return new WaitForSeconds(3);
-
-   
-        if (PhotonNetwork.IsMasterClient)
-        {
-            PhotonNetwork.AutomaticallySyncScene = true;
-            PhotonNetwork.LoadLevel("TitleScene");
-            PhotonNetwork.LeaveRoom();
-
-        }
         PhotonNetwork.LoadLevel("TitleScene");
         PhotonNetwork.LeaveRoom();
 

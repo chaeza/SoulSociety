@@ -82,9 +82,11 @@ public class PlayerAttack : MonoBehaviourPun
         if(a==0||a==1) eff.transform.Rotate(0, 0, -45);
         hitBox.GetComponentInChildren<BoxCollider>().enabled = true;
         GetComponent<PlayerMove>().MoveStop();
-        yield return new WaitForSeconds(0.1f);
+        GetComponent<PlayerMove>().donMove = true;
+        yield return new WaitForSeconds(0.5f);
         hitBox.GetComponentInChildren<BoxCollider>().enabled =false;
-        yield return new WaitForSeconds(0.9f);
+        GetComponent<PlayerMove>().donMove = false;
+        yield return new WaitForSeconds(0.5f);
         //hitBox.SetActive(false) ;  
         isAttack = true;
     }
