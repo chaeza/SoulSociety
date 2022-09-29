@@ -9,7 +9,7 @@ public class MySound : MonoBehaviour
     public AudioMixer audioMixer;   //»ç¿îµå
 
     public Slider BgmSlider;
-    //public Slider SfxSlider;
+    public Slider SfxSlider;
 
 
     public void SetBGM()
@@ -17,8 +17,8 @@ public class MySound : MonoBehaviour
         audioMixer.SetFloat("BGM", Mathf.Log10(BgmSlider.value) * 20);
     }
 
-    //public void SetSFX()
-    //{
-    //    audioMixer.SetFloat("BGM", Mathf.Log10(SfxSlider.value) * 20);
-    //}
+    public void SetSFX()
+    {
+        audioMixer.SetFloat("SFX", Mathf.Log10(SfxSlider.value) * 20);
+    }
 }
