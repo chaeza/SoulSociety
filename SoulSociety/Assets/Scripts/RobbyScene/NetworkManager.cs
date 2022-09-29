@@ -284,6 +284,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         if (readyCount == 4)
         {
             PhotonNetwork.LoadLevel("GameScene");
+            myReadyState = ReadyState.UnReady;
         }
         else Debug.Log("누군가 레디 취소함");
     }
