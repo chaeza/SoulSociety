@@ -12,6 +12,7 @@ public class PlayerMove : MonoBehaviourPun
     NavMeshAgent navMeshAgent;
 
     bool isMove = false;
+    public bool donMove { get; set; } = false;
 
     Vector3 desiredDir;
     Vector3 clickPos = Vector3.one;
@@ -54,7 +55,7 @@ public class PlayerMove : MonoBehaviourPun
             clickPos = Input.mousePosition;
             clickPos.z = 18f;
             //if(Input.mousePosition.x > 200 && Input.mousePosition.x < 1800&& Input.mousePosition.y < 1050&& Input.mousePosition.y >50)
-                Move(clickPos);
+                if(donMove==false) Move(clickPos);
         }
       
         if (GameMgr.Instance.playerInput.inputKey == KeyCode.S)
