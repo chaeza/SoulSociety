@@ -100,7 +100,7 @@ public class StoneField : MonoBehaviourPun , SkillMethod
                 a.transform.LookAt(desiredDir);
                 a.transform.Rotate(-90, 0, 0);
 
-                GameMgr.Instance.DestroyTarget(gameObject, 4f);
+                GameMgr.Instance.DestroyTarget(a, 4f);
                 // StartCoroutine(Fire(a));//큐브 이동시키는 코루틴
                 skillCool = true;//쿨타임 온 시켜 다시 사용 못하게함
                 skillClick = false;
