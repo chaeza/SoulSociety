@@ -10,7 +10,7 @@ public class Hit : MonoBehaviourPun
     {
         if(other.tag == "Player")
         {
-            other.gameObject.GetPhotonView().RPC("RPC_hit", RpcTarget.All,30f,gameObject.GetPhotonView().ViewID);
+            other.gameObject.GetPhotonView().RPC("RPC_hit", RpcTarget.All,30f,gameObject.GetPhotonView().ViewID,state.None,0f);
 
         }
     }
