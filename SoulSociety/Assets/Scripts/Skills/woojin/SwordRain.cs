@@ -5,7 +5,7 @@ using Photon.Pun;
 
 public class SwordRain : MonoBehaviourPun
 {
-    int skillRange = 8;
+    int skillRange = 10;
     bool skillCool = false;
     bool skillClick = false;
     ResourceData eff;
@@ -75,6 +75,9 @@ public class SwordRain : MonoBehaviourPun
             {
                 return;
             }
+            myskillRangerect.gameObject.SetActive(false);
+            skilla.SetActive(false);
+
             RaycastHit hit;
             Vector3 desiredDir = Vector3.zero;
             Ray ray = Camera.main.ScreenPointToRay(Pos);
