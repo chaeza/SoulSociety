@@ -66,7 +66,7 @@ public class PlayerInfo : MonoBehaviourPun
     {
         if (other.tag != "mainPlayer" && other.tag == "Player")
         {
-            other.gameObject.GetPhotonView().RPC("RPC_hit", RpcTarget.All,basicAttackDamage,gameObject.GetPhotonView().ViewID,state.Stun,2f);
+            other.gameObject.GetPhotonView().RPC("RPC_hit", RpcTarget.All,basicAttackDamage,gameObject.GetPhotonView().ViewID,state.None,0f);
         }
         
     }
@@ -99,6 +99,7 @@ public class PlayerInfo : MonoBehaviourPun
 
         if (photonView.IsMine == true)
         {
+            StopCoroutine(stunState);
             StopCoroutine(RecoveryHp);
             GameMgr.Instance.PunFindObject(viewID2).GetPhotonView().RPC("RPC_redSoul", RpcTarget.All, GameMgr.Instance.redCount);
 
