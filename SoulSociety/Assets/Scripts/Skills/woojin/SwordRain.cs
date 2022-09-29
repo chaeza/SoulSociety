@@ -5,9 +5,12 @@ using Photon.Pun;
 
 public class SwordRain : MonoBehaviour
 {
+
     bool skillCool = false;
     bool skillClick = false;
     ResourceData eff;
+
+
     public void ResetCooltime()
     {
         skillCool = false;//스킬을 다시 사용 가능하게함
@@ -17,14 +20,22 @@ public class SwordRain : MonoBehaviour
     {
         if (skillCool == false)
         {
-            if (skillClick == false) skillClick = true;
+            if (skillClick == false)
+            {
+
+
+
+                skillClick = true;
+            }
             else skillClick = false;
         }
     }
     public void SkillClick(Vector3 Pos)
     {
+
         if (skillClick == true)
         {
+
             RaycastHit hit;
             Vector3 desiredDir = Vector3.zero;
             Ray ray = Camera.main.ScreenPointToRay(Pos);
@@ -47,19 +58,21 @@ public class SwordRain : MonoBehaviour
                                                                                                                          // a.transform.Translate(0, 1, 0);
                 a.transform.Rotate(-90, 0, 0);
 
-               Destroy(a, 4f);
-               // StartCoroutine(Fire(a));//큐브 이동시키는 코루틴
+                Destroy(a, 4f);
+                // StartCoroutine(Fire(a));//큐브 이동시키는 코루틴
                 skillCool = true;//쿨타임 온 시켜 다시 사용 못하게함
                 skillClick = false;
                 Debug.Log("스킬사용");
                 GameMgr.Instance.uIMgr.SkillCooltime(gameObject, 10);//UI매니저에 쿨타임 10초를 보냄
             }
         }
+
+
     }
     IEnumerator Fire(GameObject skill)//큐브 이동시키기
     {
         //skill.transform.position = new Vector3(0, 0, 0);
-       // skill.transform.rotation = new Quaternion(0, 180, 0, 1);
+        // skill.transform.rotation = new Quaternion(0, 180, 0, 1);
 
 
         yield return null;
