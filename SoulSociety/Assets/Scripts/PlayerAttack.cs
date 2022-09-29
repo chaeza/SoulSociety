@@ -78,7 +78,7 @@ public class PlayerAttack : MonoBehaviourPun
         Debug.Log("АјАн");
         //hitBox.SetActive(true) ;  
         GameObject eff = PhotonNetwork.Instantiate("BasicAttackEff", transform.position + new Vector3(0, 1, 0), Quaternion.identity);
-        GameMgr.Instance.DestroyTarget(eff.GetPhotonView().ViewID, 0.5f);
+        GameMgr.Instance.DestroyTarget(eff ,0.5f);
         if(a==0||a==1) eff.transform.Rotate(0, 0, -45);
         hitBox.GetComponentInChildren<BoxCollider>().enabled = true;
         GetComponent<PlayerMove>().MoveStop();
