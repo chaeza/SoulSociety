@@ -28,6 +28,7 @@ public class HpBarInfo : MonoBehaviourPun
 
     private void Start()
     {
+        //카메라
         cam = Camera.main.transform;
         /*for(int i=0; i < PhotonNetwork.CurrentRoom.PlayerCount; i++)
         {
@@ -62,6 +63,7 @@ public class HpBarInfo : MonoBehaviourPun
             }
              
         }*/
+        //카메라 보기
             transform.LookAt(transform.position + cam.rotation * Vector3.forward, cam.rotation * Vector3.up);
         
     }
