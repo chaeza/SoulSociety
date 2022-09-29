@@ -6,7 +6,7 @@ using UnityEngine.AI;
 
 public class PlayerMove : MonoBehaviourPun
 {
-    [SerializeField] float moveSpeed = 1;
+    [SerializeField] public float moveSpeed { get; set; } = 5;
     PlayerInfo playerInfo;
     Animator myAnimator;
     NavMeshAgent navMeshAgent;
@@ -24,12 +24,20 @@ public class PlayerMove : MonoBehaviourPun
         moveSpeed = 5;
         navMeshAgent.speed = moveSpeed;
     }
+    public void ChageSpeed(float speed)
+    {
+        navMeshAgent.speed = speed;
+    }
 
     private void Update()
     {
         if (GameMgr.Instance.endGame == true) return;
         if (playerInfo.playerState == state.Die) return;
-        if (playerInfo.playerState == state.Stun) return;
+        if (playerInfo.playerState == state.Stun)
+        {
+            isMove = false;
+            return;
+        }
         if (photonView.IsMine == false) return;
         if (Input.mousePosition.x > 85 && Input.mousePosition.x < 170 && Input.mousePosition.y > 25 && Input.mousePosition.y < 105 && GameMgr.Instance) GameMgr.Instance.uIMgr.OnExplantionSkill(true);
         else GameMgr.Instance.uIMgr.OnExplantionSkill(false);
@@ -38,7 +46,9 @@ public class PlayerMove : MonoBehaviourPun
         else if (Input.mousePosition.x > 1005 && Input.mousePosition.x < 1080 && Input.mousePosition.y > 25 && Input.mousePosition.y < 105 && GameMgr.Instance.inventory.InvetoryCount(3) == false) GameMgr.Instance.uIMgr.OnExplantionItem(3, GameMgr.Instance.inventory.GetInventory(3));
         else if (Input.mousePosition.x > 1160 && Input.mousePosition.x < 1240 && Input.mousePosition.y > 25 && Input.mousePosition.y < 105 && GameMgr.Instance.inventory.InvetoryCount(4) == false) GameMgr.Instance.uIMgr.OnExplantionItem(4, GameMgr.Instance.inventory.GetInventory(4));
         else GameMgr.Instance.uIMgr.OnExplantionItem(5, 0);
+      
         if (GameMgr.Instance.playerInput.inputKey == KeyCode.Mouse0) SendMessage("SkillClick",Input.mousePosition,SendMessageOptions.DontRequireReceiver);
+      
         if (GameMgr.Instance.playerInput.inputKey2 == KeyCode.Mouse1)
         {
             clickPos = Input.mousePosition;
@@ -46,11 +56,12 @@ public class PlayerMove : MonoBehaviourPun
             //if(Input.mousePosition.x > 200 && Input.mousePosition.x < 1800&& Input.mousePosition.y < 1050&& Input.mousePosition.y >50)
                 Move(clickPos);
         }
-
+      
         if (GameMgr.Instance.playerInput.inputKey == KeyCode.S)
         {
             MoveStop();
         }
+
         if (isMove == true)
         {
             if (Vector3.Distance(desiredDir, transform.position) > 0.1f)
@@ -62,6 +73,7 @@ public class PlayerMove : MonoBehaviourPun
             else
                 MoveStop();
         }
+     
     }
     public void Move(Vector3 mousePos)
     {
@@ -83,7 +95,7 @@ public class PlayerMove : MonoBehaviourPun
             isMove = true;
         }
     }
-
+   
     public void MoveStop()
     {
         myAnimator.SetBool("isMove", false);

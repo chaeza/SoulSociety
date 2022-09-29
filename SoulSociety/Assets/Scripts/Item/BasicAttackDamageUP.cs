@@ -5,16 +5,12 @@ using Photon.Pun;
 
 public class BasicAttackDamageUP : MonoBehaviourPun, ItemMethod
 {
-    private PlayerInfo playerInfo;
-   
-
     [SerializeField]
     int itemNum = 0;
     public void GetItem(int itemnum)
     {
         if (itemNum == 0)
             itemNum = itemnum;
-        playerInfo = GetComponent<PlayerInfo>();
     }
 
     public void ItemFire()
@@ -30,7 +26,7 @@ public class BasicAttackDamageUP : MonoBehaviourPun, ItemMethod
     public void ItemSkill()
     {
         GameObject a = PhotonNetwork.Instantiate("BasicAttackDamageUP", transform.position, Quaternion.identity);//이펙트를 포톤 인스턴스를 합니다.
-        playerInfo.basicAttackDamage += 10f;
+        gameObject. GetComponent<PlayerInfo>();
 
 
         GameMgr.Instance.uIMgr.UseItem(itemNum);

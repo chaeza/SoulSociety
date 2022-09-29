@@ -2434,6 +2434,7 @@ GameObject:
   - component: {fileID: 7592567183920891495}
   - component: {fileID: 3439322786920933536}
   - component: {fileID: 4260493513012246547}
+  - component: {fileID: 892239535645868001}
   m_Layer: 0
   m_Name: PlayerPrefab
   m_TagString: Player
@@ -2524,7 +2525,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33e5cc746c8444b459715627a570cf84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 5
 --- !u!114 &7419769239748631481
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2553,9 +2553,7 @@ MonoBehaviour:
   blueSoul: 0
   redSoul: 0
   maxHP: 100
-  curHP: 100
   HPrecovery: 0.5
-  basicAttackDamage: 100
   <playerState>k__BackingField: 0
 --- !u!114 &7852713135524856233
 MonoBehaviour:
@@ -2611,6 +2609,9 @@ MonoBehaviour:
   - Type: 9
     SynchronizeType: 1
     Name: isDie
+  - Type: 9
+    SynchronizeType: 0
+    Name: isBasicDash
   m_SynchronizeLayers:
   - SynchronizeType: 0
     LayerIndex: 0
@@ -2652,6 +2653,18 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &892239535645868001
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7419769238492005722}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bdc85e3c53e2b5408f15aba81da0a98, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7419769238492005724
 GameObject:
   m_ObjectHideFlags: 0

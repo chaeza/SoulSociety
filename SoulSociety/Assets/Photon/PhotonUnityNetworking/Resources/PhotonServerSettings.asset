@@ -66,6 +66,7 @@ MonoBehaviour:
   - ItemGet
   - SoulGet
   - TabUpdate
+  - PunDestroyObject
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

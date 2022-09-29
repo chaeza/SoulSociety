@@ -31,14 +31,12 @@ public class UIMgr : MonoBehaviourPun
     [SerializeField] GameObject esc = null;
     [SerializeField] GameObject[] redSoul = null;
     [SerializeField] GameObject[] blueSoul = null;
-    [SerializeField] GameObject winEff = null;
     [Header("플레이어")]
     [SerializeField] Text[] playerNick = null;
     bool[] redSetBool = new bool[15];
     bool[] blueSetBool = new bool[25];
-
-    [SerializeField] GameObject Skilla = null;
-
+    string[] sortedPlayer=new string[4];
+    bool nickSave;
     private void Update()
     {
         if (GameMgr.Instance.playerInput.inputKey == KeyCode.Tab)
@@ -53,13 +51,20 @@ public class UIMgr : MonoBehaviourPun
         }
         if (GameMgr.Instance.playerInput.Esc == KeyCode.Escape) esc.SetActive(true);
         else esc.SetActive(false);
-
-
     }
     public void TabNickName(int Num,state myState)
     {
-        Player[] sortedPlayers = PhotonNetwork.PlayerList;
-        playerNick[Num].text = sortedPlayers[Num].NickName;
+        if(nickSave==false)
+        {
+            nickSave=true;
+            Player[] sortedPlayers = PhotonNetwork.PlayerList;
+            for(int i = 0; i < sortedPlayers.Length; i++)
+            {
+                sortedPlayer[i] = sortedPlayers[i].NickName;
+            }
+
+        }
+        playerNick[Num].text = sortedPlayer[Num];
         if (myState == state.Die) playerNick[Num].color = Color.red;
     }
     public void RedTabSoul(int Num, int Rnum)
@@ -274,11 +279,7 @@ public class UIMgr : MonoBehaviourPun
         if (Num == 1)
         {
             if (GameMgr.Instance.redCount == dieC)
-            {
-                //승리 이펙트 활성화 
-                winEff.SetActive(true);
                 win.SetActive(true);
-            }
 
             else
                 lose.SetActive(true);
@@ -286,25 +287,14 @@ public class UIMgr : MonoBehaviourPun
         else if(Num == 2)
         {
             if (GameMgr.Instance.blueCount == dieC)
-            {
-                //승리 이펙트 활성화 
-                winEff.SetActive(true);
                 win.SetActive(true);
-            }
 
             else
                 lose.SetActive(true);
         }
-        //종료 타이머
-        photonView.StartCoroutine(Endtimer());
-
         GameMgr.Instance.endGame = true;
+        new WaitForSeconds(1f);
+        //PhotonNetwork.LoadLevel("TitleScene");
     }
-    IEnumerator Endtimer()
-    {
-        yield return new WaitForSeconds(3);
-        PhotonNetwork.LeaveRoom();
-        PhotonNetwork.LoadLevel("TitleScene");
-        
-    }
+
 }

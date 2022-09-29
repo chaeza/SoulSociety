@@ -31,7 +31,9 @@ public class PlayerAttack : MonoBehaviourPun
         if (GameMgr.Instance.playerInput.inputKey == KeyCode.W) SendMessage("ItemFire", SendMessageOptions.DontRequireReceiver);
         if (GameMgr.Instance.playerInput.inputKey == KeyCode.E) SendMessage("ItemFire", SendMessageOptions.DontRequireReceiver);
         if (GameMgr.Instance.playerInput.inputKey == KeyCode.R) SendMessage("ItemFire", SendMessageOptions.DontRequireReceiver);
-        if (GameMgr.Instance.playerInput.inputKey == KeyCode.F) SendMessage("SkillFire", SendMessageOptions.DontRequireReceiver);
+        if (GameMgr.Instance.playerInput.inputKey == KeyCode.D) SendMessage("SkillFire", SendMessageOptions.DontRequireReceiver);
+        if (GameMgr.Instance.playerInput.inputKey == KeyCode.F) SendMessage("DashFire", SendMessageOptions.DontRequireReceiver);
+
         if (GameMgr.Instance.playerInput.inputKey == KeyCode.LeftShift) SendMessage("BlueSoul", SendMessageOptions.DontRequireReceiver);
     }
     [PunRPC]
@@ -47,6 +49,8 @@ public class PlayerAttack : MonoBehaviourPun
             {
                 case 0:
                     myAnimator.SetTrigger("isAttack1");
+                    GameObject eff = PhotonNetwork.Instantiate("BasicAttackEff", transform.position, Quaternion.identity);
+                    GameMgr.Instance.DestroyTarget(eff.GetPhotonView().ViewID,0.5f);
                     break;
                 case 1:
                     myAnimator.SetTrigger("isAttack2");

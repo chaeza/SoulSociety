@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4613782497333980}
   - component: {fileID: 114030422721446384}
-  - component: {fileID: -1572018610111597019}
-  - component: {fileID: 696687935320387250}
-  - component: {fileID: 1670302878}
+  - component: {fileID: 212445107829604489}
+  - component: {fileID: 434875568793763865}
+  - component: {fileID: 5993393929046117049}
   m_Layer: 0
   m_Name: SwordRain
   m_TagString: Untagged
@@ -48,15 +48,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_makeObjs:
-  - {fileID: 1624490405229196, guid: c016daa54bb1943c3aab1200d2a0f1b7, type: 3}
-  - {fileID: 1435933987110128, guid: 4d3fbefabae2b4905aee25f86b765354, type: 3}
+  - {fileID: 1624490405229196, guid: 0930c66d9fcce4941932f578d7696a89, type: 3}
+  - {fileID: 1435933987110128, guid: 72b0a2576aefcfa4ba8803181128116f, type: 3}
   m_movePos: {fileID: 0}
   m_startDelay: 0
   m_makeCount: 20
   m_makeDelay: 0.15
   m_randomPos: {x: 5, y: 0, z: 5}
   m_randomRot: {x: 0, y: 0, z: 0}
---- !u!114 &-1572018610111597019
+--- !u!114 &212445107829604489
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -75,11 +75,11 @@ MonoBehaviour:
   OwnershipTransfer: 0
   observableSearch: 2
   ObservedComponents:
-  - {fileID: 696687935320387250}
+  - {fileID: 434875568793763865}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
---- !u!114 &696687935320387250
+--- !u!114 &434875568793763865
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -95,8 +95,8 @@ MonoBehaviour:
   m_SynchronizeRotation: 1
   m_SynchronizeScale: 0
   m_UseLocal: 1
---- !u!135 &1670302878
-SphereCollider:
+--- !u!65 &5993393929046117049
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -106,5 +106,5 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 6
+  m_Size: {x: 11.06, y: 13.04, z: 3.96}
   m_Center: {x: 0, y: 0, z: 0}
