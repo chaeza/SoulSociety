@@ -35,6 +35,9 @@ public class UIMgr : MonoBehaviourPun
     [SerializeField] Text[] playerNick = null;
     bool[] redSetBool = new bool[15];
     bool[] blueSetBool = new bool[25];
+
+    [SerializeField] GameObject Skilla = null;
+
     private void Update()
     {
         if (GameMgr.Instance.playerInput.inputKey == KeyCode.Tab)
@@ -49,6 +52,8 @@ public class UIMgr : MonoBehaviourPun
         }
         if (GameMgr.Instance.playerInput.Esc == KeyCode.Escape) esc.SetActive(true);
         else esc.SetActive(false);
+
+
     }
     public void TabNickName(int Num,state myState)
     {

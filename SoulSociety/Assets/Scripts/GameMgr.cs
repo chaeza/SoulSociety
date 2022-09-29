@@ -21,6 +21,7 @@ public class GameMgr : Singleton<GameMgr>
     public int dieCount = 0;
     public int redCount = 0;
     public int blueCount = 0;
+
     private void Awake()
     {
         //Instantiate(test, Vector3.zero, Quaternion.identity);
