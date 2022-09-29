@@ -16,7 +16,7 @@ public class BlackHole : MonoBehaviourPun
     {
         if (PhotonNetwork.IsMasterClient)
         {
-            ran = Random.Range(0, 9);
+            ran = Random.Range(0, 8);
             photonView.RPC("BlackHolePos", RpcTarget.All, ran);
         }
 
@@ -38,7 +38,7 @@ public class BlackHole : MonoBehaviourPun
 
             ran++;                          //블랙홀 랜덤에 그 옆에 있는게 켜지는 로직
 
-            if(ran == 8)                    //만약 9가 된다면 0에서 켜진다
+            if(ran == 8)                    //만약 8가 된다면 0에서 켜진다
             {
                 ran = 0;
             }
