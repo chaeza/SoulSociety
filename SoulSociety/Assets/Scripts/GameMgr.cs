@@ -75,9 +75,9 @@ public class GameMgr : Singleton<GameMgr>
         }
         return find;
     }
-    public void DestroyTarget(int desObject,float time)
+    public void DestroyTarget(GameObject desObject,float time)
     {
-        photonView.RPC("PunDestroyObject", RpcTarget.All, desObject, time);
+        photonView.RPC("PunDestroyObject", RpcTarget.All, desObject.GetPhotonView().ViewID, time);
 
 
     }

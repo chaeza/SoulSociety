@@ -145,7 +145,11 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape) && PhotonNetwork.IsConnected) PhotonNetwork.LeaveRoom();
+        if (Input.GetKeyDown(KeyCode.Escape) && PhotonNetwork.IsConnected)
+        {
+            PhotonNetwork.LoadLevel("TitleScene");
+            PhotonNetwork.LeaveRoom();
+        }
     }
 
     /// <summary>

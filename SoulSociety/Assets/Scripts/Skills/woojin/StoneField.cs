@@ -99,8 +99,8 @@ public class StoneField : MonoBehaviourPun , SkillMethod
                 a.SendMessage("AttackerName", gameObject.GetPhotonView().ViewID, SendMessageOptions.DontRequireReceiver);//이펙트에 공격자를 지정합니다.
                 a.transform.LookAt(desiredDir);
                 a.transform.Rotate(-90, 0, 0);
-               
 
+                GameMgr.Instance.DestroyTarget(gameObject, 4f);
                 // StartCoroutine(Fire(a));//큐브 이동시키는 코루틴
                 skillCool = true;//쿨타임 온 시켜 다시 사용 못하게함
                 skillClick = false;
