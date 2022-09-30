@@ -31,7 +31,7 @@ public class SpawnMgr : MonoBehaviourPun
     [PunRPC]
     public void ItemInit()     //아이템 x개 생성
     {
-        for (int i = 0; i < 16; i++)
+        for (int i = 0; i < 32; i++)
         {
             ran = Random.Range(0, groundCh.Length);
             GameObject obj = PhotonNetwork.Instantiate("ItemBox", groundCh[ran].transform.position + new Vector3(4, 3, 3.5f), Quaternion.identity);
