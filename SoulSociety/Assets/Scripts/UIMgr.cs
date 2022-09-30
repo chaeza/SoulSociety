@@ -24,6 +24,10 @@ public class UIMgr : MonoBehaviourPun
     [SerializeField] GameObject[] skill;//스킬 아이콘
     [Header("스킬 설명")]
     [SerializeField] GameObject[] skillExplantion;//스킬 설명
+    [Header("대쉬")]
+    [SerializeField] GameObject dash = null;
+    [SerializeField] TextMeshProUGUI dashCooltimeText;//쿨타임 텍스트
+    [SerializeField] GameObject dashExplantion = null;
     [Header("게임")]
     [SerializeField] GameObject win = null;
     [SerializeField] GameObject lose = null;
@@ -131,6 +135,7 @@ public class UIMgr : MonoBehaviourPun
 
     bool setItem;
     bool setSkill;
+    bool setDash;
     public void SkillUI(int Num)//스킬 아이콘 표시
     {
         skillUI = skill[Num];//가진 스킬을 스킬UI에 저장해서 사용
@@ -218,12 +223,39 @@ public class UIMgr : MonoBehaviourPun
             setSkill = false;//bool값 초기화
         }
     }
+    public void OnExplantionDash(bool On)
+    {
+        if (setDash == false)//bool 값으로 한번만 띄움
+        {
+            if (On == true)
+            {
+                setDash = true;
+                skillUIExplantion = dashExplantion;
+
+                skillUIExplantion.SetActive(true);//설명UI 활성화
+            }
+        }
+
+        if (skillUIExplantion != null && setDash == true && On == false)
+        {
+            skillUIExplantion.SetActive(false);//설명UI 비활성화
+            setDash = false;//bool값 초기화
+        }
+    }
     public void SkillCooltime(GameObject my, int Cool)//UI매니저에 스킬 쿨타임을 호출시킨 객체, 쿨타임 시간
     {
         cooltimeGameobject = my;//호출시킨 오브젝트 객체를 저장해둡니다.
         skillUI.GetComponent<Image>().color = new Color(160 / 255f, 160 / 255f, 160 / 255f);//아이콘의 색상을 흐리게 바꿔서 비활성화 느낌을 줍니다.
         cooltimeText.text = Cool.ToString();//쿨타임 Text를 해당 쿨타임의 Max값으로 바꿉니다.
         StartCoroutine(Cooltime(Cool));//쿨타임 코루틴을 실행시켜 쿨타임 시간을 기다립니다.
+
+    }
+    public void DashCooltime(GameObject my, int Cool)//UI매니저에 스킬 쿨타임을 호출시킨 객체, 쿨타임 시간
+    {
+        cooltimeGameobject = my;//호출시킨 오브젝트 객체를 저장해둡니다.
+        dash.GetComponent<Image>().color = new Color(160 / 255f, 160 / 255f, 160 / 255f);//아이콘의 색상을 흐리게 바꿔서 비활성화 느낌을 줍니다.
+        dashCooltimeText.text = Cool.ToString();//쿨타임 Text를 해당 쿨타임의 Max값으로 바꿉니다.
+        StartCoroutine(DashCooltime(Cool));//쿨타임 코루틴을 실행시켜 쿨타임 시간을 기다립니다.
 
     }
     IEnumerator Cooltime(int Cool)
@@ -237,6 +269,19 @@ public class UIMgr : MonoBehaviourPun
         skillUI.GetComponent<Image>().color = new Color(255f / 255f, 255f / 255f, 255f / 255f);//아이콘 색상 원위치
         cooltimeGameobject.SendMessage("ResetCooltime", SendMessageOptions.DontRequireReceiver);//저장해놨던 UI매니저를 호출시킨 객체한테 ResetCooltime을 호출시켜 스킬을 다시 사용하게함
         cooltimeText.text = " ";//텍스트 비활성화대신 그냥 아무것도 출력안함
+        yield break;
+    }
+    IEnumerator DashCooltime(int Cool)
+    {
+        for (int i = Cool - 1; i >= 0; --i)//받은 쿨타임 시간을 i에 저장해서
+        {
+            yield return new WaitForSeconds(1f);//1초씩 기다리고
+            dashCooltimeText.text = i.ToString();//쿨타임 텍스트를 -1시킴
+            yield return null;
+        }
+        dash.GetComponent<Image>().color = new Color(255f / 255f, 255f / 255f, 255f / 255f);//아이콘 색상 원위치
+        cooltimeGameobject.SendMessage("ResetCooltime2", SendMessageOptions.DontRequireReceiver);//저장해놨던 UI매니저를 호출시킨 객체한테 ResetCooltime을 호출시켜 스킬을 다시 사용하게함
+        dashCooltimeText.text = " ";//텍스트 비활성화대신 그냥 아무것도 출력안함
         yield break;
     }
     public void MyRedSoul(int redsoul)

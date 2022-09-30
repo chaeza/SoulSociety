@@ -37,14 +37,7 @@ public class RandomItem : MonoBehaviour
                 GameMgr.Instance.inventory.AddInventory(itemRan);
                 break;
             }
-            else if (itemRan == 3 && GameMgr.Instance.inventory.ContainInventory(3) == false)
-            {
-                player.AddComponent<Slash>();
-                Cheak(player);
-                GameMgr.Instance.inventory.AddInventory(itemRan);
-                break;
-            }
-            else if (itemRan == 4 && GameMgr.Instance.inventory.ContainInventory(4) == false)
+            else if (itemRan == 3&& GameMgr.Instance.inventory.ContainInventory(3) == false)
             {
                 player.AddComponent<Skill_1chance>();
                 Cheak(player);
