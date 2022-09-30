@@ -5,16 +5,15 @@ using Photon.Pun;
 
 public class Recovery : MonoBehaviourPun, ItemMethod//아이템 인터페이스 상속
 {
-    public PlayerInfo playerInfo;
-
     [SerializeField]
     int itemNum = 0;
-   
+    GameObject Eff = null;
+
+
     public void GetItem(int itemnum)//해당 아이템이 어느 인벤토리에 있는지 순서 책정
     {
         if (itemNum == 0)
             itemNum = itemnum;
-        playerInfo = GetComponent<PlayerInfo>();
     }
 
     public void ItemFire()//플레이어 Attack에서 키입력시 해당 아이템의 인벤토리 위치를 비교하여 아이템 스킬 사용 
@@ -28,11 +27,9 @@ public class Recovery : MonoBehaviourPun, ItemMethod//아이템 인터페이스 상속
     {
         // 스킬 구현
 
-        GameObject a = PhotonNetwork.Instantiate("Recovery", transform.position, Quaternion.identity);//이펙트를 포톤 인스턴스를 합니다.
-        if(playerInfo.curHP<=100)
-        playerInfo.curHP += 30f;
-
-        GameMgr.Instance.DestroyTarget(a, 2f);
+        Eff = PhotonNetwork.Instantiate("Recovery", transform.position, Quaternion.identity);//이펙트를 포톤 인스턴스를 합니다.
+        gameObject.GetPhotonView().RPC("ChageHP", RpcTarget.All, 30f);
+        GameMgr.Instance.DestroyTarget(Eff, 2f);
         //
         GameMgr.Instance.uIMgr.UseItem(itemNum);
         GameMgr.Instance.inventory.RemoveInventory(itemNum);//인벤토리에서 이 스킬을 소유한 것을 초기화함
