@@ -32,6 +32,7 @@ public class PlayerMove : MonoBehaviourPun
 
     private void Update()
     {
+        if (playerInfo.stay == true) return;
         if (GameMgr.Instance.endGame == true) return;
         if (playerInfo.playerState == state.Die) return;
         if (playerInfo.playerState == state.Stun)
@@ -39,7 +40,6 @@ public class PlayerMove : MonoBehaviourPun
             isMove = false;
             return;
         }
-        Debug.Log(Input.mousePosition);
         if (photonView.IsMine == false) return;
         if (Input.mousePosition.x > 85 && Input.mousePosition.x < 170 && Input.mousePosition.y > 25 && Input.mousePosition.y < 105) GameMgr.Instance.uIMgr.OnExplantionSkill(true);
         else GameMgr.Instance.uIMgr.OnExplantionSkill(false);

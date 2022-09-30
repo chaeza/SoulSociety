@@ -27,7 +27,7 @@ public class PlayerInfo : MonoBehaviourPun
     public float damageDecrease { get; set; } = 0; // 데미지 감소
 
     HpBarInfo myHPbarInfo = null;
-
+    public bool stay { get; set; } = false;
     Animator myAnimator;
     GameObject myHit;
     int myNum = 0;
@@ -75,6 +75,13 @@ public class PlayerInfo : MonoBehaviourPun
             other.gameObject.GetPhotonView().RPC("RPC_hit", RpcTarget.All,basicAttackDamage,gameObject.GetPhotonView().ViewID,state.None,0f);
         }
         
+    }
+    public void Stay(float time)
+    {
+        stay = true;
+        GetComponent<PlayerMove>().MoveStop();
+        StartCoroutine(StayMe(time));
+
     }
     [PunRPC]
     void RPC_hit(float bAD,int viewID1,state st,float time)
@@ -213,6 +220,12 @@ public class PlayerInfo : MonoBehaviourPun
             GameMgr.Instance.uIMgr.BlueTabSoul(Num, Num3);
         }
     }
+    IEnumerator StayMe(float time)
+    {
+        yield return new WaitForSeconds(time);
+        stay = false;
+        yield break;
+    }
     IEnumerator MyStun(float time)
     {
         GetComponent<PlayerMove>().MoveStop();
@@ -220,6 +233,7 @@ public class PlayerInfo : MonoBehaviourPun
         // GameMgr.Instance.DestroyTarget(player, time);
         yield return new WaitForSeconds(time);
         playerState = state.None;
+        yield break;
 
     }
     IEnumerator MySlow (float time,float slow)
@@ -230,5 +244,6 @@ public class PlayerInfo : MonoBehaviourPun
         GetComponent<PlayerMove>().ChageSpeed(GetComponent<PlayerMove>().moveSpeed * (1 - (slow / 100)));
         yield return new WaitForSeconds(time);
         GetComponent<PlayerMove>().ChageSpeed(GetComponent<PlayerMove>().moveSpeed);
+        yield break;
     }
 }
