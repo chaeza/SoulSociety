@@ -84187,12 +84187,12 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: 8c753b17f6a419144a21f3f9fbfd7eb6, type: 3}
 --- !u!1 &1954273915 stripped
 GameObject:
-  m_CorrespondingSourceObject: {fileID: 8808335372533586519, guid: 8c753b17f6a419144a21f3f9fbfd7eb6, type: 3}
+  m_CorrespondingSourceObject: {fileID: 5987418316795772814, guid: 8c753b17f6a419144a21f3f9fbfd7eb6, type: 3}
   m_PrefabInstance: {fileID: 1954273914}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1954273916 stripped
 GameObject:
-  m_CorrespondingSourceObject: {fileID: 8808335371697150798, guid: 8c753b17f6a419144a21f3f9fbfd7eb6, type: 3}
+  m_CorrespondingSourceObject: {fileID: 3900414653355718921, guid: 8c753b17f6a419144a21f3f9fbfd7eb6, type: 3}
   m_PrefabInstance: {fileID: 1954273914}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &1956046738 stripped

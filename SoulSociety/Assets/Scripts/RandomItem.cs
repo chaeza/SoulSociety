@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class RandomItem : MonoBehaviour
 {
-    int itemNum = 5;//ÃÑ ¾ÆÀÌÅÛ °¹¼ö
+    int itemNum = 4;//ÃÑ ¾ÆÀÌÅÛ °¹¼ö
     int itemRan = 0;//·£´ıÀ¸·Î »ÌÀ» ¾ÆÀÌÅÛ ¹øÈ£
     public void GetRandomitem(GameObject player)// ·£´ı¾ÆÀÌÅÛ Áö±Ş
     {
@@ -37,14 +37,14 @@ public class RandomItem : MonoBehaviour
                 GameMgr.Instance.inventory.AddInventory(itemRan);
                 break;
             }
-            else if (itemRan == 3 && GameMgr.Instance.inventory.ContainInventory(3) == false)
+            else if (itemRan == 4 && GameMgr.Instance.inventory.ContainInventory(4) == false)
             {
                 player.AddComponent<Slash>();
                 Cheak(player);
                 GameMgr.Instance.inventory.AddInventory(itemRan);
                 break;
             }
-            else if (itemRan == 4 && GameMgr.Instance.inventory.ContainInventory(4) == false)
+            else if (itemRan == 3 && GameMgr.Instance.inventory.ContainInventory(3) == false)
             {
                 player.AddComponent<Skill_1chance>();
                 Cheak(player);
