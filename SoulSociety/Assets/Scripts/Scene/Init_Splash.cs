@@ -48,7 +48,7 @@ public class Init_Splash : MonoBehaviour
     }
     IEnumerator FadeIn()
     {
-        StartCoroutine("SceneCh");
+       
         Color tempColor = fadeImg.color;
         while (tempColor.a > 0f)
         {
