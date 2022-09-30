@@ -15,6 +15,7 @@ public class GameSceneLogic : MonoBehaviourPunCallbacks
     private void Awake()
     {
         spawnMgr = GameObject.FindObjectOfType<SpawnMgr>();
+        PhotonNetwork.AutomaticallySyncScene = false;
     }
     void Start()
     {

@@ -38,13 +38,17 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     }
     private void Awake()
     {
-
+        
         PhotonNetwork.AutomaticallySyncScene = true;
         Screen.SetResolution(1920, 1080, false);
         PhotonNetwork.SendRate = 60;
         PhotonNetwork.SerializationRate = 30;
-        PhotonNetwork.AutomaticallySyncScene = true;
     }
+    IEnumerator AutoSyncDelay()
+    {
+        yield return new WaitForSeconds(2f);
+    }
+
     private void Start()
     {
         for (int i = 0; i < soulEff.Length; i++)
