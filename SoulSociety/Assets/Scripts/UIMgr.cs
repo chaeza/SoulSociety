@@ -323,6 +323,7 @@ public class UIMgr : MonoBehaviourPun
     [PunRPC]
     public void EndGame(int Num,int dieC)
     {
+        int self=0;
         if (Num == 1)
         {
             if (GameMgr.Instance.redCount == dieC)
@@ -345,6 +346,22 @@ public class UIMgr : MonoBehaviourPun
             else
                 lose.SetActive(true);
         }
+        else if(Num==3)
+        {
+            PlayerInfo[] playerinfo = FindObjectsOfType<PlayerInfo>();
+            for (int i = 0; i < playerinfo.Length; i++)
+            {
+                if (playerinfo[i].playerState != state.Die && playerinfo[i].tag=="mainPlayer")
+                {
+                    win.SetActive(true);
+                    winEff.SetActive(true);
+                    self++;
+                    break;
+                }
+            }
+        }
+        if (self == 0)
+            lose.SetActive(true);
 
         photonView.StartCoroutine(EndTimer());
         GameMgr.Instance.endGame = true;

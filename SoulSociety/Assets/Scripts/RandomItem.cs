@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class RandomItem : MonoBehaviour
 {
-    int itemNum = 4;//총 아이템 갯수
+    int itemNum = 5;//총 아이템 갯수
     int itemRan = 0;//랜덤으로 뽑을 아이템 번호
     public void GetRandomitem(GameObject player)// 랜덤아이템 지급
     {
@@ -43,7 +43,15 @@ public class RandomItem : MonoBehaviour
                 Cheak(player);
                 GameMgr.Instance.inventory.AddInventory(itemRan);
                 break;
+            }
+            else if (itemRan == 4 && GameMgr.Instance.inventory.ContainInventory(4) == false)
+            {
+                player.AddComponent<Skill_1chance>();
+                Cheak(player);
+                GameMgr.Instance.inventory.AddInventory(itemRan);
+                break;
             }//아이템 추가시 여기에 else if 추가
+
             else itemRan = Random.Range(0, itemNum);//중복시 다시 랜덤
         }
         player.SendMessage("SameItem", itemRan, SendMessageOptions.DontRequireReceiver);//인벤토리 컴포넌트에 소지한 아이템 종류를 리스트에 더함

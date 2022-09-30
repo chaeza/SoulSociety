@@ -49,7 +49,17 @@ public class GameMgr : Singleton<GameMgr>
 
 
         if (redsoul == 0) redCount++;
+      
+        else if(redsoul==9)
+        {
+            if(PhotonNetwork.PlayerList.Length - num == 1)
+                uIMgr.photonView.RPC("EndGame", RpcTarget.All, 3, 9);
+
+        }
+        
+        
         else redCount += redsoul+1;
+
         if (PhotonNetwork.PlayerList.Length-num==1)
         {
             uIMgr.photonView.RPC("EndGame", RpcTarget.All, 1, redCount);
