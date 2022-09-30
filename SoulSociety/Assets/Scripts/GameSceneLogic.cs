@@ -11,6 +11,7 @@ public class GameSceneLogic : MonoBehaviourPunCallbacks
     int myNum = -1;
     SpawnMgr spawnMgr = null;
     [SerializeField] GameObject[] posStart;
+    [SerializeField] GameObject blackscene;
 
     private void Awake()
     {
@@ -21,6 +22,7 @@ public class GameSceneLogic : MonoBehaviourPunCallbacks
     {
         Vector3 pos = Vector3.zero;
         Player[] sortedPlayers = PhotonNetwork.PlayerList;
+        blackscene.SetActive(true);
         for (int i = 0; i < sortedPlayers.Length; i++)
         {
             if (sortedPlayers[i].NickName == PhotonNetwork.NickName)
