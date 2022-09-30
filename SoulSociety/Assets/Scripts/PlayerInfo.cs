@@ -37,9 +37,9 @@ public class PlayerInfo : MonoBehaviourPun
     [PunRPC]
     void ChageHP(float hp)
     {
+        maxHP += hp;
         curHP += hp;
-        if (curHP >= maxHP)
-            curHP = maxHP;
+
         myHPbarInfo.SetHP(curHP, maxHP);
     }
     private void Start()
