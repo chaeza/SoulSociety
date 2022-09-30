@@ -39,7 +39,6 @@ public class PlayerMove : MonoBehaviourPun
             isMove = false;
             return;
         }
-        Debug.Log(Input.mousePosition);
         if (photonView.IsMine == false) return;
         if (Input.mousePosition.x > 85 && Input.mousePosition.x < 170 && Input.mousePosition.y > 25 && Input.mousePosition.y < 105) GameMgr.Instance.uIMgr.OnExplantionSkill(true);
         else GameMgr.Instance.uIMgr.OnExplantionSkill(false);
@@ -91,12 +90,17 @@ public class PlayerMove : MonoBehaviourPun
         Physics.Raycast(Camera.main.ScreenPointToRay(mousePos), out hit, 30f, mask);
 
         Debug.DrawRay(ray.origin, ray.direction * 20f, Color.red, 1f);
+      
 
         if (hit.collider.tag == "Ground")
         {
             desiredDir = hit.point;
             desiredDir.y = transform.position.y;
             isMove = true;
+        }
+        else
+        {
+            Debug.Log("ธÞที");
         }
     }
    
