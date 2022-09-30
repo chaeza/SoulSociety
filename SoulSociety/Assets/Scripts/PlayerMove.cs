@@ -32,6 +32,7 @@ public class PlayerMove : MonoBehaviourPun
 
     private void Update()
     {
+        if (playerInfo.stay == true) return;
         if (GameMgr.Instance.endGame == true) return;
         if (playerInfo.playerState == state.Die) return;
         if (playerInfo.playerState == state.Stun)

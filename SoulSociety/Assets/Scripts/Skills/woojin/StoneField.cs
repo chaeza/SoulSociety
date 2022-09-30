@@ -77,6 +77,8 @@ public class StoneField : MonoBehaviourPun , SkillMethod
     {
         if (skillClick == true)
         {
+            GetComponent<PlayerInfo>().Stay(1f);
+            GetComponent<Animator>().SetTrigger("isAttack");
             skillClick = false;
             myskillRangerect.gameObject.SetActive(false);
             skilla.SetActive(false);
@@ -101,6 +103,7 @@ public class StoneField : MonoBehaviourPun , SkillMethod
                 a.AddComponent<StonFieldHit>();//이펙트에 히트 스크립트를 넣습니다.
                 a.SendMessage("AttackerName", gameObject.GetPhotonView().ViewID, SendMessageOptions.DontRequireReceiver);//이펙트에 공격자를 지정합니다.
                 a.transform.LookAt(desiredDir);
+                transform.LookAt(desiredDir);
                 a.transform.Rotate(-90, 0, 0);
 
                 GameMgr.Instance.DestroyTarget(a, 4f);

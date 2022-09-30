@@ -74,6 +74,8 @@ public class SwordCrash : MonoBehaviourPun , SkillMethod
     {
         if (skillClick == true)
         {
+            GetComponent<PlayerInfo>().Stay(1f);
+            GetComponent<Animator>().SetTrigger("isAttack");
             skillClick = false;
             myskillRangerect.gameObject.SetActive(false);
             skilla.SetActive(false);
@@ -94,15 +96,15 @@ public class SwordCrash : MonoBehaviourPun , SkillMethod
             }
             if (skillCool == false)//스킬 사용 가능이면
             {
-                GameObject a = PhotonNetwork.Instantiate("SwordCrash", transform.position, Quaternion.identity);//이펙트를 포톤 인스턴스를 합니다.
+                GameObject a = PhotonNetwork.Instantiate("SwordCrash", desiredDir, Quaternion.identity);//이펙트를 포톤 인스턴스를 합니다.
                 a.AddComponent<SwordCrashHit>();//이펙트에 히트 스크립트를 넣습니다.
                 a.SendMessage("AttackerName", gameObject.GetPhotonView().ViewID, SendMessageOptions.DontRequireReceiver);//이펙트에 공격자를 지정합니다.
-
-                a.transform.LookAt(desiredDir);
-                a.transform.position = gameObject.transform.position + new Vector3(2f, 0f, 0f);
-                //a.transform.Rotate(-100f, 0f, 0f);
-
+                a.transform.LookAt(transform.position);
+                a.transform.Rotate(0, 180, 0);
+                StartCoroutine( Fire(desiredDir));
+                transform.LookAt(desiredDir);
                 GameMgr.Instance.DestroyTarget(a, 4f);  //4초뒤 삭제
+
 
                 skillCool = true;//쿨타임 온 시켜 다시 사용 못하게함
                 Debug.Log("스킬사용");
@@ -110,9 +112,16 @@ public class SwordCrash : MonoBehaviourPun , SkillMethod
             }
         }
     }
-    IEnumerator Fire(GameObject skill)//큐브 이동시키기
+    IEnumerator Fire(Vector3 pos)//큐브 이동시키기
     {
-        //skill.transform.position = this.transform.position + new Vector3(0, 0, 3);
+        yield return new WaitForSeconds(1f);
+        GameObject hitbox = PhotonNetwork.Instantiate("SwordCrashHitbox", pos, Quaternion.identity);//이펙트를 포톤 인스턴스를 합니다.
+        hitbox.AddComponent<SwordCrashHit>();//이펙트에 히트 스크립트를 넣습니다.
+        hitbox.SendMessage("AttackerName", gameObject.GetPhotonView().ViewID, SendMessageOptions.DontRequireReceiver);//이펙트에 공격자를 지정합니다.
+        hitbox.transform.LookAt(transform.position);
+        hitbox.transform.Translate(0, 0, -4f);
+        GameMgr.Instance.DestroyTarget(hitbox, 2f);  //4초뒤 삭제
         yield return null;
+        yield break;
     }
 }
