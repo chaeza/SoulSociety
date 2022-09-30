@@ -346,7 +346,7 @@ public class UIMgr : MonoBehaviourPun
             else
                 lose.SetActive(true);
         }
-        else if(Num==3)
+/*        else if(Num==3)
         {
             PlayerInfo[] playerinfo = FindObjectsOfType<PlayerInfo>();
             for (int i = 0; i < playerinfo.Length; i++)
@@ -361,7 +361,7 @@ public class UIMgr : MonoBehaviourPun
             }
         }
         if (self == 0)
-            lose.SetActive(true);
+            lose.SetActive(true);*/
 
         photonView.StartCoroutine(EndTimer());
         GameMgr.Instance.endGame = true;
