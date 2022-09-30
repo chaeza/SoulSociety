@@ -34,7 +34,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     }
     public void SoloClick()
     {
-        PhotonNetwork.LoadLevel("GameScene");
+        PhotonNetwork.LoadLevel("LoadingScene");
     }
     private void Awake()
     {
@@ -283,7 +283,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         yield return new WaitForSeconds(2);
         if (readyCount == 4)
         {
-            PhotonNetwork.LoadLevel("GameScene");
+            PhotonNetwork.LoadLevel("LoadingScene");
             myReadyState = ReadyState.UnReady;
         }
         else Debug.Log("누군가 레디 취소함");

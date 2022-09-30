@@ -139,17 +139,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &634698416 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5876490541498737795, guid: 4c75de694105a8841ab77168501780d1, type: 3}
-  m_PrefabInstance: {fileID: 5876490540998794803}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &922606078 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8589913564444265276, guid: f2b642409ad009c41923b949694059d0, type: 3}
@@ -239,28 +228,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1332093555 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5876490542124842048, guid: 4c75de694105a8841ab77168501780d1, type: 3}
-  m_PrefabInstance: {fileID: 5876490540998794803}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1432841042 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5876490541755692385, guid: 4c75de694105a8841ab77168501780d1, type: 3}
-  m_PrefabInstance: {fileID: 5876490540998794803}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1958101736 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5876490542281088219, guid: 4c75de694105a8841ab77168501780d1, type: 3}
@@ -519,15 +486,15 @@ PrefabInstance:
     - target: {fileID: 1794308154174523397, guid: 0e7c65f2247e1b647975ffffdabe7aa2, type: 3}
       propertyPath: nickName.Array.data[1]
       value: 
-      objectReference: {fileID: 1332093555}
+      objectReference: {fileID: 0}
     - target: {fileID: 1794308154174523397, guid: 0e7c65f2247e1b647975ffffdabe7aa2, type: 3}
       propertyPath: nickName.Array.data[2]
       value: 
-      objectReference: {fileID: 634698416}
+      objectReference: {fileID: 0}
     - target: {fileID: 1794308154174523397, guid: 0e7c65f2247e1b647975ffffdabe7aa2, type: 3}
       propertyPath: nickName.Array.data[3]
       value: 
-      objectReference: {fileID: 1432841042}
+      objectReference: {fileID: 0}
     - target: {fileID: 1794308154174523418, guid: 0e7c65f2247e1b647975ffffdabe7aa2, type: 3}
       propertyPath: m_Name
       value: NetworkManager
