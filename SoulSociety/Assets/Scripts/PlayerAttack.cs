@@ -19,6 +19,7 @@ public class PlayerAttack : MonoBehaviourPun
 
     private void Update()
     {
+        if (playerInfo.stay == true) return;
         if (GameMgr.Instance.endGame == true) return;
         if (playerInfo.playerState == state.Die) return;
         if (playerInfo.playerState == state.Stun) return;
@@ -76,7 +77,8 @@ public class PlayerAttack : MonoBehaviourPun
     IEnumerator AttackDelay(int a)
     {
         Debug.Log("АјАн");
-        //hitBox.SetActive(true) ;  
+        //hitBox.SetActive(true) ;
+        yield return new WaitForSeconds(0.2f);
         GameObject eff = PhotonNetwork.Instantiate("BasicAttackEff", transform.position + new Vector3(0, 1, 0), Quaternion.identity);
         GameMgr.Instance.DestroyTarget(eff ,0.5f);
         if(a==0||a==1) eff.transform.Rotate(0, 0, -45);
@@ -86,7 +88,7 @@ public class PlayerAttack : MonoBehaviourPun
         yield return new WaitForSeconds(0.5f);
         hitBox.GetComponentInChildren<BoxCollider>().enabled =false;
         GetComponent<PlayerMove>().donMove = false;
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.3f);
         //hitBox.SetActive(false) ;  
         isAttack = true;
     }

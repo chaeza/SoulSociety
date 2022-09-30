@@ -8,12 +8,10 @@ using Photon.Pun;
 public class Skill_basicDash : MonoBehaviourPun
 {
     bool skillCool = false;
-    bool skillClick = false;
     Animator myAnimator;
     NavMeshAgent navMeshAgent;
-    PlayerMove playerMove;
 
-    float dashSpeed = 20;
+    float dashSpeed = 15;
     Vector3 desiredDir;
     Vector3 clickPos = Vector3.one;
 
@@ -26,7 +24,6 @@ public class Skill_basicDash : MonoBehaviourPun
     {
         myAnimator = GetComponent<Animator>();
         navMeshAgent = GetComponent<NavMeshAgent>();
-        playerMove = GetComponent<PlayerMove>();
         skillCool = false;
     }
     public void DashFire()
@@ -48,8 +45,14 @@ public class Skill_basicDash : MonoBehaviourPun
     //대쉬 실행 시간
     IEnumerator DashTimer()
     {
-        yield return new WaitForSeconds(0.2f);
+        for (int i = 0; i < 5; i++)
+        {
+            yield return new WaitForSeconds(0.03f);
+            navMeshAgent.speed = dashSpeed;
+            yield return null;
+        }
         navMeshAgent.speed = dashSpeed / 4;
         navMeshAgent.isStopped = true;
+        yield break;
     }
 }

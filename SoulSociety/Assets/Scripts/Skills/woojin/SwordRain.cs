@@ -5,7 +5,7 @@ using Photon.Pun;
 
 public class SwordRain : MonoBehaviourPun , SkillMethod
 {
-    int skillRange = 100;
+    int skillRange = 30;
     bool skillCool = false;
     bool skillClick = false;
     ResourceData eff;
@@ -40,8 +40,12 @@ public class SwordRain : MonoBehaviourPun , SkillMethod
 
                 skillClick = true;
             }
-
-            else skillClick = false;
+            else
+            {
+                skillClick = false;
+                myskillRangerect.gameObject.SetActive(false);
+                skilla.SetActive(false);
+            }
         }
     }
     private void Update()
@@ -71,12 +75,12 @@ public class SwordRain : MonoBehaviourPun , SkillMethod
 
         if (skillClick == true)
         {
-            if (Vector3.Distance(canSkill, transform.position) > skillRange / 2)
-            {
-                return;
-            }
+            GetComponent<PlayerInfo>().Stay(1f);
+            GetComponent<Animator>().SetTrigger("isAttack");
+            skillClick = false;
             myskillRangerect.gameObject.SetActive(false);
             skilla.SetActive(false);
+            if (Vector3.Distance(canSkill, transform.position) > skillRange / 2) return;
 
             RaycastHit hit;
             Vector3 desiredDir = Vector3.zero;
@@ -97,13 +101,12 @@ public class SwordRain : MonoBehaviourPun , SkillMethod
                 a.AddComponent<SwordRainHIT>();//이펙트에 히트 스크립트를 넣습니다.
                 a.SendMessage("AttackerName", gameObject.GetPhotonView().ViewID, SendMessageOptions.DontRequireReceiver);//이펙트에 공격자를 지정합니다.
                                                                                                                          // a.transform.LookAt(desiredDir);
-                                                                                                                         // a.transform.Translate(0, 1, 0);
+                transform.LookAt(desiredDir);                                                                        // a.transform.Translate(0, 1, 0);
                 a.transform.Rotate(-90, 0, 0);
 
                 GameMgr.Instance.DestroyTarget(a, 4f);
                 // StartCoroutine(Fire(a));//큐브 이동시키는 코루틴
                 skillCool = true;//쿨타임 온 시켜 다시 사용 못하게함
-                skillClick = false;
                 Debug.Log("스킬사용");
                 GameMgr.Instance.uIMgr.SkillCooltime(gameObject, 22);//UI매니저에 쿨타임 10초를 보냄
             }

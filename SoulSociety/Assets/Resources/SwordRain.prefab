@@ -76,7 +76,7 @@ MonoBehaviour:
   observableSearch: 2
   ObservedComponents:
   - {fileID: 434875568793763865}
-  sceneViewId: 2
+  sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
 --- !u!114 &434875568793763865
@@ -106,5 +106,5 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 11.06, y: 13.04, z: 3.96}
+  m_Size: {x: 11.06, y: 11, z: 3.96}
   m_Center: {x: 0, y: 0, z: 0}
