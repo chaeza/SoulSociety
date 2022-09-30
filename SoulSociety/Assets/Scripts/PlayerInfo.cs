@@ -22,7 +22,7 @@ public class PlayerInfo : MonoBehaviourPun
     [SerializeField] int blueSoul = 0;
     [SerializeField] int redSoul = 0;
     [SerializeField] float maxHP = 100;
-    public float curHP { get; set; } = 50;
+    public float curHP { get; set; } = 100;
     public float basicAttackDamage { get; set; } = 10;
     public float damageDecrease { get; set; } = 0; // 데미지 감소
 
