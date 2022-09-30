@@ -39,14 +39,17 @@ public class PlayerMove : MonoBehaviourPun
             isMove = false;
             return;
         }
+        Debug.Log(Input.mousePosition);
         if (photonView.IsMine == false) return;
-        if (Input.mousePosition.x > 85 && Input.mousePosition.x < 170 && Input.mousePosition.y > 25 && Input.mousePosition.y < 105 && GameMgr.Instance) GameMgr.Instance.uIMgr.OnExplantionSkill(true);
+        if (Input.mousePosition.x > 85 && Input.mousePosition.x < 170 && Input.mousePosition.y > 25 && Input.mousePosition.y < 105) GameMgr.Instance.uIMgr.OnExplantionSkill(true);
         else GameMgr.Instance.uIMgr.OnExplantionSkill(false);
         if (Input.mousePosition.x > 680 && Input.mousePosition.x < 760 && Input.mousePosition.y > 25 && Input.mousePosition.y < 105 && GameMgr.Instance.inventory.InvetoryCount(1) == false) GameMgr.Instance.uIMgr.OnExplantionItem(1, GameMgr.Instance.inventory.GetInventory(1));
         else if (Input.mousePosition.x > 845 && Input.mousePosition.x < 915 && Input.mousePosition.y > 25 && Input.mousePosition.y < 105 && GameMgr.Instance.inventory.InvetoryCount(2) == false) GameMgr.Instance.uIMgr.OnExplantionItem(2, GameMgr.Instance.inventory.GetInventory(2));
         else if (Input.mousePosition.x > 1005 && Input.mousePosition.x < 1080 && Input.mousePosition.y > 25 && Input.mousePosition.y < 105 && GameMgr.Instance.inventory.InvetoryCount(3) == false) GameMgr.Instance.uIMgr.OnExplantionItem(3, GameMgr.Instance.inventory.GetInventory(3));
         else if (Input.mousePosition.x > 1160 && Input.mousePosition.x < 1240 && Input.mousePosition.y > 25 && Input.mousePosition.y < 105 && GameMgr.Instance.inventory.InvetoryCount(4) == false) GameMgr.Instance.uIMgr.OnExplantionItem(4, GameMgr.Instance.inventory.GetInventory(4));
         else GameMgr.Instance.uIMgr.OnExplantionItem(5, 0);
+        if (Input.mousePosition.x > 310 && Input.mousePosition.x < 390 && Input.mousePosition.y > 25 && Input.mousePosition.y < 105) GameMgr.Instance.uIMgr.OnExplantionDash(true);
+        else GameMgr.Instance.uIMgr.OnExplantionDash(false);
       
         if (GameMgr.Instance.playerInput.inputKey == KeyCode.Mouse0) SendMessage("SkillClick",Input.mousePosition,SendMessageOptions.DontRequireReceiver);
       

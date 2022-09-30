@@ -16,13 +16,13 @@ using TMPro;
         Slow,
         End
     }
+    
 public class PlayerInfo : MonoBehaviourPun
 {
     [SerializeField] int blueSoul = 0;
     [SerializeField] int redSoul = 0;
     [SerializeField] float maxHP = 100;
-    public float curHP { get; set; } = 100;
-    [SerializeField] float HPrecovery = 0.5f;
+    public float curHP { get; set; } = 50;
     public float basicAttackDamage { get; set; } = 10;
     public float damageDecrease { get; set; } = 0; // 데미지 감소
 
@@ -32,14 +32,20 @@ public class PlayerInfo : MonoBehaviourPun
     GameObject myHit;
     int myNum = 0;
     [field:SerializeField] public state playerState { get; set; } = state.None;//플레이어 상태
-    Coroutine RecoveryHp=null;
     Coroutine stunState = null;
     Coroutine slowState = null;
+    [PunRPC]
+    void ChageHP(float hp)
+    {
+        curHP += hp;
+        if (curHP >= maxHP)
+            curHP = maxHP;
+        myHPbarInfo.SetHP(curHP, maxHP);
+    }
     private void Start()
     {
         myHPbarInfo = GetComponentInChildren<HpBarInfo>();
         myHPbarInfo.SetName(photonView.Controller.NickName);
-        RecoveryHp  = StartCoroutine(HPRecovery());//체력회복 코루틴 실행
         myAnimator = GetComponent<Animator>();
         if (photonView.IsMine == true)
         {
@@ -100,7 +106,6 @@ public class PlayerInfo : MonoBehaviourPun
         if (photonView.IsMine == true)
         {
             if(stunState != null) StopCoroutine(stunState);
-            StopCoroutine(RecoveryHp);
             GameMgr.Instance.PunFindObject(viewID2).GetPhotonView().RPC("RPC_redSoul", RpcTarget.All, GameMgr.Instance.redCount);
 
             GameMgr.Instance.uIMgr.MyRedSoul(0);
@@ -131,15 +136,6 @@ public class PlayerInfo : MonoBehaviourPun
             photonView.RPC("TabUpdate", RpcTarget.All, myNum, playerState, 3, GameMgr.Instance.blueCount);//자신의 번호를 넘겨 탭상태를 갱신합니다.
         }
         else Debug.Log("빨간영혼을 얻으면 파란 영혼은 모을 수 없습니다.");
-    }
-    bool isattack;
-    void att()
-    {
-       isattack = true;
-
-
-
-        photonView.RPC("attack", RpcTarget.All, isattack);
     }
     [PunRPC]
     void ChangeColor(int Num)
@@ -216,19 +212,6 @@ public class PlayerInfo : MonoBehaviourPun
         else if(Num2==3)
         {
             GameMgr.Instance.uIMgr.BlueTabSoul(Num, Num3);
-        }
-    }
-    IEnumerator HPRecovery()
-    {
-        while(playerState!=state.Die)
-        {
-            yield return new WaitForSeconds(1f);
-            if (curHP >= maxHP)
-                curHP = maxHP;
-            else
-                curHP += HPrecovery;
-            myHPbarInfo.SetHP(curHP, maxHP);
-            yield return null;
         }
     }
     IEnumerator MyStun(float time)
