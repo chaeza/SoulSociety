@@ -33,7 +33,9 @@ public class Trap : MonoBehaviourPun, ItemMethod
         a.AddComponent<TrapCh>();
         a.GetPhotonView().RPC("GetMasterName", RpcTarget.All, MakerViewID);
         TrapE =  Instantiate(GameMgr.Instance.resourceData.myTrapEff , transform.position, Quaternion.identity);
+
         a.GetComponent<TrapCh>().TrapEffInfo(TrapE);
+
         GameMgr.Instance.uIMgr.UseItem(itemNum);
         GameMgr.Instance.inventory.RemoveInventory(itemNum);
         Destroy(GetComponent<Trap>());
