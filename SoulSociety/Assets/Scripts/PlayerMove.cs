@@ -39,7 +39,6 @@ public class PlayerMove : MonoBehaviourPun
             isMove = false;
             return;
         }
-        Debug.Log(Input.mousePosition);
         if (photonView.IsMine == false) return;
         if (Input.mousePosition.x > 85 && Input.mousePosition.x < 170 && Input.mousePosition.y > 25 && Input.mousePosition.y < 105) GameMgr.Instance.uIMgr.OnExplantionSkill(true);
         else GameMgr.Instance.uIMgr.OnExplantionSkill(false);

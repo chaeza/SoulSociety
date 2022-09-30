@@ -37,11 +37,15 @@ public class SwordCrash : MonoBehaviourPun , SkillMethod
                 skilla.SetActive(true);
                 myskillRangerect.gameObject.SetActive(true);
                 myskillRangerect.sizeDelta = new Vector2(skillRange, skillRange);
-
                 skillClick = true;
             }
 
-            else skillClick = false;
+            else
+            {
+                skillClick = false;
+                myskillRangerect.gameObject.SetActive(false);
+                skilla.SetActive(false);
+            }
         }
     }
     private void Update()
@@ -70,12 +74,10 @@ public class SwordCrash : MonoBehaviourPun , SkillMethod
     {
         if (skillClick == true)
         {
-            if (Vector3.Distance(canSkill, transform.position) > skillRange / 2)
-            {
-                return;
-            }
+            skillClick = false;
             myskillRangerect.gameObject.SetActive(false);
             skilla.SetActive(false);
+            if (Vector3.Distance(canSkill, transform.position) > skillRange / 2) return;
 
             RaycastHit hit;
             Vector3 desiredDir = Vector3.zero;
@@ -103,7 +105,6 @@ public class SwordCrash : MonoBehaviourPun , SkillMethod
                 GameMgr.Instance.DestroyTarget(a, 4f);  //4초뒤 삭제
 
                 skillCool = true;//쿨타임 온 시켜 다시 사용 못하게함
-                skillClick = false;
                 Debug.Log("스킬사용");
                 GameMgr.Instance.uIMgr.SkillCooltime(gameObject, 15);//UI매니저에 쿨타임 10초를 보냄
             }
