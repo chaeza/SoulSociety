@@ -5,7 +5,7 @@ using Photon.Pun;
 
 public class DragonBreath : MonoBehaviourPun , SkillMethod
 {
-    int skillRange = 10;
+    int skillRange = 25;
     bool skillCool = false;
     bool skillClick = false;
     ResourceData eff;
@@ -98,7 +98,7 @@ public class DragonBreath : MonoBehaviourPun , SkillMethod
                 // a.transform.LookAt(desiredDir);
                 a.transform.position = gameObject.transform.position + new Vector3(0f, 2f, 0f);
                 a.transform.LookAt(desiredDir);
-                a.transform.Rotate(-90, 0, 0);
+                a.transform.Rotate(-120, 0, 0);
 
                 GameMgr.Instance.DestroyTarget(a, 7f);
 
@@ -107,7 +107,7 @@ public class DragonBreath : MonoBehaviourPun , SkillMethod
                 skillCool = true;//쿨타임 온 시켜 다시 사용 못하게함
                                  // skillClick = false;
                 Debug.Log("스킬사용");
-                GameMgr.Instance.uIMgr.SkillCooltime(gameObject, 15);//UI매니저에 쿨타임 10초를 보냄
+                GameMgr.Instance.uIMgr.SkillCooltime(gameObject, 16);//UI매니저에 쿨타임 10초를 보냄
             }
         }
     }

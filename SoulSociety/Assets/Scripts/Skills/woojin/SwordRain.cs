@@ -5,7 +5,7 @@ using Photon.Pun;
 
 public class SwordRain : MonoBehaviourPun , SkillMethod
 {
-    int skillRange = 10;
+    int skillRange = 100;
     bool skillCool = false;
     bool skillClick = false;
     ResourceData eff;
