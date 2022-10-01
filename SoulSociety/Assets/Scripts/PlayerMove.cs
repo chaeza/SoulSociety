@@ -91,12 +91,17 @@ public class PlayerMove : MonoBehaviourPun
         Physics.Raycast(Camera.main.ScreenPointToRay(mousePos), out hit, 30f, mask);
 
         Debug.DrawRay(ray.origin, ray.direction * 20f, Color.red, 1f);
+      
 
         if (hit.collider.tag == "Ground")
         {
             desiredDir = hit.point;
             desiredDir.y = transform.position.y;
             isMove = true;
+        }
+        else
+        {
+            Debug.Log("ธÞที");
         }
     }
    

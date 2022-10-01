@@ -4,17 +4,26 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
+using Photon.Pun;
 
-public class Loading : MonoBehaviour
+
+
+public class Loading : MonoBehaviourPunCallbacks
 {
     public Slider slider;
     public string SceneName;
 
     private float time;
 
+    private void Awake()
+    {
+        PhotonNetwork.AutomaticallySyncScene = true;
+    }
+
     void Start()
     {
-        StartCoroutine(LoadAsynSceneCoroutine());
+        if(PhotonNetwork.IsMasterClient)
+       photonView.StartCoroutine(LoadAsynSceneCoroutine());
     }
 
     IEnumerator LoadAsynSceneCoroutine()

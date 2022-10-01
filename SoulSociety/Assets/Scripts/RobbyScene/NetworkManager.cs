@@ -35,16 +35,23 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     public void SoloClick()
     {
         PhotonNetwork.LoadLevel("LoadingScene");
+      //  PhotonNetwork.LoadLevel("GameScene");
     }
     private void Awake()
     {
-
-        PhotonNetwork.AutomaticallySyncScene = true;
+        ClearLobby();
+        photonView.StartCoroutine(AutoSyncDelay());
+        
         Screen.SetResolution(1920, 1080, false);
         PhotonNetwork.SendRate = 60;
         PhotonNetwork.SerializationRate = 30;
+    }
+    IEnumerator AutoSyncDelay()
+    {
+        yield return new WaitForSeconds(1f);
         PhotonNetwork.AutomaticallySyncScene = true;
     }
+
     private void Start()
     {
         for (int i = 0; i < soulEff.Length; i++)
@@ -62,8 +69,10 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     public override void OnConnectedToMaster()
     {
         btnConnect.interactable = true;
+     
+       // 불끄기
+        ClearLobby();
         Debug.Log("## OnConnected to Master");
-
     }
     public override void OnDisconnected(DisconnectCause cause)
     {
@@ -83,8 +92,6 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     {
         if (string.IsNullOrEmpty(PhotonNetwork.NickName) == true)
             return;
-       
-        // PhotonNetwork.JoinOrCreateRoom("myroom", new RoomOptions { MaxPlayers = 4 }, null);
 
         //조인랜덤룸으로 생성방 우선 참가로직 
         PhotonNetwork.JoinRandomRoom();
@@ -93,8 +100,6 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         DisconnectPanel.SetActive(false);
         //로비패널 온 
         RobbyPanel.SetActive(true);
-        //PhotonNetwork.LocalPlayer.NickName = nickName.text;
-
     }
     //입장할 방이 없으면 새로운 방 생성
     public override void OnJoinRandomFailed(short returnCode, string message)
@@ -116,7 +121,6 @@ public class NetworkManager : MonoBehaviourPunCallbacks
                 checkNum++;
                 if (checkNum > 1)
                 {
-
                     PhotonNetwork.LeaveRoom();
                     PhotonNetwork.LoadLevel("TitleScene");
                 }
@@ -126,18 +130,21 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         myReadyState = ReadyState.UnReady;
         SortedPlayer();
     }
+
     //타인이 들어올때
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
         Debug.Log("새로운 플레이어가 참가하셨습니다");
         SortedPlayer();
     }
+
     //플레이어가 나갈때
     public override void OnPlayerLeftRoom(Player otherPlayer)
     {
         ClearLobby();
         SortedPlayer();
     }
+
     public override void OnMasterClientSwitched(Player newMasterClient)
     {
         Debug.Log("마스터 클라이언트 변경:" + newMasterClient.ToString());
@@ -150,12 +157,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
             PhotonNetwork.LoadLevel("TitleScene");
             PhotonNetwork.LeaveRoom();
         }
-
     }
-
-    /// <summary>
-    /// --------------------------------------
-    /// </summary>
 
     #region 플레이어 자리 초기화
     public void ClearLobby()
@@ -189,10 +191,9 @@ public class NetworkManager : MonoBehaviourPunCallbacks
                 myButtonNum = i;
                 reddyButton[myButtonNum].GetComponent<Button>().interactable = true; //나만 누르기 위해 활성화
 
-                //내 상태가 레디면 노란색 -->그런데 이건 RPC상에서 표현 해줘야해
+                //내 상태가 레디면 노란색 -->그런데 이건 서버에서 표현 해줘야 하기 때문에 RPC함수 사용
                 gameObject.GetPhotonView().RPC("ButtonColor", RpcTarget.All, myReadyState, myButtonNum);
             }
-            // gameObject.GetPhotonView().RPC("stateCheck", RpcTarget.All, myReadyState, i);
 
             if (reddyButton[i].GetComponent<Image>().color == Color.yellow)
             {
@@ -221,13 +222,10 @@ public class NetworkManager : MonoBehaviourPunCallbacks
             if (readyCount == 4)
             {
                 Debug.Log("시작");
-                //4명 레디 완료시 2초후 게임 실행 
+                //4명 레디 완료시 2초후 게임 실행 코루틴 
                 photonView.StartCoroutine(MainStartTimer());
             }
         }
-
-
-        // Debug.Log(PhotonNetwork.CurrentRoom.PlayerCount);
     }
     #endregion
 
@@ -251,6 +249,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         }
     }
 
+
     #region 버튼 클릭
     public void ButtonClick()
     {
@@ -258,33 +257,27 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         if (myReadyState == ReadyState.Ready)
         {
             myReadyState = ReadyState.UnReady;
-            //상태 전환 후 마스터 레디카운트 다운
-            // gameObject.GetPhotonView().RPC("UnReadyCounT", RpcTarget.All);
-
-            //2번째
             SortedPlayer();
         }
         else
         {
             myReadyState = ReadyState.Ready;
-            //상태 전환 후 마스터 레디카운트 업 
-            //  gameObject.GetPhotonView().RPC("ReadyCounT", RpcTarget.All);
-            //레디 전환 후 시작 확인 
-
-            //2번째
             SortedPlayer();
-
         }
     }
     #endregion 
     //게임 시작 2초 지연
+    [PunRPC]
+    public void RPC_ClearLobby()
+    {
+        ClearLobby();
+    }
     IEnumerator MainStartTimer()
     {
         yield return new WaitForSeconds(2);
         if (readyCount == 4)
         {
             PhotonNetwork.LoadLevel("LoadingScene");
-            myReadyState = ReadyState.UnReady;
         }
         else Debug.Log("누군가 레디 취소함");
     }
