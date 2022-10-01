@@ -31426,6 +31426,7 @@ MonoBehaviour:
   - {fileID: 765755224}
   - {fileID: 300691071}
   - {fileID: 1984180531}
+  blackscene: {fileID: 1954273915}
 --- !u!114 &820218827
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -81635,6 +81636,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8c753b17f6a419144a21f3f9fbfd7eb6, type: 3}
+--- !u!1 &1954273915 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 489072173, guid: 8c753b17f6a419144a21f3f9fbfd7eb6, type: 3}
+  m_PrefabInstance: {fileID: 1954273914}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1956046738 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: e5da93bf3ff477c4f8f88f51e419c805, type: 3}
