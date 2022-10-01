@@ -9,13 +9,11 @@ using Photon.Realtime;
 public class GameSceneLogic : MonoBehaviourPunCallbacks
 {
     int myNum = -1;
-    SpawnMgr spawnMgr = null;
     [SerializeField] GameObject[] posStart;
     [SerializeField] GameObject blackscene;
 
     private void Awake()
     {
-        spawnMgr = GameObject.FindObjectOfType<SpawnMgr>();
         PhotonNetwork.AutomaticallySyncScene = false;
     }
     void Start()
@@ -55,6 +53,14 @@ public class GameSceneLogic : MonoBehaviourPunCallbacks
     {
         Debug.Log("마스터 클라이언트 변경:" + newMasterClient.ToString());
     }
+
+    public void EndGame()
+    {
+
+        PhotonNetwork.LoadLevel("TitleScene");
+        PhotonNetwork.LeaveRoom();
+    }
+
     //public override void OnPlayerLeftRoom(Player otherPlayer)
     //{
     //    int num = 0;

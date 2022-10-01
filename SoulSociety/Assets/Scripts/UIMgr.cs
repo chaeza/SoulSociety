@@ -7,6 +7,8 @@ using Photon.Realtime;
 using Photon.Pun;
 public class UIMgr : MonoBehaviourPun
 {
+    GameSceneLogic gameSceneLogic;
+
 
     GameObject cooltimeGameobject = null;//스킬쿨타임을 호출한 객체를 저장함
     GameObject itemUI = null;//여러개의 아이템종류를 이 오브젝트에 저장
@@ -42,6 +44,11 @@ public class UIMgr : MonoBehaviourPun
     bool[] blueSetBool = new bool[25];
     string[] sortedPlayer=new string[4];
     bool nickSave;
+
+    private void Start()
+    {
+        gameSceneLogic = FindObjectOfType<GameSceneLogic>();
+    }
 
     private void Update()
     {
@@ -363,6 +370,8 @@ public class UIMgr : MonoBehaviourPun
         //if (self == 0)
         //    lose.SetActive(true);
 
+
+        gameSceneLogic.EndGame();
 /*
 
         photonView.StartCoroutine(EndTimer());
