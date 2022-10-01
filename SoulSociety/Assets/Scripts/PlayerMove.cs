@@ -85,23 +85,16 @@ public class PlayerMove : MonoBehaviourPun
         // 사운드
         // 실제 움직임 (포지션 변경)
         RaycastHit hit;
-
-        Ray ray = Camera.main.ScreenPointToRay(mousePos);
         int mask = 1 << LayerMask.NameToLayer("Terrain");
-        Physics.Raycast(Camera.main.ScreenPointToRay(mousePos), out hit, 30f, mask);
+        bool nullCheck = Physics.Raycast(Camera.main.ScreenPointToRay(mousePos), out hit, 9999, mask);
 
-        Debug.DrawRay(ray.origin, ray.direction * 20f, Color.red, 1f);
-      
+        bool nullCheckHit = (nullCheck) ? hit.transform.gameObject.CompareTag("Ground") : false;
 
-        if (hit.collider.tag == "Ground")
+        if (nullCheckHit==true)
         {
             desiredDir = hit.point;
             desiredDir.y = transform.position.y;
             isMove = true;
-        }
-        else
-        {
-            Debug.Log("메롱");
         }
     }
    

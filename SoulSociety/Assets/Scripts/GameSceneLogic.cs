@@ -42,8 +42,8 @@ public class GameSceneLogic : MonoBehaviourPunCallbacks
             //내가 마스터클라이언트일 경우만 아이템 및 파란 영혼 생성
             if (PhotonNetwork.IsMasterClient)
             {
-                GameMgr.Instance.spawnMgr.photonView.RPC("ItemInit", RpcTarget.All);
-                GameMgr.Instance.spawnMgr.photonView.RPC("SoulInit", RpcTarget.All);
+                GameMgr.Instance.spawnMgr.photonView.RPC("ItemInit", RpcTarget.MasterClient);
+                GameMgr.Instance.spawnMgr.photonView.RPC("SoulInit", RpcTarget.MasterClient);
                 PhotonNetwork.CurrentRoom.IsOpen = false;
             }
         }
