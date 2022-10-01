@@ -34198,6 +34198,7 @@ GameObject:
   - component: {fileID: 3135167249953250453}
   - component: {fileID: 3136351313447157379}
   - component: {fileID: -4799434199422514301}
+  - component: {fileID: 3220649880595005970}
   m_Layer: 0
   m_Name: BasicAttackEff
   m_TagString: Untagged
@@ -39107,6 +39108,19 @@ MonoBehaviour:
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
+--- !u!135 &3220649880595005970
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2974157163049428057}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 3
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &2974185842109424463
 GameObject:
   m_ObjectHideFlags: 0

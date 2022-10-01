@@ -66,16 +66,6 @@ public class PlayerInfo : MonoBehaviourPun
         photonView.RPC("ChangeColor", RpcTarget.All,myNum);//자기번호를 넘겨 플레이어의 색상을 모두에게 바꿉니다. 
         photonView.RPC("TabUpdate", RpcTarget.All,myNum,playerState,1,0);//자신의 번호를 넘겨 탭상태를 갱신합니다.
     }
-
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.tag != "mainPlayer" && other.tag == "Player")
-        {
-            other.gameObject.GetPhotonView().RPC("RPC_hit", RpcTarget.All,basicAttackDamage,gameObject.GetPhotonView().ViewID,state.None,0f);
-        }
-        
-    }
     public void Stay(float time)
     {
         stay = true;
