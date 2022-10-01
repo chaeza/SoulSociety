@@ -102,6 +102,7 @@ public class PlayerMove : MonoBehaviourPun
     {
         myAnimator.SetBool("isMove", false);
         navMeshAgent.isStopped = true;
+        navMeshAgent.velocity = Vector3.zero;
         isMove = false;
         //Debug.Log(isMove.ToString());
     }
