@@ -229,8 +229,12 @@ public class PlayerInfo : MonoBehaviourPun
     IEnumerator MyStun(float time)
     {
         GetComponent<PlayerMove>().MoveStop();
-        //GameObject player = PhotonNetwork.Instantiate("Stun", transform.position, Quaternion.identity);
-        // GameMgr.Instance.DestroyTarget(player, time);
+        GameObject player = PhotonNetwork.Instantiate("Stun", transform.position, Quaternion.identity);
+        player.transform.Translate(0, 1, 0);
+        if(time<1f)
+            GameMgr.Instance.DestroyTarget(player, 1f);
+        else 
+        GameMgr.Instance.DestroyTarget(player, time);
         yield return new WaitForSeconds(time);
         playerState = state.None;
         yield break;
@@ -239,8 +243,12 @@ public class PlayerInfo : MonoBehaviourPun
     IEnumerator MySlow (float time,float slow)
     {
         GetComponent<PlayerMove>().ChageSpeed(GetComponent<PlayerMove>().moveSpeed);
-        //GameObject player = PhotonNetwork.Instantiate("Slow", transform.position, Quaternion.identity);
-        //GameMgr.Instance.DestroyTarget(player,time);
+        GameObject player = PhotonNetwork.Instantiate("Slow", transform.position, Quaternion.identity);
+        player.transform.Translate(0, 1, 0);
+        if (time < 1f)
+            GameMgr.Instance.DestroyTarget(player, 1f);
+        else
+            GameMgr.Instance.DestroyTarget(player,time);
         GetComponent<PlayerMove>().ChageSpeed(GetComponent<PlayerMove>().moveSpeed * (1 - (slow / 100)));
         yield return new WaitForSeconds(time);
         GetComponent<PlayerMove>().ChageSpeed(GetComponent<PlayerMove>().moveSpeed);

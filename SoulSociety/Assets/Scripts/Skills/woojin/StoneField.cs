@@ -77,8 +77,6 @@ public class StoneField : MonoBehaviourPun , SkillMethod
     {
         if (skillClick == true)
         {
-            GetComponent<Animator>().SetTrigger("isAttack");
-            GetComponent<PlayerInfo>().Stay(1f);
             skillClick = false;
             myskillRangerect.gameObject.SetActive(false);
             skilla.SetActive(false);
@@ -99,6 +97,8 @@ public class StoneField : MonoBehaviourPun , SkillMethod
             }
             if (skillCool == false)//스킬 사용 가능이면
             {
+                GetComponent<Animator>().SetTrigger("isAttack1");
+                GetComponent<PlayerInfo>().Stay(1f);
                 GameObject a = PhotonNetwork.Instantiate("StonField", transform.position, Quaternion.identity);//이펙트를 포톤 인스턴스를 합니다.
                 a.AddComponent<StonFieldHit>();//이펙트에 히트 스크립트를 넣습니다.
                 a.SendMessage("AttackerName", gameObject.GetPhotonView().ViewID, SendMessageOptions.DontRequireReceiver);//이펙트에 공격자를 지정합니다.
