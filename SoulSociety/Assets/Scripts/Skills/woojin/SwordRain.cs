@@ -75,8 +75,8 @@ public class SwordRain : MonoBehaviourPun , SkillMethod
 
         if (skillClick == true)
         {
-            GetComponent<PlayerInfo>().Stay(1f);
             GetComponent<Animator>().SetTrigger("isAttack");
+            GetComponent<PlayerInfo>().Stay(1f);
             skillClick = false;
             myskillRangerect.gameObject.SetActive(false);
             skilla.SetActive(false);
