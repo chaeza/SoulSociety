@@ -12,10 +12,10 @@ public class GameSceneLogic : MonoBehaviourPunCallbacks
     [SerializeField] GameObject[] posStart;
     [SerializeField] GameObject blackscene;
 
-    private void Awake()
+   /* private void Awake()
     {
-        PhotonNetwork.AutomaticallySyncScene = false;
-    }
+    *//*    PhotonNetwork.AutomaticallySyncScene = false;*//*
+    }*/
     void Start()
     {
         Vector3 pos = Vector3.zero;
@@ -42,8 +42,8 @@ public class GameSceneLogic : MonoBehaviourPunCallbacks
             //내가 마스터클라이언트일 경우만 아이템 및 파란 영혼 생성
             if (PhotonNetwork.IsMasterClient)
             {
-                GameMgr.Instance.spawnMgr.photonView.RPC("ItemInit", RpcTarget.MasterClient);
-                GameMgr.Instance.spawnMgr.photonView.RPC("SoulInit", RpcTarget.MasterClient);
+                GameMgr.Instance.spawnMgr.photonView.RPC("ItemInit", RpcTarget.All);
+                GameMgr.Instance.spawnMgr.photonView.RPC("SoulInit", RpcTarget.All);
                 PhotonNetwork.CurrentRoom.IsOpen = false;
             }
         }
@@ -56,11 +56,11 @@ public class GameSceneLogic : MonoBehaviourPunCallbacks
 
     public void EndGame()
     {
-
         PhotonNetwork.LoadLevel("TitleScene");
         PhotonNetwork.LeaveRoom();
     }
 
+    //블랙홀
     //public override void OnPlayerLeftRoom(Player otherPlayer)
     //{
     //    int num = 0;

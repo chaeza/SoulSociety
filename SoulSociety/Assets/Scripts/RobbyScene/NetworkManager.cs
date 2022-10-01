@@ -35,6 +35,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     public void SoloClick()
     {
         PhotonNetwork.LoadLevel("LoadingScene");
+      //  PhotonNetwork.LoadLevel("GameScene");
     }
     private void Awake()
     {
@@ -68,6 +69,9 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     public override void OnConnectedToMaster()
     {
         btnConnect.interactable = true;
+     
+       // 불끄기
+        ClearLobby();
         Debug.Log("## OnConnected to Master");
     }
     public override void OnDisconnected(DisconnectCause cause)
@@ -273,8 +277,6 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         yield return new WaitForSeconds(2);
         if (readyCount == 4)
         {
-            myReadyState = ReadyState.UnReady;
-            photonView.RPC("RPC_ClearLobby", RpcTarget.All);
             PhotonNetwork.LoadLevel("LoadingScene");
         }
         else Debug.Log("누군가 레디 취소함");

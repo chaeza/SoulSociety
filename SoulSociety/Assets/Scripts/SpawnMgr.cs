@@ -47,13 +47,6 @@ public class SpawnMgr : MonoBehaviourPun
         }
     }
 
-    /*
-        GameObject Create()  //생성한다 (매니저)
-        {
-            GameObject obj = Instantiate(itemPrefab, groundCh[ran].transform.position + new Vector3(4, 3, 3.5f), Quaternion.identity);
-
-            return obj;
-        }*/
 
     [PunRPC]
     //풀에서 내보낼때

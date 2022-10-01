@@ -88,8 +88,6 @@ public class GameMgr : Singleton<GameMgr>
     public void DestroyTarget(GameObject desObject,float time)
     {
         photonView.RPC("PunDestroyObject", RpcTarget.All, desObject.GetPhotonView().ViewID, time);
-
-
     }
     [PunRPC]
     public void PunDestroyObject(int viewid,float time)
