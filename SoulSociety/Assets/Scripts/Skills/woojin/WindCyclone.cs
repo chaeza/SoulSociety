@@ -8,9 +8,11 @@ public class WindCyclone : MonoBehaviourPun, SkillMethod
     int skillRange = 10;
     bool skillCool = false;
     bool skillClick = false;
+
     ResourceData eff;
     RectTransform myskillRangerect = null;
     GameObject skilla;
+    GameObject skillCh;
 
     Vector3 canSkill;
     private void Start()
@@ -27,6 +29,7 @@ public class WindCyclone : MonoBehaviourPun, SkillMethod
         skillCool = false;//스킬을 다시 사용 가능하게함
         Debug.Log("스킬쿨끝");
     }
+
     public void SkillFire()
     {
         if (skillCool == false)//스킬 사용 가능이면
@@ -36,14 +39,19 @@ public class WindCyclone : MonoBehaviourPun, SkillMethod
             a.SendMessage("AttackerName", gameObject.GetPhotonView().ViewID, SendMessageOptions.DontRequireReceiver);//이펙트에 공격자를 지정합니다.
 
             // a.transform.LookAt(desiredDir);
-          //  a.transform.position = gameObject.transform.position + new Vector3(0f, 2f, 0f);
+            //  a.transform.position = gameObject.transform.position + new Vector3(0f, 2f, 0f);
+
             a.transform.Rotate(-90f, 0f, 0f);
             a.gameObject.transform.SetParent(GameObject.FindGameObjectWithTag("mainPlayer").transform);
 
-            GameMgr.Instance.DestroyTarget(a, 8f);
+            skillCh = a;
+
+            GameMgr.Instance.DestroyTarget(a, 8f);    //지속 시간
+         
+            // a.transform.rotation = Quaternion.identity;
 
             skillCool = true;//쿨타임 온 시켜 다시 사용 못하게함
-     
+
             Debug.Log("스킬사용");
             GameMgr.Instance.uIMgr.SkillCooltime(gameObject, 20);//UI매니저에 쿨타임 x초를 보냄
         }
