@@ -13,6 +13,7 @@ TagManager:
   - Spawn
   - Item
   - FxTemporaire
+  - ItemSpawn
   layers:
   - Default
   - TransparentFX
