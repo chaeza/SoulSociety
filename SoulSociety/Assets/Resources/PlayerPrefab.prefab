@@ -2697,6 +2697,15 @@ MonoBehaviour:
   - Type: 9
     SynchronizeType: 1
     Name: isBasicDash
+  - Type: 9
+    SynchronizeType: 1
+    Name: isSkill1
+  - Type: 9
+    SynchronizeType: 1
+    Name: isSkill2
+  - Type: 9
+    SynchronizeType: 1
+    Name: isKick
   m_SynchronizeLayers:
   - SynchronizeType: 0
     LayerIndex: 0
