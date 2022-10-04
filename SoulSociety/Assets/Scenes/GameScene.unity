@@ -55032,10 +55032,6 @@ PrefabInstance:
       propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1849097998}
-    - target: {fileID: 8808335372526478320, guid: 8c753b17f6a419144a21f3f9fbfd7eb6, type: 3}
-      propertyPath: sceneViewId
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 8808335372526478325, guid: 8c753b17f6a419144a21f3f9fbfd7eb6, type: 3}
       propertyPath: m_Name
       value: UIMgr
