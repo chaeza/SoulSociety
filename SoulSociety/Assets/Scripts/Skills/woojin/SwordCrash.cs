@@ -121,7 +121,7 @@ public class SwordCrash : MonoBehaviourPun , SkillMethod
         hitbox.SendMessage("AttackerName", gameObject.GetPhotonView().ViewID, SendMessageOptions.DontRequireReceiver);//이펙트에 공격자를 지정합니다.
         hitbox.transform.LookAt(transform.position);
         hitbox.transform.Translate(0, 0, -4f);
-        GameMgr.Instance.DestroyTarget(hitbox, 2f);  //4초뒤 삭제
+        GameMgr.Instance.DestroyTarget(hitbox, 1f);  //4초뒤 삭제
         yield return null;
         yield break;
     }

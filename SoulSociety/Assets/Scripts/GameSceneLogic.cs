@@ -61,7 +61,7 @@ public class GameSceneLogic : MonoBehaviourPunCallbacks
 
     IEnumerator endTimer()
     {
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(5);
         PhotonNetwork.LoadLevel("TitleScene");
         PhotonNetwork.LeaveRoom();
     }
