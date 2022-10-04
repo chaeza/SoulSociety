@@ -52,7 +52,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4136043440584620}
   m_Layer: 0
-  m_Name: (Opt)Effect_11_DevilBladeSlash(ForEffectScene)
+  m_Name: (Opt)Effect_11_DevilBladeSlash(ForEffectScene) 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
