@@ -10,6 +10,7 @@ public class Skill_basicDash : MonoBehaviourPun
     bool skillCool = false;
     Animator myAnimator;
     NavMeshAgent navMeshAgent;
+    UIMgr uimgr;
 
     float dashSpeed = 15;
     Vector3 desiredDir;
@@ -24,6 +25,7 @@ public class Skill_basicDash : MonoBehaviourPun
     {
         myAnimator = GetComponent<Animator>();
         navMeshAgent = GetComponent<NavMeshAgent>();
+        uimgr = GetComponent<UIMgr>();
         skillCool = false;
     }
     public void DashFire()
