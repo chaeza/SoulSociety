@@ -4903,7 +4903,7 @@ GameObject:
   - component: {fileID: 198717079356735334}
   - component: {fileID: 199327832267300194}
   - component: {fileID: -1812232930926033932}
-  - component: {fileID: -2618701941370935500}
+  - component: {fileID: -8031984795651978339}
   m_Layer: 0
   m_Name: Slash
   m_TagString: Untagged
@@ -9810,11 +9810,11 @@ MonoBehaviour:
   OwnershipTransfer: 0
   observableSearch: 2
   ObservedComponents:
-  - {fileID: -2618701941370935500}
+  - {fileID: -8031984795651978339}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
---- !u!114 &-2618701941370935500
+--- !u!114 &-8031984795651978339
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
