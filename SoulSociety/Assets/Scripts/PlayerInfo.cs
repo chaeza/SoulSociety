@@ -27,7 +27,7 @@ public class PlayerInfo : MonoBehaviourPun
     public float damageDecrease { get; set; } = 0; // 데미지 감소
 
     HpBarInfo myHPbarInfo = null;
-
+    public bool stay { get; set; } = false;
     Animator myAnimator;
     GameObject myHit;
     int myNum = 0;
@@ -66,15 +66,12 @@ public class PlayerInfo : MonoBehaviourPun
         photonView.RPC("ChangeColor", RpcTarget.All,myNum);//자기번호를 넘겨 플레이어의 색상을 모두에게 바꿉니다. 
         photonView.RPC("TabUpdate", RpcTarget.All,myNum,playerState,1,0);//자신의 번호를 넘겨 탭상태를 갱신합니다.
     }
-
-
-    private void OnTriggerEnter(Collider other)
+    public void Stay(float time)
     {
-        if (other.tag != "mainPlayer" && other.tag == "Player")
-        {
-            other.gameObject.GetPhotonView().RPC("RPC_hit", RpcTarget.All,basicAttackDamage,gameObject.GetPhotonView().ViewID,state.None,0f);
-        }
-        
+        stay = true;
+        GetComponent<PlayerMove>().MoveStop();
+        StartCoroutine(StayMe(time));
+
     }
     [PunRPC]
     void RPC_hit(float bAD,int viewID1,state st,float time)
@@ -214,22 +211,38 @@ public class PlayerInfo : MonoBehaviourPun
             GameMgr.Instance.uIMgr.BlueTabSoul(Num, Num3);
         }
     }
+    IEnumerator StayMe(float time)
+    {
+        yield return new WaitForSeconds(time);
+        stay = false;
+        yield break;
+    }
     IEnumerator MyStun(float time)
     {
         GetComponent<PlayerMove>().MoveStop();
-        //GameObject player = PhotonNetwork.Instantiate("Stun", transform.position, Quaternion.identity);
-        // GameMgr.Instance.DestroyTarget(player, time);
+        GameObject player = PhotonNetwork.Instantiate("Stun", transform.position, Quaternion.identity);
+        player.transform.Translate(0, 1, 0);
+        if(time<1f)
+            GameMgr.Instance.DestroyTarget(player, 1f);
+        else 
+        GameMgr.Instance.DestroyTarget(player, time);
         yield return new WaitForSeconds(time);
         playerState = state.None;
+        yield break;
 
     }
     IEnumerator MySlow (float time,float slow)
     {
         GetComponent<PlayerMove>().ChageSpeed(GetComponent<PlayerMove>().moveSpeed);
-        //GameObject player = PhotonNetwork.Instantiate("Slow", transform.position, Quaternion.identity);
-        //GameMgr.Instance.DestroyTarget(player,time);
+        GameObject player = PhotonNetwork.Instantiate("Slow", transform.position, Quaternion.identity);
+        player.transform.Translate(0, 1, 0);
+        if (time < 1f)
+            GameMgr.Instance.DestroyTarget(player, 1f);
+        else
+            GameMgr.Instance.DestroyTarget(player,time);
         GetComponent<PlayerMove>().ChageSpeed(GetComponent<PlayerMove>().moveSpeed * (1 - (slow / 100)));
         yield return new WaitForSeconds(time);
         GetComponent<PlayerMove>().ChageSpeed(GetComponent<PlayerMove>().moveSpeed);
+        yield break;
     }
 }

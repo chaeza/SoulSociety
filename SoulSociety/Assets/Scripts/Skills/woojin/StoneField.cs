@@ -40,9 +40,14 @@ public class StoneField : MonoBehaviourPun , SkillMethod
                 myskillRangerect.sizeDelta = new Vector2(skillRange, skillRange);
 
                 skillClick = true;
-            } 
-            
-            else skillClick = false;
+            }
+
+            else
+            {
+                skillClick = false;
+                myskillRangerect.gameObject.SetActive(false);
+                skilla.SetActive(false);
+            }
         }
     }
 
@@ -72,12 +77,10 @@ public class StoneField : MonoBehaviourPun , SkillMethod
     {
         if (skillClick == true)
         {
-            if(Vector3.Distance(canSkill, transform.position) > skillRange/2)
-            {
-                return;
-            }
+            skillClick = false;
             myskillRangerect.gameObject.SetActive(false);
             skilla.SetActive(false);
+            if(Vector3.Distance(canSkill, transform.position) > skillRange/2) return;
 
             RaycastHit hit;
             Vector3 desiredDir = Vector3.zero;
@@ -94,16 +97,18 @@ public class StoneField : MonoBehaviourPun , SkillMethod
             }
             if (skillCool == false)//스킬 사용 가능이면
             {
+                GetComponent<Animator>().SetTrigger("isAttack1");
+                GetComponent<PlayerInfo>().Stay(1f);
                 GameObject a = PhotonNetwork.Instantiate("StonField", transform.position, Quaternion.identity);//이펙트를 포톤 인스턴스를 합니다.
                 a.AddComponent<StonFieldHit>();//이펙트에 히트 스크립트를 넣습니다.
                 a.SendMessage("AttackerName", gameObject.GetPhotonView().ViewID, SendMessageOptions.DontRequireReceiver);//이펙트에 공격자를 지정합니다.
                 a.transform.LookAt(desiredDir);
+                transform.LookAt(desiredDir);
                 a.transform.Rotate(-90, 0, 0);
 
                 GameMgr.Instance.DestroyTarget(a, 4f);
                 // StartCoroutine(Fire(a));//큐브 이동시키는 코루틴
                 skillCool = true;//쿨타임 온 시켜 다시 사용 못하게함
-                skillClick = false;
                 Debug.Log("스킬사용");
                 GameMgr.Instance.uIMgr.SkillCooltime(gameObject, 25);//UI매니저에 쿨타임 10초를 보냄
             }

@@ -9,17 +9,18 @@ using Photon.Realtime;
 public class GameSceneLogic : MonoBehaviourPunCallbacks
 {
     int myNum = -1;
-    SpawnMgr spawnMgr = null;
     [SerializeField] GameObject[] posStart;
+    [SerializeField] GameObject blackscene;
 
-    private void Awake()
+   /* private void Awake()
     {
-        spawnMgr = GameObject.FindObjectOfType<SpawnMgr>();
-    }
+    *//*    PhotonNetwork.AutomaticallySyncScene = false;*//*
+    }*/
     void Start()
     {
         Vector3 pos = Vector3.zero;
         Player[] sortedPlayers = PhotonNetwork.PlayerList;
+        blackscene.SetActive(true);
         for (int i = 0; i < sortedPlayers.Length; i++)
         {
             if (sortedPlayers[i].NickName == PhotonNetwork.NickName)
@@ -52,6 +53,14 @@ public class GameSceneLogic : MonoBehaviourPunCallbacks
     {
         Debug.Log("마스터 클라이언트 변경:" + newMasterClient.ToString());
     }
+
+    public void EndGame()
+    {
+        PhotonNetwork.LoadLevel("TitleScene");
+        PhotonNetwork.LeaveRoom();
+    }
+
+    //블랙홀
     //public override void OnPlayerLeftRoom(Player otherPlayer)
     //{
     //    int num = 0;

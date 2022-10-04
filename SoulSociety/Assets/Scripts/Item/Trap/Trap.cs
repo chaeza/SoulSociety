@@ -31,7 +31,7 @@ public class Trap : MonoBehaviourPun, ItemMethod
 
         GameObject a = PhotonNetwork.Instantiate("TrapTrigger", transform.position, Quaternion.identity);//이펙트를 포톤 인스턴스를 합니다.
         a.AddComponent<TrapCh>();
-        a.GetPhotonView().RPC("GetMasterName", RpcTarget.All, MakerViewID);
+        a.SendMessage("AttackerName", gameObject.GetPhotonView().ViewID, SendMessageOptions.DontRequireReceiver);//이펙트에 공격자를 지정합니다.
         TrapE =  Instantiate(GameMgr.Instance.resourceData.myTrapEff , transform.position, Quaternion.identity);
 
         a.GetComponent<TrapCh>().TrapEffInfo(TrapE);

@@ -6,7 +6,6 @@ using Photon.Pun;
 
 public class PlayerAttack : MonoBehaviourPun
 {
-    [SerializeField] GameObject hitBox = null;
     Animator myAnimator;
     PlayerInfo playerInfo;
     bool isAttack = true;
@@ -19,6 +18,7 @@ public class PlayerAttack : MonoBehaviourPun
 
     private void Update()
     {
+        if (playerInfo.stay == true) return;
         if (GameMgr.Instance.endGame == true) return;
         if (playerInfo.playerState == state.Die) return;
         if (playerInfo.playerState == state.Stun) return;
@@ -76,17 +76,20 @@ public class PlayerAttack : MonoBehaviourPun
     IEnumerator AttackDelay(int a)
     {
         Debug.Log("공격");
-        //hitBox.SetActive(true) ;  
+        //hitBox.SetActive(true) ;
+        yield return new WaitForSeconds(0.2f);
         GameObject eff = PhotonNetwork.Instantiate("BasicAttackEff", transform.position + new Vector3(0, 1, 0), Quaternion.identity);
+
+        eff.AddComponent<BasicAttackHitbox>();
+        eff.SendMessage("AttackerName", gameObject.GetPhotonView().ViewID, SendMessageOptions.DontRequireReceiver);//이펙트에 공격자를 지정합니다.
+        eff.SendMessage("AttackerDamage",GetComponent<PlayerInfo>().basicAttackDamage, SendMessageOptions.DontRequireReceiver);//이펙트에 공격력를 지정합니다.
         GameMgr.Instance.DestroyTarget(eff ,0.5f);
         if(a==0||a==1) eff.transform.Rotate(0, 0, -45);
-        hitBox.GetComponentInChildren<BoxCollider>().enabled = true;
         GetComponent<PlayerMove>().MoveStop();
         GetComponent<PlayerMove>().donMove = true;
         yield return new WaitForSeconds(0.5f);
-        hitBox.GetComponentInChildren<BoxCollider>().enabled =false;
         GetComponent<PlayerMove>().donMove = false;
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.3f);
         //hitBox.SetActive(false) ;  
         isAttack = true;
     }

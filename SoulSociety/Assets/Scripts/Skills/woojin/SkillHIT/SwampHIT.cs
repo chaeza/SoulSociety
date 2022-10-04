@@ -17,7 +17,7 @@ public class SwampHIT : MonoBehaviourPun
     private void OnTriggerStay(Collider other)
     {
         timer += Time.deltaTime;
-        if (timer > 1.5f && other.tag == "Player")
+        if (timer > 0.5f && other.tag == "Player")
         {
                 other.gameObject.GetPhotonView().RPC("RPC_hit", RpcTarget.All, 50f, Attacker, state.Slow, 0.2f);//맞은적에게 데미지를 주고 누가 때린지 보냄.
                 other.gameObject.GetPhotonView().RPC("RPC_hit", RpcTarget.All, 2.5f, Attacker, state.None, 0f);//맞은적에게 데미지를 주고 누가 때린지 보냄.

@@ -142,13 +142,13 @@ GameObject:
   - component: {fileID: 3348516}
   - component: {fileID: 2376006}
   - component: {fileID: 6495860}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: log_1.000
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_StaticEditorFlags: 40
+  m_IsActive: 0
 --- !u!4 &409046
 Transform:
   m_ObjectHideFlags: 0
