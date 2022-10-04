@@ -24,12 +24,5 @@ public class SwampHIT : MonoBehaviourPun
 
             timer = 0f;
         }
-        
-
-        //if (other.tag == "Player" && attackList.Contains(other.gameObject) == false)//리스트에 안들어있는 적만 맞음.
-        //{
-
-        //    attackList.Add(other.gameObject);//공격 받은 적을 리스트에 넣어 콜라이더를 벗어났다가 다시맞는 경우를 방지함.
-        //}
     }
 }

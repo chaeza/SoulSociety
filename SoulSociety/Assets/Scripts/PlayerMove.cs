@@ -72,6 +72,8 @@ public class PlayerMove : MonoBehaviourPun
             {
                 myAnimator.SetBool("isMove", true);
                 navMeshAgent.isStopped = false;
+                navMeshAgent.updateRotation = true;
+                navMeshAgent.updatePosition = true;
                 navMeshAgent.SetDestination(desiredDir);
             }
             else
@@ -103,6 +105,8 @@ public class PlayerMove : MonoBehaviourPun
         myAnimator.SetBool("isMove", false);
         navMeshAgent.isStopped = true;
         navMeshAgent.velocity = Vector3.zero;
+        navMeshAgent.updateRotation = false;
+        navMeshAgent.updatePosition = false;
         isMove = false;
         //Debug.Log(isMove.ToString());
     }

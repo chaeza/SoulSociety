@@ -24,6 +24,8 @@ public class GameMgr : Singleton<GameMgr>
     public int blueCount = 0;
     int playerNum = 3;
 
+    int alivePlayerNum = 0;
+
     private void Awake()
     {
         //Instantiate(test, Vector3.zero, Quaternion.identity);
@@ -49,30 +51,25 @@ public class GameMgr : Singleton<GameMgr>
 
 
         if (redsoul == 0) redCount++;
-      
-        else if(redsoul==9)
-        {
-            if(PhotonNetwork.PlayerList.Length - num == 1)
-                uIMgr.photonView.RPC("EndGame", RpcTarget.All, 3, 9);
 
-        }
-        
-        
-        else redCount += redsoul+1;
+        else redCount += redsoul + 1;
 
-        if (PhotonNetwork.PlayerList.Length-num==1)
-        {
-            uIMgr.photonView.RPC("EndGame", RpcTarget.All, 1, redCount);
-        }
+        /*       if (PhotonNetwork.PlayerList.Length - num == 1)
+               {
+                   uIMgr.photonView.RPC("EndGame", RpcTarget.All, 1, redCount);
+               }
+       */
+        AliveNumCheck();
+
         uIMgr.MyRedSoul(redCount);
     }
     public void GetBuleSoul()
     {
         blueCount++;
         uIMgr.MyBlueSoul(blueCount);
-        if(blueCount>=5)
+        if (blueCount >= 5)
         {
-            uIMgr.photonView.RPC("EndGame", RpcTarget.All,2,blueCount);
+            uIMgr.photonView.RPC("EndGame", RpcTarget.All, 2, blueCount);
         }
     }
     public GameObject PunFindObject(int viewID3)//뷰아이디를 넘겨받아 포톤상의 오브젝트를 찾는다.
@@ -85,13 +82,45 @@ public class GameMgr : Singleton<GameMgr>
         }
         return find;
     }
-    public void DestroyTarget(GameObject desObject,float time)
+    public void DestroyTarget(GameObject desObject, float time)
     {
         photonView.RPC("PunDestroyObject", RpcTarget.All, desObject.GetPhotonView().ViewID, time);
     }
     [PunRPC]
-    public void PunDestroyObject(int viewid,float time)
+    public void PunDestroyObject(int viewid, float time)
     {
-        Destroy(PunFindObject(viewid),time);
+        Destroy(PunFindObject(viewid), time);
     }
+
+
+    public void AliveNumCheck()
+    {
+        //생존 인원 카운트 숫자
+        alivePlayerNum = 0;
+        //플레이어 인포를 찾기위한 배열 
+        PlayerInfo[] AliveNum;
+
+        GameObject winner = null;
+
+        AliveNum = FindObjectsOfType<PlayerInfo>();
+        //상태가 Die가 아니라면 살아있는 것이기 때문에 살아남은 인원 카운트 가능 
+        for (int i = 0; i < AliveNum.Length; i++)
+        {
+            if (AliveNum[i].playerState != state.Die)
+            {
+                alivePlayerNum++;
+                winner = AliveNum[i].gameObject;
+            }
+        }
+        Debug.Log("살아남은 플레이어 수 = " + alivePlayerNum);
+
+        if (alivePlayerNum == 1)
+        {
+            uIMgr.photonView.RPC("EndGame", RpcTarget.All, 1, winner.GetPhotonView().ViewID);
+        }
+
+
+
+    }
+
 }
