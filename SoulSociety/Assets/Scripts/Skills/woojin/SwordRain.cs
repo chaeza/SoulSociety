@@ -16,11 +16,9 @@ public class SwordRain : MonoBehaviourPun , SkillMethod
     Vector3 canSkill;
     private void Start()
     {
-        myskillRangerect = GetComponentInChildren<SkillRange>().gameObject.GetComponent<RectTransform>();
-        myskillRangerect.gameObject.SetActive(false);
+        myskillRangerect = GetComponent<PlayerInfo>().myskillRangerect;
 
-        skilla = GameObject.Find("Skilla");
-        skilla.SetActive(false);
+        skilla = GetComponent<PlayerInfo>().skilla;
     }
 
     public void ResetCooltime()
