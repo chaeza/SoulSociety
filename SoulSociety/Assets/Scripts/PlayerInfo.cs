@@ -116,7 +116,7 @@ public class PlayerInfo : MonoBehaviourPun
         }
         if (st != state.Slow)
         {
-            curHP -= bAD * (1 - damageDecrease);// 1에 데미지감소를 빼줘서 받는 데미지감소
+            curHP -= bAD * (1f - damageDecrease);// 1에 데미지감소를 빼줘서 받는 데미지감소
             myHPbarInfo.SetHP(curHP, maxHP);
             if(photonView.IsMine)
             GameMgr.Instance.uIMgr.SetHP(curHP, maxHP);
