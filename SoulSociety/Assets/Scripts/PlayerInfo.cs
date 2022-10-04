@@ -51,6 +51,7 @@ public class PlayerInfo : MonoBehaviourPun
         {
             gameObject.tag = "mainPlayer";
             GameMgr.Instance.randomSkill.GetRandomSkill(gameObject);
+            GameMgr.Instance.uIMgr.MyPlayerViewID(photonView.ViewID);
         }
         if (photonView.IsMine == true)//시작 때 자기 자신의 번호를 저장합니다.
         {
@@ -65,6 +66,7 @@ public class PlayerInfo : MonoBehaviourPun
         }
         photonView.RPC("ChangeColor", RpcTarget.All,myNum);//자기번호를 넘겨 플레이어의 색상을 모두에게 바꿉니다. 
         photonView.RPC("TabUpdate", RpcTarget.All,myNum,playerState,1,0);//자신의 번호를 넘겨 탭상태를 갱신합니다.
+       
     }
     public void Stay(float time)
     {

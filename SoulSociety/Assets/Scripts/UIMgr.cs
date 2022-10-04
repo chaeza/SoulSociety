@@ -45,9 +45,17 @@ public class UIMgr : MonoBehaviourPun
     string[] sortedPlayer=new string[4];
     bool nickSave;
 
+    int myIDNum;
+
     private void Start()
     {
         gameSceneLogic = FindObjectOfType<GameSceneLogic>();
+
+    }
+
+    public void MyPlayerViewID(int ID)
+    {
+        myIDNum=ID;
     }
 
     private void Update()
@@ -330,15 +338,13 @@ public class UIMgr : MonoBehaviourPun
     [PunRPC]
     public void EndGame(int Num,int dieC)
     {
-        int self=0;
         if (Num == 1)
         {
-            if (GameMgr.Instance.redCount == dieC)
+            if (myIDNum == dieC)
             {
                 win.SetActive(true);
                 winEff.SetActive(true);
             }
-
             else
                 lose.SetActive(true);
         }
@@ -349,10 +355,11 @@ public class UIMgr : MonoBehaviourPun
                 win.SetActive(true);
                 winEff.SetActive(true);
             }
-
             else
                 lose.SetActive(true);
         }
+ 
+        
         //else if(Num==3)
         //{
         //    PlayerInfo[] playerinfo = FindObjectsOfType<PlayerInfo>();

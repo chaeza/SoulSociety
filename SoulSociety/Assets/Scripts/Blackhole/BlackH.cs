@@ -8,7 +8,7 @@ public class BlackH : MonoBehaviourPun
 {
     // 행성과 별들을 담아 둘 배열을 만든다.
     Collider[] stars;
-   
+
 
     // 시간을 담당할 변수를 만든다.
     float time;
@@ -62,17 +62,26 @@ public class BlackH : MonoBehaviourPun
                 star.gameObject.transform.position += dir * 1f * Time.deltaTime;
             }
             // 블랙홀이 생성된지 10초가 지나면
-            if (time >= 13)
+            if (time >= 10)
             {
                 // 블랙홀을 꺼버린다.
                 this.gameObject.SetActive(false);
                 if (star.tag == "Player" || star.tag == "mainPlayer")
                 {
                     star.GetComponent<PlayerInfo>().playerState = state.Die;
-                    GameMgr.Instance.GetRedSoul(0);
+                    star.gameObject.tag = "DiePlayer";
+                  
+                    GameMgr.Instance.AliveNumCheck();
+                    
+                    star.gameObject.SetActive(false);
+
                 }
                 else
-                    Destroy(star.gameObject);
+                {
+                    /*if(star.transform != null)   
+                    Destroy(star.gameObject);*/
+                    star.gameObject.SetActive(false);
+                }
             }
         }
     }

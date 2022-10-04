@@ -71,6 +71,8 @@ MonoBehaviour:
   - BlackHolePos
   - ChageHP
   - RPC_ClearLobby
+  - RPC_BlackHolePos
+  - AliveNumCheck
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1
