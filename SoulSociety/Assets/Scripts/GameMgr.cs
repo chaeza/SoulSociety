@@ -116,11 +116,10 @@ public class GameMgr : Singleton<GameMgr>
 
         if (alivePlayerNum == 1)
         {
-            uIMgr.photonView.RPC("EndGame", RpcTarget.All, 1, winner.GetPhotonView().ViewID);
+            int Num = GameObject.FindObjectOfType<PlayerInfo>().photonView.ViewID;
+          //  uIMgr.photonView.RPC("EndGame", RpcTarget.All, 1, winner.GetPhotonView().ViewID);
+            uIMgr.photonView.RPC("EndGame", RpcTarget.All, 1, Num);
         }
-
-
-
     }
 
 }
