@@ -34,6 +34,7 @@ public class PlayerInfo : MonoBehaviourPun
     [field:SerializeField] public state playerState { get; set; } = state.None;//플레이어 상태
     Coroutine stunState = null;
     Coroutine slowState = null;
+    Coroutine onUnbeatable = null;
     [PunRPC]
     void ChageHP(float hp)
     {
@@ -43,6 +44,19 @@ public class PlayerInfo : MonoBehaviourPun
         myHPbarInfo.SetHP(curHP, maxHP);
         if (photonView.IsMine)
             GameMgr.Instance.uIMgr.SetHP(curHP, maxHP);
+    }
+    [PunRPC]
+    void SetUnbeatable(float time)
+    {
+        if (onUnbeatable != null) StopCoroutine(onUnbeatable);
+        onUnbeatable = StartCoroutine(OnUnbeatable(time));
+
+    }
+    [PunRPC]
+    void SetDamageDecrpease(float value,float time)
+    {
+        StartCoroutine(OnDamageDecrease(value,time));
+
     }
     private void Start()
     {
@@ -220,6 +234,7 @@ public class PlayerInfo : MonoBehaviourPun
             GameMgr.Instance.uIMgr.BlueTabSoul(Num, Num3);
         }
     }
+    #region 플레이어 상태 코루틴
     IEnumerator StayMe(float time)
     {
         yield return new WaitForSeconds(time);
@@ -253,4 +268,26 @@ public class PlayerInfo : MonoBehaviourPun
         GetComponent<PlayerMove>().ChageSpeed(GetComponent<PlayerMove>().moveSpeed);
         yield break;
     }
+    IEnumerator OnUnbeatable(float time)
+    {
+        Debug.Log("무적시작");
+        playerState = state.Unbeatable;
+        yield return new WaitForSeconds(time);
+        if (playerState == state.Unbeatable)
+        {
+            playerState = state.None;
+            Debug.Log("무적끝");
+        }
+        yield break;
+    }
+    IEnumerator OnDamageDecrease(float value,float time)
+    {
+        Debug.Log("뎀감시작");
+        damageDecrease += value;
+        yield return new WaitForSeconds(time);
+        damageDecrease -= value;
+        Debug.Log("뎀감끝");
+        yield break;
+    }
+    #endregion
 }
