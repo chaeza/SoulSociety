@@ -39,11 +39,9 @@ public class DevilSword : MonoBehaviourPun, SkillMethod
             // a.transform.LookAt(desiredDir);
             //  a.transform.position = gameObject.transform.position + new Vector3(0f, 2f, 0f);
 
-            a.transform.Rotate(-90f, 0f, 0f);
-
             skillCh = a;
 
-            GameMgr.Instance.DestroyTarget(a, 8f);    //지속 시간
+            GameMgr.Instance.DestroyTarget(a, 1f);    //지속 시간
 
             //StartCoroutine(Sound());
             // a.transform.rotation = Quaternion.identity;

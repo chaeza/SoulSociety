@@ -10,7 +10,7 @@ public class BlackHole : MonoBehaviourPun
     float time = 0;
     int ran;
     int MasterRan;
-    int blackHoleTime = 80;
+    int blackHoleTime = 40;
     public int zero;
    
 
@@ -43,7 +43,7 @@ public class BlackHole : MonoBehaviourPun
             zero++;                          //7번 켤수있게 카운트해줌
             blackHole[ran].SetActive(true);  //블랙홀 켜주기
           
-            blackHoleTime -= 10;
+            blackHoleTime -= 2;
             time = 0;
 
             ran++;                          //블랙홀 랜덤에 그 옆에 있는게 켜지는 로직
