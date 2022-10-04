@@ -9,7 +9,6 @@ public class StoneField : MonoBehaviourPun , SkillMethod
     int skillRange = 10;
     bool skillCool = false;
     bool skillClick = false;
-    ResourceData eff;
 
     RectTransform myskillRangerect = null;
     GameObject skilla;
@@ -17,11 +16,9 @@ public class StoneField : MonoBehaviourPun , SkillMethod
     Vector3 canSkill;
     private void Start()
     {
-        myskillRangerect = GetComponentInChildren<SkillRange>().gameObject.GetComponent<RectTransform>();
-        myskillRangerect.gameObject.SetActive(false);
+        myskillRangerect = GetComponent<PlayerInfo>().myskillRangerect;
 
-        skilla = GameObject.Find("Skilla");
-        skilla.SetActive(false);
+        skilla = GetComponent<PlayerInfo>().skilla;
     }
 
     public void ResetCooltime()

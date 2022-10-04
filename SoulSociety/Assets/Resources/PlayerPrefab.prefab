@@ -2636,6 +2636,8 @@ MonoBehaviour:
   blueSoul: 0
   redSoul: 0
   maxHP: 100
+  myskillRangerect: {fileID: 0}
+  skilla: {fileID: 0}
   <playerState>k__BackingField: 0
 --- !u!114 &7852713135524856233
 MonoBehaviour:

@@ -5,20 +5,7 @@ using Photon.Pun;
 
 public class DevilSword : MonoBehaviourPun, SkillMethod
 {
-    int skillRange = 10;
     bool skillCool = false;
-
-    RectTransform myskillRangerect = null;
-    GameObject skilla;
-    private void Start()
-    {
-        myskillRangerect = GetComponentInChildren<SkillRange>().gameObject.GetComponent<RectTransform>();
-        myskillRangerect.gameObject.SetActive(false);
-
-        skilla = GameObject.Find("Skilla");
-        skilla.SetActive(false);
-    }
-
     public void ResetCooltime()
     {
         skillCool = false;//스킬을 다시 사용 가능하게함

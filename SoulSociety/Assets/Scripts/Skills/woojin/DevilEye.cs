@@ -5,9 +5,7 @@ using Photon.Pun;
 
 public class DevilEye : MonoBehaviourPun, SkillMethod
 {
-
     bool skillCool = false;
-   
     GameObject TrapE;
 
     public void ResetCooltime()

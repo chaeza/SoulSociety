@@ -31,6 +31,8 @@ public class PlayerInfo : MonoBehaviourPun
     Animator myAnimator;
     GameObject myHit;
     int myNum = 0;
+    public RectTransform myskillRangerect = null;
+    public GameObject skilla;
     [field:SerializeField] public state playerState { get; set; } = state.None;//플레이어 상태
     Coroutine stunState = null;
     Coroutine slowState = null;
@@ -68,6 +70,11 @@ public class PlayerInfo : MonoBehaviourPun
             gameObject.tag = "mainPlayer";
             GameMgr.Instance.randomSkill.GetRandomSkill(gameObject);
             GameMgr.Instance.uIMgr.MyPlayerViewID(photonView.ViewID);
+            myskillRangerect = GetComponentInChildren<SkillRange>().gameObject.GetComponent<RectTransform>();
+            myskillRangerect.gameObject.SetActive(false);
+
+            skilla = GameObject.Find("Skilla");
+            skilla.SetActive(false);
         }
         if (photonView.IsMine == true)//시작 때 자기 자신의 번호를 저장합니다.
         {
