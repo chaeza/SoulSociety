@@ -17,7 +17,7 @@ public class WindCycloneHit : MonoBehaviourPun
     private void OnTriggerStay(Collider other)
     {
         timer += Time.deltaTime;
-        if (timer > 0.5f && other.tag == "Player")
+        if (timer > 1f && other.tag == "Player")
         {
             other.gameObject.GetPhotonView().RPC("RPC_hit", RpcTarget.All, 5f, Attacker, state.None, 0f);//맞은적에게 데미지를 주고 누가 때린지 보냄.
 
