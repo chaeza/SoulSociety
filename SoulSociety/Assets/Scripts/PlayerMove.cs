@@ -37,7 +37,7 @@ public class PlayerMove : MonoBehaviourPun
         if (playerInfo.playerState == state.Die) return;
         if (playerInfo.playerState == state.Stun)
         {
-            MoveStop();
+            myAnimator.SetBool("isMove", false);
             return;
         }
         if (photonView.IsMine == false) return;
