@@ -13,7 +13,6 @@ public class WindCyclone : MonoBehaviourPun, SkillMethod
     ResourceData eff;
     RectTransform myskillRangerect = null;
     GameObject skilla;
-    GameObject skillCh;
 
     Vector3 canSkill;
     private void Start()
@@ -40,13 +39,13 @@ public class WindCyclone : MonoBehaviourPun, SkillMethod
             GameObject a = PhotonNetwork.Instantiate("WindCyclone", transform.position, Quaternion.identity);//이펙트를 포톤 인스턴스를 합니다.
             a.AddComponent<WindCycloneHit>();//이펙트에 히트 스크립트를 넣습니다.
             a.SendMessage("AttackerName", gameObject.GetPhotonView().ViewID, SendMessageOptions.DontRequireReceiver);//이펙트에 공격자를 지정합니다.
-
+            a.AddComponent<MyPosition>();
+            a.transform.Rotate(-90f, 0f, 0f);
+            a.SendMessage("MyPos", gameObject.transform, SendMessageOptions.DontRequireReceiver);
             // a.transform.LookAt(desiredDir);
             //  a.transform.position = gameObject.transform.position + new Vector3(0f, 2f, 0f);
 
-            a.transform.Rotate(-90f, 0f, 0f);
-            
-            skillCh = a;
+           
 
             GameMgr.Instance.DestroyTarget(a, 8f);    //지속 시간
 

@@ -30,7 +30,7 @@ public class DamageDecrpease : MonoBehaviourPun, ItemMethod//아이템 인터페이스 �
         a.SendMessage("MyPos", gameObject.transform, SendMessageOptions.DontRequireReceiver);
         a.SendMessage("YPos", 2, SendMessageOptions.DontRequireReceiver);
 
-        gameObject.GetPhotonView().RPC("SetDamageDecrpease", RpcTarget.All, 30f,3f);
+        gameObject.GetPhotonView().RPC("SetDamageDecrpease", RpcTarget.All, 0.3f,3f);
         GameMgr.Instance.DestroyTarget(a, 3f);
         //
         GameMgr.Instance.uIMgr.UseItem(itemNum);
