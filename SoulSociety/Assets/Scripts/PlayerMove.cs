@@ -4,12 +4,16 @@ using UnityEngine;
 using Photon.Pun;
 using UnityEngine.AI;
 
+
+
 public class PlayerMove : MonoBehaviourPun
 {
     [SerializeField] public float moveSpeed { get; set; } = 5;
     PlayerInfo playerInfo;
     Animator myAnimator;
     NavMeshAgent navMeshAgent;
+
+
 
     bool isMove = false;
     public bool donMove { get; set; } = false;
@@ -74,11 +78,14 @@ public class PlayerMove : MonoBehaviourPun
                 navMeshAgent.isStopped = false;
                 navMeshAgent.updateRotation = true;
                 navMeshAgent.updatePosition = true;
+                
                 navMeshAgent.SetDestination(desiredDir);
             }
             else
                 MoveStop();
         }
+
+        
      
     }
     public void Move(Vector3 mousePos)
