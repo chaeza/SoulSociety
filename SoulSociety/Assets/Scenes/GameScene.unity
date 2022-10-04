@@ -55045,6 +55045,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2046181930}
     - target: {fileID: 8808335372526478326, guid: 8c753b17f6a419144a21f3f9fbfd7eb6, type: 3}
+      propertyPath: skill.Array.data[4]
+      value: 
+      objectReference: {fileID: 3579530173654537349, guid: ec16a99c38971814491e9b00ff371891, type: 3}
+    - target: {fileID: 8808335372526478326, guid: 8c753b17f6a419144a21f3f9fbfd7eb6, type: 3}
       propertyPath: redSoul.Array.data[0]
       value: 
       objectReference: {fileID: 2147027089}
@@ -55204,6 +55208,10 @@ PrefabInstance:
       propertyPath: blueSoul.Array.data[24]
       value: 
       objectReference: {fileID: 721354405132440391}
+    - target: {fileID: 8808335372526478326, guid: 8c753b17f6a419144a21f3f9fbfd7eb6, type: 3}
+      propertyPath: skillExplantion.Array.data[4]
+      value: 
+      objectReference: {fileID: 4534185413774496320, guid: 688daabd8bb7cd04589bdac427623164, type: 3}
     - target: {fileID: 8808335372526478327, guid: 8c753b17f6a419144a21f3f9fbfd7eb6, type: 3}
       propertyPath: m_RootOrder
       value: 8

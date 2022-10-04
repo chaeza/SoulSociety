@@ -243,6 +243,7 @@ public class PlayerInfo : MonoBehaviourPun
     }
     IEnumerator MyStun(float time)
     {
+        GetComponent<PlayerMove>().MoveStop();
         GameObject player = PhotonNetwork.Instantiate("Stun", transform.position, Quaternion.identity);
         player.transform.Translate(0, 1, 0);
         if(time<1f)
