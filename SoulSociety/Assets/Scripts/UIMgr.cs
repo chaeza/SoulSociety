@@ -344,7 +344,7 @@ public class UIMgr : MonoBehaviourPun
     [PunRPC]
     public void EndGame(int Num,int dieC)
     {
-        
+        if (isWinner) return;
         if (Num == 1)
         {
             if (myIDNum == dieC&&isWinner==false)

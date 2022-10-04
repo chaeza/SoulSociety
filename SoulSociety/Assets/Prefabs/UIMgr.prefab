@@ -55452,10 +55452,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: DamageDecreaseExplantion
       objectReference: {fileID: 0}
-    - target: {fileID: 141244869382407167, guid: 8ec10205a3dc8ab4080a607cca405e9a, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8ec10205a3dc8ab4080a607cca405e9a, type: 3}
 --- !u!224 &1282172653352600662 stripped
@@ -56890,10 +56886,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: DamageDecrease
       objectReference: {fileID: 0}
-    - target: {fileID: 3473798607537380052, guid: 1222bce3d875562479ef72abacd9ada5, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 3473798607537380055, guid: 1222bce3d875562479ef72abacd9ada5, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -57967,10 +57959,6 @@ PrefabInstance:
     - target: {fileID: 2183954165596440922, guid: d8b015fe0036cb649aa751db56783d6e, type: 3}
       propertyPath: m_Name
       value: Unbeatable
-      objectReference: {fileID: 0}
-    - target: {fileID: 2183954165596440922, guid: d8b015fe0036cb649aa751db56783d6e, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2183954165596440923, guid: d8b015fe0036cb649aa751db56783d6e, type: 3}
       propertyPath: m_Pivot.x
