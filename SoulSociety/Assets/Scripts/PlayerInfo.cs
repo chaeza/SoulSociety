@@ -127,6 +127,7 @@ public class PlayerInfo : MonoBehaviourPun
         if (photonView.IsMine == true)
         {
             GameMgr.Instance.GetRedSoul(redcount);
+
             photonView.RPC("TabUpdate", RpcTarget.All, myNum, playerState, 2, GameMgr.Instance.redCount);//자신의 번호를 넘겨 탭상태를 갱신합니다.
             photonView.RPC("TabUpdate", RpcTarget.All, myNum, playerState, 3, 0);//자신의 번호를 넘겨 탭상태를 갱신합니다.
         }
