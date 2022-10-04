@@ -40,6 +40,7 @@ public class UIMgr : MonoBehaviourPun
     [SerializeField] GameObject winEff = null;
     [Header("플레이어")]
     [SerializeField] Text[] playerNick = null;
+    [SerializeField] Image myHP = null;
     bool[] redSetBool = new bool[15];
     bool[] blueSetBool = new bool[25];
     string[] sortedPlayer=new string[4];
@@ -64,6 +65,10 @@ public class UIMgr : MonoBehaviourPun
         }
         if (GameMgr.Instance.playerInput.Esc == KeyCode.Escape) esc.SetActive(true);
         else esc.SetActive(false);
+    }
+    public void SetHP(float curHP, float maxHP)
+    {
+        myHP.fillAmount = curHP / maxHP;
     }
     public void TabNickName(int Num,state myState)
     {

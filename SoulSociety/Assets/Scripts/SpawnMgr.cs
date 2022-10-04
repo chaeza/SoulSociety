@@ -8,6 +8,7 @@ public class SpawnMgr : MonoBehaviourPun
 {
     // 소환할 Object
     GameObject[] groundCh = null;     //그라운드태그 모을 장소
+    bool[] groundNum = new bool[1000];    //해당 그라운드에 있는 아이템 위치 번호
     public GameObject itemPrefab;     //생성될 아이템 프리펩
     public GameObject soulPrefab;     //생성될 소울 프리펩
     public GameObject[] gameObjects;
@@ -23,7 +24,7 @@ public class SpawnMgr : MonoBehaviourPun
 
     private void Awake()
     {
-        groundCh = GameObject.FindGameObjectsWithTag("Ground");        //그라운드 태그인것 모두 찾아 배열에 넣다
+        groundCh = GameObject.FindGameObjectsWithTag("ItemSpawn");        //그라운드 태그인것 모두 찾아 배열에 넣다
     }
 
 
@@ -34,16 +35,29 @@ public class SpawnMgr : MonoBehaviourPun
         for (int i = 0; i < 32; i++)
         {
             ran = Random.Range(0, groundCh.Length);
+            while (groundNum[ran] == true)
+            {
+                ran = Random.Range(0, groundCh.Length);
+            }
+            groundNum[ran] = true;
             GameObject obj = PhotonNetwork.Instantiate("ItemBox", groundCh[ran].transform.position + new Vector3(4, 3, 3.5f), Quaternion.identity);
+            obj.SendMessage("MyNum", ran, SendMessageOptions.DontRequireReceiver);
         }
     }
     [PunRPC]
     public void SoulInit()    //소울 x개 생성
     {
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < 3; i++)
         {
             ran2 = Random.Range(0, groundCh.Length);
-            PhotonNetwork.Instantiate("BlueSoul", groundCh[ran2].transform.position + new Vector3(4, 4, 3.5f), Quaternion.identity);
+            while(groundNum[ran2]==true)
+            {
+                ran2 = Random.Range(0, groundCh.Length);
+            }
+            groundNum[ran2] = true;
+            GameObject obj = PhotonNetwork.Instantiate("BlueSoul", groundCh[ran2].transform.position + new Vector3(4, 4, 3.5f), Quaternion.identity);
+            obj.SendMessage("MyNum", ran2, SendMessageOptions.DontRequireReceiver);
+
         }
     }
 
@@ -60,6 +74,7 @@ public class SpawnMgr : MonoBehaviourPun
         obj = queue.Dequeue();
 
         obj.transform.position = groundCh[groundNum].transform.position + new Vector3(4, 3, 3.5f);
+        obj.SendMessage("MyNum", groundNum, SendMessageOptions.DontRequireReceiver);
         obj.gameObject.SetActive(true);
 
     }
@@ -73,14 +88,16 @@ public class SpawnMgr : MonoBehaviourPun
         obj = queue.Dequeue();
 
         obj.transform.position = groundCh[groundNum].transform.position + new Vector3(4, 4, 3.5f);
+        obj.SendMessage("MyNum", groundNum, SendMessageOptions.DontRequireReceiver);
         obj.gameObject.SetActive(true);
 
     }
 
     [PunRPC]
-    public void FindItemInPool(int ViewID2)
+    public void FindItemInPool(int ViewID2,int num)
     {
         GameObject obj = null;
+        
         PhotonView[] allPoton = FindObjectsOfType<PhotonView>();
         for (int i = 0; i < allPoton.Length; i++)
         {
@@ -90,12 +107,12 @@ public class SpawnMgr : MonoBehaviourPun
             }
         }
         //photonView.RPC("Relase", RpcTarget.All, obj);
-
+        groundNum[num] = false;
         Relase(obj);
     }
 
     [PunRPC]
-    public void FindSoulInPool(int ViewID2)
+    public void FindSoulInPool(int ViewID2, int num)
     {
         GameObject obj = null;
         PhotonView[] allPoton = FindObjectsOfType<PhotonView>();
@@ -106,9 +123,10 @@ public class SpawnMgr : MonoBehaviourPun
                 obj = allPoton[i].gameObject;
             }
         }
-       // photonView.RPC("SoulRelase", RpcTarget.All, obj);
+        // photonView.RPC("SoulRelase", RpcTarget.All, obj);
+        groundNum[num] = false;
 
-         SoulRelase(obj);
+        SoulRelase(obj);
     }
 
 
@@ -141,6 +159,11 @@ public class SpawnMgr : MonoBehaviourPun
         if (PhotonNetwork.IsMasterClient)
         {
             ran3 = Random.Range(0, groundCh.Length);
+            while (groundNum[ran3] == true)
+            {
+                ran3 = Random.Range(0, groundCh.Length);
+            }
+            groundNum[ran3] = true;
 
             photonView.RPC("ItemGet", RpcTarget.All, ran3);
         }
@@ -153,6 +176,11 @@ public class SpawnMgr : MonoBehaviourPun
         if (PhotonNetwork.IsMasterClient)
         {
             ran4 = Random.Range(0, groundCh.Length);
+            while (groundNum[ran4] == true)
+            {
+                ran4 = Random.Range(0, groundCh.Length);
+            }
+            groundNum[ran4] = true;
 
             photonView.RPC("SoulGet", RpcTarget.All, ran4);
         }

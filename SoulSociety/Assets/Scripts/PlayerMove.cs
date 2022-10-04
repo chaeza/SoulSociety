@@ -37,7 +37,7 @@ public class PlayerMove : MonoBehaviourPun
         if (playerInfo.playerState == state.Die) return;
         if (playerInfo.playerState == state.Stun)
         {
-            isMove = false;
+            MoveStop();
             return;
         }
         if (photonView.IsMine == false) return;
@@ -102,6 +102,7 @@ public class PlayerMove : MonoBehaviourPun
     {
         myAnimator.SetBool("isMove", false);
         navMeshAgent.isStopped = true;
+        navMeshAgent.velocity = Vector3.zero;
         isMove = false;
         //Debug.Log(isMove.ToString());
     }
