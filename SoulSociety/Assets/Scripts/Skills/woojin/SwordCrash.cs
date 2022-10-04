@@ -93,16 +93,10 @@ public class SwordCrash : MonoBehaviourPun , SkillMethod
             }
             if (skillCool == false)//스킬 사용 가능이면
             {
-                GetComponent<Animator>().SetTrigger("isAttack1");
-                GetComponent<PlayerInfo>().Stay(1f);
-                GameObject a = PhotonNetwork.Instantiate("SwordCrash", desiredDir, Quaternion.identity);//이펙트를 포톤 인스턴스를 합니다.
-                a.AddComponent<SwordCrashHit>();//이펙트에 히트 스크립트를 넣습니다.
-                a.SendMessage("AttackerName", gameObject.GetPhotonView().ViewID, SendMessageOptions.DontRequireReceiver);//이펙트에 공격자를 지정합니다.
-                a.transform.LookAt(transform.position);
-                a.transform.Rotate(0, 180, 0);
-                StartCoroutine( Fire(desiredDir));
+                GetComponent<Animator>().SetTrigger("isSkill2");
                 transform.LookAt(desiredDir);
-                GameMgr.Instance.DestroyTarget(a, 4f);  //4초뒤 삭제
+                GetComponent<PlayerInfo>().Stay(1.2f);
+                StartCoroutine(Stay(desiredDir, 0.8f));
 
 
                 skillCool = true;//쿨타임 온 시켜 다시 사용 못하게함
@@ -111,7 +105,20 @@ public class SwordCrash : MonoBehaviourPun , SkillMethod
             }
         }
     }
-    IEnumerator Fire(Vector3 pos)//큐브 이동시키기
+    IEnumerator Stay(Vector3 desiredDir, float time)
+    {
+        yield return new WaitForSeconds(time);
+        GameObject a = PhotonNetwork.Instantiate("SwordCrash", desiredDir, Quaternion.identity);//이펙트를 포톤 인스턴스를 합니다.
+        a.AddComponent<SwordCrashHit>();//이펙트에 히트 스크립트를 넣습니다.
+        a.SendMessage("AttackerName", gameObject.GetPhotonView().ViewID, SendMessageOptions.DontRequireReceiver);//이펙트에 공격자를 지정합니다.
+        a.transform.LookAt(transform.position);
+        a.transform.Rotate(0, 180, 0);
+        StartCoroutine(Fire(desiredDir));
+        GameMgr.Instance.DestroyTarget(a, 3f);  //4초뒤 삭제
+        yield break;
+    }
+
+        IEnumerator Fire(Vector3 pos)//큐브 이동시키기
     {
         yield return new WaitForSeconds(1f);
         GameObject hitbox = PhotonNetwork.Instantiate("SwordCrashHitbox", pos, Quaternion.identity);//이펙트를 포톤 인스턴스를 합니다.

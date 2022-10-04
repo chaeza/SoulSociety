@@ -18,7 +18,7 @@ public class PlayerMove : MonoBehaviourPun
     bool isMove = false;
     public bool donMove { get; set; } = false;
 
-    Vector3 desiredDir;
+    public Vector3 desiredDir;
     Vector3 clickPos = Vector3.one;
 
     private void Start()

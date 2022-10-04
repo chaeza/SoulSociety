@@ -32,7 +32,7 @@ public class WindCyclone : MonoBehaviourPun, SkillMethod
 
             GameMgr.Instance.DestroyTarget(a, 8f);    //지속 시간
 
-            StartCoroutine(Sound());
+            //StartCoroutine(Sound());
             // a.transform.rotation = Quaternion.identity;
 
             skillCool = true;//쿨타임 온 시켜 다시 사용 못하게함
