@@ -1,8 +1,14 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:SoulSociety/Assets/Scripts/Skills/Dongfoo.meta
 guid: c2748037b2f20cf4ab963c1da20178e7
 folderAsset: yes
 DefaultImporter:
+========
+guid: 4f2af4e8bb77b2b4890b4690374d29f8
+NativeFormatImporter:
+>>>>>>>> main:SoulSociety/Assets/Resources/New Material.mat.meta
   externalObjects: {}
+  mainObjectFileID: 2100000
   userData: 
   assetBundleName: 
   assetBundleVariant: 

@@ -19,14 +19,14 @@ public class BlackH : MonoBehaviourPun
     private void Start()
     {
         //stars에 근처에있는 콜라이더들을 배열에 다 넣는다
-        stars = Physics.OverlapSphere(transform.position, 40f);
+
     }
 
     void Update()
     {
         // 시간을 흐르게 만든다.
         time += Time.deltaTime;
-
+        stars = Physics.OverlapSphere(transform.position, 40f);
         BlackHoleChack();
     }
 
@@ -64,15 +64,14 @@ public class BlackH : MonoBehaviourPun
             // 블랙홀이 생성된지 10초가 지나면
             if (time >= 10)
             {
-                // 블랙홀을 꺼버린다.
-                this.gameObject.SetActive(false);
+
                 if (star.tag == "Player" || star.tag == "mainPlayer")
                 {
                     star.GetComponent<PlayerInfo>().playerState = state.Die;
                     star.gameObject.tag = "DiePlayer";
-                  
+
                     GameMgr.Instance.AliveNumCheck();
-                    
+
                     star.gameObject.SetActive(false);
 
                 }
@@ -82,9 +81,14 @@ public class BlackH : MonoBehaviourPun
                     Destroy(star.gameObject);*/
                     star.gameObject.SetActive(false);
                 }
+                // 블랙홀을 꺼버린다.
+                this.gameObject.SetActive(false);
+
             }
+
         }
     }
 }
+
 
 
