@@ -9,6 +9,7 @@ public class WindCyclone : MonoBehaviourPun, SkillMethod
     bool skillCool = false;
     bool skillClick = false;
 
+    AudioSource sound;
     ResourceData eff;
     RectTransform myskillRangerect = null;
     GameObject skilla;
@@ -18,10 +19,12 @@ public class WindCyclone : MonoBehaviourPun, SkillMethod
     private void Start()
     {
         myskillRangerect = GetComponentInChildren<SkillRange>().gameObject.GetComponent<RectTransform>();
+        sound = GetComponentInChildren<AudioSource>();
         myskillRangerect.gameObject.SetActive(false);
 
         skilla = GameObject.Find("Skilla");
         skilla.SetActive(false);
+        
     }
 
     public void ResetCooltime()
@@ -42,12 +45,12 @@ public class WindCyclone : MonoBehaviourPun, SkillMethod
             //  a.transform.position = gameObject.transform.position + new Vector3(0f, 2f, 0f);
 
             a.transform.Rotate(-90f, 0f, 0f);
-            a.gameObject.transform.SetParent(GameObject.FindGameObjectWithTag("mainPlayer").transform);
-
+            
             skillCh = a;
 
             GameMgr.Instance.DestroyTarget(a, 8f);    //지속 시간
-         
+
+            StartCoroutine(Sound());
             // a.transform.rotation = Quaternion.identity;
 
             skillCool = true;//쿨타임 온 시켜 다시 사용 못하게함
@@ -55,5 +58,14 @@ public class WindCyclone : MonoBehaviourPun, SkillMethod
             Debug.Log("스킬사용");
             GameMgr.Instance.uIMgr.SkillCooltime(gameObject, 20);//UI매니저에 쿨타임 x초를 보냄
         }
+    }
+
+    IEnumerator Sound()
+    {
+        sound.mute = false;
+
+        yield return new WaitForSeconds(5f);
+
+        sound.mute = true;
     }
 }
