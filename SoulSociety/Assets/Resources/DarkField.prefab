@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4687191205077052}
   - component: {fileID: 114133966293355746}
   m_Layer: 0
-  m_Name: (Opt)Effect_43_DarkField(ForEffectScene)
+  m_Name: DarkField
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

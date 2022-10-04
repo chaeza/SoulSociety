@@ -22,8 +22,16 @@ public class Loading : MonoBehaviourPunCallbacks
 
     void Start()
     {
-        if(PhotonNetwork.IsMasterClient)
-       photonView.StartCoroutine(LoadAsynSceneCoroutine());
+        if (PhotonNetwork.IsMasterClient)
+            photonView.StartCoroutine(LoadAsynSceneCoroutine());
+
+        else
+            photonView.StartCoroutine(PlayerSceneCoroutine());
+    }
+
+    private void Update()
+    {
+        time += Time.deltaTime;
     }
 
     IEnumerator LoadAsynSceneCoroutine()
@@ -33,16 +41,11 @@ public class Loading : MonoBehaviourPunCallbacks
 
         operation.allowSceneActivation = false;
 
-
-
         while (!operation.isDone)
         {
+            slider.value = time / 5f;
 
-            time = +Time.time;
-
-            slider.value = time / 10f;
-
-            if (time > 10)
+            if (time > 5)
             {
                 operation.allowSceneActivation = true;
             }
@@ -50,6 +53,15 @@ public class Loading : MonoBehaviourPunCallbacks
             yield return null;
         }
 
+    }
+
+    IEnumerator PlayerSceneCoroutine()
+    {
+        while (true)
+        {
+            slider.value = time / 5f;
+            yield return null;
+        }
     }
 
 }
