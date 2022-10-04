@@ -7,13 +7,9 @@ public class DevilSword : MonoBehaviourPun, SkillMethod
 {
     int skillRange = 10;
     bool skillCool = false;
-    bool skillClick = false;
-    ResourceData eff;
 
     RectTransform myskillRangerect = null;
     GameObject skilla;
-    GameObject skillCh;
-    Vector3 canSkill;
     private void Start()
     {
         myskillRangerect = GetComponentInChildren<SkillRange>().gameObject.GetComponent<RectTransform>();
@@ -38,8 +34,6 @@ public class DevilSword : MonoBehaviourPun, SkillMethod
 
             // a.transform.LookAt(desiredDir);
             //  a.transform.position = gameObject.transform.position + new Vector3(0f, 2f, 0f);
-
-            skillCh = a;
 
             GameMgr.Instance.DestroyTarget(a, 1f);    //지속 시간
 
