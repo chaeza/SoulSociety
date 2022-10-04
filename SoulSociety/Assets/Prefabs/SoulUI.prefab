@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6397449702659311947}
   - component: {fileID: 6397449702659311945}
   - component: {fileID: 6397449702659311946}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: FireDark
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4835,7 +4835,7 @@ GameObject:
   - component: {fileID: 6397449702707495753}
   - component: {fileID: 6397449702707495759}
   - component: {fileID: 6397449702707495752}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: RedSoul1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4850,7 +4850,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6397449702707495754}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.14672756, y: -0.41725492, z: -3.6971283}
+  m_LocalPosition: {x: 2.1, y: -0, z: -0.15}
   m_LocalScale: {x: 0.56, y: 0.56, z: 0.56}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -9660,7 +9660,7 @@ GameObject:
   - component: {fileID: 6397449702858885261}
   - component: {fileID: 6397449702858885251}
   - component: {fileID: 6397449702858885260}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: BlueSoul3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9675,7 +9675,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6397449702858885262}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.4867277, y: -0.7572551, z: -2.8271294}
+  m_LocalPosition: {x: 2.09, y: 0.39, z: -1.67}
   m_LocalScale: {x: 0.4, y: 0.4, z: 0.4}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -14485,7 +14485,7 @@ GameObject:
   - component: {fileID: 6397449703349048387}
   - component: {fileID: 6397449703349048385}
   - component: {fileID: 6397449703349048386}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Fire
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19307,7 +19307,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6397449703558831163}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Blue
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19345,7 +19345,7 @@ GameObject:
   - component: {fileID: 6397449703651544761}
   - component: {fileID: 6397449703651544767}
   - component: {fileID: 6397449703651544760}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Fire
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24169,7 +24169,7 @@ GameObject:
   - component: {fileID: 6397449703710727188}
   - component: {fileID: 6397449703710727178}
   - component: {fileID: 6397449703710727179}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: BlueSoul2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24184,7 +24184,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6397449703710727189}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.15672779, y: -0.82725525, z: -2.8271294}
+  m_LocalPosition: {x: 1.7, y: 0.51, z: -2.42}
   m_LocalScale: {x: 0.4, y: 0.4, z: 0.4}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -28992,7 +28992,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6397449703784814222}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Red
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -29028,7 +29028,7 @@ GameObject:
   - component: {fileID: 6397449703823441009}
   - component: {fileID: 6397449703823441015}
   - component: {fileID: 6397449703823441008}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: RedSoul2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -29043,7 +29043,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6397449703823441010}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.56672764, y: -0.337255, z: -3.6971283}
+  m_LocalPosition: {x: 2.57, y: -0.01, z: 0.15}
   m_LocalScale: {x: 0.56, y: 0.56, z: 0.56}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -33853,7 +33853,7 @@ GameObject:
   - component: {fileID: 6397449703957133182}
   - component: {fileID: 6397449703957133180}
   - component: {fileID: 6397449703957133181}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Fire
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -38677,7 +38677,7 @@ GameObject:
   - component: {fileID: 6397449703997946875}
   - component: {fileID: 6397449703997946873}
   - component: {fileID: 6397449703997946874}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Fire
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -43501,7 +43501,7 @@ GameObject:
   - component: {fileID: 6397449704078917892}
   - component: {fileID: 6397449704078917946}
   - component: {fileID: 6397449704078917947}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Fire
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -48325,7 +48325,7 @@ GameObject:
   - component: {fileID: 6397449704125420525}
   - component: {fileID: 6397449704125420515}
   - component: {fileID: 6397449704125420524}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: RedSoul3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -48340,7 +48340,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6397449704125420526}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.9267273, y: -0.25725508, z: -3.6971283}
+  m_LocalPosition: {x: 3.27, y: -0.13, z: 1.08}
   m_LocalScale: {x: 0.56, y: 0.56, z: 0.56}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -53150,7 +53150,7 @@ GameObject:
   - component: {fileID: 6397449704266615792}
   - component: {fileID: 6397449704266615798}
   - component: {fileID: 6397449704266615799}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: FireDark
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -57974,7 +57974,7 @@ GameObject:
   - component: {fileID: 6397449704282756452}
   - component: {fileID: 6397449704282756378}
   - component: {fileID: 6397449704282756379}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: BlueSoul5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -57989,7 +57989,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6397449704282756453}
   m_LocalRotation: {x: -0.0000000135041756, y: -0.000000014901159, z: -0.00000001885928, w: 1}
-  m_LocalPosition: {x: 1.0667462, y: -0.62726784, z: -2.8271182}
+  m_LocalPosition: {x: 3, y: 0.19, z: -0.45}
   m_LocalScale: {x: 0.40000004, y: 0.39999995, z: 0.39999998}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -62799,7 +62799,7 @@ GameObject:
   - component: {fileID: 6397449704485116659}
   - component: {fileID: 6397449704485116657}
   - component: {fileID: 6397449704485116658}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: BlueSoul4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -62814,7 +62814,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6397449704485116668}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.7767277, y: -0.6872549, z: -2.8271294}
+  m_LocalPosition: {x: 2.35, y: 0.42, z: -1.63}
   m_LocalScale: {x: 0.4, y: 0.4, z: 0.4}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -67624,7 +67624,7 @@ GameObject:
   - component: {fileID: 6397449704534058555}
   - component: {fileID: 6397449704534058553}
   - component: {fileID: 6397449704534058554}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: FireDark
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -72448,7 +72448,7 @@ GameObject:
   - component: {fileID: 6397449704670646387}
   - component: {fileID: 6397449704670646385}
   - component: {fileID: 6397449704670646386}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: BlueSoul1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -72463,7 +72463,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6397449704670646396}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.15327263, y: -0.8872552, z: -2.8271294}
+  m_LocalPosition: {x: 1.61, y: 0.36, z: -1.74}
   m_LocalScale: {x: 0.4, y: 0.4, z: 0.4}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -77271,7 +77271,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6397449704714791928}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: SoulUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -77285,7 +77285,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6397449704714791929}
-  m_LocalRotation: {x: -0.007874476, y: -0.22188872, z: -0.0039411085, w: -0.97503227}
+  m_LocalRotation: {x: 0.007878268, y: 0.22188567, z: 0.003943574, w: 0.9750329}
   m_LocalPosition: {x: 3.1897635, y: -1.7562702, z: 7.4026866}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -77294,4 +77294,4 @@ Transform:
   - {fileID: 6397449703784814222}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0.78, y: 25.645, z: 0.641}

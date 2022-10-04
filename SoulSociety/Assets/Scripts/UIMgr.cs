@@ -28,8 +28,8 @@ public class UIMgr : MonoBehaviourPun
     [SerializeField] GameObject[] skillExplantion;//스킬 설명
     [Header("대쉬")]
     [SerializeField] GameObject dash = null;
-    [SerializeField] TextMeshProUGUI dashCooltimeText;//쿨타임 텍스트
     [SerializeField] GameObject dashExplantion = null;
+    [SerializeField] Image dashImage = null;
     [Header("게임")]
     [SerializeField] GameObject win = null;
     [SerializeField] GameObject lose = null;
@@ -43,7 +43,7 @@ public class UIMgr : MonoBehaviourPun
     [SerializeField] Image myHP = null;
     bool[] redSetBool = new bool[15];
     bool[] blueSetBool = new bool[25];
-    string[] sortedPlayer=new string[4];
+    string[] sortedPlayer = new string[4];
     bool nickSave;
 
     bool isWinner = false;
@@ -57,7 +57,7 @@ public class UIMgr : MonoBehaviourPun
 
     public void MyPlayerViewID(int ID)
     {
-        myIDNum=ID;
+        myIDNum = ID;
     }
 
     private void Update()
@@ -79,13 +79,13 @@ public class UIMgr : MonoBehaviourPun
     {
         myHP.fillAmount = curHP / maxHP;
     }
-    public void TabNickName(int Num,state myState)
+    public void TabNickName(int Num, state myState)
     {
-        if(nickSave==false)
+        if (nickSave == false)
         {
-            nickSave=true;
+            nickSave = true;
             Player[] sortedPlayers = PhotonNetwork.PlayerList;
-            for(int i = 0; i < sortedPlayers.Length; i++)
+            for (int i = 0; i < sortedPlayers.Length; i++)
             {
                 sortedPlayer[i] = sortedPlayers[i].NickName;
             }
@@ -199,7 +199,7 @@ public class UIMgr : MonoBehaviourPun
         if (setItem == false)//bool 값을 사용하여 스킬 설명은 한번만 띄움
         {
             itemUIExplantion = ItemIconExplantion[Num2];//해당스킬 설명을 설명UI저장
-            
+
             if (itemUIExplantion != null)//저장해둔 설명UI가 있을시
             {
                 itemUIExplantion.SetActive(true);//저장해둔 설명UI 활성화
@@ -274,8 +274,6 @@ public class UIMgr : MonoBehaviourPun
     public void DashCooltime(GameObject my, int Cool)//UI매니저에 스킬 쿨타임을 호출시킨 객체, 쿨타임 시간
     {
         cooltimeGameobject = my;//호출시킨 오브젝트 객체를 저장해둡니다.
-        dash.GetComponent<Image>().color = new Color(160 / 255f, 160 / 255f, 160 / 255f);//아이콘의 색상을 흐리게 바꿔서 비활성화 느낌을 줍니다.
-        dashCooltimeText.text = Cool.ToString();//쿨타임 Text를 해당 쿨타임의 Max값으로 바꿉니다.
         StartCoroutine(DashCooltime(Cool));//쿨타임 코루틴을 실행시켜 쿨타임 시간을 기다립니다.
 
     }
@@ -294,15 +292,13 @@ public class UIMgr : MonoBehaviourPun
     }
     IEnumerator DashCooltime(int Cool)
     {
-        for (int i = Cool - 1; i >= 0; --i)//받은 쿨타임 시간을 i에 저장해서
+        dashImage.fillAmount = 0f;
+        for (int i = 0; i < Cool; i++)//받은 쿨타임 시간을 i에 저장해서
         {
             yield return new WaitForSeconds(1f);//1초씩 기다리고
-            dashCooltimeText.text = i.ToString();//쿨타임 텍스트를 -1시킴
-            yield return null;
+            dashImage.fillAmount += 1 / 5f;
         }
-        dash.GetComponent<Image>().color = new Color(255f / 255f, 255f / 255f, 255f / 255f);//아이콘 색상 원위치
         cooltimeGameobject.SendMessage("ResetCooltime2", SendMessageOptions.DontRequireReceiver);//저장해놨던 UI매니저를 호출시킨 객체한테 ResetCooltime을 호출시켜 스킬을 다시 사용하게함
-        dashCooltimeText.text = " ";//텍스트 비활성화대신 그냥 아무것도 출력안함
         yield break;
     }
     public void MyRedSoul(int redsoul)
@@ -311,8 +307,8 @@ public class UIMgr : MonoBehaviourPun
         if (redsoul >= 1)
         {
             redSoul[0].SetActive(true);
-            if(redsoul>=2) redSoul[1].SetActive(true);
-            if(redsoul>=3) redSoul[2].SetActive(true);
+            if (redsoul >= 2) redSoul[1].SetActive(true);
+            if (redsoul >= 3) redSoul[2].SetActive(true);
         }
         else if (redsoul == 0)
         {
@@ -327,10 +323,10 @@ public class UIMgr : MonoBehaviourPun
         if (bluesoul >= 1)
         {
             blueSoul[0].SetActive(true);
-            if(bluesoul>=2) blueSoul[1].SetActive(true);
-            if(bluesoul>=3) blueSoul[2].SetActive(true);
-            if(bluesoul>=4) blueSoul[3].SetActive(true);
-            if(bluesoul==5) blueSoul[4].SetActive(true);
+            if (bluesoul >= 2) blueSoul[1].SetActive(true);
+            if (bluesoul >= 3) blueSoul[2].SetActive(true);
+            if (bluesoul >= 4) blueSoul[3].SetActive(true);
+            if (bluesoul == 5) blueSoul[4].SetActive(true);
         }
         else if (bluesoul == 0)
         {
@@ -342,22 +338,22 @@ public class UIMgr : MonoBehaviourPun
         }
     }
     [PunRPC]
-    public void EndGame(int Num,int dieC)
+    public void EndGame(int Num, int dieC)
     {
         if (isWinner) return;
         if (Num == 1)
         {
-            if (myIDNum == dieC&&isWinner==false)
+            if (myIDNum == dieC && isWinner == false)
             {
                 photonView.RPC("WinnerFixed", RpcTarget.All);
                 win.SetActive(true);
                 winEff.SetActive(true);
-               
+
             }
             else
                 lose.SetActive(true);
         }
-        else if(Num == 2)
+        else if (Num == 2)
         {
             if (GameMgr.Instance.blueCount == dieC && isWinner == false)
             {
