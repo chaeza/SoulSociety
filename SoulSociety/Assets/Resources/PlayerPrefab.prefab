@@ -2609,6 +2609,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33e5cc746c8444b459715627a570cf84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  desiredDir: {x: 0, y: 0, z: 0}
 --- !u!114 &7419769239748631481
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2696,6 +2697,15 @@ MonoBehaviour:
   - Type: 9
     SynchronizeType: 1
     Name: isBasicDash
+  - Type: 9
+    SynchronizeType: 1
+    Name: isSkill1
+  - Type: 9
+    SynchronizeType: 1
+    Name: isSkill2
+  - Type: 9
+    SynchronizeType: 1
+    Name: isKick
   m_SynchronizeLayers:
   - SynchronizeType: 0
     LayerIndex: 0

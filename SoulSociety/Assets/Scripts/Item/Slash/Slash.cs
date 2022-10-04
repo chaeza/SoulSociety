@@ -97,14 +97,14 @@ public class Slash : MonoBehaviourPun, ItemMethod
             }
             if (skillCool == false)//스킬 사용 가능이면
             {
-                GetComponent<Animator>().SetTrigger("isAttack1");
+                GetComponent<Animator>().SetTrigger("isAttack3");
                 GetComponent<PlayerInfo>().Stay(0.5f);
                 GameObject b = PhotonNetwork.Instantiate("Slash", transform.position, Quaternion.identity);//이펙트를 포톤 인스턴스를 합니다.
                 GameObject a = PhotonNetwork.Instantiate("SlashHitbox", transform.position, Quaternion.identity);//이펙트를 포톤 인스턴스를 합니다.
-                a.AddComponent<SlashHitbox>();//이펙트에 히트 스크립트를 넣습니다.
-                a.SendMessage("AttackerName", gameObject.GetPhotonView().ViewID, SendMessageOptions.DontRequireReceiver);//이펙트에 공격자를 지정합니다.
                 b.transform.LookAt(desiredDir);
                 a.transform.LookAt(desiredDir);
+                a.AddComponent<SlashHitbox>();//이펙트에 히트 스크립트를 넣습니다.
+                a.SendMessage("AttackerName", gameObject.GetPhotonView().ViewID, SendMessageOptions.DontRequireReceiver);//이펙트에 공격자를 지정합니다.
                 transform.LookAt(desiredDir);
 
                 GameMgr.Instance.DestroyTarget(a, 1.5f);

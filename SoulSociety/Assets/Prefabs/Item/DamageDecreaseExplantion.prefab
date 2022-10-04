@@ -67,7 +67,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_text: "\uC548 \uC544\uD504\uAC8C \uB9DE\uB294\uBC95\n\uC124\uBA85: \uC548 \uC544\uD504\uAC8C
-    \uB9DE\uB294\uBC95\uC744 \uC0AC\uC6A9\uD574\uC11C 3\uCD08\uAC04 \uBC1B\uB294\uD53C\uD574\uAC00
+    \uB9DE\uB294\uBC95\uC744 \uC0AC\uC6A9\uD574\uC11C 5\uCD08\uAC04 \uBC1B\uB294\uD53C\uD574\uAC00
     30% \uAC10\uC18C\uD569\uB2C8\uB2E4."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 3af2303a68b621f4fb2b96580654485e, type: 2}
@@ -154,7 +154,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &141244869382407166
 RectTransform:
   m_ObjectHideFlags: 0
@@ -162,7 +162,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 141244869382407167}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 5, y: 2, z: 1}
   m_ConstrainProportionsScale: 0
