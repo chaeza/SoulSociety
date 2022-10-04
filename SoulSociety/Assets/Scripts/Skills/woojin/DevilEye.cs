@@ -5,23 +5,8 @@ using Photon.Pun;
 
 public class DevilEye : MonoBehaviourPun, SkillMethod
 {
-    int skillRange = 10;
     bool skillCool = false;
-    bool skillClick = false;
     GameObject TrapE;
-    ResourceData eff;
-    RectTransform myskillRangerect = null;
-    GameObject skilla;
-
-    Vector3 canSkill;
-    private void Start()
-    {
-        myskillRangerect = GetComponentInChildren<SkillRange>().gameObject.GetComponent<RectTransform>();
-        myskillRangerect.gameObject.SetActive(false);
-
-        skilla = GameObject.Find("Skilla");
-        skilla.SetActive(false);
-    }
 
     public void ResetCooltime()
     {
@@ -42,7 +27,7 @@ public class DevilEye : MonoBehaviourPun, SkillMethod
             a.transform.Rotate(-90f, 0f, 0f);
             TrapE = Instantiate(GameMgr.Instance.resourceData.myTrapEff, transform.position, Quaternion.identity);
             //  GameMgr.Instance.DestroyTarget(a, 8f);
-
+            a.GetComponent<DevilEyeCh>().TrapEffInfo(TrapE);
 
 
             skillCool = true;//쿨타임 온 시켜 다시 사용 못하게함
