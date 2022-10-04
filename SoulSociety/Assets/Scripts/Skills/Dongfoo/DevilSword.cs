@@ -12,7 +12,7 @@ public class DevilSword : MonoBehaviourPun, SkillMethod
 
     RectTransform myskillRangerect = null;
     GameObject skilla;
-
+    GameObject skillCh;
     Vector3 canSkill;
     private void Start()
     {
@@ -30,99 +30,31 @@ public class DevilSword : MonoBehaviourPun, SkillMethod
     }
     public void SkillFire()
     {
-        if (skillCool == false)
+        if (skillCool == false)//스킬 사용 가능이면
         {
-            if (skillClick == false)
-            {
-                skilla.SetActive(true);
-                myskillRangerect.gameObject.SetActive(true);
-                myskillRangerect.sizeDelta = new Vector2(skillRange, skillRange);
-                skillClick = true;
-            }
+            GameObject a = PhotonNetwork.Instantiate("DevilSword", transform.position, Quaternion.identity);//이펙트를 포톤 인스턴스를 합니다.
+            a.AddComponent<DevilSwordHit>();//이펙트에 히트 스크립트를 넣습니다.
+            a.SendMessage("AttackerName", gameObject.GetPhotonView().ViewID, SendMessageOptions.DontRequireReceiver);//이펙트에 공격자를 지정합니다.
 
-            else
-            {
-                skillClick = false;
-                myskillRangerect.gameObject.SetActive(false);
-                skilla.SetActive(false);
-            }
+            // a.transform.LookAt(desiredDir);
+            //  a.transform.position = gameObject.transform.position + new Vector3(0f, 2f, 0f);
+
+            a.transform.Rotate(-90f, 0f, 0f);
+
+            skillCh = a;
+
+            GameMgr.Instance.DestroyTarget(a, 8f);    //지속 시간
+
+            //StartCoroutine(Sound());
+            // a.transform.rotation = Quaternion.identity;
+
+            skillCool = true;//쿨타임 온 시켜 다시 사용 못하게함
+
+            Debug.Log("스킬사용");
+            GameMgr.Instance.uIMgr.SkillCooltime(gameObject, 20);//UI매니저에 쿨타임 x초를 보냄
         }
     }
-    private void Update()
-    {
-        if (skillClick == true)
-        {
-
-            Vector3 mousePos = Input.mousePosition;
-
-            Vector3 target;
-            target.x = mousePos.x;
-            target.y = mousePos.y;
-            target.z = 0;
-
-            skilla.transform.position = target;
-
-            RaycastHit hit;
-
-            Ray ray = Camera.main.ScreenPointToRay(mousePos);
-            Physics.Raycast(Camera.main.ScreenPointToRay(mousePos), out hit, 30f);
-            canSkill = hit.point;
-            canSkill.y = transform.position.y;
-        }
-    }
-    public void SkillClick(Vector3 Pos)
-    {
-        if (skillClick == true)
-        {
-
-            skillClick = false;
-            myskillRangerect.gameObject.SetActive(false);
-            skilla.SetActive(false);
-            if (Vector3.Distance(canSkill, transform.position) > skillRange / 2) return;
-
-            RaycastHit hit;
-            Vector3 desiredDir = Vector3.zero;
-            Ray ray = Camera.main.ScreenPointToRay(Pos);
-            int mask = 1 << LayerMask.NameToLayer("Terrain");
-            Physics.Raycast(Camera.main.ScreenPointToRay(Pos), out hit, 30f, mask);
-
-            Debug.DrawRay(ray.origin, ray.direction * 20f, Color.red, 1f);
-
-            if (hit.collider.tag == "Ground")
-            {
-                desiredDir = hit.point;
-                desiredDir.y = transform.position.y;
-            }
-            if (skillCool == false)//스킬 사용 가능이면
-            {
-                GetComponent<Animator>().SetTrigger("isAttack1");
-                GetComponent<PlayerInfo>().Stay(1f);
-                GameObject a = PhotonNetwork.Instantiate("SwordCrash", desiredDir, Quaternion.identity);//이펙트를 포톤 인스턴스를 합니다.
-                a.AddComponent<DevilSwordHit>();//이펙트에 히트 스크립트를 넣습니다.
-                a.SendMessage("AttackerName", gameObject.GetPhotonView().ViewID, SendMessageOptions.DontRequireReceiver);//이펙트에 공격자를 지정합니다.
-                a.transform.LookAt(transform.position);
-                a.transform.Rotate(0, 180, 0);
-                StartCoroutine(Fire(desiredDir));
-                transform.LookAt(desiredDir);
-                GameMgr.Instance.DestroyTarget(a, 4f);  //4초뒤 삭제
-
-
-                skillCool = true;//쿨타임 온 시켜 다시 사용 못하게함
-                Debug.Log("스킬사용");
-                GameMgr.Instance.uIMgr.SkillCooltime(gameObject, 15);//UI매니저에 쿨타임 10초를 보냄
-            }
-        }
-    }
-    IEnumerator Fire(Vector3 pos)//큐브 이동시키기
-    {
-        yield return new WaitForSeconds(1f);
-        GameObject hitbox = PhotonNetwork.Instantiate("SwordCrashHitbox", pos, Quaternion.identity);//이펙트를 포톤 인스턴스를 합니다.
-        hitbox.AddComponent<SwordCrashHit>();//이펙트에 히트 스크립트를 넣습니다.
-        hitbox.SendMessage("AttackerName", gameObject.GetPhotonView().ViewID, SendMessageOptions.DontRequireReceiver);//이펙트에 공격자를 지정합니다.
-        hitbox.transform.LookAt(transform.position);
-        hitbox.transform.Translate(0, 0, -4f);
-        GameMgr.Instance.DestroyTarget(hitbox, 2f);  //4초뒤 삭제
-        yield return null;
-        yield break;
-    }
+    
+    
+    
 }

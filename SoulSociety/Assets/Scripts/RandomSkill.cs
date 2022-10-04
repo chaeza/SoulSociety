@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class RandomSkill : MonoBehaviour
 {
-    int skillNum = 5;//ÃÑ ½ºÅ³ °¹¼ö
+    int skillNum = 6;//ÃÑ ½ºÅ³ °¹¼ö
     public int skillRan { get; set; } = 0;//·£´ýÀ¸·Î »ÌÀ» ½ºÅ³ ¹øÈ£
     public void GetRandomSkill(GameObject player)// ·£´ý½ºÅ³ Áö±Þ
     {
@@ -15,7 +15,7 @@ public class RandomSkill : MonoBehaviour
         if (skillRan == 2) player.AddComponent<SwordRain>();
         if (skillRan == 3) player.AddComponent<SwampField>();
         if (skillRan == 4) player.AddComponent<WindCyclone>();
-
+        if (skillRan == 5) player.AddComponent<DevilSword>();
         GameMgr.Instance.uIMgr.SkillUI(skillRan);
     }
     
