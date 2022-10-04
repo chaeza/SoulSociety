@@ -46,6 +46,7 @@ public class UIMgr : MonoBehaviourPun
     string[] sortedPlayer=new string[4];
     bool nickSave;
 
+    bool isWinner = false;
     int myIDNum;
 
     private void Start()
@@ -343,20 +344,24 @@ public class UIMgr : MonoBehaviourPun
     [PunRPC]
     public void EndGame(int Num,int dieC)
     {
+        
         if (Num == 1)
         {
-            if (myIDNum == dieC)
+            if (myIDNum == dieC&&isWinner==false)
             {
+                photonView.RPC("WinnerFixed", RpcTarget.All);
                 win.SetActive(true);
                 winEff.SetActive(true);
+               
             }
             else
                 lose.SetActive(true);
         }
         else if(Num == 2)
         {
-            if (GameMgr.Instance.blueCount == dieC)
+            if (GameMgr.Instance.blueCount == dieC && isWinner == false)
             {
+                photonView.RPC("WinnerFixed", RpcTarget.All);
                 win.SetActive(true);
                 winEff.SetActive(true);
             }
@@ -364,5 +369,10 @@ public class UIMgr : MonoBehaviourPun
                 lose.SetActive(true);
         }
         gameSceneLogic.EndGame();
+    }
+    [PunRPC]
+    public void WinnerFixed()
+    {
+        isWinner = true;
     }
 }
