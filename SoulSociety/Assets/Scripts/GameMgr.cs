@@ -99,8 +99,9 @@ public class GameMgr : Singleton<GameMgr>
         alivePlayerNum = 0;
         //플레이어 인포를 찾기위한 배열 
         PlayerInfo[] AliveNum;
+        int winner =0;
 
-        GameObject winner = null;
+
 
         AliveNum = FindObjectsOfType<PlayerInfo>();
         //상태가 Die가 아니라면 살아있는 것이기 때문에 살아남은 인원 카운트 가능 
@@ -109,17 +110,14 @@ public class GameMgr : Singleton<GameMgr>
             if (AliveNum[i].playerState != state.Die)
             {
                 alivePlayerNum++;
-                winner = AliveNum[i].gameObject;
+                winner = i;
             }
         }
         Debug.Log("살아남은 플레이어 수 = " + alivePlayerNum);
 
         if (alivePlayerNum == 1)
         {
-            int Num = GameObject.FindObjectOfType<PlayerInfo>().photonView.ViewID;
-          //  uIMgr.photonView.RPC("EndGame", RpcTarget.All, 1, winner.GetPhotonView().ViewID);
-            uIMgr.photonView.RPC("EndGame", RpcTarget.All, 1, Num);
+            uIMgr.photonView.RPC("EndGame", RpcTarget.All, 1, AliveNum[winner].gameObject.GetPhotonView().ViewID);
         }
     }
-
 }
