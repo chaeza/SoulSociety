@@ -20,8 +20,6 @@ public class WindCyclone : MonoBehaviourPun, SkillMethod
 
         skilla = GameObject.Find("Skilla");
         skilla.SetActive(false);
-
-        this.gameObject.transform.SetParent(GameObject.Find("Player").transform);
     }
 
     public void ResetCooltime()
@@ -38,8 +36,9 @@ public class WindCyclone : MonoBehaviourPun, SkillMethod
             a.SendMessage("AttackerName", gameObject.GetPhotonView().ViewID, SendMessageOptions.DontRequireReceiver);//이펙트에 공격자를 지정합니다.
 
             // a.transform.LookAt(desiredDir);
-            a.transform.position = gameObject.transform.position + new Vector3(0f, 2f, 0f);
+          //  a.transform.position = gameObject.transform.position + new Vector3(0f, 2f, 0f);
             a.transform.Rotate(-90f, 0f, 0f);
+            a.gameObject.transform.SetParent(GameObject.FindGameObjectWithTag("mainPlayer").transform);
 
             GameMgr.Instance.DestroyTarget(a, 8f);
 

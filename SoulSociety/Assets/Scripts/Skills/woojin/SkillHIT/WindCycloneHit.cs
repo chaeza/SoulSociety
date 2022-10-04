@@ -19,7 +19,7 @@ public class WindCycloneHit : MonoBehaviourPun
         timer += Time.deltaTime;
         if (timer > 0.5f && other.tag == "Player")
         {
-            other.gameObject.GetPhotonView().RPC("RPC_hit", RpcTarget.All, 3f, Attacker, state.None, 0f);//맞은적에게 데미지를 주고 누가 때린지 보냄.
+            other.gameObject.GetPhotonView().RPC("RPC_hit", RpcTarget.All, 5f, Attacker, state.None, 0f);//맞은적에게 데미지를 주고 누가 때린지 보냄.
 
             timer = 0f;
         }
