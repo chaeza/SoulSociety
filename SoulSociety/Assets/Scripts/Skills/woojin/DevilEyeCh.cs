@@ -26,6 +26,8 @@ public class DevilEyeCh : MonoBehaviourPun
             GameObject a = PhotonNetwork.Instantiate("DevilEye", transform.position, Quaternion.identity);//Æø¹ßÀÌÆåÆ®
             other.gameObject.GetPhotonView().RPC("RPC_hit", RpcTarget.All, 15f, Attacker, state.Stun, 2.5f);
 
+            a.transform.Rotate(-90f, 0f, 0f);
+
             Destroy(trapEff, 3f);
             GameMgr.Instance.DestroyTarget(a, 3f);
             GameMgr.Instance.DestroyTarget(gameObject, 3f);
