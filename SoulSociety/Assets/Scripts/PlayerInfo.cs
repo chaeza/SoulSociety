@@ -37,10 +37,12 @@ public class PlayerInfo : MonoBehaviourPun
     [PunRPC]
     void ChageHP(float hp)
     {
-        maxHP += hp;
         curHP += hp;
-
+        if(curHP>=maxHP)
+            curHP = maxHP;
         myHPbarInfo.SetHP(curHP, maxHP);
+        if (photonView.IsMine)
+            GameMgr.Instance.uIMgr.SetHP(curHP, maxHP);
     }
     private void Start()
     {
@@ -89,8 +91,13 @@ public class PlayerInfo : MonoBehaviourPun
             if (slowState != null) StopCoroutine(slowState);
             slowState= StartCoroutine(MySlow(time,bAD));
         }
-        if (st != state.Slow) curHP -= bAD* (1-damageDecrease);// 1에 데미지감소를 빼줘서 받는 데미지감소
-        myHPbarInfo.SetHP(curHP, maxHP);
+        if (st != state.Slow)
+        {
+            curHP -= bAD * (1 - damageDecrease);// 1에 데미지감소를 빼줘서 받는 데미지감소
+            myHPbarInfo.SetHP(curHP, maxHP);
+            if(photonView.IsMine)
+            GameMgr.Instance.uIMgr.SetHP(curHP, maxHP);
+        }
         if (curHP <= 0)
             photonView.RPC("RPC_Die", RpcTarget.All,viewID1);
     }
@@ -120,6 +127,7 @@ public class PlayerInfo : MonoBehaviourPun
         if (photonView.IsMine == true)
         {
             GameMgr.Instance.GetRedSoul(redcount);
+
             photonView.RPC("TabUpdate", RpcTarget.All, myNum, playerState, 2, GameMgr.Instance.redCount);//자신의 번호를 넘겨 탭상태를 갱신합니다.
             photonView.RPC("TabUpdate", RpcTarget.All, myNum, playerState, 3, 0);//자신의 번호를 넘겨 탭상태를 갱신합니다.
         }
@@ -218,7 +226,6 @@ public class PlayerInfo : MonoBehaviourPun
     }
     IEnumerator MyStun(float time)
     {
-        GetComponent<PlayerMove>().MoveStop();
         GameObject player = PhotonNetwork.Instantiate("Stun", transform.position, Quaternion.identity);
         player.transform.Translate(0, 1, 0);
         if(time<1f)
