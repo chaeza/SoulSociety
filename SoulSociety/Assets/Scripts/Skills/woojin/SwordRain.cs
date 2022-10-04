@@ -93,16 +93,10 @@ public class SwordRain : MonoBehaviourPun , SkillMethod
             }
             if (skillCool == false)//스킬 사용 가능이면
             {
-                GetComponent<Animator>().SetTrigger("isAttack1");
-                GetComponent<PlayerInfo>().Stay(1f);
-                GameObject a = PhotonNetwork.Instantiate("SwordRain", desiredDir, Quaternion.identity);//이펙트를 포톤 인스턴스를 합니다.
-                a.AddComponent<SwordRainHIT>();//이펙트에 히트 스크립트를 넣습니다.
-                a.SendMessage("AttackerName", gameObject.GetPhotonView().ViewID, SendMessageOptions.DontRequireReceiver);//이펙트에 공격자를 지정합니다.
-                                                                                                                         // a.transform.LookAt(desiredDir);
-                transform.LookAt(desiredDir);                                                                        // a.transform.Translate(0, 1, 0);
-                a.transform.Rotate(-90, 0, 0);
-
-                GameMgr.Instance.DestroyTarget(a, 4f);
+                GetComponent<Animator>().SetTrigger("isSkill2");
+                transform.LookAt(desiredDir);
+                GetComponent<PlayerInfo>().Stay(1.2f);
+                StartCoroutine(Stay(desiredDir, 0.8f));
                 // StartCoroutine(Fire(a));//큐브 이동시키는 코루틴
                 skillCool = true;//쿨타임 온 시켜 다시 사용 못하게함
                 Debug.Log("스킬사용");
@@ -112,7 +106,18 @@ public class SwordRain : MonoBehaviourPun , SkillMethod
 
 
     }
-    IEnumerator Fire(GameObject skill)//큐브 이동시키기
+    IEnumerator Stay(Vector3 desiredDir, float time)
+    {
+        yield return new WaitForSeconds(time);
+        GameObject a = PhotonNetwork.Instantiate("SwordRain", desiredDir, Quaternion.identity);//이펙트를 포톤 인스턴스를 합니다.
+        a.AddComponent<SwordRainHIT>();//이펙트에 히트 스크립트를 넣습니다.
+        a.SendMessage("AttackerName", gameObject.GetPhotonView().ViewID, SendMessageOptions.DontRequireReceiver);//이펙트에 공격자를 지정합니다.
+        a.transform.Rotate(-90, 0, 0);
+
+        GameMgr.Instance.DestroyTarget(a, 4f);
+        yield break;
+    }
+        IEnumerator Fire(GameObject skill)//큐브 이동시키기
     {
         //skill.transform.position = new Vector3(0, 0, 0);
         // skill.transform.rotation = new Quaternion(0, 180, 0, 1);

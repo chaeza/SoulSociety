@@ -10,6 +10,7 @@ public class Skill_basicDash : MonoBehaviourPun
     bool skillCool = false;
     Animator myAnimator;
     NavMeshAgent navMeshAgent;
+    UIMgr uimgr;
 
     float dashSpeed = 15;
     Vector3 desiredDir;
@@ -24,6 +25,7 @@ public class Skill_basicDash : MonoBehaviourPun
     {
         myAnimator = GetComponent<Animator>();
         navMeshAgent = GetComponent<NavMeshAgent>();
+        uimgr = GetComponent<UIMgr>();
         skillCool = false;
     }
     public void DashFire()
@@ -32,11 +34,10 @@ public class Skill_basicDash : MonoBehaviourPun
         {
             skillCool = true;
             myAnimator.SetTrigger("isBasicDash");
-            navMeshAgent.isStopped = false;
-            navMeshAgent.SetDestination(desiredDir);
-            clickPos = Input.mousePosition;
-            clickPos.z = 18f;
             navMeshAgent.speed = dashSpeed;
+            GameObject a = PhotonNetwork.Instantiate("Dash", transform.position, Quaternion.identity);//이펙트를 포톤 인스턴스를 합니다.
+            GameMgr.Instance.DestroyTarget(a, 1f);
+            a.transform.LookAt(GetComponent<PlayerMove>().desiredDir);
             GameMgr.Instance.uIMgr.DashCooltime(gameObject, 5);//UI매니저에 쿨타임 10초를 보냄
             StartCoroutine(DashTimer());
         } 

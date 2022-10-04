@@ -54,11 +54,12 @@ public class Skill_1chance : MonoBehaviourPun, ItemMethod
     {
         use = true;
         myAnimator.SetTrigger("isBasicDash");
-        navMeshAgent.isStopped = false;
-        navMeshAgent.SetDestination(desiredDir);
-        clickPos = Input.mousePosition;
-        clickPos.z = 18f;
         navMeshAgent.speed = dashSpeed;
+        GameObject a = PhotonNetwork.Instantiate("Dash", transform.position, Quaternion.identity);//이펙트를 포톤 인스턴스를 합니다.
+        GameMgr.Instance.DestroyTarget(a, 1f);
+        a.transform.LookAt(GetComponent<PlayerMove>().desiredDir);
+
+
         StartCoroutine(DashTimer2());
     }
 
