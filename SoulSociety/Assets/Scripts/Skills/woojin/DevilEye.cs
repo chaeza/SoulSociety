@@ -5,23 +5,8 @@ using Photon.Pun;
 
 public class DevilEye : MonoBehaviourPun, SkillMethod
 {
-    int skillRange = 10;
     bool skillCool = false;
-    bool skillClick = false;
     GameObject TrapE;
-    ResourceData eff;
-    RectTransform myskillRangerect = null;
-    GameObject skilla;
-
-    Vector3 canSkill;
-    private void Start()
-    {
-        myskillRangerect = GetComponentInChildren<SkillRange>().gameObject.GetComponent<RectTransform>();
-        myskillRangerect.gameObject.SetActive(false);
-
-        skilla = GameObject.Find("Skilla");
-        skilla.SetActive(false);
-    }
 
     public void ResetCooltime()
     {
