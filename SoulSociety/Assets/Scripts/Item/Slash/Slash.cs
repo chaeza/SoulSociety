@@ -97,7 +97,7 @@ public class Slash : MonoBehaviourPun, ItemMethod
             }
             if (skillCool == false)//스킬 사용 가능이면
             {
-                GetComponent<Animator>().SetTrigger("isAttack1");
+                GetComponent<Animator>().SetTrigger("isAttack3");
                 GetComponent<PlayerInfo>().Stay(0.5f);
                 GameObject b = PhotonNetwork.Instantiate("Slash", transform.position, Quaternion.identity);//이펙트를 포톤 인스턴스를 합니다.
                 GameObject a = PhotonNetwork.Instantiate("SlashHitbox", transform.position, Quaternion.identity);//이펙트를 포톤 인스턴스를 합니다.
