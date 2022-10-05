@@ -2,11 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class TitleToGameScene : MonoBehaviour
-{
+{ 
     public string user_ID;
     public string session_ID;
     public string bets_ID;
+
+    public string[] all_Session_ID = new string[4];
+    List<string> all_Sessions = new List<string>();
+
 
     private void Awake()
     {
@@ -25,5 +30,4 @@ public class TitleToGameScene : MonoBehaviour
     {
         bets_ID = ID;
     }
-
 }

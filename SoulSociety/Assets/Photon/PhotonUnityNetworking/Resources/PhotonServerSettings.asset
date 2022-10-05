@@ -78,6 +78,9 @@ MonoBehaviour:
   - WinnerFixed
   - RPC_ZeraBetting
   - BackMove
+  - RPC_Session_ID
+  - MySessionID
+  - RPC_All_SessionID
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1
