@@ -76,8 +76,8 @@ public class PlayerInfo : MonoBehaviourPun
         if (PhotonNetwork.IsMasterClient)
         {
             GameMgr.Instance.gameObject.GetPhotonView().RPC("RPC_All_SessionID", RpcTarget.All, sessionID);
-        }
         GameMgr.Instance.gameObject.SendMessage("countSSS",SendMessageOptions.DontRequireReceiver);
+        }
 
 
         myHPbarInfo = GetComponentInChildren<HpBarInfo>();
