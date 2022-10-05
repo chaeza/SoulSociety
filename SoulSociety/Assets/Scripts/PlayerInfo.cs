@@ -2,12 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.AI;
 using Photon.Pun;
 using Photon.Realtime;
 using System.IO;
 using TMPro;
 
-    [field: SerializeField] public enum state
+    [type : SerializeField] public enum state
     {
         None,
         Die,
@@ -19,8 +20,8 @@ using TMPro;
     
 public class PlayerInfo : MonoBehaviourPun
 {
-    [SerializeField] int blueSoul = 0;
-    [SerializeField] int redSoul = 0;
+    [SerializeField] int blueSoul;
+    [SerializeField] int redSoul;
     [SerializeField] float maxHP = 100;
     public float curHP { get; set; } = 100;
     public float basicAttackDamage { get; set; } = 10;
@@ -34,6 +35,7 @@ public class PlayerInfo : MonoBehaviourPun
     public RectTransform myskillRangerect = null;
     public GameObject skilla;
     [field:SerializeField] public state playerState { get; set; } = state.None;//플레이어 상태
+    NavMeshAgent navMeshAgent;
     Coroutine stunState = null;
     Coroutine slowState = null;
     Coroutine onUnbeatable = null;
@@ -252,8 +254,10 @@ public class PlayerInfo : MonoBehaviourPun
     {
         GetComponent<PlayerMove>().MoveStop();
         GameObject player = PhotonNetwork.Instantiate("Stun", transform.position, Quaternion.identity);
-        player.transform.Translate(0, 1, 0);
-        if(time<1f)
+        player.AddComponent<MyPosition>();
+        player.SendMessage("MyPos", gameObject.transform, SendMessageOptions.DontRequireReceiver);
+        player.SendMessage("YPos", 1f, SendMessageOptions.DontRequireReceiver);
+        if (time<1f)
             GameMgr.Instance.DestroyTarget(player, 1f);
         else 
         GameMgr.Instance.DestroyTarget(player, time);
@@ -266,7 +270,9 @@ public class PlayerInfo : MonoBehaviourPun
     {
         GetComponent<PlayerMove>().ChageSpeed(GetComponent<PlayerMove>().moveSpeed);
         GameObject player = PhotonNetwork.Instantiate("Slow", transform.position, Quaternion.identity);
-        player.transform.Translate(0, 1, 0);
+        player.AddComponent<MyPosition>();
+        player.SendMessage("MyPos", gameObject.transform, SendMessageOptions.DontRequireReceiver);
+        player.SendMessage("YPos", 1f, SendMessageOptions.DontRequireReceiver);
         if (time < 1f)
             GameMgr.Instance.DestroyTarget(player, 1f);
         else
@@ -295,6 +301,28 @@ public class PlayerInfo : MonoBehaviourPun
         yield return new WaitForSeconds(time);
         damageDecrease -= value;
         Debug.Log("뎀감끝");
+        yield break;
+    }
+    [PunRPC]
+    void BackMove(Vector3 pos, float time, int speed)
+    {
+        StartCoroutine(backMove(pos, time, speed));
+    }
+    IEnumerator backMove(Vector3 pos, float time,int speed)
+    {
+        navMeshAgent = GetComponent<NavMeshAgent>();
+        navMeshAgent.speed = speed;
+        navMeshAgent.isStopped = false;
+        navMeshAgent.updateRotation = true;
+        navMeshAgent.updatePosition = true;
+        for(int i = 0; i < 50; i++)
+        {
+            navMeshAgent.SetDestination(pos);
+            yield return null;
+        }
+        yield return new WaitForSeconds(time);
+        navMeshAgent.speed = 5;
+
         yield break;
     }
     #endregion

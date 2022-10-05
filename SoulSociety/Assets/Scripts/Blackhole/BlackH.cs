@@ -40,7 +40,7 @@ public class BlackH : MonoBehaviourPun
             float dis = Vector3.Distance(this.transform.position, star.transform.position);
 
             // 1초가 지났을 때(= 블랙홀이 생성되고 1초가 지났을 때)
-            if (time > 4)
+            if (time > 6)
             {
                 // 행성으로부터 블랙홀로 향하는 방향을 구한다.
                 dir = this.transform.position - star.transform.position;

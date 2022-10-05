@@ -32,7 +32,7 @@ public class SpawnMgr : MonoBehaviourPun
     [PunRPC]
     public void ItemInit()     //아이템 x개 생성
     {
-        for (int i = 0; i < 32; i++)
+        for (int i = 0; i < 50; i++)
         {
             ran = Random.Range(0, groundCh.Length);
             while (groundNum[ran] == true)
@@ -47,7 +47,7 @@ public class SpawnMgr : MonoBehaviourPun
     [PunRPC]
     public void SoulInit()    //소울 x개 생성
     {
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < 4; i++)
         {
             ran2 = Random.Range(0, groundCh.Length);
             while(groundNum[ran2]==true)

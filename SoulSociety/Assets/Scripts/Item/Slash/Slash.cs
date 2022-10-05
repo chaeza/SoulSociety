@@ -7,7 +7,7 @@ public class Slash : MonoBehaviourPun, ItemMethod
 {
     [SerializeField]
     int itemNum = 0;
-    int skillRange = 10;
+    int skillRange = 20;
     bool skillCool = false;
     bool skillClick = false;
     RectTransform myskillRangerect = null;
@@ -28,8 +28,7 @@ public class Slash : MonoBehaviourPun, ItemMethod
             Vector3 mousePos = Input.mousePosition;
 
             Vector3 target;
-            target.x = mousePos.x;
-            target.y = mousePos.y;
+            target.x = mousePos.x;            target.y = mousePos.y;
             target.z = 0;
 
             skilla.transform.position = target;

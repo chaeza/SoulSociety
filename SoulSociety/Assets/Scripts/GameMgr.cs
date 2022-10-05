@@ -22,7 +22,7 @@ public class GameMgr : Singleton<GameMgr>
     public int dieCount = 0;
     public int redCount = 0;
     public int blueCount = 0;
-    int playerNum = 3;
+  //  int playerNum = 3;
 
     int alivePlayerNum = 0;
 

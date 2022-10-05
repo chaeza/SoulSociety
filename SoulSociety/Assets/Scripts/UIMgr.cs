@@ -27,7 +27,7 @@ public class UIMgr : MonoBehaviourPun
     [Header("스킬 설명")]
     [SerializeField] GameObject[] skillExplantion;//스킬 설명
     [Header("대쉬")]
-    [SerializeField] GameObject dash = null;
+    [SerializeField] GameObject dash;
     [SerializeField] GameObject dashExplantion = null;
     [SerializeField] Image dashImage = null;
     [Header("게임")]
@@ -293,10 +293,10 @@ public class UIMgr : MonoBehaviourPun
     IEnumerator DashCooltime(int Cool)
     {
         dashImage.fillAmount = 0f;
-        for (int i = 0; i < Cool; i++)//받은 쿨타임 시간을 i에 저장해서
+        for (int i = 0; i < Cool*4; i++)//받은 쿨타임 시간을 i에 저장해서
         {
-            yield return new WaitForSeconds(1f);//1초씩 기다리고
-            dashImage.fillAmount += 1 / 5f;
+            yield return new WaitForSeconds(0.24f);//1초씩 기다리고
+            dashImage.fillAmount += 1 / 20f;
         }
         cooltimeGameobject.SendMessage("ResetCooltime2", SendMessageOptions.DontRequireReceiver);//저장해놨던 UI매니저를 호출시킨 객체한테 ResetCooltime을 호출시켜 스킬을 다시 사용하게함
         yield break;

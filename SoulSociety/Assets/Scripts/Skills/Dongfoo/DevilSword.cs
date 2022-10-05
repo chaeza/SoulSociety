@@ -6,6 +6,10 @@ using Photon.Pun;
 public class DevilSword : MonoBehaviourPun, SkillMethod
 {
     bool skillCool = false;
+
+    AudioSource sound;
+
+    
     public void ResetCooltime()
     {
         skillCool = false;//스킬을 다시 사용 가능하게함
@@ -17,7 +21,7 @@ public class DevilSword : MonoBehaviourPun, SkillMethod
         {
             GetComponent<Animator>().SetTrigger("isSkill2");
             GetComponent<PlayerInfo>().Stay(1f);
-            StartCoroutine(Stay(0.5f));
+            StartCoroutine(Stay(1f));
         }
     }
     IEnumerator Stay(float time)
@@ -25,8 +29,10 @@ public class DevilSword : MonoBehaviourPun, SkillMethod
         yield return new WaitForSeconds(time);
         GameObject a = PhotonNetwork.Instantiate("DevilSword", transform.position, Quaternion.identity);//이펙트를 포톤 인스턴스를 합니다.
         a.AddComponent<DevilSwordHit>();//이펙트에 히트 스크립트를 넣습니다.
+        sound = a.GetComponent<AudioSource>();
         a.SendMessage("AttackerName", gameObject.GetPhotonView().ViewID, SendMessageOptions.DontRequireReceiver);//이펙트에 공격자를 지정합니다.
 
+        sound.Play();
         // a.transform.LookAt(desiredDir);
         //  a.transform.position = gameObject.transform.position + new Vector3(0f, 2f, 0f);
 

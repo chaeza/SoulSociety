@@ -4971,7 +4971,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Weight: 7.5
-  m_startTime: 4.5
+  m_startTime: 4
 --- !u!114 &114272048235914930
 MonoBehaviour:
   m_ObjectHideFlags: 0

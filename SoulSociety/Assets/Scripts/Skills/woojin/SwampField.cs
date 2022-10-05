@@ -7,9 +7,7 @@ public class SwampField : MonoBehaviourPun , SkillMethod
 {
     bool skillCool = false;
 
-    RectTransform myskillRangerect = null;
-    GameObject skilla;
-
+    AudioSource sound;
 
     public void ResetCooltime()
     {
@@ -28,14 +26,21 @@ public class SwampField : MonoBehaviourPun , SkillMethod
             a.transform.position = gameObject.transform.position + new Vector3(0f, 2f, 0f);
             a.transform.Rotate(-90f, 0f, 0f);
 
+            sound = a.GetComponent<AudioSource>();
+            StartCoroutine(soundCh());
+            sound.Play();
+
             GameMgr.Instance.DestroyTarget(a, 8f);
-
-
 
             skillCool = true;//쿨타임 온 시켜 다시 사용 못하게함
                              // skillClick = false;
             Debug.Log("스킬사용");
             GameMgr.Instance.uIMgr.SkillCooltime(gameObject, 18);//UI매니저에 쿨타임 10초를 보냄
         }
+    }
+    IEnumerator soundCh()
+    {
+        yield return new WaitForSeconds(7f);
+        sound.Stop();
     }
 }

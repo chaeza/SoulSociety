@@ -7,6 +7,7 @@ public class DamageDecrpease : MonoBehaviourPun, ItemMethod//아이템 인터페이스 �
 {
     [SerializeField]
     int itemNum = 0;
+    AudioSource sound;
 
     public void GetItem(int itemnum)//해당 아이템이 어느 인벤토리에 있는지 순서 책정
     {
@@ -29,6 +30,9 @@ public class DamageDecrpease : MonoBehaviourPun, ItemMethod//아이템 인터페이스 �
         a.AddComponent<MyPosition>();
         a.SendMessage("MyPos", gameObject.transform, SendMessageOptions.DontRequireReceiver);
         a.SendMessage("YPos", 2, SendMessageOptions.DontRequireReceiver);
+
+        sound = a.GetComponent<AudioSource>();
+        sound.Play();
 
         gameObject.GetPhotonView().RPC("SetDamageDecrpease", RpcTarget.All, 0.3f,5f);
         GameMgr.Instance.DestroyTarget(a, 5f);
