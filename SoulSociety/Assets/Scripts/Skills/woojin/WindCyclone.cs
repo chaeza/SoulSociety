@@ -6,14 +6,15 @@ using Photon.Pun;
 public class WindCyclone : MonoBehaviourPun, SkillMethod
 {
     bool skillCool = false;
-
     AudioSource sound;
-
+ 
     public void ResetCooltime()
     {
         skillCool = false;//스킬을 다시 사용 가능하게함
         Debug.Log("스킬쿨끝");
     }
+
+   
 
     public void SkillFire()
     {
@@ -23,17 +24,17 @@ public class WindCyclone : MonoBehaviourPun, SkillMethod
             a.AddComponent<WindCycloneHit>();//이펙트에 히트 스크립트를 넣습니다.
             a.SendMessage("AttackerName", gameObject.GetPhotonView().ViewID, SendMessageOptions.DontRequireReceiver);//이펙트에 공격자를 지정합니다.
             a.AddComponent<MyPosition>();
+            
             a.transform.Rotate(-90f, 0f, 0f);
             a.SendMessage("MyPos", gameObject.transform, SendMessageOptions.DontRequireReceiver);
-            // a.transform.LookAt(desiredDir);
-            //  a.transform.position = gameObject.transform.position + new Vector3(0f, 2f, 0f);
 
-           
+            sound = a.GetComponent<AudioSource>();
+            StartCoroutine(soundCh());
+            sound.Play();
+
 
             GameMgr.Instance.DestroyTarget(a, 8f);    //지속 시간
-
-            //StartCoroutine(Sound());
-            // a.transform.rotation = Quaternion.identity;
+            
 
             skillCool = true;//쿨타임 온 시켜 다시 사용 못하게함
  
@@ -42,12 +43,9 @@ public class WindCyclone : MonoBehaviourPun, SkillMethod
         }
     }
 
-    IEnumerator Sound()
+    IEnumerator soundCh()
     {
-        sound.mute = false;
-
-        yield return new WaitForSeconds(5f);
-
-        sound.mute = true;
+        yield return new WaitForSeconds(7f);
+        sound.Stop();
     }
 }

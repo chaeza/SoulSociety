@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 
-public class SwordCrash : MonoBehaviourPun , SkillMethod
+public class SwordCrash : MonoBehaviourPun, SkillMethod
 {
     int skillRange = 20;
     bool skillCool = false;
     bool skillClick = false;
     ResourceData eff;
+    AudioSource sound;
 
     RectTransform myskillRangerect = null;
     GameObject skilla;
@@ -72,7 +73,7 @@ public class SwordCrash : MonoBehaviourPun , SkillMethod
     {
         if (skillClick == true)
         {
-            
+
             skillClick = false;
             myskillRangerect.gameObject.SetActive(false);
             skilla.SetActive(false);
@@ -111,14 +112,19 @@ public class SwordCrash : MonoBehaviourPun , SkillMethod
         GameObject a = PhotonNetwork.Instantiate("SwordCrash", desiredDir, Quaternion.identity);//이펙트를 포톤 인스턴스를 합니다.
         a.AddComponent<SwordCrashHit>();//이펙트에 히트 스크립트를 넣습니다.
         a.SendMessage("AttackerName", gameObject.GetPhotonView().ViewID, SendMessageOptions.DontRequireReceiver);//이펙트에 공격자를 지정합니다.
+
+        sound = a.GetComponent<AudioSource>();
+        StartCoroutine(soundCh());
+        sound.Play();
+
         a.transform.LookAt(transform.position);
         a.transform.Rotate(0, 180, 0);
         StartCoroutine(Fire(desiredDir));
-        GameMgr.Instance.DestroyTarget(a, 3f);  //4초뒤 삭제
+        GameMgr.Instance.DestroyTarget(a, 4f);  //4초뒤 삭제
         yield break;
     }
 
-        IEnumerator Fire(Vector3 pos)//큐브 이동시키기
+    IEnumerator Fire(Vector3 pos)//큐브 이동시키기
     {
         yield return new WaitForSeconds(1f);
         GameObject hitbox = PhotonNetwork.Instantiate("SwordCrashHitbox", pos, Quaternion.identity);//이펙트를 포톤 인스턴스를 합니다.
@@ -129,5 +135,10 @@ public class SwordCrash : MonoBehaviourPun , SkillMethod
         GameMgr.Instance.DestroyTarget(hitbox, 1f);  //4초뒤 삭제
         yield return null;
         yield break;
+    }
+    IEnumerator soundCh()
+    {
+        yield return new WaitForSeconds(3f);
+        sound.Stop();
     }
 }

@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 
-public class SwordRain : MonoBehaviourPun , SkillMethod
+public class SwordRain : MonoBehaviourPun, SkillMethod
 {
     int skillRange = 30;
     bool skillCool = false;
     bool skillClick = false;
     ResourceData eff;
+    AudioSource sound;
 
     RectTransform myskillRangerect = null;
     GameObject skilla;
@@ -28,6 +29,8 @@ public class SwordRain : MonoBehaviourPun , SkillMethod
     }
     public void SkillFire()
     {
+        
+
         if (skillCool == false)
         {
             if (skillClick == false)
@@ -68,6 +71,7 @@ public class SwordRain : MonoBehaviourPun , SkillMethod
             canSkill.y = transform.position.y;
         }
     }
+
     public void SkillClick(Vector3 Pos)
     {
 
@@ -106,6 +110,7 @@ public class SwordRain : MonoBehaviourPun , SkillMethod
 
 
     }
+
     IEnumerator Stay(Vector3 desiredDir, float time)
     {
         yield return new WaitForSeconds(time);
@@ -114,15 +119,18 @@ public class SwordRain : MonoBehaviourPun , SkillMethod
         a.SendMessage("AttackerName", gameObject.GetPhotonView().ViewID, SendMessageOptions.DontRequireReceiver);//이펙트에 공격자를 지정합니다.
         a.transform.Rotate(-90, 0, 0);
 
-        GameMgr.Instance.DestroyTarget(a, 4f);
+        sound = a.GetComponent<AudioSource>();
+        StartCoroutine(soundCh());
+        sound.Play();
+
+        GameMgr.Instance.DestroyTarget(a, 5f);
         yield break;
     }
-        IEnumerator Fire(GameObject skill)//큐브 이동시키기
+ 
+
+    IEnumerator soundCh()
     {
-        //skill.transform.position = new Vector3(0, 0, 0);
-        // skill.transform.rotation = new Quaternion(0, 180, 0, 1);
-
-
-        yield return null;
+        yield return new WaitForSeconds(4f);
+        sound.Stop();
     }
 }
