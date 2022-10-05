@@ -28,7 +28,7 @@ public class BasicAttackDamageUP : MonoBehaviourPun, ItemMethod
         GameObject a = PhotonNetwork.Instantiate("BasicAttackDamageUP", transform.position, Quaternion.identity);//이펙트를 포톤 인스턴스를 합니다.
         a.AddComponent<MyPosition>();
         a.SendMessage("MyPos", gameObject.transform, SendMessageOptions.DontRequireReceiver);
-        a.SendMessage("YPos", 2, SendMessageOptions.DontRequireReceiver);
+        a.SendMessage("YPos", 2f, SendMessageOptions.DontRequireReceiver);
         gameObject.GetComponent<PlayerInfo>().basicAttackDamage += 2.5f;
 
         GameMgr.Instance.DestroyTarget(a, 2f);
