@@ -7,8 +7,6 @@ public class SwampField : MonoBehaviourPun , SkillMethod
 {
     bool skillCool = false;
 
-    RectTransform myskillRangerect = null;
-    GameObject skilla;
     AudioSource sound;
 
     public void ResetCooltime()

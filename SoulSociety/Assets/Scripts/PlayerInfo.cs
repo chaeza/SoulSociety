@@ -8,7 +8,7 @@ using Photon.Realtime;
 using System.IO;
 using TMPro;
 
-    [field: SerializeField] public enum state
+    [type : SerializeField] public enum state
     {
         None,
         Die,
@@ -20,8 +20,8 @@ using TMPro;
     
 public class PlayerInfo : MonoBehaviourPun
 {
-    [SerializeField] int blueSoul = 0;
-    [SerializeField] int redSoul = 0;
+    [SerializeField] int blueSoul;
+    [SerializeField] int redSoul;
     [SerializeField] float maxHP = 100;
     public float curHP { get; set; } = 100;
     public float basicAttackDamage { get; set; } = 10;
