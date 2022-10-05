@@ -68437,7 +68437,7 @@ GameObject:
   - component: {fileID: 198926107242498482}
   - component: {fileID: 199301719493183394}
   - component: {fileID: 3828114847483766967}
-  - component: {fileID: -4490423707811998993}
+  - component: {fileID: -998799616388675717}
   m_Layer: 0
   m_Name: Dash
   m_TagString: Untagged
@@ -73353,11 +73353,11 @@ MonoBehaviour:
   OwnershipTransfer: 0
   observableSearch: 2
   ObservedComponents:
-  - {fileID: -4490423707811998993}
+  - {fileID: -998799616388675717}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
---- !u!114 &-4490423707811998993
+--- !u!114 &-998799616388675717
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -73372,7 +73372,7 @@ MonoBehaviour:
   m_SynchronizePosition: 1
   m_SynchronizeRotation: 1
   m_SynchronizeScale: 0
-  m_UseLocal: 0
+  m_UseLocal: 1
 --- !u!1 &1987985734801252
 GameObject:
   m_ObjectHideFlags: 0
