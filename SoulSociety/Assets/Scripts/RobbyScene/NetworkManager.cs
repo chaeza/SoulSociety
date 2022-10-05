@@ -22,6 +22,12 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     [SerializeField] TextMeshProUGUI[] nickName = null;
     [SerializeField] Button soloStart = null;
 
+    //API ¿‹∞Ì 
+    [SerializeField] TextMeshProUGUI Balance_Lobby;
+    [SerializeField] TextMeshProUGUI Balance_Room;
+
+
+
     ReadyState myReadyState = ReadyState.None;
 
     int readyCount = 0;
