@@ -20,7 +20,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
     [SerializeField] Button btnConnect = null;
     [SerializeField] TextMeshProUGUI[] nickName = null;
-    [SerializeField] Button soloStart = null;
+    [SerializeField] Button soloStart;
 
     //API ¿‹∞Ì 
     [SerializeField] TextMeshProUGUI Balance_Lobby;

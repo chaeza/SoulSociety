@@ -27,7 +27,7 @@ public class UIMgr : MonoBehaviourPun
     [Header("스킬 설명")]
     [SerializeField] GameObject[] skillExplantion;//스킬 설명
     [Header("대쉬")]
-    [SerializeField] GameObject dash = null;
+    [SerializeField] GameObject dash;
     [SerializeField] GameObject dashExplantion = null;
     [SerializeField] Image dashImage = null;
     [Header("게임")]
