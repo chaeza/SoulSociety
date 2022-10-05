@@ -5,7 +5,7 @@ using Photon.Pun;
 
 public class SwordCrash : MonoBehaviourPun , SkillMethod
 {
-    int skillRange = 15;
+    int skillRange = 20;
     bool skillCool = false;
     bool skillClick = false;
     ResourceData eff;
@@ -96,7 +96,7 @@ public class SwordCrash : MonoBehaviourPun , SkillMethod
                 GetComponent<Animator>().SetTrigger("isSkill2");
                 transform.LookAt(desiredDir);
                 GetComponent<PlayerInfo>().Stay(1f);
-                StartCoroutine(Stay(desiredDir, 0.4f));
+                StartCoroutine(Stay(desiredDir, 0.7f));
 
 
                 skillCool = true;//쿨타임 온 시켜 다시 사용 못하게함

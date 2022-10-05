@@ -52,7 +52,7 @@ public class PlayerMove : MonoBehaviourPun
         else if (Input.mousePosition.x > 1005 && Input.mousePosition.x < 1080 && Input.mousePosition.y > 25 && Input.mousePosition.y < 105 && GameMgr.Instance.inventory.InvetoryCount(3) == false) GameMgr.Instance.uIMgr.OnExplantionItem(3, GameMgr.Instance.inventory.GetInventory(3));
         else if (Input.mousePosition.x > 1160 && Input.mousePosition.x < 1240 && Input.mousePosition.y > 25 && Input.mousePosition.y < 105 && GameMgr.Instance.inventory.InvetoryCount(4) == false) GameMgr.Instance.uIMgr.OnExplantionItem(4, GameMgr.Instance.inventory.GetInventory(4));
         else GameMgr.Instance.uIMgr.OnExplantionItem(5, 0);
-        if (Input.mousePosition.x > 310 && Input.mousePosition.x < 390 && Input.mousePosition.y > 25 && Input.mousePosition.y < 105) GameMgr.Instance.uIMgr.OnExplantionDash(true);
+        if (Input.mousePosition.x > 1280 && Input.mousePosition.x < 1400 && Input.mousePosition.y > 25 && Input.mousePosition.y < 105) GameMgr.Instance.uIMgr.OnExplantionDash(true);
         else GameMgr.Instance.uIMgr.OnExplantionDash(false);
       
         if (GameMgr.Instance.playerInput.inputKey == KeyCode.Mouse0) SendMessage("SkillClick",Input.mousePosition,SendMessageOptions.DontRequireReceiver);
