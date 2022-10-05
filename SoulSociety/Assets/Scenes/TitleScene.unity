@@ -13985,11 +13985,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8589913564444264642, guid: f2b642409ad009c41923b949694059d0, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.2869959
+      value: 0.2869873
       objectReference: {fileID: 0}
     - target: {fileID: 8589913564444264642, guid: f2b642409ad009c41923b949694059d0, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.48066807
+      value: -0.48065186
       objectReference: {fileID: 0}
     - target: {fileID: 8589913564444264642, guid: f2b642409ad009c41923b949694059d0, type: 3}
       propertyPath: m_LocalPosition.z
@@ -14001,15 +14001,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8589913564444264642, guid: f2b642409ad009c41923b949694059d0, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 8589913564444264642, guid: f2b642409ad009c41923b949694059d0, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 8589913564444264642, guid: f2b642409ad009c41923b949694059d0, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 8589913564444264642, guid: f2b642409ad009c41923b949694059d0, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -23653,8 +23653,24 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1061243937}
+    - target: {fileID: 1917129907, guid: 4c75de694105a8841ab77168501780d1, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2090857523, guid: 4c75de694105a8841ab77168501780d1, type: 3}
       propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2090857524, guid: 4c75de694105a8841ab77168501780d1, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 910.9586
+      objectReference: {fileID: 0}
+    - target: {fileID: 2090857524, guid: 4c75de694105a8841ab77168501780d1, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 504.52563
+      objectReference: {fileID: 0}
+    - target: {fileID: 2090857526, guid: 4c75de694105a8841ab77168501780d1, type: 3}
+      propertyPath: m_RaycastTarget
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 420714556231348887, guid: 4c75de694105a8841ab77168501780d1, type: 3}
@@ -23665,10 +23681,18 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1061243937}
+    - target: {fileID: 5876490540938536663, guid: 4c75de694105a8841ab77168501780d1, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5876490541137144225, guid: 4c75de694105a8841ab77168501780d1, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1061243937}
+    - target: {fileID: 5876490541366287888, guid: 4c75de694105a8841ab77168501780d1, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5876490541672360869, guid: 4c75de694105a8841ab77168501780d1, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -23756,6 +23780,10 @@ PrefabInstance:
     - target: {fileID: 5876490541672360870, guid: 4c75de694105a8841ab77168501780d1, type: 3}
       propertyPath: m_Name
       value: Canvas (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5876490541672360870, guid: 4c75de694105a8841ab77168501780d1, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5876490542281088219, guid: 4c75de694105a8841ab77168501780d1, type: 3}
       propertyPath: m_OnDidEndEdit.m_PersistentCalls.m_Calls.Array.data[0].m_Target
