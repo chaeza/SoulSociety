@@ -76,6 +76,7 @@ MonoBehaviour:
   - SetDamageDecrpease
   - SetUnbeatable
   - WinnerFixed
+  - RPC_ZeraBetting
   - BackMove
   DisableAutoOpenWizard: 1
   ShowSettings: 1

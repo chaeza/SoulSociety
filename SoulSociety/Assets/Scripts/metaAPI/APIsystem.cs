@@ -47,7 +47,7 @@ public class Res_UserSessionID
         return $"Status : {Status} StatusCode : {StatusCode} Message : {Message}";
     }
 }
-
+//제라 잔고
 //http://localhost:8546/api/getsessionid API 응답을 사용하여  
 //Osiris Multi Wallet과 연결해 Zera자금을 볼 수 있다.
 //(c)

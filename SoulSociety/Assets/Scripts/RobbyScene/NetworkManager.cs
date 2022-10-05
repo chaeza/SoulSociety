@@ -1,11 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
 using UnityEngine.UI;
+using UnityEngine.Networking;
 using Photon.Realtime;
 using TMPro;
 using Photon.Pun;
-
 
 
 public class NetworkManager : MonoBehaviourPunCallbacks
@@ -20,12 +21,23 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
     [SerializeField] Button btnConnect = null;
     [SerializeField] TextMeshProUGUI[] nickName = null;
-    [SerializeField] Button soloStart;
 
     //API 잔고 
+    [SerializeField] TextMeshProUGUI Balance_Disconnect;
     [SerializeField] TextMeshProUGUI Balance_Lobby;
-    [SerializeField] TextMeshProUGUI Balance_Room;
+    [SerializeField] TextMeshProUGUI UserID_Disconnect;
+    [SerializeField] TextMeshProUGUI UserID_Lobby;
 
+    //API 데이터 전달 포스트맨
+    [SerializeField] GameObject Postman;
+
+    GameObject postman;
+
+
+    //세션ID 닉네임 연동 
+    Dictionary<string,string> Nick_Session_key =new Dictionary<string,string>();
+    string mySessionID;
+    string myBetsId;
 
 
     ReadyState myReadyState = ReadyState.None;
@@ -43,13 +55,23 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     public void SoloClick()
     {
         PhotonNetwork.LoadLevel("LoadingScene");
-      //  PhotonNetwork.LoadLevel("GameScene");
+        //  PhotonNetwork.LoadLevel("GameScene");
     }
     private void Awake()
     {
+    //    DontDestroyOnLoad(this);
         ClearLobby();
         photonView.StartCoroutine(AutoSyncDelay());
-        
+
+        if (FindObjectOfType<TitleToGameScene>() == null)
+        {
+            postman=Instantiate(Postman);
+        }
+        else
+        {
+            postman=FindObjectOfType<TitleToGameScene>().gameObject;
+        }
+
         Screen.SetResolution(1920, 1080, false);
         PhotonNetwork.SendRate = 60;
         PhotonNetwork.SerializationRate = 30;
@@ -62,6 +84,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
     private void Start()
     {
+       
         brokenWindow.gameObject.SetActive(false);
         audioSource.gameObject.SetActive(false);
         StartCoroutine(broken());
@@ -79,9 +102,10 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
     public override void OnConnectedToMaster()
     {
-        btnConnect.interactable = true;
-     
-       // 불끄기
+        //API 유저 프로필 , SessionID 가져오기
+        StartCoroutine(processRequestGetUserInfo());
+   
+        // 불끄기
         ClearLobby();
         Debug.Log("## OnConnected to Master");
     }
@@ -117,14 +141,21 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     {
         Debug.Log("조인 실패");
         //맥스 인원과 방 상태 표현 (시작인지 아닌지)
-        PhotonNetwork.CreateRoom(null, new RoomOptions { MaxPlayers = 4,IsOpen=true });
+        PhotonNetwork.CreateRoom(null, new RoomOptions { MaxPlayers = 4, IsOpen = true });
     }
     //자신이 들어갈때 
     public override void OnJoinedRoom()
     {
         Debug.Log("새로운 플레이어가 참가하셨습니다");
+        //API 잔고 표시
+        StartCoroutine(processRequestZeraBalance());
+        //API 세션아이디랑 닉네임 연동 
+        Nick_Session_key.Add(PhotonNetwork.NickName, mySessionID);
+        //배팅 세팅값 가져오기
+        StartCoroutine(processRequestSettings());
+
         Player[] nickNameCheck = PhotonNetwork.PlayerList;
-        int checkNum=0;
+        int checkNum = 0;
         for (int i = 0; i < PhotonNetwork.PlayerList.Length; i++)
         {
             if (nickNameCheck[i].NickName == PhotonNetwork.NickName)
@@ -165,8 +196,8 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     {
         if (Input.GetKeyDown(KeyCode.Escape) && PhotonNetwork.IsConnected)
         {
+            PhotonNetwork.Disconnect();
             PhotonNetwork.LoadLevel("TitleScene");
-            PhotonNetwork.LeaveRoom();
         }
     }
 
@@ -292,12 +323,325 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         }
         else Debug.Log("누군가 레디 취소함");
     }
-
+  
     IEnumerator broken()
     {
-        yield return new WaitForSeconds(13);
-
+        int ran = Random.Range(11, 17);
+        yield return new WaitForSeconds(ran);
+       
         brokenWindow.gameObject.SetActive(true);
         audioSource.gameObject.SetActive(true);
     }
+
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+
+    #region API호출 함수
+    [Header("[API 관련]")]
+    [SerializeField] TextMeshProUGUI txtInputField;
+    [SerializeField] string selectedBettingID;
+
+    [Header("[등록된 프로젝트에서 획득가능한 API 키]")]
+    [SerializeField] string API_KEY = "";
+
+    [Header("[Betting Backend Base URL]")]
+    [SerializeField] string FullAppsProductionURL = "https://odin-api.browseosiris.com";
+    [SerializeField] string FullAppsStagingURL = "https://odin-api-sat.browseosiris.com";
+
+    string getBaseURL()
+    {
+        // 프로덕션 단계라면
+        //return FullAppsProductionURL;
+
+        // 스테이징 단계(개발)라면
+        return FullAppsStagingURL;
+    }
+
+    Res_UserProfile res_UserProfile = null;
+    Res_UserSessionID res_UserSessionID = null;
+    Res_BettingSetting res_BettingSetting = null;
+    //---------------
+    // 유저 정보
+    public void OnClick_GetUserProfile() //버튼 사용시 
+    {
+        StartCoroutine(processRequestGetUserInfo());
+    }
+    IEnumerator processRequestGetUserInfo()
+    {
+        // 유저 정보
+        yield return requestGetUserInfo((response) =>
+        {
+            if (response != null)
+            {
+                Debug.Log("## " + response.ToString());
+                res_UserProfile = response;
+                Debug.Log(res_UserProfile.userProfile.username);
+            }
+        });
+        btnConnect.interactable = true;
+    }
+    delegate void resCallback_GetUserInfo(Res_UserProfile response);
+    IEnumerator requestGetUserInfo(resCallback_GetUserInfo callback)
+    {
+        // get user profile
+        UnityWebRequest www = UnityWebRequest.Get("http://localhost:8546/api/getuserprofile");
+        yield return www.SendWebRequest();
+        Debug.Log(www.downloadHandler.text);
+        txtInputField.text = www.downloadHandler.text;
+        Res_UserProfile res_getUserProfile = JsonUtility.FromJson<Res_UserProfile>(www.downloadHandler.text);
+        UserID_Disconnect.text = "User ID : " + res_getUserProfile.userProfile.username;
+        UserID_Lobby.text = "User ID : " + res_getUserProfile.userProfile.username;
+
+        postman.SendMessage("User_ID", res_getUserProfile.userProfile.username, SendMessageOptions.DontRequireReceiver);
+
+        callback(res_getUserProfile);
+
+        //아래 SessionID까지 일괄 처리 
+        StartCoroutine(processRequestGetSessionID());
+    }
+
+    //---------------
+    // Session ID
+    public void OnClick_GetSessionID() //버튼 사용시 
+    {
+        StartCoroutine(processRequestGetSessionID());
+    }
+    IEnumerator processRequestGetSessionID()
+    {
+        // 유저 정보
+        yield return requestGetSessionID((response) =>
+        {
+            if (response != null)
+            {
+                Debug.Log("## " + response.ToString());
+                res_UserSessionID = response;
+            }
+        });
+    }
+    delegate void resCallback_GetSessionID(Res_UserSessionID response);
+    IEnumerator requestGetSessionID(resCallback_GetSessionID callback)
+    {
+        // get session id
+        UnityWebRequest www = UnityWebRequest.Get("http://localhost:8546/api/getsessionid");
+        yield return www.SendWebRequest();
+        Debug.Log("음.." + www.downloadHandler.text);
+        txtInputField.text = www.downloadHandler.text;
+        Res_UserSessionID res_getSessionID = JsonUtility.FromJson<Res_UserSessionID>(www.downloadHandler.text);
+        
+        mySessionID = res_getSessionID.sessionId;
+        postman.SendMessage("Session_ID", mySessionID, SendMessageOptions.DontRequireReceiver);
+
+        callback(res_getSessionID);
+
+        //API 잔고 가져오기
+        StartCoroutine(processRequestZeraBalance());
+    }
+
+    //---------------
+    // 베팅관련 셋팅 정보를 얻어오기
+    public void OnClick_Settings()//버튼 클릭시
+    {
+        StartCoroutine(processRequestSettings());//방 입장시
+    }
+    IEnumerator processRequestSettings()
+    {
+        yield return requestSettings((response) =>
+        {
+            if (response != null)
+            {
+                Debug.Log("## Settings : " + response.ToString());
+                res_BettingSetting = response;
+            }
+        });
+    }
+    delegate void resCallback_Settings(Res_BettingSetting response);
+    IEnumerator requestSettings(resCallback_Settings callback)
+    {
+        string url = getBaseURL() + "/v1/betting/settings";
+
+
+        UnityWebRequest www = UnityWebRequest.Get(url);
+        www.SetRequestHeader("api-key", API_KEY);
+        yield return www.SendWebRequest();
+        Debug.Log(www.downloadHandler.text);
+        txtInputField.text = www.downloadHandler.text;
+        
+        Res_BettingSetting res = JsonUtility.FromJson<Res_BettingSetting>(www.downloadHandler.text);
+        myBetsId = res.data.bets[0]._id;
+        Debug.Log("내 베팅 아이디 : " + myBetsId);
+
+
+        postman.SendMessage("Bets_ID", myBetsId,SendMessageOptions.DontRequireReceiver);
+        
+        
+        callback(res);
+        //UnityWebRequest www = new UnityWebRequest(URL);
+    }
+
+    //---------------
+    // Zera 잔고 확인
+    public void OnClick_ZeraBalance() //버튼 클릭시 사용
+    {
+        StartCoroutine(processRequestZeraBalance()); //방 입장 전과 후마다 호출
+    }
+    IEnumerator processRequestZeraBalance()
+    {
+        yield return requestZeraBalance(res_UserSessionID.sessionId, (response) =>
+        {
+            if (response != null)
+            {
+                Debug.Log("## Response Zera Balance : " + response.ToString());
+            }
+        });
+    }
+    delegate void resCallback_BalanceInfo(Res_ZeraBalance response);
+    IEnumerator requestZeraBalance(string sessionID, resCallback_BalanceInfo callback)
+    {
+        string url = getBaseURL() + ("/v1/betting/" + "zera" + "/balance/" + sessionID);
+
+        UnityWebRequest www = UnityWebRequest.Get(url);
+        www.SetRequestHeader("api-key", API_KEY);
+        yield return www.SendWebRequest();
+        Debug.Log(www.downloadHandler.text);
+        // txtInputField.text = www.downloadHandler.text;
+        Balance_Disconnect.text = www.downloadHandler.text;
+        Balance_Lobby.text = www.downloadHandler.text;
+
+        Res_ZeraBalance res = JsonUtility.FromJson<Res_ZeraBalance>(www.downloadHandler.text);
+        Balance_Disconnect.text = "Balance : " + res.data.balance.ToString();
+        Balance_Lobby.text = "Balance : " + res.data.balance.ToString();
+        callback(res);
+        //UnityWebRequest www = new UnityWebRequest(URL);
+    }
+
+    //---------------
+    // ZERA 베팅
+    public void OnClick_Betting_Zera()//클릭시
+    {
+        StartCoroutine(processRequestBetting_Zera()); //씬 이동 직전 PRC로 실행 
+    }
+    IEnumerator processRequestBetting_Zera()
+    {
+        Res_Initialize resBettingPlaceBet = null;
+        Req_Initialize reqBettingPlaceBet = new Req_Initialize();
+        reqBettingPlaceBet.players_session_id = new string[] { res_UserSessionID.sessionId };
+        reqBettingPlaceBet.bet_id = selectedBettingID;// resSettigns.data.bets[0]._id;
+        yield return requestCoinPlaceBet(reqBettingPlaceBet, (response) =>
+        {
+            if (response != null)
+            {
+                Debug.Log("## CoinPlaceBet : " + response.message);
+                resBettingPlaceBet = response;
+            }
+        });
+    }
+    delegate void resCallback_BettingPlaceBet(Res_Initialize response);
+    IEnumerator requestCoinPlaceBet(Req_Initialize req, resCallback_BettingPlaceBet callback)
+    {
+        string url = getBaseURL() + "/v1/betting/" + "zera" + "/place-bet";
+
+        string reqJsonData = JsonUtility.ToJson(req);
+        Debug.Log(reqJsonData);
+
+
+        UnityWebRequest www = UnityWebRequest.Post(url, reqJsonData);
+        byte[] buff = System.Text.Encoding.UTF8.GetBytes(reqJsonData);
+        www.uploadHandler = new UploadHandlerRaw(buff);
+        www.SetRequestHeader("api-key", API_KEY);
+        www.SetRequestHeader("Content-Type", "application/json");
+        yield return www.SendWebRequest();
+
+        Debug.Log(www.downloadHandler.text);
+        txtInputField.text = www.downloadHandler.text;
+        Res_Initialize res = JsonUtility.FromJson<Res_Initialize>(www.downloadHandler.text);
+        callback(res);
+    }
+
+    //---------------
+    // ZERA 베팅-승자
+    public void OnClick_Betting_Zera_DeclareWinner() //클릭시
+    {
+        StartCoroutine(processRequestBetting_Zera_DeclareWinner()); //대리게이트 호출
+    }
+    IEnumerator processRequestBetting_Zera_DeclareWinner()
+    {
+        Res_BettingWinner resBettingDeclareWinner = null;
+        Req_BettingWinner reqBettingDeclareWinner = new Req_BettingWinner();
+        reqBettingDeclareWinner.betting_id = selectedBettingID;// resSettigns.data.bets[0]._id;
+        reqBettingDeclareWinner.winner_player_id = res_UserProfile.userProfile._id;
+        yield return requestCoinDeclareWinner(reqBettingDeclareWinner, (response) =>
+        {
+            if (response != null)
+            {
+                Debug.Log("## CoinDeclareWinner : " + response.message);
+                resBettingDeclareWinner = response;
+            }
+        });
+    }
+    delegate void resCallback_BettingDeclareWinner(Res_BettingWinner response);
+    IEnumerator requestCoinDeclareWinner(Req_BettingWinner req, resCallback_BettingDeclareWinner callback)
+    {
+        string url = getBaseURL() + "/v1/betting/" + "zera" + "/declare-winner";
+
+        string reqJsonData = JsonUtility.ToJson(req);
+        Debug.Log(reqJsonData);
+
+
+        UnityWebRequest www = UnityWebRequest.Post(url, reqJsonData);
+        byte[] buff = System.Text.Encoding.UTF8.GetBytes(reqJsonData);
+        www.uploadHandler = new UploadHandlerRaw(buff);
+        www.SetRequestHeader("api-key", API_KEY);
+        www.SetRequestHeader("Content-Type", "application/json");
+        yield return www.SendWebRequest();
+
+        Debug.Log(www.downloadHandler.text);
+        txtInputField.text = www.downloadHandler.text;
+        Res_BettingWinner res = JsonUtility.FromJson<Res_BettingWinner>(www.downloadHandler.text);
+        callback(res);
+
+        Debug.Log("돈내놔");   
+    }
+
+    //---------------
+    // 베팅금액 반환
+    public void OnClick_Betting_Zera_Disconnect()
+    {
+        StartCoroutine(processRequestBetting_Zera_Disconnect());
+    }
+    IEnumerator processRequestBetting_Zera_Disconnect()
+    {
+        Res_BettingDisconnect resBettingDisconnect = null;
+        Req_BettingDisconnect reqBettingDisconnect = new Req_BettingDisconnect();
+        reqBettingDisconnect.betting_id = selectedBettingID;// resSettigns.data.bets[1]._id;
+        yield return requestCoinDisconnect(reqBettingDisconnect, (response) =>
+        {
+            if (response != null)
+            {
+                Debug.Log("## CoinDisconnect : " + response.message);
+                resBettingDisconnect = response;
+            }
+        });
+    }
+    delegate void resCallback_BettingDisconnect(Res_BettingDisconnect response);
+    IEnumerator requestCoinDisconnect(Req_BettingDisconnect req, resCallback_BettingDisconnect callback)
+    {
+        string url = getBaseURL() + "/v1/betting/" + "zera" + "/disconnect";
+
+        string reqJsonData = JsonUtility.ToJson(req);
+        Debug.Log(reqJsonData);
+
+
+        UnityWebRequest www = UnityWebRequest.Post(url, reqJsonData);
+        byte[] buff = System.Text.Encoding.UTF8.GetBytes(reqJsonData);
+        www.uploadHandler = new UploadHandlerRaw(buff);
+        www.SetRequestHeader("api-key", API_KEY);
+        www.SetRequestHeader("Content-Type", "application/json");
+        yield return www.SendWebRequest();
+
+        Debug.Log(www.downloadHandler.text);
+        txtInputField.text = www.downloadHandler.text;
+        Res_BettingDisconnect res = JsonUtility.FromJson<Res_BettingDisconnect>(www.downloadHandler.text);
+        callback(res);
+    }
+
+    #endregion
 }

@@ -348,7 +348,8 @@ public class UIMgr : MonoBehaviourPun
                 photonView.RPC("WinnerFixed", RpcTarget.All);
                 win.SetActive(true);
                 winEff.SetActive(true);
-
+                gameSceneLogic.WinnerEndGame();
+                return;
             }
             else
                 lose.SetActive(true);
@@ -360,6 +361,8 @@ public class UIMgr : MonoBehaviourPun
                 photonView.RPC("WinnerFixed", RpcTarget.All);
                 win.SetActive(true);
                 winEff.SetActive(true);
+                gameSceneLogic.WinnerEndGame();
+                return;
             }
             else
                 lose.SetActive(true);
