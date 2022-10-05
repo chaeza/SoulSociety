@@ -17,7 +17,7 @@ public class DevilSword : MonoBehaviourPun, SkillMethod
         {
             GetComponent<Animator>().SetTrigger("isSkill2");
             GetComponent<PlayerInfo>().Stay(1f);
-            StartCoroutine(Stay(0.5f));
+            StartCoroutine(Stay(1f));
         }
     }
     IEnumerator Stay(float time)

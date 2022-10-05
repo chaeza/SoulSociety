@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.AI;
 using Photon.Pun;
 using Photon.Realtime;
 using System.IO;
@@ -34,6 +35,7 @@ public class PlayerInfo : MonoBehaviourPun
     public RectTransform myskillRangerect = null;
     public GameObject skilla;
     [field:SerializeField] public state playerState { get; set; } = state.None;//플레이어 상태
+    NavMeshAgent navMeshAgent;
     Coroutine stunState = null;
     Coroutine slowState = null;
     Coroutine onUnbeatable = null;
@@ -295,6 +297,28 @@ public class PlayerInfo : MonoBehaviourPun
         yield return new WaitForSeconds(time);
         damageDecrease -= value;
         Debug.Log("뎀감끝");
+        yield break;
+    }
+    [PunRPC]
+    void BackMove(Vector3 pos, float time, int speed)
+    {
+        StartCoroutine(backMove(pos, time, speed));
+    }
+    IEnumerator backMove(Vector3 pos, float time,int speed)
+    {
+        navMeshAgent = GetComponent<NavMeshAgent>();
+        navMeshAgent.speed = speed;
+        navMeshAgent.isStopped = false;
+        navMeshAgent.updateRotation = true;
+        navMeshAgent.updatePosition = true;
+        for(int i = 0; i < 50; i++)
+        {
+            navMeshAgent.SetDestination(pos);
+            yield return null;
+        }
+        yield return new WaitForSeconds(time);
+        navMeshAgent.speed = 5;
+
         yield break;
     }
     #endregion

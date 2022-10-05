@@ -147,7 +147,7 @@ MonoBehaviour:
     \uAC15\uB9BC\uD558\uC5EC \uB0B4 \uC8FC\uBCC0\uC5D0 \uACB0\uACC4\uB97C \uB9CC\uB4E0\uB2E4.\n\uACB0\uACC4
     \uC548\uC5D0 \uB4E4\uC5B4\uC624\uBA74 8\uCD08\uC758 \uC9C0\uC18D \uC2DC\uAC04
     \uB3D9\uC548 5\uC758 \uB370\uBBF8\uC9C0\uB97C 1\uCD08\uB9C8\uB2E4 \uC785\uD78C\uB2E4.\n\uCFE8\uD0C0\uC784
-    : 22\uCD08"
+    : 20\uCD08"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 3af2303a68b621f4fb2b96580654485e, type: 2}
   m_sharedMaterial: {fileID: -8393954978777015591, guid: 3af2303a68b621f4fb2b96580654485e, type: 2}
