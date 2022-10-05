@@ -20,6 +20,11 @@ public class GameSceneLogic : MonoBehaviourPunCallbacks
 
     private void Awake()
     {
+       
+    }
+
+    void Start()
+    {
         titleToGameScene = FindObjectOfType<TitleToGameScene>();
         Vector3 pos = Vector3.zero;
         Player[] sortedPlayers = PhotonNetwork.PlayerList;
@@ -40,18 +45,13 @@ public class GameSceneLogic : MonoBehaviourPunCallbacks
 
 
             GameObject player = PhotonNetwork.Instantiate("PlayerPrefab", pos, Quaternion.identity);
-            
+
             //API개인 SessionID 지급
             player.GetPhotonView().RPC("MySessionID", RpcTarget.All, titleToGameScene.session_ID);
-            
+
 
             GameMgr.Instance.followCam.playerStart(player.transform);
         }
-    }
-
-    void Start()
-    {
-       
         //내가 마스터클라이언트일 경우만 아이템 및 파란 영혼 생성
         if (PhotonNetwork.IsMasterClient)
         {
@@ -141,7 +141,11 @@ public class GameSceneLogic : MonoBehaviourPunCallbacks
         Res_Initialize resBettingPlaceBet = null;
         Req_Initialize reqBettingPlaceBet = new Req_Initialize();
         //
-        reqBettingPlaceBet.players_session_id = sessionIDs.ToArray();
+        reqBettingPlaceBet.players_session_id = new string[4];
+        reqBettingPlaceBet.players_session_id[0] = sessionIDs[0];
+        reqBettingPlaceBet.players_session_id[1] = sessionIDs[1];
+        reqBettingPlaceBet.players_session_id[2] = sessionIDs[2];
+        reqBettingPlaceBet.players_session_id[3] = sessionIDs[3];
 
         reqBettingPlaceBet.bet_id = titleToGameScene.bets_ID;// resSettigns.data.bets[0]._id;
         yield return requestCoinPlaceBet(reqBettingPlaceBet, (response) =>
@@ -169,7 +173,7 @@ public class GameSceneLogic : MonoBehaviourPunCallbacks
         www.SetRequestHeader("Content-Type", "application/json");
         yield return www.SendWebRequest();
 
-        Debug.Log(www.downloadHandler.text);
+       // Debug.Log(www.downloadHandler.text);
       
         Res_Initialize res = JsonUtility.FromJson<Res_Initialize>(www.downloadHandler.text);
         callback(res);
