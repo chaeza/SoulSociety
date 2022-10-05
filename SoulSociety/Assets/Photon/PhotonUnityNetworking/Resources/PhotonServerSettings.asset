@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: PhotonServerSettings
   m_EditorClassIdentifier: 
   AppSettings:
-    AppIdRealtime: 1adfdb50-72b8-47e6-af98-608eb7519a4d
+    AppIdRealtime: 01f4fc49-e360-4995-85b1-2ae8c111626c
     AppIdFusion: 
     AppIdChat: efaa656d-3f91-4314-b339-03a73e85c819
     AppIdVoice: 
@@ -39,6 +39,45 @@ MonoBehaviour:
   - DestroySpaceship
   - Fire
   - RespawnSpaceship
+  - Attack
+  - RPC_hit
+  - Die
+  - RPC_Die
+  - Lose
+  - Win
+  - End
+  - EndGame
+  - RPC_redSoul
+  - RedSoul
+  - ChangeColor
+  - MyState
+  - stateCheck
+  - CheckLeaveName
+  - ButtonColor
+  - ReadyCounT
+  - UnReadyCounT
+  - ZeroCounT
+  - Relase
+  - SoulRelase
+  - ItemInit
+  - SoulInit
+  - FindItemInPool
+  - FindSoulInPool
+  - ItemGet
+  - SoulGet
+  - TabUpdate
+  - PunDestroyObject
+  - DashStop
+  - BlackHolePos
+  - ChageHP
+  - RPC_ClearLobby
+  - RPC_BlackHolePos
+  - AliveNumCheck
+  - SetDamageDecrpease
+  - SetUnbeatable
+  - WinnerFixed
+  - RPC_ZeraBetting
+  - BackMove
   DisableAutoOpenWizard: 1
   ShowSettings: 1
-  DevRegionSetOnce: 0
+  DevRegionSetOnce: 1
