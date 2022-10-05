@@ -16,8 +16,8 @@ public class DevilSword : MonoBehaviourPun, SkillMethod
         if (skillCool == false)//스킬 사용 가능이면
         {
             GetComponent<Animator>().SetTrigger("isSkill2");
-            GetComponent<PlayerInfo>().Stay(1.2f);
-            StartCoroutine(Stay(0.8f));
+            GetComponent<PlayerInfo>().Stay(1f);
+            StartCoroutine(Stay(0.5f));
         }
     }
     IEnumerator Stay(float time)

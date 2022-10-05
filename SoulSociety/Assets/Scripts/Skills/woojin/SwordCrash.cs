@@ -95,8 +95,8 @@ public class SwordCrash : MonoBehaviourPun , SkillMethod
             {
                 GetComponent<Animator>().SetTrigger("isSkill2");
                 transform.LookAt(desiredDir);
-                GetComponent<PlayerInfo>().Stay(1.2f);
-                StartCoroutine(Stay(desiredDir, 0.8f));
+                GetComponent<PlayerInfo>().Stay(1f);
+                StartCoroutine(Stay(desiredDir, 0.4f));
 
 
                 skillCool = true;//쿨타임 온 시켜 다시 사용 못하게함

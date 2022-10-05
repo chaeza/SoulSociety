@@ -107,7 +107,7 @@ public class DashAttack : MonoBehaviourPun, SkillMethod
             {
                 GetComponent<Animator>().SetTrigger("isSkill1");
                 transform.LookAt(desiredDir);
-                GetComponent<PlayerInfo>().Stay(1.2f);
+                GetComponent<PlayerInfo>().Stay(0.5f);
                 StartCoroutine(Stay(desiredDir, 0.2f));
                 skillCool = true;//쿨타임 온 시켜 다시 사용 못하게함
                 Debug.Log("스킬사용");
