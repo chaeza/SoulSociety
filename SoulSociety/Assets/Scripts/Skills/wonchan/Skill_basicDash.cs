@@ -14,7 +14,7 @@ public class Skill_basicDash : MonoBehaviourPun
     float dashSpeed = 15;
     Vector3 desiredDir;
     Vector3 clickPos = Vector3.one;
-
+    AudioSource sound;
     public void ResetCooltime2()
     {
         skillCool = false;//스킬을 다시 사용 가능하게함
@@ -36,6 +36,8 @@ public class Skill_basicDash : MonoBehaviourPun
             GameObject a = PhotonNetwork.Instantiate("Dash", transform.position, Quaternion.identity);//이펙트를 포톤 인스턴스를 합니다.
             GameMgr.Instance.DestroyTarget(a, 1f);
             a.transform.LookAt(GetComponent<PlayerMove>().desiredDir);
+            sound = a.GetComponent<AudioSource>();
+            sound.Play();
             GameMgr.Instance.uIMgr.DashCooltime(gameObject, 5);//UI매니저에 쿨타임 10초를 보냄
             StartCoroutine(DashTimer());
         } 
