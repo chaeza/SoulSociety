@@ -6,7 +6,7 @@ using Photon.Pun;
 
 public class StoneField : MonoBehaviourPun , SkillMethod
 {
-    int skillRange = 10;
+    int skillRange = 20;
     bool skillCool = false;
     bool skillClick = false;
 
@@ -96,8 +96,8 @@ public class StoneField : MonoBehaviourPun , SkillMethod
             {
                 GetComponent<Animator>().SetTrigger("isSkill2");
                 transform.LookAt(desiredDir);
-                GetComponent<PlayerInfo>().Stay(1f);
-                StartCoroutine(Stay(desiredDir, 0.7f));
+                GetComponent<PlayerInfo>().Stay(1f);//플레이어 대기시간
+                StartCoroutine(Stay(desiredDir, 0.7f));//스킬발동시간
                 skillCool = true;//쿨타임 온 시켜 다시 사용 못하게함
                 Debug.Log("스킬사용");
                 GameMgr.Instance.uIMgr.SkillCooltime(gameObject, 20);//UI매니저에 쿨타임 10초를 보냄

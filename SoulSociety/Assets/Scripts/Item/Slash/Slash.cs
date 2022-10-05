@@ -7,7 +7,7 @@ public class Slash : MonoBehaviourPun, ItemMethod
 {
     [SerializeField]
     int itemNum = 0;
-    int skillRange = 10;
+    int skillRange = 20;
     bool skillCool = false;
     bool skillClick = false;
     RectTransform myskillRangerect = null;
