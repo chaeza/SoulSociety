@@ -108,7 +108,7 @@ public class Kick : MonoBehaviourPun, ItemMethod
     {
         yield return new WaitForSeconds(time);
         GameObject b = PhotonNetwork.Instantiate("Dash", transform.position + new Vector3(0f, 2f, 0f), Quaternion.identity);//이펙트를 포톤 인스턴스를 합니다.
-        GameObject a = PhotonNetwork.Instantiate("SlashHitbox", transform.position, Quaternion.identity);//이펙트를 포톤 인스턴스를 합니다.
+        GameObject a = PhotonNetwork.Instantiate("KickHitbox", transform.position, Quaternion.identity);//이펙트를 포톤 인스턴스를 합니다.
         b.transform.LookAt(desiredDir);
         a.transform.LookAt(desiredDir);
         a.transform.Translate(0f, 1f, 2f);
