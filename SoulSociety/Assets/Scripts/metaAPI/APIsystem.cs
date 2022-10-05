@@ -157,6 +157,7 @@ public class Req_Initialize
 public class Res_Initialize
 {
     public string message;
+    [System.Serializable]
     public class Data
     {
         public string betting_id;

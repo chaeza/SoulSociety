@@ -17,6 +17,9 @@ public class GameSceneLogic : MonoBehaviourPunCallbacks
 
     TitleToGameScene titleToGameScene;
     List<string> sessionIDs = new List<string>();
+    string NewBets;
+
+
 
     private void Awake()
     {
@@ -76,6 +79,12 @@ public class GameSceneLogic : MonoBehaviourPunCallbacks
         StartCoroutine(processRequestBetting_Zera());
 
     }
+
+    [PunRPC]
+    public void Get_NewBets(string ID)
+    {
+        NewBets = ID;
+    }
     void countSSS()
     {
         Debug.Log(sessionIDs.Count);
@@ -115,7 +124,8 @@ public class GameSceneLogic : MonoBehaviourPunCallbacks
 
     #region API
     [Header("[등록된 프로젝트에서 획득가능한 API 키]")]
-    [SerializeField] string API_KEY = ""; 
+    string API_KEY = "2tiQsCeKJphmdTcLIbPX0P";
+    
 
     [Header("[Betting Backend Base URL]")]
     [SerializeField] string FullAppsProductionURL = "https://odin-api.browseosiris.com";
@@ -129,7 +139,7 @@ public class GameSceneLogic : MonoBehaviourPunCallbacks
         // 스테이징 단계(개발)라면
         return FullAppsStagingURL;
     }
-
+        
     //---------------
     // ZERA 베팅
     public void OnClick_Betting_Zera()//클릭시
@@ -146,14 +156,23 @@ public class GameSceneLogic : MonoBehaviourPunCallbacks
         reqBettingPlaceBet.players_session_id[1] = sessionIDs[1];
         reqBettingPlaceBet.players_session_id[2] = sessionIDs[2];
         reqBettingPlaceBet.players_session_id[3] = sessionIDs[3];
-
+        Debug.Log("*****************************");
+        for (int i = 0; i < 4; i++)
+        {
+          Debug.Log(reqBettingPlaceBet.players_session_id[i]);
+        }
+        Debug.Log("*****************************");
         reqBettingPlaceBet.bet_id = titleToGameScene.bets_ID;// resSettigns.data.bets[0]._id;
+        Debug.Log(reqBettingPlaceBet.bet_id);
+        Debug.Log("*****************************");
         yield return requestCoinPlaceBet(reqBettingPlaceBet, (response) =>
         {
             if (response != null)
             {
                 Debug.Log("## CoinPlaceBet : " + response.message);
                 resBettingPlaceBet = response;
+                NewBets = response.data.betting_id;
+                photonView.RPC("Get_NewBets", RpcTarget.All, NewBets);
             }
         });
     }
@@ -192,7 +211,7 @@ public class GameSceneLogic : MonoBehaviourPunCallbacks
     {
         Res_BettingWinner resBettingDeclareWinner = null;
         Req_BettingWinner reqBettingDeclareWinner = new Req_BettingWinner();
-        reqBettingDeclareWinner.betting_id = titleToGameScene.bets_ID;// resSettigns.data.bets[0]._id;
+        reqBettingDeclareWinner.betting_id = NewBets;// resSettigns.data.bets[0]._id;
         reqBettingDeclareWinner.winner_player_id = titleToGameScene.user_ID;
         yield return requestCoinDeclareWinner(reqBettingDeclareWinner, (response) =>
         {
