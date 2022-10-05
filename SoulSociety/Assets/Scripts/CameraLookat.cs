@@ -4,16 +4,25 @@ using UnityEngine;
 
 public class CameraLookat : MonoBehaviour
 {
-    Transform cam = null;
+    GameObject target;
+    Transform mini;
+
+    Vector3 offset;
     // Start is called before the first frame update
     void Start()
     {
-        cam = Camera.main.transform;
+       
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        transform.LookAt(transform.position + cam.rotation * Vector3.forward, cam.rotation * Vector3.up);
+        target = GameObject.FindWithTag("mainPlayer");
+        mini = target.transform;
+        offset = transform.position - mini.position;
+        Vector3 mapPos = mini.position + offset;
+        transform.position = Vector3.Lerp(transform.position, mapPos, Time.deltaTime);
+        transform.rotation = Quaternion.identity;
     }
 }
