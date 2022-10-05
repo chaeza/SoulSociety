@@ -254,8 +254,10 @@ public class PlayerInfo : MonoBehaviourPun
     {
         GetComponent<PlayerMove>().MoveStop();
         GameObject player = PhotonNetwork.Instantiate("Stun", transform.position, Quaternion.identity);
-        player.transform.Translate(0, 1, 0);
-        if(time<1f)
+        player.AddComponent<MyPosition>();
+        player.SendMessage("MyPos", gameObject.transform, SendMessageOptions.DontRequireReceiver);
+        player.SendMessage("YPos", 1f, SendMessageOptions.DontRequireReceiver);
+        if (time<1f)
             GameMgr.Instance.DestroyTarget(player, 1f);
         else 
         GameMgr.Instance.DestroyTarget(player, time);
@@ -268,7 +270,9 @@ public class PlayerInfo : MonoBehaviourPun
     {
         GetComponent<PlayerMove>().ChageSpeed(GetComponent<PlayerMove>().moveSpeed);
         GameObject player = PhotonNetwork.Instantiate("Slow", transform.position, Quaternion.identity);
-        player.transform.Translate(0, 1, 0);
+        player.AddComponent<MyPosition>();
+        player.SendMessage("MyPos", gameObject.transform, SendMessageOptions.DontRequireReceiver);
+        player.SendMessage("YPos", 1f, SendMessageOptions.DontRequireReceiver);
         if (time < 1f)
             GameMgr.Instance.DestroyTarget(player, 1f);
         else

@@ -28,7 +28,7 @@ public class Unbeatable : MonoBehaviourPun, ItemMethod//아이템 인터페이스 상속
         GameObject a = PhotonNetwork.Instantiate("unbeatable", transform.position, Quaternion.identity);//이펙트를 포톤 인스턴스를 합니다.
         a.AddComponent<MyPosition>();
         a.SendMessage("MyPos", gameObject.transform, SendMessageOptions.DontRequireReceiver);
-        a.SendMessage("YPos", 2, SendMessageOptions.DontRequireReceiver);
+        a.SendMessage("YPos", 2f, SendMessageOptions.DontRequireReceiver);
 
         gameObject.GetPhotonView().RPC("SetUnbeatable", RpcTarget.All, 1f);
         GameMgr.Instance.DestroyTarget(a, 1f);
