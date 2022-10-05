@@ -115,7 +115,7 @@ public class GameSceneLogic : MonoBehaviourPunCallbacks
 
     #region API
     [Header("[등록된 프로젝트에서 획득가능한 API 키]")]
-    [SerializeField] string API_KEY = ""; 
+    string API_KEY = "2tiQsCeKJphmdTcLIbPX0P"; 
 
     [Header("[Betting Backend Base URL]")]
     [SerializeField] string FullAppsProductionURL = "https://odin-api.browseosiris.com";
