@@ -92,7 +92,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     {
         //API 유저 프로필 , SessionID 가져오기
         StartCoroutine(processRequestGetUserInfo());
-        btnConnect.interactable = true;
+   
         // 불끄기
         ClearLobby();
         Debug.Log("## OnConnected to Master");
@@ -364,6 +364,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
                 Debug.Log(res_UserProfile.userProfile.username);
             }
         });
+        btnConnect.interactable = true;
     }
     delegate void resCallback_GetUserInfo(Res_UserProfile response);
     IEnumerator requestGetUserInfo(resCallback_GetUserInfo callback)
