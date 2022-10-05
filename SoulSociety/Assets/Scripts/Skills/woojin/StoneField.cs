@@ -96,11 +96,11 @@ public class StoneField : MonoBehaviourPun , SkillMethod
             {
                 GetComponent<Animator>().SetTrigger("isSkill2");
                 transform.LookAt(desiredDir);
-                GetComponent<PlayerInfo>().Stay(1.2f);
-                StartCoroutine(Stay(desiredDir, 0.8f));
+                GetComponent<PlayerInfo>().Stay(1f);
+                StartCoroutine(Stay(desiredDir, 0.7f));
                 skillCool = true;//쿨타임 온 시켜 다시 사용 못하게함
                 Debug.Log("스킬사용");
-                GameMgr.Instance.uIMgr.SkillCooltime(gameObject, 25);//UI매니저에 쿨타임 10초를 보냄
+                GameMgr.Instance.uIMgr.SkillCooltime(gameObject, 20);//UI매니저에 쿨타임 10초를 보냄
             }
         }
     }

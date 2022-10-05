@@ -95,12 +95,12 @@ public class SwordRain : MonoBehaviourPun , SkillMethod
             {
                 GetComponent<Animator>().SetTrigger("isSkill2");
                 transform.LookAt(desiredDir);
-                GetComponent<PlayerInfo>().Stay(1.2f);
-                StartCoroutine(Stay(desiredDir, 0.8f));
+                GetComponent<PlayerInfo>().Stay(1f);
+                StartCoroutine(Stay(desiredDir, 0.5f));
                 // StartCoroutine(Fire(a));//큐브 이동시키는 코루틴
                 skillCool = true;//쿨타임 온 시켜 다시 사용 못하게함
                 Debug.Log("스킬사용");
-                GameMgr.Instance.uIMgr.SkillCooltime(gameObject, 22);//UI매니저에 쿨타임 10초를 보냄
+                GameMgr.Instance.uIMgr.SkillCooltime(gameObject, 17);//UI매니저에 쿨타임 10초를 보냄
             }
         }
 
