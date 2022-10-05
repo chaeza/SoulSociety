@@ -104,7 +104,7 @@ public class Slash : MonoBehaviourPun, ItemMethod
                 b.transform.LookAt(desiredDir);
                 a.transform.LookAt(desiredDir);
                 a.AddComponent<SlashHitbox>();//이펙트에 히트 스크립트를 넣습니다.
-                sound = a.GetComponent<AudioSource>();
+                sound = b.GetComponent<AudioSource>();
 
                 sound.Play();
                 a.SendMessage("AttackerName", gameObject.GetPhotonView().ViewID, SendMessageOptions.DontRequireReceiver);//이펙트에 공격자를 지정합니다.

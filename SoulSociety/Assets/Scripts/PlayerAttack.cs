@@ -9,9 +9,10 @@ public class PlayerAttack : MonoBehaviourPun
     Animator myAnimator;
     PlayerInfo playerInfo;
     bool isAttack = true;
-
+    AudioSource sound;
     private void Start()
     {
+        sound = GetComponent<AudioSource>();
         myAnimator =GetComponent<Animator>();
         playerInfo = GetComponent<PlayerInfo>();
     }
@@ -26,6 +27,7 @@ public class PlayerAttack : MonoBehaviourPun
         if (GameMgr.Instance.playerInput.inputKey == KeyCode.A)
         {
             Attack();
+            
         }
         if (GameMgr.Instance.playerInput.inputKey == KeyCode.Q) SendMessage("ItemFire", SendMessageOptions.DontRequireReceiver);
         if (GameMgr.Instance.playerInput.inputKey == KeyCode.W) SendMessage("ItemFire", SendMessageOptions.DontRequireReceiver);
@@ -79,7 +81,7 @@ public class PlayerAttack : MonoBehaviourPun
         //hitBox.SetActive(true) ;
         yield return new WaitForSeconds(0.2f);
         GameObject eff = PhotonNetwork.Instantiate("BasicAttackEff", transform.position + new Vector3(0, 1, 0), Quaternion.identity);
-
+        sound.Play();
         eff.AddComponent<BasicAttackHitbox>();
         eff.SendMessage("AttackerName", gameObject.GetPhotonView().ViewID, SendMessageOptions.DontRequireReceiver);//이펙트에 공격자를 지정합니다.
         eff.SendMessage("AttackerDamage",GetComponent<PlayerInfo>().basicAttackDamage, SendMessageOptions.DontRequireReceiver);//이펙트에 공격력를 지정합니다.
