@@ -31,6 +31,9 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     //API 데이터 전달 포스트맨
     [SerializeField] GameObject Postman;
 
+    GameObject postman;
+
+
     //세션ID 닉네임 연동 
     Dictionary<string,string> Nick_Session_key =new Dictionary<string,string>();
     string mySessionID;
@@ -60,6 +63,14 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         ClearLobby();
         photonView.StartCoroutine(AutoSyncDelay());
 
+        if (FindObjectOfType<TitleToGameScene>() == null)
+        {
+            postman=Instantiate(Postman);
+        }
+        else
+        {
+            postman=FindObjectOfType<TitleToGameScene>().gameObject;
+        }
 
         Screen.SetResolution(1920, 1080, false);
         PhotonNetwork.SendRate = 60;
@@ -73,6 +84,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
     private void Start()
     {
+       
         brokenWindow.gameObject.SetActive(false);
         audioSource.gameObject.SetActive(false);
         StartCoroutine(broken());
@@ -378,7 +390,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         UserID_Disconnect.text = "User ID : " + res_getUserProfile.userProfile.username;
         UserID_Lobby.text = "User ID : " + res_getUserProfile.userProfile.username;
 
-        Postman.SendMessage("User_ID", res_getUserProfile.userProfile.username, SendMessageOptions.DontRequireReceiver);
+        postman.SendMessage("User_ID", res_getUserProfile.userProfile.username, SendMessageOptions.DontRequireReceiver);
 
         callback(res_getUserProfile);
 
@@ -415,7 +427,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         Res_UserSessionID res_getSessionID = JsonUtility.FromJson<Res_UserSessionID>(www.downloadHandler.text);
         
         mySessionID = res_getSessionID.sessionId;
-        Postman.SendMessage("Session_ID", mySessionID, SendMessageOptions.DontRequireReceiver);
+        postman.SendMessage("Session_ID", mySessionID, SendMessageOptions.DontRequireReceiver);
 
         callback(res_getSessionID);
 
@@ -455,9 +467,9 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         Res_BettingSetting res = JsonUtility.FromJson<Res_BettingSetting>(www.downloadHandler.text);
         myBetsId = res.data.bets[0]._id;
         Debug.Log("내 베팅 아이디 : " + myBetsId);
-       
-        
-        Postman.SendMessage("Bets_ID", myBetsId,SendMessageOptions.DontRequireReceiver);
+
+
+        postman.SendMessage("Bets_ID", myBetsId,SendMessageOptions.DontRequireReceiver);
         
         
         callback(res);
