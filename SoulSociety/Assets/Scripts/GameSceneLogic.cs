@@ -16,16 +16,16 @@ public class GameSceneLogic : MonoBehaviourPunCallbacks
     [SerializeField] GameObject blackscene;
 
     TitleToGameScene titleToGameScene;
+    List<string> sessionIDs = new List<string>();
+
     private void Awake()
     {
-        titleToGameScene = FindObjectOfType<TitleToGameScene>();
+       
     }
 
     void Start()
     {
-        //API 베팅
-        StartCoroutine(processRequestBetting_Zera());
-
+        titleToGameScene = FindObjectOfType<TitleToGameScene>();
         Vector3 pos = Vector3.zero;
         Player[] sortedPlayers = PhotonNetwork.PlayerList;
         blackscene.SetActive(true);
@@ -45,22 +45,51 @@ public class GameSceneLogic : MonoBehaviourPunCallbacks
 
 
             GameObject player = PhotonNetwork.Instantiate("PlayerPrefab", pos, Quaternion.identity);
-            GameMgr.Instance.followCam.playerStart(player.transform);
 
-            //내가 마스터클라이언트일 경우만 아이템 및 파란 영혼 생성
-            if (PhotonNetwork.IsMasterClient)
-            {
-                GameMgr.Instance.spawnMgr.photonView.RPC("ItemInit", RpcTarget.MasterClient);
-                GameMgr.Instance.spawnMgr.photonView.RPC("SoulInit", RpcTarget.MasterClient);
-                PhotonNetwork.CurrentRoom.IsOpen = false;
-            }
+            //API개인 SessionID 지급
+            player.GetPhotonView().RPC("MySessionID", RpcTarget.All, titleToGameScene.session_ID);
+
+
+            GameMgr.Instance.followCam.playerStart(player.transform);
         }
+        //내가 마스터클라이언트일 경우만 아이템 및 파란 영혼 생성
+        if (PhotonNetwork.IsMasterClient)
+        {
+            GameMgr.Instance.spawnMgr.photonView.RPC("ItemInit", RpcTarget.MasterClient);
+            GameMgr.Instance.spawnMgr.photonView.RPC("SoulInit", RpcTarget.MasterClient);
+            PhotonNetwork.CurrentRoom.IsOpen = false;
+        }
+
     }
     //마스터클라이언트가 바뀌면 호출되는 함수
     public override void OnMasterClientSwitched(Player newMasterClient)
     {
         Debug.Log("마스터 클라이언트 변경:" + newMasterClient.ToString());
     }
+
+    [PunRPC]
+    public void RPC_All_SessionID(string ID)
+    {
+        sessionIDs.Add(ID);
+         if(sessionIDs.Count==4)
+        //API 베팅
+        StartCoroutine(processRequestBetting_Zera());
+
+    }
+    void countSSS()
+    {
+        Debug.Log(sessionIDs.Count);
+        Debug.Log(sessionIDs[sessionIDs.Count-1].ToString());
+
+       
+        /*for (int i = 0; i < sessionIDs.Count; i++)
+        {
+            Debug.Log("아이디" + sessionIDs[i]);
+        }*/
+    }
+
+
+
 
     public void WinnerEndGame()
     {
@@ -111,7 +140,13 @@ public class GameSceneLogic : MonoBehaviourPunCallbacks
     {
         Res_Initialize resBettingPlaceBet = null;
         Req_Initialize reqBettingPlaceBet = new Req_Initialize();
-        reqBettingPlaceBet.players_session_id = new string[] { titleToGameScene .session_ID};
+        //
+        reqBettingPlaceBet.players_session_id = new string[4];
+        reqBettingPlaceBet.players_session_id[0] = sessionIDs[0];
+        reqBettingPlaceBet.players_session_id[1] = sessionIDs[1];
+        reqBettingPlaceBet.players_session_id[2] = sessionIDs[2];
+        reqBettingPlaceBet.players_session_id[3] = sessionIDs[3];
+
         reqBettingPlaceBet.bet_id = titleToGameScene.bets_ID;// resSettigns.data.bets[0]._id;
         yield return requestCoinPlaceBet(reqBettingPlaceBet, (response) =>
         {
@@ -138,7 +173,7 @@ public class GameSceneLogic : MonoBehaviourPunCallbacks
         www.SetRequestHeader("Content-Type", "application/json");
         yield return www.SendWebRequest();
 
-        Debug.Log(www.downloadHandler.text);
+       // Debug.Log(www.downloadHandler.text);
       
         Res_Initialize res = JsonUtility.FromJson<Res_Initialize>(www.downloadHandler.text);
         callback(res);

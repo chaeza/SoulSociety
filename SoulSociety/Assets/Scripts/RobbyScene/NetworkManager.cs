@@ -62,16 +62,14 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     //    DontDestroyOnLoad(this);
         ClearLobby();
         photonView.StartCoroutine(AutoSyncDelay());
-
         if (FindObjectOfType<TitleToGameScene>() == null)
         {
-            postman=Instantiate(Postman);
+            postman = Instantiate(Postman);
         }
         else
         {
-            postman=FindObjectOfType<TitleToGameScene>().gameObject;
+            postman = FindObjectOfType<TitleToGameScene>().gameObject;
         }
-
         Screen.SetResolution(1920, 1080, false);
         PhotonNetwork.SendRate = 60;
         PhotonNetwork.SerializationRate = 30;
