@@ -24,10 +24,12 @@ public class WindCyclone : MonoBehaviourPun, SkillMethod
             a.AddComponent<WindCycloneHit>();//이펙트에 히트 스크립트를 넣습니다.
             a.SendMessage("AttackerName", gameObject.GetPhotonView().ViewID, SendMessageOptions.DontRequireReceiver);//이펙트에 공격자를 지정합니다.
             a.AddComponent<MyPosition>();
-            sound = a.GetComponent<AudioSource>();
-            StartCoroutine(soundCh());
+            
             a.transform.Rotate(-90f, 0f, 0f);
             a.SendMessage("MyPos", gameObject.transform, SendMessageOptions.DontRequireReceiver);
+
+            sound = a.GetComponent<AudioSource>();
+            StartCoroutine(soundCh());
             sound.Play();
 
 
