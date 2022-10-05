@@ -92,7 +92,7 @@ public class GameMgr : Singleton<GameMgr>
         Destroy(PunFindObject(viewid), time);
     }
 
-
+  
     public void AliveNumCheck()
     {
         //생존 인원 카운트 숫자
