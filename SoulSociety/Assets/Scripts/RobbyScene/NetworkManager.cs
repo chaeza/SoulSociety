@@ -15,10 +15,18 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     public GameObject RobbyPanel;
     public GameObject[] soulEff;
     public GameObject[] reddyButton;
+    public RawImage brokenWindow;
+    public AudioSource audioSource;
 
     [SerializeField] Button btnConnect = null;
     [SerializeField] TextMeshProUGUI[] nickName = null;
     [SerializeField] Button soloStart = null;
+
+    //API 잔고 
+    [SerializeField] TextMeshProUGUI Balance_Lobby;
+    [SerializeField] TextMeshProUGUI Balance_Room;
+
+
 
     ReadyState myReadyState = ReadyState.None;
 
@@ -54,6 +62,9 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
     private void Start()
     {
+        brokenWindow.gameObject.SetActive(false);
+        audioSource.gameObject.SetActive(false);
+        StartCoroutine(broken());
         for (int i = 0; i < soulEff.Length; i++)
         {
             soulEff[i].SetActive(false);
@@ -280,5 +291,13 @@ public class NetworkManager : MonoBehaviourPunCallbacks
             PhotonNetwork.LoadLevel("LoadingScene");
         }
         else Debug.Log("누군가 레디 취소함");
+    }
+
+    IEnumerator broken()
+    {
+        yield return new WaitForSeconds(13);
+
+        brokenWindow.gameObject.SetActive(true);
+        audioSource.gameObject.SetActive(true);
     }
 }
