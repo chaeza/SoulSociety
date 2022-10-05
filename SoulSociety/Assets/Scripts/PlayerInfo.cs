@@ -62,9 +62,26 @@ public class PlayerInfo : MonoBehaviourPun
         StartCoroutine(OnDamageDecrease(value,time));
 
     }
+
+    //내 고유 아이디
+    public string sessionID;
+
+    [PunRPC]
+    public void MySessionID(string ID)
+    {
+        sessionID = ID;
+    }
     private void Start()
     {
+        if (PhotonNetwork.IsMasterClient)
+        {
+            GameMgr.Instance.gameObject.GetPhotonView().RPC("RPC_All_SessionID", RpcTarget.All, sessionID);
+        }
+        GameMgr.Instance.gameObject.SendMessage("countSSS",SendMessageOptions.DontRequireReceiver);
+
+
         myHPbarInfo = GetComponentInChildren<HpBarInfo>();
+
         myHPbarInfo.SetName(photonView.Controller.NickName);
         myAnimator = GetComponent<Animator>();
         if (photonView.IsMine == true)
@@ -93,6 +110,11 @@ public class PlayerInfo : MonoBehaviourPun
         photonView.RPC("TabUpdate", RpcTarget.All,myNum,playerState,1,0);//자신의 번호를 넘겨 탭상태를 갱신합니다.
        
     }
+
+
+
+
+
     public void Stay(float time)
     {
         stay = true;
