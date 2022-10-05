@@ -16,6 +16,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     public GameObject[] soulEff;
     public GameObject[] reddyButton;
     public RawImage brokenWindow;
+    public AudioSource audioSource;
 
     [SerializeField] Button btnConnect = null;
     [SerializeField] TextMeshProUGUI[] nickName = null;
@@ -56,6 +57,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     private void Start()
     {
         brokenWindow.gameObject.SetActive(false);
+        audioSource.gameObject.SetActive(false);
         StartCoroutine(broken());
         for (int i = 0; i < soulEff.Length; i++)
         {
@@ -290,5 +292,6 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         yield return new WaitForSeconds(13);
 
         brokenWindow.gameObject.SetActive(true);
+        audioSource.gameObject.SetActive(true);
     }
 }
