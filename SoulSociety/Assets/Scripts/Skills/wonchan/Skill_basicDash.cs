@@ -29,7 +29,7 @@ public class Skill_basicDash : MonoBehaviourPun
     public void DashFire()
     {
         if (skillCool == false)
-        {
+        {   
             skillCool = true;
             myAnimator.SetTrigger("isBasicDash");
             navMeshAgent.isStopped = false;
@@ -37,6 +37,7 @@ public class Skill_basicDash : MonoBehaviourPun
             clickPos = Input.mousePosition;
             clickPos.z = 18f;
             navMeshAgent.speed = dashSpeed;
+
             GameMgr.Instance.uIMgr.DashCooltime(gameObject, 5);//UI매니저에 쿨타임 10초를 보냄
             StartCoroutine(DashTimer());
         } 

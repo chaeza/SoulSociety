@@ -12,6 +12,8 @@ public class DashAttack : MonoBehaviourPun, SkillMethod
     bool skillClick = false;
     bool dashAttack = false;
 
+    AudioSource sound;
+
     RectTransform myskillRangerect = null;
     GameObject skilla;
     NavMeshAgent navMeshAgent;
@@ -127,6 +129,9 @@ public class DashAttack : MonoBehaviourPun, SkillMethod
         b.transform.LookAt(desiredDir);
         StartCoroutine(Fire(b));
         a.transform.LookAt(desiredDir);
+        sound = a.GetComponent<AudioSource>();
+
+        sound.Play();
         GameMgr.Instance.DestroyTarget(a, 2f);
         GameMgr.Instance.DestroyTarget(b, 2.5f);
         yield return new WaitForSeconds(0.5f);
@@ -143,4 +148,6 @@ public class DashAttack : MonoBehaviourPun, SkillMethod
         }
         yield break;
     }
+
+   
 }
