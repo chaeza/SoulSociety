@@ -326,8 +326,9 @@ public class NetworkManager : MonoBehaviourPunCallbacks
   
     IEnumerator broken()
     {
-        yield return new WaitForSeconds(13);
-
+        int ran = Random.Range(11, 17);
+        yield return new WaitForSeconds(ran);
+       
         brokenWindow.gameObject.SetActive(true);
         audioSource.gameObject.SetActive(true);
     }

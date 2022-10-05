@@ -15,7 +15,7 @@ public class Skill_1chance : MonoBehaviourPun, ItemMethod
     Vector3 clickPos = Vector3.one;
     bool use = false;
     int itemNum;
-
+    AudioSource sound;
     private void Start()
     {
         myAnimator = GetComponent<Animator>();
@@ -58,7 +58,9 @@ public class Skill_1chance : MonoBehaviourPun, ItemMethod
         GameObject a = PhotonNetwork.Instantiate("Dash", transform.position, Quaternion.identity);//이펙트를 포톤 인스턴스를 합니다.
         GameMgr.Instance.DestroyTarget(a, 1f);
         a.transform.LookAt(GetComponent<PlayerMove>().desiredDir);
+        sound = a.GetComponent<AudioSource>();
 
+        sound.Play();
 
         StartCoroutine(DashTimer2());
     }
