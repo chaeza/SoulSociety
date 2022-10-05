@@ -7,6 +7,7 @@ public class DevilEyeCh : MonoBehaviourPun
 {
     GameObject trapEff;
     int Attacker;//공격자 선언
+    AudioSource sound;
 
     void AttackerName(int Name)//샌드메세지로 공격 뷰ID를 넘겨받는다.
     {
@@ -26,11 +27,20 @@ public class DevilEyeCh : MonoBehaviourPun
             GameObject a = PhotonNetwork.Instantiate("DevilEye", transform.position, Quaternion.Euler(-90f,0f,0f));//폭발이펙트
             other.gameObject.GetPhotonView().RPC("RPC_hit", RpcTarget.All, 15f, Attacker, state.Stun, 2.5f);
 
-            Destroy(trapEff, 3f);
-            GameMgr.Instance.DestroyTarget(a, 3f);
-            GameMgr.Instance.DestroyTarget(gameObject, 3f);
+            sound = a.GetComponent<AudioSource>();
+            StartCoroutine(soundCh());
+            sound.Play();
+
+            Destroy(trapEff, 6f);
+            GameMgr.Instance.DestroyTarget(a, 7f);
+            GameMgr.Instance.DestroyTarget(gameObject, 7f);
 
         }
     }
 
+    IEnumerator soundCh()
+    {
+        yield return new WaitForSeconds(6f);
+        sound.Stop();
+    }
 }
