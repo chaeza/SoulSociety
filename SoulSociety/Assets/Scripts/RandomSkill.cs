@@ -9,7 +9,7 @@ public class RandomSkill : MonoBehaviour
     public void GetRandomSkill(GameObject player)// 랜덤스킬 지급
     {
         skillRan = Random.Range(0, skillNum);//스킬번호 뽑기
-       // skillRan = 7;//테스트시 원하는 스킬 고르기
+        skillRan = 4;//테스트시 원하는 스킬 고르기
         if (skillRan == 0) player.AddComponent<StoneField>();
         if (skillRan == 1) player.AddComponent<SwordCrash>();
         if (skillRan == 2) player.AddComponent<SwordRain>();
