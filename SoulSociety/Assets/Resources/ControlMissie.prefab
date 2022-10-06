@@ -69,7 +69,7 @@ MonoBehaviour:
   - {fileID: 1131021363978610, guid: 93898509c9fcbd44cb746a5a4cd8b993, type: 3}
   - {fileID: 1875217705556368, guid: d7f0362a4fb815d4a85b64358cd46e3e, type: 3}
   m_movePos: {fileID: 0}
-  m_startDelay: 4
+  m_startDelay: 4.5
 --- !u!114 &7535275198013286458
 MonoBehaviour:
   m_ObjectHideFlags: 0
