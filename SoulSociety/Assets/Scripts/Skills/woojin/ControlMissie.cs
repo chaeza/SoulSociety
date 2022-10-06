@@ -118,7 +118,7 @@ public class ControlMissie : MonoBehaviourPun
         a.AddComponent<ControlMissieHit>();//이펙트에 히트 스크립트를 넣습니다.
         a.SendMessage("AttackerName", gameObject.GetPhotonView().ViewID, SendMessageOptions.DontRequireReceiver);//이펙트에 공격자를 지정합니다.
         a.transform.Rotate(-90, 0, 0);
-        yield return new WaitForSeconds(4f);
+        yield return new WaitForSeconds(4.5f);    //콜라이더 킴
         a.GetComponent<SphereCollider>().enabled = true;
 
         // sound = a.GetComponent<AudioSource>();
@@ -126,7 +126,7 @@ public class ControlMissie : MonoBehaviourPun
         // sound.Play();
 
 
-        GameMgr.Instance.DestroyTarget(a, 5f);
+        GameMgr.Instance.DestroyTarget(a, 5f);  //5초뒤 삭제
         yield break;
     }
 
