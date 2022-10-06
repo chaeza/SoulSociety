@@ -126,11 +126,13 @@ public class GameSceneLogic : MonoBehaviourPunCallbacks
         GameMgr.Instance.AliveNumCheck();
     }
     
-   /* //ESC나가기 버튼
+    //ESC나가기 버튼
     public void OnClick_LeaveGame()
-    {   if(photonView.IsMine)
+    {
+        Debug.Log("기모링");
+        if(photonView.IsMine)
         PhotonNetwork.Disconnect();
-    }*/
+    }
 
 
     #region API
