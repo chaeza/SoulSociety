@@ -24,7 +24,7 @@ public class SpawnMgr : MonoBehaviourPun
 
     private void Awake()
     {
-        groundCh = GameObject.FindGameObjectsWithTag("ItemSpawn");        //그라운드 태그인것 모두 찾아 배열에 넣다
+        groundCh = GameObject.FindGameObjectsWithTag("Ground");        //그라운드 태그인것 모두 찾아 배열에 넣다
     }
 
 
@@ -40,7 +40,7 @@ public class SpawnMgr : MonoBehaviourPun
                 ran = Random.Range(0, groundCh.Length);
             }
             groundNum[ran] = true;
-            GameObject obj = PhotonNetwork.Instantiate("ItemBox", groundCh[ran].transform.position + new Vector3(4, 3, 3.5f), Quaternion.identity);
+            GameObject obj = PhotonNetwork.Instantiate("ItemBox", groundCh[ran].transform.position + new Vector3(4, 0.5f, 3.5f), Quaternion.identity);
             obj.SendMessage("MyNum", ran, SendMessageOptions.DontRequireReceiver);
         }
     }
@@ -55,7 +55,7 @@ public class SpawnMgr : MonoBehaviourPun
                 ran2 = Random.Range(0, groundCh.Length);
             }
             groundNum[ran2] = true;
-            GameObject obj = PhotonNetwork.Instantiate("BlueSoul", groundCh[ran2].transform.position + new Vector3(4, 4, 3.5f), Quaternion.identity);
+            GameObject obj = PhotonNetwork.Instantiate("BlueSoul", groundCh[ran2].transform.position + new Vector3(4, 1.8f, 3.5f), Quaternion.identity);
             obj.SendMessage("MyNum", ran2, SendMessageOptions.DontRequireReceiver);
 
         }
