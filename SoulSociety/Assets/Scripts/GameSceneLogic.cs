@@ -124,13 +124,20 @@ public class GameSceneLogic : MonoBehaviourPunCallbacks
 
     public override void OnPlayerLeftRoom(Player otherPlayer)
     {
+        StartCoroutine(LiveCheck());
+    }
+
+    IEnumerator LiveCheck()
+    {
+        yield return new WaitForSeconds(1);
         GameMgr.Instance.AliveNumCheck();
     }
-    
+
     //ESC나가기 버튼
     public void OnClick_LeaveGame()
     {
-        PhotonNetwork.Disconnect();
+        PhotonNetwork.LeaveRoom();
+        PhotonNetwork.LoadLevel("TitleScene");
     }
 
 
