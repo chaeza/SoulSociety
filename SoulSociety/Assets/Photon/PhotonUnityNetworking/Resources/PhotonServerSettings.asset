@@ -81,6 +81,7 @@ MonoBehaviour:
   - RPC_Session_ID
   - MySessionID
   - RPC_All_SessionID
+  - Get_NewBets
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1
