@@ -104,11 +104,12 @@ public class GameSceneLogic : MonoBehaviourPunCallbacks
     {
         //API ½ÂÀÚ
         StartCoroutine(processRequestBetting_Zera_DeclareWinner());
-
-        StartCoroutine(endTimer());
+        photonView.RPC("EndGame", RpcTarget.All);
+     
 
     }
 
+    [PunRPC]
     public void EndGame()
     {
         StartCoroutine(endTimer());
@@ -116,7 +117,7 @@ public class GameSceneLogic : MonoBehaviourPunCallbacks
 
     IEnumerator endTimer()
     {
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(2);
         PhotonNetwork.LoadLevel("TitleScene");
         PhotonNetwork.LeaveRoom();
     }

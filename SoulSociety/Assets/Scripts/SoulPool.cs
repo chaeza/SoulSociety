@@ -21,4 +21,8 @@ public class SoulPool : MonoBehaviourPun
             //StartCoroutine("SpawnItem");  
         }
     }
-}
+    void BlackHole()
+    {
+        GameMgr.Instance.spawnMgr.photonView.RPC("FindSoulInPool", RpcTarget.All, gameObject.GetPhotonView().ViewID, myNum);
+    }
+    }
