@@ -32,7 +32,7 @@ public class SpawnMgr : MonoBehaviourPun
     [PunRPC]
     public void ItemInit()     //아이템 x개 생성
     {
-        for (int i = 0; i < 50; i++)
+        for (int i = 0; i < 49; i++)
         {
             ran = Random.Range(0, groundCh.Length);
             while (groundNum[ran] == true)
@@ -40,7 +40,7 @@ public class SpawnMgr : MonoBehaviourPun
                 ran = Random.Range(0, groundCh.Length);
             }
             groundNum[ran] = true;
-            GameObject obj = PhotonNetwork.Instantiate("ItemBox", groundCh[ran].transform.position + new Vector3(4, 0.5f, 3.5f), Quaternion.identity);
+            GameObject obj = PhotonNetwork.Instantiate("ItemBox", groundCh[ran].transform.position, Quaternion.identity);
             obj.SendMessage("MyNum", ran, SendMessageOptions.DontRequireReceiver);
         }
     }
@@ -55,7 +55,7 @@ public class SpawnMgr : MonoBehaviourPun
                 ran2 = Random.Range(0, groundCh.Length);
             }
             groundNum[ran2] = true;
-            GameObject obj = PhotonNetwork.Instantiate("BlueSoul", groundCh[ran2].transform.position + new Vector3(4, 1.8f, 3.5f), Quaternion.identity);
+            GameObject obj = PhotonNetwork.Instantiate("BlueSoul", groundCh[ran2].transform.position + new Vector3(0f, 1.8f, 0f), Quaternion.identity);
             obj.SendMessage("MyNum", ran2, SendMessageOptions.DontRequireReceiver);
 
         }
@@ -73,7 +73,7 @@ public class SpawnMgr : MonoBehaviourPun
         //있다면 큐에서 빼내서 쓴다 
         obj = queue.Dequeue();
 
-        obj.transform.position = groundCh[groundNum].transform.position + new Vector3(4, 3, 3.5f);
+        obj.transform.position = groundCh[groundNum].transform.position;
         obj.SendMessage("MyNum", groundNum, SendMessageOptions.DontRequireReceiver);
         obj.gameObject.SetActive(true);
 
@@ -87,7 +87,7 @@ public class SpawnMgr : MonoBehaviourPun
         //있다면 큐에서 빼내서 쓴다 
         obj = queue.Dequeue();
 
-        obj.transform.position = groundCh[groundNum].transform.position + new Vector3(4, 4, 3.5f);
+        obj.transform.position = groundCh[groundNum].transform.position + new Vector3(0f, 1.8f, 0f);
         obj.SendMessage("MyNum", groundNum, SendMessageOptions.DontRequireReceiver);
         obj.gameObject.SetActive(true);
 

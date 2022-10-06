@@ -98,8 +98,10 @@ public class PlayerMove : MonoBehaviourPun
         bool nullCheck = Physics.Raycast(Camera.main.ScreenPointToRay(mousePos), out hit, 9999, mask);
 
         bool nullCheckHit = (nullCheck) ? hit.transform.gameObject.CompareTag("Ground") : false;
+        bool nullCheckHit2 = (nullCheck) ? hit.transform.gameObject.CompareTag("UnGround") : false;
 
-        if (nullCheckHit==true)
+
+        if (nullCheckHit == true|| nullCheckHit2 == true)
         {
             desiredDir = hit.point;
             desiredDir.y = transform.position.y;

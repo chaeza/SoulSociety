@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 400000}
   m_Layer: 0
   m_Name: dock_1
-  m_TagString: ItemSpawn
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -47,7 +47,7 @@ GameObject:
   - component: {fileID: 6531626}
   m_Layer: 3
   m_Name: plank_4.000
-  m_TagString: ItemSpawn
+  m_TagString: UnGround
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 40
