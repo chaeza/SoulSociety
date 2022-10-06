@@ -152,7 +152,7 @@ public class PlayerInfo : MonoBehaviourPun
     [PunRPC]
     void RPC_Die(int viewID2)
     {
-
+        GameMgr.Instance.AliveNumCheck();
         if (playerState == state.Die) return;
 
         if (photonView.IsMine == true)
