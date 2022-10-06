@@ -76,7 +76,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     }
     IEnumerator AutoSyncDelay()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(3f);
         PhotonNetwork.AutomaticallySyncScene = true;
     }
 
