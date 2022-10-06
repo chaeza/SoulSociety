@@ -119,6 +119,8 @@ public class GameSceneLogic : MonoBehaviourPunCallbacks
         yield return new WaitForSeconds(5);
         PhotonNetwork.LoadLevel("TitleScene");
         PhotonNetwork.LeaveRoom();
+
+
     }
 
     public override void OnPlayerLeftRoom(Player otherPlayer)
