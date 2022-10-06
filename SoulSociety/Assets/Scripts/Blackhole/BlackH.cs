@@ -80,6 +80,8 @@ public class BlackH : MonoBehaviourPun
                     /*if(star.transform != null)   
                     Destroy(star.gameObject);*/
                     star.gameObject.SetActive(false);
+                    if (star.tag == "RandomItemBox")
+                        star.gameObject.SendMessage("BlackHole", SendMessageOptions.DontRequireReceiver);
                 }
                 // ºí·¢È¦À» ²¨¹ö¸°´Ù.
                 this.gameObject.SetActive(false);

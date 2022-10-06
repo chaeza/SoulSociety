@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: -803141821970643441}
   m_Layer: 0
   m_Name: BlueSoul
-  m_TagString: Untagged
+  m_TagString: RandomItemBox
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
