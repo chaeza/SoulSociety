@@ -77,8 +77,8 @@ public class GameSceneLogic : MonoBehaviourPunCallbacks
          if(sessionIDs.Count==4)
         //API 베팅
         StartCoroutine(processRequestBetting_Zera());
-
     }
+
 
     [PunRPC]
     public void Get_NewBets(string ID)
@@ -173,6 +173,7 @@ public class GameSceneLogic : MonoBehaviourPunCallbacks
                 resBettingPlaceBet = response;
                 NewBets = response.data.betting_id;
                 photonView.RPC("Get_NewBets", RpcTarget.All, NewBets);
+                Debug.Log("^^^^^^배팅아이디 : " + NewBets);
             }
         });
     }
@@ -213,6 +214,8 @@ public class GameSceneLogic : MonoBehaviourPunCallbacks
         Req_BettingWinner reqBettingDeclareWinner = new Req_BettingWinner();
         reqBettingDeclareWinner.betting_id = NewBets;// resSettigns.data.bets[0]._id;
         reqBettingDeclareWinner.winner_player_id = titleToGameScene.user_ID;
+
+        Debug.Log("^^^^^^배팅아이디 : " + NewBets);
         yield return requestCoinDeclareWinner(reqBettingDeclareWinner, (response) =>
         {
             if (response != null)
@@ -242,7 +245,7 @@ public class GameSceneLogic : MonoBehaviourPunCallbacks
       
         Res_BettingWinner res = JsonUtility.FromJson<Res_BettingWinner>(www.downloadHandler.text);
         callback(res);
-
+        Debug.Log("^^^^^^배팅아이디 : " + NewBets);
         Debug.Log("돈 가져와");
     }
 
