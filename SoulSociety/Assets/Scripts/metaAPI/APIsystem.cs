@@ -184,6 +184,7 @@ public class Req_BettingWinner
 public class Res_BettingWinner
 {
     public string message;
+    [System.Serializable]
     public class Data
     {
         public int amount_won;
