@@ -53301,7 +53301,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 8808335372048665995}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 995584326277909710, guid: e1532649377410f4dbef40c750e3c50a, type: 3}
+        m_TargetAssemblyTypeName: GameSceneLogic, Assembly-CSharp
+        m_MethodName: OnClick_LeaveGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &8808335372114998788
 GameObject:
   m_ObjectHideFlags: 0
