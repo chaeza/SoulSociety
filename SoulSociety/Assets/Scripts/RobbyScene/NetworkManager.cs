@@ -389,7 +389,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         UserID_Disconnect.text = "User ID : " + res_getUserProfile.userProfile.username;
         UserID_Lobby.text = "User ID : " + res_getUserProfile.userProfile.username;
 
-        postman.SendMessage("User_ID", res_getUserProfile.userProfile.username, SendMessageOptions.DontRequireReceiver);
+        postman.SendMessage("User_ID", res_getUserProfile.userProfile._id, SendMessageOptions.DontRequireReceiver);
 
         callback(res_getUserProfile);
 
