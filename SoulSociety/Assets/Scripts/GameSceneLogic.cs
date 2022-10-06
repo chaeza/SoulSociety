@@ -138,6 +138,7 @@ public class GameSceneLogic : MonoBehaviourPunCallbacks
     {
         PhotonNetwork.LeaveRoom();
         PhotonNetwork.LoadLevel("TitleScene");
+
     }
 
 

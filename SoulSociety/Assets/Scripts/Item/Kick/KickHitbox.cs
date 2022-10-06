@@ -20,6 +20,7 @@ public class KickHitbox : MonoBehaviourPun
             other.gameObject.GetPhotonView().RPC("RPC_hit", RpcTarget.All, 10f, Attacker, state.Stun, 2f);
             transform.Translate(0, 0, 10f);
             pos = transform.position;
+            transform.Translate(0, 0, -10f);
             other.gameObject.GetPhotonView().RPC("BackMove", RpcTarget.All,pos, 0.5f, 30);
             attackList.Add(other.gameObject);//공격 받은 적을 리스트에 넣어 콜라이더를 벗어났다가 다시맞는 경우를 방지함.
         }
