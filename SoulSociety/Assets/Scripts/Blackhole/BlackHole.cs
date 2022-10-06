@@ -35,7 +35,7 @@ public class BlackHole : MonoBehaviourPun
 
     private void Update()
     {
-        if (zero != 7)                //블랙홀이 7번만 켜지게 만들었다
+        if (zero != 8)                //블랙홀이 7번만 켜지게 만들었다
             time += Time.deltaTime;
 
         if (time >= blackHoleTime)
