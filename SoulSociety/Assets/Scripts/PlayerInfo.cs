@@ -345,6 +345,10 @@ public class PlayerInfo : MonoBehaviourPun
             yield return null;
         }
         yield return new WaitForSeconds(time);
+        navMeshAgent.isStopped = true;
+        navMeshAgent.updateRotation = false;
+        navMeshAgent.updatePosition = false;
+        navMeshAgent.velocity = Vector3.zero;
         navMeshAgent.speed = 5;
 
         yield break;

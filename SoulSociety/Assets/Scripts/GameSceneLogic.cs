@@ -120,14 +120,11 @@ public class GameSceneLogic : MonoBehaviourPunCallbacks
         yield return new WaitForSeconds(2);
         PhotonNetwork.LoadLevel("TitleScene");
         PhotonNetwork.LeaveRoom();
-
-
     }
 
     public override void OnPlayerLeftRoom(Player otherPlayer)
     {
         StartCoroutine(LiveCheck());
-
     }
 
     IEnumerator LiveCheck()
@@ -141,6 +138,7 @@ public class GameSceneLogic : MonoBehaviourPunCallbacks
     {
         PhotonNetwork.LeaveRoom();
         PhotonNetwork.LoadLevel("TitleScene");
+
     }
 
 
