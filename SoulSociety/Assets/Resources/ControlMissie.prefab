@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 114621658603843868}
   - component: {fileID: 7535275198013286458}
   - component: {fileID: -7214019305152431447}
+  - component: {fileID: -4823044897192178355}
   m_Layer: 0
   m_Name: ControlMissie
   m_TagString: Untagged
@@ -68,7 +69,7 @@ MonoBehaviour:
   - {fileID: 1131021363978610, guid: 93898509c9fcbd44cb746a5a4cd8b993, type: 3}
   - {fileID: 1875217705556368, guid: d7f0362a4fb815d4a85b64358cd46e3e, type: 3}
   m_movePos: {fileID: 0}
-  m_startDelay: 3
+  m_startDelay: 4
 --- !u!114 &7535275198013286458
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -108,3 +109,16 @@ MonoBehaviour:
   m_SynchronizeRotation: 1
   m_SynchronizeScale: 0
   m_UseLocal: 1
+--- !u!135 &-4823044897192178355
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1455363051776724}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 0
+  serializedVersion: 2
+  m_Radius: 19
+  m_Center: {x: 0, y: 0, z: 0}

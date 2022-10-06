@@ -118,12 +118,15 @@ public class ControlMissie : MonoBehaviourPun
         a.AddComponent<ControlMissieHit>();//이펙트에 히트 스크립트를 넣습니다.
         a.SendMessage("AttackerName", gameObject.GetPhotonView().ViewID, SendMessageOptions.DontRequireReceiver);//이펙트에 공격자를 지정합니다.
         a.transform.Rotate(-90, 0, 0);
+        yield return new WaitForSeconds(4f);
+        a.GetComponent<SphereCollider>().enabled = true;
 
-       // sound = a.GetComponent<AudioSource>();
-      //  StartCoroutine(soundCh());
-       // sound.Play();
+        // sound = a.GetComponent<AudioSource>();
+        //  StartCoroutine(soundCh());
+        // sound.Play();
 
-        GameMgr.Instance.DestroyTarget(a, 1f);
+
+        GameMgr.Instance.DestroyTarget(a, 5f);
         yield break;
     }
 
