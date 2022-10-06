@@ -126,6 +126,7 @@ public class GameSceneLogic : MonoBehaviourPunCallbacks
         GameMgr.Instance.AliveNumCheck();
     }
 
+ 
 
 
     #region API
