@@ -30,6 +30,7 @@ public class SpawnMgr : MonoBehaviourPun
 
     //생성할때  //풀링전에 생성을 한다 (매니저)
     [PunRPC]
+    [System.Obsolete]
     public void ItemInit()     //아이템 x개 생성
     {
         for (int i = 0; i < 49; i++)
@@ -40,11 +41,12 @@ public class SpawnMgr : MonoBehaviourPun
                 ran = Random.Range(0, groundCh.Length);
             }
             groundNum[ran] = true;
-            GameObject obj = PhotonNetwork.Instantiate("ItemBox", groundCh[ran].transform.position, Quaternion.identity);
+            GameObject obj = PhotonNetwork.InstantiateSceneObject("ItemBox", groundCh[ran].transform.position, Quaternion.identity);
             obj.SendMessage("MyNum", ran, SendMessageOptions.DontRequireReceiver);
         }
     }
     [PunRPC]
+    [System.Obsolete]
     public void SoulInit()    //소울 x개 생성
     {
         for (int i = 0; i < 4; i++)
@@ -55,7 +57,7 @@ public class SpawnMgr : MonoBehaviourPun
                 ran2 = Random.Range(0, groundCh.Length);
             }
             groundNum[ran2] = true;
-            GameObject obj = PhotonNetwork.Instantiate("BlueSoul", groundCh[ran2].transform.position + new Vector3(0f, 1.8f, 0f), Quaternion.identity);
+            GameObject obj = PhotonNetwork.InstantiateSceneObject("BlueSoul", groundCh[ran2].transform.position + new Vector3(0f, 1.8f, 0f), Quaternion.identity);
             obj.SendMessage("MyNum", ran2, SendMessageOptions.DontRequireReceiver);
 
         }

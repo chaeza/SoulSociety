@@ -25,4 +25,8 @@ public class BoxPool : MonoBehaviourPun
             //StartCoroutine("SpawnItem");  
         }
     }
+    void BlackHole()
+    {
+        GameMgr.Instance.spawnMgr.photonView.RPC("FindItemInPool", RpcTarget.All, gameObject.GetPhotonView().ViewID, myNum);
+    }
 }
