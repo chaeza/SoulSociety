@@ -116,7 +116,7 @@ public class SwordCrash : MonoBehaviourPun, SkillMethod
         sound = a.GetComponent<AudioSource>();
         StartCoroutine(soundCh());
         sound.Play();
-
+        Destroy(a.GetComponent<BoxCollider>(), 1f);
         a.transform.LookAt(transform.position);
         a.transform.Rotate(0, 180, 0);
         StartCoroutine(Fire(desiredDir));

@@ -116,8 +116,8 @@ public class Kick : MonoBehaviourPun, ItemMethod
         a.SendMessage("AttackerName", gameObject.GetPhotonView().ViewID, SendMessageOptions.DontRequireReceiver);//이펙트에 공격자를 지정합니다.
         transform.LookAt(desiredDir);
 
-        GameMgr.Instance.DestroyTarget(a, 1.5f);
-        GameMgr.Instance.DestroyTarget(b, 1.5f);
+        GameMgr.Instance.DestroyTarget(a, 0.5f);
+        GameMgr.Instance.DestroyTarget(b, 1f);
 
         GameMgr.Instance.uIMgr.UseItem(itemNum);
         GameMgr.Instance.inventory.RemoveInventory(itemNum);
