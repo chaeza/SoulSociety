@@ -104,6 +104,7 @@ public class MetaTrendAPI : MonoBehaviour
 			{
 				Debug.Log("## Settings : " + response.ToString());
 				res_BettingSetting = response;
+				Debug.Log(res_BettingSetting);
 			}
 		});
 	}
