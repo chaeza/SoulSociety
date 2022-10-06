@@ -47,19 +47,19 @@ public class BlackH : MonoBehaviourPun
                 // 행성의 위치를 블랙홀의 방향으로 천천히 이동시킨다.
 
                 //if(dir = 1f)
-                star.gameObject.transform.position += dir * 0.3f * Time.deltaTime;
+                star.gameObject.transform.position += dir * 0.8f * Time.deltaTime;
             }
             // 블랙홀과 행성의 거리가 0.3f이하가 되면
             if (dis <= 0.3f)
             {
                 // 행성을 블랙홀로 조금 더 빠르게 이동시킨다.
-                star.gameObject.transform.position += dir * 0.8f * Time.deltaTime;
+                star.gameObject.transform.position += dir * 1f * Time.deltaTime;
             }
             // 블랙홀과 행성의 거리가 0.05f 이하가 되면
             if (dis <= 0.05f)
             {
                 // 행성을 블랙홀로 더 빠르게 이동시킨다.
-                star.gameObject.transform.position += dir * 1f * Time.deltaTime;
+                star.gameObject.transform.position += dir * 1.2f * Time.deltaTime;
             }
             // 블랙홀이 생성된지 10초가 지나면
             if (time >= 10)
