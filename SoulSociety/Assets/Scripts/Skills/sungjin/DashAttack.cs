@@ -100,7 +100,7 @@ public class DashAttack : MonoBehaviourPun, SkillMethod
 
             Debug.DrawRay(ray.origin, ray.direction * 20f, Color.red, 1f);
 
-            if (hit.collider.tag == "Ground")
+            if (hit.collider.tag == "Ground" || hit.collider.tag == "UnGround")
             {
                 desiredDir = hit.point;
                 desiredDir.y = transform.position.y;
