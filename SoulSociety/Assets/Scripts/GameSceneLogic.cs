@@ -121,6 +121,12 @@ public class GameSceneLogic : MonoBehaviourPunCallbacks
         PhotonNetwork.LeaveRoom();
     }
 
+    public override void OnPlayerLeftRoom(Player otherPlayer)
+    {
+        GameMgr.Instance.AliveNumCheck();
+    }
+
+
 
     #region API
     [Header("[등록된 프로젝트에서 획득가능한 API 키]")]
