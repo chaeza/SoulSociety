@@ -44,7 +44,7 @@ public class MetaTrendAPI : MonoBehaviour
 			{
 				Debug.Log("## " + response.ToString());
 				res_UserProfile = response;
-				Debug.Log(res_UserProfile.userProfile.username);
+				Debug.Log("µ¿Çª" +res_UserProfile.userProfile.username);
 			}
 		});
 	}
@@ -104,6 +104,7 @@ public class MetaTrendAPI : MonoBehaviour
 			{
 				Debug.Log("## Settings : " + response.ToString());
 				res_BettingSetting = response;
+				Debug.Log(res_BettingSetting);
 			}
 		});
 	}
