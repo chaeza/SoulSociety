@@ -367,7 +367,6 @@ public class UIMgr : MonoBehaviourPun
             else
                 lose.SetActive(true);
         }
-        gameSceneLogic.EndGame();
     }
     [PunRPC]
     public void WinnerFixed()

@@ -285,8 +285,7 @@ public class PlayerInfo : MonoBehaviourPun
         else 
         GameMgr.Instance.DestroyTarget(player, time);
         yield return new WaitForSeconds(time);
-
-        if(playerState != state.Die)
+        if(playerState!=state.Die)
         playerState = state.None;
         yield break;
 

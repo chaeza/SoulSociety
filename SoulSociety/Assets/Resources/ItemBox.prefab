@@ -16006,7 +16006,7 @@ GameObject:
   - component: {fileID: 253744346611449602}
   m_Layer: 0
   m_Name: ItemBox
-  m_TagString: Untagged
+  m_TagString: RandomItemBox
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
