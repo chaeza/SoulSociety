@@ -335,7 +335,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
     #region API호출 함수
     [Header("[API 관련]")]
-    [SerializeField] TextMeshProUGUI txtInputField;
+   // [SerializeField] TextMeshProUGUI txtInputField;
     [SerializeField] string selectedBettingID;
 
     [Header("[등록된 프로젝트에서 획득가능한 API 키]")]
@@ -384,7 +384,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         UnityWebRequest www = UnityWebRequest.Get("http://localhost:8546/api/getuserprofile");
         yield return www.SendWebRequest();
         Debug.Log(www.downloadHandler.text);
-        txtInputField.text = www.downloadHandler.text;
+      //  txtInputField.text = www.downloadHandler.text;
         Res_UserProfile res_getUserProfile = JsonUtility.FromJson<Res_UserProfile>(www.downloadHandler.text);
         UserID_Disconnect.text = "User ID : " + res_getUserProfile.userProfile.username;
         UserID_Lobby.text = "User ID : " + res_getUserProfile.userProfile.username;
@@ -422,7 +422,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         UnityWebRequest www = UnityWebRequest.Get("http://localhost:8546/api/getsessionid");
         yield return www.SendWebRequest();
         Debug.Log("음.." + www.downloadHandler.text);
-        txtInputField.text = www.downloadHandler.text;
+      //  txtInputField.text = www.downloadHandler.text;
         Res_UserSessionID res_getSessionID = JsonUtility.FromJson<Res_UserSessionID>(www.downloadHandler.text);
         
         mySessionID = res_getSessionID.sessionId;
@@ -461,7 +461,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         www.SetRequestHeader("api-key", API_KEY);
         yield return www.SendWebRequest();
         Debug.Log(www.downloadHandler.text);
-        txtInputField.text = www.downloadHandler.text;
+      //  txtInputField.text = www.downloadHandler.text;
         
         Res_BettingSetting res = JsonUtility.FromJson<Res_BettingSetting>(www.downloadHandler.text);
         myBetsId = res.data.bets[0]._id;
@@ -549,7 +549,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         yield return www.SendWebRequest();
 
         Debug.Log(www.downloadHandler.text);
-        txtInputField.text = www.downloadHandler.text;
+       // txtInputField.text = www.downloadHandler.text;
         Res_Initialize res = JsonUtility.FromJson<Res_Initialize>(www.downloadHandler.text);
         callback(res);
     }
@@ -592,7 +592,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         yield return www.SendWebRequest();
 
         Debug.Log(www.downloadHandler.text);
-        txtInputField.text = www.downloadHandler.text;
+       // txtInputField.text = www.downloadHandler.text;
         Res_BettingWinner res = JsonUtility.FromJson<Res_BettingWinner>(www.downloadHandler.text);
         callback(res);
 
@@ -636,7 +636,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         yield return www.SendWebRequest();
 
         Debug.Log(www.downloadHandler.text);
-        txtInputField.text = www.downloadHandler.text;
+       // txtInputField.text = www.downloadHandler.text;
         Res_BettingDisconnect res = JsonUtility.FromJson<Res_BettingDisconnect>(www.downloadHandler.text);
         callback(res);
     }
