@@ -71,8 +71,8 @@ public class NetworkManager : MonoBehaviourPunCallbacks
             postman = FindObjectOfType<TitleToGameScene>().gameObject;
         }
         Screen.SetResolution(1920, 1080, false);
-        PhotonNetwork.SendRate = 60;
-        PhotonNetwork.SerializationRate = 30;
+        PhotonNetwork.SendRate = 300;
+        PhotonNetwork.SerializationRate = 150;
     }
     IEnumerator AutoSyncDelay()
     {

@@ -121,7 +121,7 @@ public class Slash : MonoBehaviourPun, ItemMethod
     {
         for (int i = 0; i < 30; i++)
         {
-            skill.transform.Translate(0, 0, 0.5f);
+            skill.transform.Translate(0, 0, 0.45f);
             yield return null;
         }
         GameMgr.Instance.uIMgr.UseItem(itemNum);

@@ -118,7 +118,6 @@ public class SwordRain : MonoBehaviourPun, SkillMethod
         a.AddComponent<SwordRainHIT>();//이펙트에 히트 스크립트를 넣습니다.
         a.SendMessage("AttackerName", gameObject.GetPhotonView().ViewID, SendMessageOptions.DontRequireReceiver);//이펙트에 공격자를 지정합니다.
         a.transform.Rotate(-90, 0, 0);
-
         sound = a.GetComponent<AudioSource>();
         StartCoroutine(soundCh());
         sound.Play();
