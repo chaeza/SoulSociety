@@ -7,11 +7,16 @@ public class PlayerInput : MonoBehaviour
     //이 스크립트는 플레이어에게 
     public KeyCode inputKey { get; private set; }
     public KeyCode inputKey2 { get; private set; }
+    public KeyCode yKey { get; private set; }
     public KeyCode Esc { get; private set; }
     bool escDown;
     void Update()
     {
-    
+
+
+        if (Input.GetKeyDown(KeyCode.Y)) yKey = KeyCode.Y;
+        else yKey = KeyCode.Alpha0;
+
         if (Input.GetKey(KeyCode.Mouse1)) inputKey2 = KeyCode.Mouse1;
         else inputKey2 = KeyCode.Alpha0;
 
