@@ -206,22 +206,22 @@ public class UIMgr : MonoBehaviourPun
                 setItem = true;
                 if (Num1 == 2)
                 {
-                    itemUIExplantion.transform.Translate(158.75f, 0, 0);//해당 인벤토리 위치로 이동시킴
+                    itemUIExplantion.transform.Translate(160, 0, 0);//해당 인벤토리 위치로 이동시킴
                 }
                 else if (Num1 == 3)
                 {
-                    itemUIExplantion.transform.Translate(158.75f*2, 0, 0);
+                    itemUIExplantion.transform.Translate(320, 0, 0);
                 }
                 else if (Num1 == 4)
                 {
-                    itemUIExplantion.transform.Translate(158.75f*3, 0, 0);
+                    itemUIExplantion.transform.Translate(480, 0, 0);
                 }
             }
         }
         if (itemUIExplantion != null && Num1 == 5)//좌표가 같지 않을 때 설명창을 비활성화 시킵니다.
         {
             setItem = false;//bool 값 초기화
-            itemUIExplantion.transform.position = new Vector3(724f, 265f, 0);//위치 초기화
+            itemUIExplantion.transform.position = new Vector3(725f, 260f, 0);//위치 초기화
             itemUIExplantion.SetActive(false);
         }
     }
