@@ -46,12 +46,16 @@ public class UIMgr : MonoBehaviourPun
     string[] sortedPlayer = new string[4];
     bool nickSave;
 
+    Vector3 itemPosition;
+    Vector3 itemPositionExplantion;
     bool isWinner = false;
     int myIDNum;
 
     private void Start()
     {
         gameSceneLogic = FindObjectOfType<GameSceneLogic>();
+        itemPosition = ItemIcon[0].transform.position;
+        itemPositionExplantion = ItemIconExplantion[0].transform.position;
 
     }
 
@@ -190,7 +194,7 @@ public class UIMgr : MonoBehaviourPun
     public void UseItem(int Num)//사용한 해당 아이템 아이콘을 없앰
     {
         inventory[Num].SetActive(false);
-        inventory[Num].transform.position = new Vector3(725f, 60f, 0);
+        inventory[Num].transform.position = itemPosition;
         inventory[Num] = null;
     }
     public void OnExplantionItem(int Num1, int Num2)//Num1은 인벤토리 위치 Num2는 해당 아이템 번호
@@ -221,7 +225,7 @@ public class UIMgr : MonoBehaviourPun
         if (itemUIExplantion != null && Num1 == 5)//좌표가 같지 않을 때 설명창을 비활성화 시킵니다.
         {
             setItem = false;//bool 값 초기화
-            itemUIExplantion.transform.position = new Vector3(725f, 290f, 0);//위치 초기화
+            itemUIExplantion.transform.position = itemPositionExplantion;
             itemUIExplantion.SetActive(false);
         }
     }
