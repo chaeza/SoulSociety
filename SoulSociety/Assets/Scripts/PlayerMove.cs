@@ -45,7 +45,7 @@ public class PlayerMove : MonoBehaviourPun
             return;
         }
         if (photonView.IsMine == false) return;
-        if (Input.mousePosition.x > 60 && Input.mousePosition.x < 180 && Input.mousePosition.y > 25 && Input.mousePosition.y < 155) GameMgr.Instance.uIMgr.OnExplantionSkill(true);
+        if (Input.mousePosition.x > 80 && Input.mousePosition.x < 210 && Input.mousePosition.y > 25 && Input.mousePosition.y < 185) GameMgr.Instance.uIMgr.OnExplantionSkill(true);
         else GameMgr.Instance.uIMgr.OnExplantionSkill(false);
         if (Input.mousePosition.x > 680 && Input.mousePosition.x < 760 && Input.mousePosition.y > 25 && Input.mousePosition.y < 155 && GameMgr.Instance.inventory.InvetoryCount(1) == false) GameMgr.Instance.uIMgr.OnExplantionItem(1, GameMgr.Instance.inventory.GetInventory(1));
         else if (Input.mousePosition.x > 845 && Input.mousePosition.x < 915 && Input.mousePosition.y > 25 && Input.mousePosition.y < 155 && GameMgr.Instance.inventory.InvetoryCount(2) == false) GameMgr.Instance.uIMgr.OnExplantionItem(2, GameMgr.Instance.inventory.GetInventory(2));
