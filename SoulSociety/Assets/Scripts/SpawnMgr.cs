@@ -156,7 +156,7 @@ public class SpawnMgr : MonoBehaviourPun
 
     IEnumerator TenSec()
     {
-        yield return new WaitForSeconds(10f);
+        yield return new WaitForSeconds(30f);
        
         if (PhotonNetwork.IsMasterClient)
         {
