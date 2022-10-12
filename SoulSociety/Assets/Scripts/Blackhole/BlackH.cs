@@ -68,6 +68,7 @@ public class BlackH : MonoBehaviourPun
                 if (star.tag == "Player" || star.tag == "mainPlayer")
                 {
                     star.GetComponent<PlayerInfo>().playerState = state.Die;
+                    star.gameObject.GetPhotonView().RPC("RPC_DieRed", RpcTarget.All);
                     star.gameObject.tag = "DiePlayer";
 
                     GameMgr.Instance.AliveNumCheck();

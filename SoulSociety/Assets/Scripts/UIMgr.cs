@@ -85,18 +85,23 @@ public class UIMgr : MonoBehaviourPun
     }
     public void TabNickName(int Num, state myState)
     {
-        if (nickSave == false)
-        {
-            nickSave = true;
-            Player[] sortedPlayers = PhotonNetwork.PlayerList;
-            for (int i = 0; i < sortedPlayers.Length; i++)
+            if (nickSave == false)
             {
-                sortedPlayer[i] = sortedPlayers[i].NickName;
-            }
+                nickSave = true;
+                Player[] sortedPlayers = PhotonNetwork.PlayerList;
+                for (int i = 0; i < sortedPlayers.Length; i++)
+                {
+                    sortedPlayer[i] = sortedPlayers[i].NickName;
+                }
 
-        }
-        playerNick[Num].text = sortedPlayer[Num];
-        if (myState == state.Die) playerNick[Num].color = Color.red;
+            }
+            playerNick[Num].text = sortedPlayer[Num];
+            if (Num == 1) playerNick[Num].color = Color.magenta;
+            if (Num == 2) playerNick[Num].color = Color.green;
+            if (Num == 3) playerNick[Num].color = Color.yellow;
+            if (Num == 4) playerNick[Num].color = Color.white;
+            if (myState == state.Die) playerNick[Num].color = Color.red;
+        
     }
     public void RedTabSoul(int Num, int Rnum)
     {
