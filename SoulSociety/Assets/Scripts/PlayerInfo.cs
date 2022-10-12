@@ -82,7 +82,7 @@ public class PlayerInfo : MonoBehaviourPun
 
 
         myHPbarInfo = GetComponentInChildren<HpBarInfo>();
-
+        navMeshAgent = GetComponent<NavMeshAgent>();
         myHPbarInfo.SetName(photonView.Controller.NickName);
         myAnimator = GetComponent<Animator>();
         if (photonView.IsMine == true)
@@ -172,6 +172,12 @@ public class PlayerInfo : MonoBehaviourPun
         if (photonView.IsMine == true) photonView.RPC("TabUpdate", RpcTarget.All, myNum, state.Die, 1, 0);//자신의 번호를 넘겨 탭상태를 갱신합니다.
         if (photonView.IsMine == true) photonView.RPC("TabUpdate", RpcTarget.All, myNum, playerState, 2,0);//자신의 번호를 넘겨 탭상태를 갱신합니다.
         //Destroy(gameObject, 3f);
+    }
+    [PunRPC]
+    void RPC_DieRed()
+    {
+        if (photonView.IsMine == true) photonView.RPC("TabUpdate", RpcTarget.All, myNum, state.Die, 1, 0);//자신의 번호를 넘겨 탭상태를 갱신합니다.
+
     }
     [PunRPC]
     void RPC_redSoul(int redcount)
@@ -339,7 +345,6 @@ public class PlayerInfo : MonoBehaviourPun
     }
     IEnumerator backMove(Vector3 pos, float time,int speed)
     {
-        navMeshAgent = GetComponent<NavMeshAgent>();
         navMeshAgent.speed = speed;
         navMeshAgent.isStopped = false;
         navMeshAgent.updateRotation = true;
