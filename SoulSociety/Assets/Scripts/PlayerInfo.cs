@@ -154,6 +154,10 @@ public class PlayerInfo : MonoBehaviourPun
     {
         GameMgr.Instance.AliveNumCheck();
         if (playerState == state.Die) return;
+        navMeshAgent.isStopped = true;
+        navMeshAgent.updateRotation = false;
+        navMeshAgent.updatePosition = false;
+        navMeshAgent.velocity = Vector3.zero;
 
         if (photonView.IsMine == true)
         {
@@ -330,6 +334,7 @@ public class PlayerInfo : MonoBehaviourPun
     [PunRPC]
     void BackMove(Vector3 pos, float time, int speed)
     {
+        if(photonView.IsMine)
         StartCoroutine(backMove(pos, time, speed));
     }
     IEnumerator backMove(Vector3 pos, float time,int speed)

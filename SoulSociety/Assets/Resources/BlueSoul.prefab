@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: -4467077213220382229}
   - component: {fileID: 6086944692325967632}
   - component: {fileID: -803141821970643441}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: BlueSoul
   m_TagString: RandomItemBox
   m_Icon: {fileID: 0}
@@ -4904,7 +4904,7 @@ GameObject:
   - component: {fileID: 8827411558383538123}
   - component: {fileID: 8827411558383538121}
   - component: {fileID: 8827411558383538122}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Fire
   m_TagString: Untagged
   m_Icon: {fileID: 0}
