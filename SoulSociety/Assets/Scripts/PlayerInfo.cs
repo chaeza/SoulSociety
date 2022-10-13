@@ -8,16 +8,16 @@ using Photon.Realtime;
 using System.IO;
 using TMPro;
 
-    [type : SerializeField] public enum state
-    {
-        None,
-        Die,
-        Stun,
-        Unbeatable,//무적
-        Slow,
-        End
-    }
-    
+public enum state
+{
+    None,
+    Die,
+    Stun,
+    Unbeatable,//무적
+    Slow,
+    End
+}
+
 public class PlayerInfo : MonoBehaviourPun
 {
     [SerializeField] int blueSoul;
@@ -34,7 +34,7 @@ public class PlayerInfo : MonoBehaviourPun
     int myNum = 0;
     public RectTransform myskillRangerect = null;
     public GameObject skilla;
-    [field:SerializeField] public state playerState { get; set; } = state.None;//플레이어 상태
+    [field: SerializeField] public state playerState { get; set; } = state.None;//플레이어 상태
     NavMeshAgent navMeshAgent;
     Coroutine stunState = null;
     Coroutine slowState = null;
@@ -43,7 +43,7 @@ public class PlayerInfo : MonoBehaviourPun
     void ChageHP(float hp)
     {
         curHP += hp;
-        if(curHP>=maxHP)
+        if (curHP >= maxHP)
             curHP = maxHP;
         myHPbarInfo.SetHP(curHP, maxHP);
         if (photonView.IsMine)
@@ -57,9 +57,9 @@ public class PlayerInfo : MonoBehaviourPun
 
     }
     [PunRPC]
-    void SetDamageDecrpease(float value,float time)
+    void SetDamageDecrpease(float value, float time)
     {
-        StartCoroutine(OnDamageDecrease(value,time));
+        StartCoroutine(OnDamageDecrease(value, time));
 
     }
 
@@ -78,7 +78,7 @@ public class PlayerInfo : MonoBehaviourPun
             GameMgr.Instance.gameObject.GetPhotonView().RPC("RPC_All_SessionID", RpcTarget.MasterClient, sessionID);
             GameMgr.Instance.gameObject.SendMessage("countSSS", SendMessageOptions.DontRequireReceiver);
         }
-       
+
 
 
         myHPbarInfo = GetComponentInChildren<HpBarInfo>();
@@ -107,9 +107,9 @@ public class PlayerInfo : MonoBehaviourPun
                 }
             }
         }
-        photonView.RPC("ChangeColor", RpcTarget.All,myNum);//자기번호를 넘겨 플레이어의 색상을 모두에게 바꿉니다. 
-        photonView.RPC("TabUpdate", RpcTarget.All,myNum,playerState,1,0);//자신의 번호를 넘겨 탭상태를 갱신합니다.
-       
+        photonView.RPC("ChangeColor", RpcTarget.All, myNum);//자기번호를 넘겨 플레이어의 색상을 모두에게 바꿉니다. 
+        photonView.RPC("TabUpdate", RpcTarget.All, myNum, playerState, 1, 0);//자신의 번호를 넘겨 탭상태를 갱신합니다.
+
     }
 
 
@@ -124,30 +124,30 @@ public class PlayerInfo : MonoBehaviourPun
 
     }
     [PunRPC]
-    void RPC_hit(float bAD,int viewID1,state st,float time)
+    void RPC_hit(float bAD, int viewID1, state st, float time)
     {
         if (playerState == state.Die) return;
         if (playerState == state.Unbeatable) return;//무적일시 맞지 않음
-        if(st==state.Stun)
+        if (st == state.Stun)
         {
             playerState = state.Stun;
-            if(stunState!=null) StopCoroutine(stunState);
-            stunState= StartCoroutine(MyStun(time));
+            if (stunState != null) StopCoroutine(stunState);
+            stunState = StartCoroutine(MyStun(time));
         }
-        if(st==state.Slow)
+        if (st == state.Slow)
         {
             if (slowState != null) StopCoroutine(slowState);
-            slowState= StartCoroutine(MySlow(time,bAD));
+            slowState = StartCoroutine(MySlow(time, bAD));
         }
         if (st != state.Slow)
         {
             curHP -= bAD * (1f - damageDecrease);// 1에 데미지감소를 빼줘서 받는 데미지감소
             myHPbarInfo.SetHP(curHP, maxHP);
-            if(photonView.IsMine)
-            GameMgr.Instance.uIMgr.SetHP(curHP, maxHP);
+            if (photonView.IsMine)
+                GameMgr.Instance.uIMgr.SetHP(curHP, maxHP);
         }
         if (curHP <= 0)
-            photonView.RPC("RPC_Die", RpcTarget.All,viewID1);
+            photonView.RPC("RPC_Die", RpcTarget.All, viewID1);
     }
     [PunRPC]
     void RPC_Die(int viewID2)
@@ -157,7 +157,7 @@ public class PlayerInfo : MonoBehaviourPun
 
         if (photonView.IsMine == true)
         {
-            if(stunState != null) StopCoroutine(stunState);
+            if (stunState != null) StopCoroutine(stunState);
             GameMgr.Instance.PunFindObject(viewID2).GetPhotonView().RPC("RPC_redSoul", RpcTarget.All, GameMgr.Instance.redCount);
 
             GameMgr.Instance.uIMgr.MyRedSoul(0);
@@ -166,7 +166,7 @@ public class PlayerInfo : MonoBehaviourPun
         myAnimator.SetTrigger("isDie");
         gameObject.tag = "DiePlayer";
         if (photonView.IsMine == true) photonView.RPC("TabUpdate", RpcTarget.All, myNum, state.Die, 1, 0);//자신의 번호를 넘겨 탭상태를 갱신합니다.
-        if (photonView.IsMine == true) photonView.RPC("TabUpdate", RpcTarget.All, myNum, playerState, 2,0);//자신의 번호를 넘겨 탭상태를 갱신합니다.
+        if (photonView.IsMine == true) photonView.RPC("TabUpdate", RpcTarget.All, myNum, playerState, 2, 0);//자신의 번호를 넘겨 탭상태를 갱신합니다.
         //Destroy(gameObject, 3f);
     }
     [PunRPC]
@@ -182,7 +182,7 @@ public class PlayerInfo : MonoBehaviourPun
     }
     public void BlueSoul()
     {
-        if(GameMgr.Instance.redCount == 0)
+        if (GameMgr.Instance.redCount == 0)
         {
             GameMgr.Instance.GetBuleSoul();
             photonView.RPC("TabUpdate", RpcTarget.All, myNum, playerState, 3, GameMgr.Instance.blueCount);//자신의 번호를 넘겨 탭상태를 갱신합니다.
@@ -248,8 +248,8 @@ public class PlayerInfo : MonoBehaviourPun
         }
     }
     [PunRPC]
-    void TabUpdate(int Num,state pstate,int Num2,int Num3)//Num은 자기 번호 Num2는 닉네임,레드,블루 영혼 구분 Num3은 블루,영혼 일시 그 갯수
-    { 
+    void TabUpdate(int Num, state pstate, int Num2, int Num3)//Num은 자기 번호 Num2는 닉네임,레드,블루 영혼 구분 Num3은 블루,영혼 일시 그 갯수
+    {
         if (Num2 == 1)
         {
             if (photonView.IsMine)
@@ -257,11 +257,11 @@ public class PlayerInfo : MonoBehaviourPun
             else
                 GameMgr.Instance.uIMgr.TabNickName(Num, pstate);
         }
-        else if(Num2==2)//죽여서 레드 얻었을 때
+        else if (Num2 == 2)//죽여서 레드 얻었을 때
         {
-            GameMgr.Instance.uIMgr.RedTabSoul(Num,Num3);
+            GameMgr.Instance.uIMgr.RedTabSoul(Num, Num3);
         }
-        else if(Num2==3)
+        else if (Num2 == 3)
         {
             GameMgr.Instance.uIMgr.BlueTabSoul(Num, Num3);
         }
@@ -280,17 +280,17 @@ public class PlayerInfo : MonoBehaviourPun
         player.AddComponent<MyPosition>();
         player.SendMessage("MyPos", gameObject.transform, SendMessageOptions.DontRequireReceiver);
         player.SendMessage("YPos", 1f, SendMessageOptions.DontRequireReceiver);
-        if (time<1f)
+        if (time < 1f)
             GameMgr.Instance.DestroyTarget(player, 1f);
-        else 
-        GameMgr.Instance.DestroyTarget(player, time);
+        else
+            GameMgr.Instance.DestroyTarget(player, time);
         yield return new WaitForSeconds(time);
-        if(playerState!=state.Die)
-        playerState = state.None;
+        if (playerState != state.Die)
+            playerState = state.None;
         yield break;
 
     }
-    IEnumerator MySlow (float time,float slow)
+    IEnumerator MySlow(float time, float slow)
     {
         GetComponent<PlayerMove>().ChageSpeed(GetComponent<PlayerMove>().moveSpeed);
         GameObject player = PhotonNetwork.Instantiate("Slow", transform.position, Quaternion.identity);
@@ -300,7 +300,7 @@ public class PlayerInfo : MonoBehaviourPun
         if (time < 1f)
             GameMgr.Instance.DestroyTarget(player, 1f);
         else
-            GameMgr.Instance.DestroyTarget(player,time);
+            GameMgr.Instance.DestroyTarget(player, time);
         GetComponent<PlayerMove>().ChageSpeed(GetComponent<PlayerMove>().moveSpeed * (1 - (slow / 100)));
         yield return new WaitForSeconds(time);
         GetComponent<PlayerMove>().ChageSpeed(GetComponent<PlayerMove>().moveSpeed);
@@ -318,7 +318,7 @@ public class PlayerInfo : MonoBehaviourPun
         }
         yield break;
     }
-    IEnumerator OnDamageDecrease(float value,float time)
+    IEnumerator OnDamageDecrease(float value, float time)
     {
         Debug.Log("뎀감시작");
         damageDecrease += value;
@@ -332,14 +332,14 @@ public class PlayerInfo : MonoBehaviourPun
     {
         StartCoroutine(backMove(pos, time, speed));
     }
-    IEnumerator backMove(Vector3 pos, float time,int speed)
+    IEnumerator backMove(Vector3 pos, float time, int speed)
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
         navMeshAgent.speed = speed;
         navMeshAgent.isStopped = false;
         navMeshAgent.updateRotation = true;
         navMeshAgent.updatePosition = true;
-        for(int i = 0; i < 50; i++)
+        for (int i = 0; i < 50; i++)
         {
             navMeshAgent.SetDestination(pos);
             yield return null;
