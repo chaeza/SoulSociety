@@ -8,12 +8,10 @@ using Photon.Realtime;
 public class GameMgr : Singleton<GameMgr>
 
 {
-    [Tooltip("½´½´½´½µ")]
-    [SerializeField]
-    public Skill_1chance PLA;
 
     // public FollowCam followCam;
-    [Tooltip("Game MGR Player Input")]
+    [field : Tooltip("Game MGR Player Input")]
+
     [field: SerializeField]
     public PlayerInput playerInput { get; private set; } = null;
 
@@ -53,6 +51,8 @@ public class GameMgr : Singleton<GameMgr>
     public int redCount = 0;
     public int blueCount = 0;
   //  int playerNum = 3;
+
+    
 
     int alivePlayerNum = 0;
 
