@@ -25,7 +25,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 200}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
-  controlID: 37705
+  controlID: 40451
 --- !u!114 &2
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -142,7 +142,7 @@ MonoBehaviour:
   m_MinSize: {x: 100, y: 200}
   m_MaxSize: {x: 8096, y: 16192}
   vertical: 1
-  controlID: 37706
+  controlID: 40452
 --- !u!114 &4
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -378,7 +378,7 @@ MonoBehaviour:
       floating: 0
       collapsed: 0
       displayed: 0
-      snapOffset: {x: -372, y: 41}
+      snapOffset: {x: -372, y: 50}
       snapOffsetDelta: {x: 0, y: 0}
       snapCorner: 1
       id: Scene View/Particles
@@ -394,9 +394,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 9.704358, y: -1.1690769, z: 59.927452}
+    m_Target: {x: 15.390351, y: 1.1297874, z: 62.096046}
     speed: 2
-    m_Value: {x: 9.704358, y: -1.1690769, z: 59.927452}
+    m_Value: {x: 15.390351, y: 1.1297874, z: 62.096046}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -443,13 +443,13 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: -0.32325694, y: 0.07710079, z: -0.026435483, w: -0.9427965}
+    m_Target: {x: -0.30997965, y: 0.027658906, z: -0.009021998, w: -0.95029986}
     speed: 2
-    m_Value: {x: -0.32325637, y: 0.07710065, z: -0.026435437, w: -0.94279486}
+    m_Value: {x: -0.30997908, y: 0.027658856, z: -0.009021983, w: -0.95029813}
   m_Size:
-    m_Target: 11.6761265
+    m_Target: 15.889595
     speed: 2
-    m_Value: 11.6761265
+    m_Value: 15.889595
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -524,7 +524,7 @@ MonoBehaviour:
   m_MinSize: {x: 100, y: 200}
   m_MaxSize: {x: 8096, y: 16192}
   vertical: 1
-  controlID: 37771
+  controlID: 40340
 --- !u!114 &8
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -582,23 +582,23 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 
+      m_SelectedIDs: 02720400
       m_LastClickedID: 0
-      m_ExpandedIDs: 9c76efffec87f0ff0ca6f1ff54d2f1ff4a07f2ff4a29f2ff72adf3ff50aff3fffcdef3ffac38f5ffca38f5ffc25af5ffd000f6ffa602f6ff4032f6ff726af6ff2c86f6ff8eb6f6ff1ac6f6ffe03bf7ff42b3f7fff0f6f7ffc428f8ff0e8cf8ff1a8cf8ff1c8cf8ff0c00f9ff4c27f9ff0868f9ffe868f9ff0cdbf9fff0f4f9fff040faff3c6cfdff9250ffff4ac9ffff1afaffff5ea1000038a400004a32010024350100828304009084040044f7040062f804005e3705007c380500d0e70500eee80500947f0600a8880700748e0700ae23080006c50900
+      m_ExpandedIDs: 46b1eeff76e4eeff9c76efffec87f0ff0ca6f1ff54d2f1ff4a07f2ff4a29f2ff72adf3ff50aff3fffcdef3ffac38f5ffca38f5ffc25af5ffd000f6ffa602f6ff4032f6ff726af6ff2c86f6ff8eb6f6ff1ac6f6ffe03bf7ff42b3f7fff0f6f7ffc428f8ff0e8cf8ff1a8cf8ff1c8cf8ff0c00f9ff4c27f9ff0868f9ffe868f9ff0cdbf9fff0f4f9fff040faff3c6cfdff9250ffff4ac9ffff1afaffff5ea1000038a400004a32010024350100828304009084040044f7040062f804005e3705007c380500d0e70500eee80500947f0600a8880700748e0700ae23080006c509009a340c00b4340c00
       m_RenameOverlay:
         m_UserAcceptedRename: 0
-        m_Name: 
-        m_OriginalName: 
+        m_Name: Effect_24_ParticleLine
+        m_OriginalName: Effect_24_ParticleLine
         m_EditFieldRect:
           serializedVersion: 2
           x: 0
           y: 0
           width: 0
           height: 0
-        m_UserData: 0
+        m_UserData: 810272
         m_IsWaitingForDelay: 0
         m_IsRenaming: 0
-        m_OriginalEventType: 11
+        m_OriginalEventType: 0
         m_IsRenamingFilename: 0
         m_ClientGUIView: {fileID: 8}
       m_SearchString: 
@@ -676,22 +676,22 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Hovl Studio/Epic toon VFX/Textures
+    - Assets/FantasySpellsEffectsPack/AllEffects/Optimized/(Opt)Effect_24/(Opt)Effect_24_CustomParts/(Opt)Effect_24_RemovalStrike
     m_Globs: []
     m_OriginalText: 
   m_ViewMode: 1
   m_StartGridSize: 16
   m_LastFolders:
-  - Assets/Hovl Studio/Epic toon VFX/Textures
+  - Assets/FantasySpellsEffectsPack/AllEffects/Optimized/(Opt)Effect_24/(Opt)Effect_24_CustomParts/(Opt)Effect_24_RemovalStrike
   m_LastFoldersGridSize: 16
   m_LastProjectPath: C:\Users\User\Desktop\MySoul\Soul\SoulSociety\SoulSociety
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 2ac60700
-    m_LastClickedID: 509482
-    m_ExpandedIDs: 000000000a9c00000c9c00000e9c0000109c0000129c0000149c0000169c0000189c00001a9c00001c9c00001e9c0000209c0000229c0000249c0000269c0000289c00002a9c00002c9c00002e9c0000309c0000329c0000349c0000369c0000389c00003a9c00003c9c00003e9c0000409c0000429c0000449c0000469c0000489c00004a9c00004c9c00004e9c0000509c0000529c0000549c0000569c0000589c00005a9c00005c9c00005e9c0000609c0000629c0000669c0000689c00006a9c00006c9c00006e9c0000789c0000909c0000b29c0000f644040000ca9a3b
+    scrollPos: {x: 0, y: 599}
+    m_SelectedIDs: 8e5b0c00
+    m_LastClickedID: 809870
+    m_ExpandedIDs: 000000000a9c00000c9c00000e9c0000109c0000129c0000149c0000169c0000189c00001a9c00001c9c00001e9c0000209c0000229c0000249c0000269c0000289c00002a9c00002c9c00002e9c0000309c0000329c0000349c0000369c0000389c00003a9c00003c9c00003e9c0000409c0000429c0000449c0000469c0000489c00004a9c00004c9c00004e9c0000509c0000529c0000549c0000569c0000589c00005a9c00005c9c00005e9c0000609c0000629c0000669c0000689c00006a9c00006c9c00006e9c0000789c0000889c0000b29c0000f6440400585b0c0000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -744,24 +744,24 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_ListAreaState:
-    m_SelectedInstanceIDs: 
-    m_LastClickedInstanceID: 0
+    m_SelectedInstanceIDs: 02720400
+    m_LastClickedInstanceID: 291330
     m_HadKeyboardFocusLastEvent: 1
     m_ExpandedInstanceIDs: dc740000b6700000e66bfeff2098000016980000149800002a98000030980000d82b0200848c00009e800000e87f0000f29b0000161901007a9a0000104701006281000000000000186a0200
     m_RenameOverlay:
       m_UserAcceptedRename: 0
-      m_Name: 
-      m_OriginalName: 
+      m_Name: (Opt)Effect_57_BluntMissileFire
+      m_OriginalName: (Opt)Effect_57_BluntMissileFire
       m_EditFieldRect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 0
         height: 0
-      m_UserData: 0
+      m_UserData: 158260
       m_IsWaitingForDelay: 0
       m_IsRenaming: 0
-      m_OriginalEventType: 11
+      m_OriginalEventType: 0
       m_IsRenamingFilename: 1
       m_ClientGUIView: {fileID: 10}
     m_CreateAssetUtility:
@@ -771,7 +771,7 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
     m_NewAssetIndexInList: -1
-    m_ScrollPosition: {x: 0, y: 306}
+    m_ScrollPosition: {x: 0, y: 0}
     m_GridSize: 16
   m_SkipHiddenPackages: 0
   m_DirectoriesAreaWidth: 220
@@ -975,7 +975,7 @@ MonoBehaviour:
   m_MinSize: {x: 100, y: 200}
   m_MaxSize: {x: 8096, y: 16192}
   vertical: 1
-  controlID: 37728
+  controlID: 40304
 --- !u!114 &14
 MonoBehaviour:
   m_ObjectHideFlags: 52
