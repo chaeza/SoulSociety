@@ -99,7 +99,7 @@ public class BloodAttack : MonoBehaviourPun, SkillMethod
                 StartCoroutine(Stay(desiredDir, 0.1f));//스킬발동시간
                 skillCool = true;//쿨타임 온 시켜 다시 사용 못하게함
                 Debug.Log("스킬사용");
-                GameMgr.Instance.uIMgr.SkillCooltime(gameObject, 5);//UI매니저에 쿨타임 x초를 보냄
+                GameMgr.Instance.uIMgr.SkillCooltime(gameObject, 2);//UI매니저에 쿨타임 x초를 보냄
             }
         }
     }
@@ -111,6 +111,7 @@ public class BloodAttack : MonoBehaviourPun, SkillMethod
         a.SendMessage("AttackerName", gameObject.GetPhotonView().ViewID, SendMessageOptions.DontRequireReceiver);//이펙트에 공격자를 지정합니다.
         a.transform.LookAt(desiredDir);
         a.transform.Rotate(0, -80, 0);
+        a.GetComponent<BoxCollider>().enabled = true;
 
         GameMgr.Instance.DestroyTarget(a, 2f);
 

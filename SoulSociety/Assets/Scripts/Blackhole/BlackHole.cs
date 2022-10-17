@@ -63,7 +63,7 @@ public class BlackHole : MonoBehaviourPun
             {
                 ran--;
 
-                if(ran == 1)
+                if(ran == 0)
                     ran = 8;
             }
         }
