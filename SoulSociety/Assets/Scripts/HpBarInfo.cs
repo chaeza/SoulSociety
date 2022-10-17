@@ -14,7 +14,6 @@ public class HpBarInfo : MonoBehaviourPun
     Transform cam = null;
 
     bool isEmotion = false;
-    bool isDance = false;
 
     private void Start()
     {
@@ -42,45 +41,41 @@ public class HpBarInfo : MonoBehaviourPun
         // 이모션
         if (GameMgr.Instance.playerInput.emotionKey1 == KeyCode.LeftShift && GameMgr.Instance.playerInput.emotionKey2 == KeyCode.Alpha1)
         {
-            bee[0].gameObject.SetActive(true);
-            StartCoroutine(EmotionTimer());
+            gameObject.GetPhotonView().RPC("EmotionStart", RpcTarget.All, 1);
         }
         else if (GameMgr.Instance.playerInput.emotionKey1 == KeyCode.LeftShift && GameMgr.Instance.playerInput.emotionKey2 == KeyCode.Alpha2)
         {
-            bee[1].gameObject.SetActive(true);
-            StartCoroutine(EmotionTimer());
+            gameObject.GetPhotonView().RPC("EmotionStart", RpcTarget.All, 2);
         }
         else if (GameMgr.Instance.playerInput.emotionKey1 == KeyCode.LeftShift && GameMgr.Instance.playerInput.emotionKey2 == KeyCode.Alpha3)
         {
-            bee[2].gameObject.SetActive(true);
-            StartCoroutine(EmotionTimer());
+            gameObject.GetPhotonView().RPC("EmotionStart", RpcTarget.All, 3);
         }
         else if (GameMgr.Instance.playerInput.emotionKey1 == KeyCode.LeftShift && GameMgr.Instance.playerInput.emotionKey2 == KeyCode.Alpha4)
         {
-            bee[3].gameObject.SetActive(true);
-            StartCoroutine(EmotionTimer());
+            gameObject.GetPhotonView().RPC("EmotionStart", RpcTarget.All, 4);
         }
 
         // 댄스
         if (GameMgr.Instance.playerInput.emotionKey1 == KeyCode.LeftControl && GameMgr.Instance.playerInput.emotionKey2 == KeyCode.Alpha1)
         {
             gameObject.GetPhotonView().RPC("PlayerDance", RpcTarget.All, 1);
-            StartCoroutine(DanceTimer());
+         
         }
         else if (GameMgr.Instance.playerInput.emotionKey1 == KeyCode.LeftControl && GameMgr.Instance.playerInput.emotionKey2 == KeyCode.Alpha2)
         {
             gameObject.GetPhotonView().RPC("PlayerDance", RpcTarget.All, 2);
-            StartCoroutine(DanceTimer());
+           
         }
         else if (GameMgr.Instance.playerInput.emotionKey1 == KeyCode.LeftControl && GameMgr.Instance.playerInput.emotionKey2 == KeyCode.Alpha3)
         {
             gameObject.GetPhotonView().RPC("PlayerDance", RpcTarget.All, 3);
-            StartCoroutine(DanceTimer());
+           
         }
         else if (GameMgr.Instance.playerInput.emotionKey1 == KeyCode.LeftControl && GameMgr.Instance.playerInput.emotionKey2 == KeyCode.Alpha4)
         {
             gameObject.GetPhotonView().RPC("PlayerDance", RpcTarget.All, 4);
-            StartCoroutine(DanceTimer());
+           
         }
 
         //카메라 보기
@@ -88,24 +83,21 @@ public class HpBarInfo : MonoBehaviourPun
 
     }
 
+    [PunRPC]
+    void EmotionStart(int emotionNum)
+    {
+        StartCoroutine(EmotionTimer(emotionNum));
+    }
 
-    IEnumerator EmotionTimer()  //이모션 타이머
+
+    IEnumerator EmotionTimer(int emotionNum)  //이모션 타이머
     {
         if (isEmotion) yield break;
 
+        bee[emotionNum].gameObject.SetActive(true);
         isEmotion = true;
         yield return new WaitForSeconds(2);
-        bee[0].gameObject.SetActive(false);
+        bee[emotionNum].gameObject.SetActive(false);
         isEmotion = false;
-    }
-
-    IEnumerator DanceTimer()  //이모션 타이머
-    {
-        if (isDance) yield break;
-
-        isDance = true;
-        yield return new WaitForSeconds(2);
-        bee[0].gameObject.SetActive(false);
-        isDance = false;
     }
 }
