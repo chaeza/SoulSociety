@@ -8,21 +8,51 @@ using Photon.Realtime;
 public class GameMgr : Singleton<GameMgr>
 
 {
+
     // public FollowCam followCam;
-    public PlayerInput playerInput;
-    public FollowCam followCam;
-    public Inventory inventory;
-    public RandomSkill randomSkill;
-    public RandomItem randomItem;
-    public UIMgr uIMgr;
-    public HpBarInfo hpBarInfo;
-    public SpawnMgr spawnMgr;
-    public ResourceData resourceData;
-    public bool endGame { get; set; } = false;
+    [field : Tooltip("Game MGR Player Input")]
+
+    [field: SerializeField]
+    public PlayerInput playerInput { get; private set; } = null;
+
+    [Tooltip("Game MGR followCam")]
+    [field: SerializeField]
+    public FollowCam followCam { get; private set; } = null;
+
+    [Tooltip("Game MGR inventory")]
+    [field: SerializeField]
+    public Inventory inventory { get; private set; } = null;
+
+    [Tooltip("Game MGR randomSkill")]
+    [field: SerializeField]
+    public RandomSkill randomSkill { get; private set; } = null;
+
+    [Tooltip("Game MGR randomItem")]
+    [field: SerializeField]
+    public RandomItem randomItem { get; private set; } = null;
+
+    [Tooltip("Game MGR uIMgr")]
+    [field: SerializeField]
+    public UIMgr uIMgr { get; private set; } = null;
+
+    [Tooltip("Game MGR hpBarInfo")]
+    [field: SerializeField]
+    public HpBarInfo hpBarInfo { get; private set; } = null;
+
+    [Tooltip("Game MGR spawnMgr")]
+    [field: SerializeField]
+    public SpawnMgr spawnMgr { get; private set; } = null;
+
+    [Tooltip("Game MGR resourceData")]
+    [field: SerializeField]
+    public ResourceData resourceData { get; private set; } = null;
+    public bool endGame { get; private set; } = false;
     public int dieCount = 0;
     public int redCount = 0;
     public int blueCount = 0;
   //  int playerNum = 3;
+
+    
 
     int alivePlayerNum = 0;
 

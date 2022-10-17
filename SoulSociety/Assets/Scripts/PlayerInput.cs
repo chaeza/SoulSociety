@@ -7,6 +7,11 @@ public class PlayerInput : MonoBehaviour
     //이 스크립트는 플레이어에게 
     public KeyCode inputKey { get; private set; }
     public KeyCode inputKey2 { get; private set; }
+
+    //Emotion Key
+    public KeyCode emotionKey1 { get; private set; }
+    public KeyCode emotionKey2 { get; private set; }
+
     public KeyCode yKey { get; private set; }
     public KeyCode Esc { get; private set; }
     bool escDown;
@@ -16,6 +21,18 @@ public class PlayerInput : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Y)) yKey = KeyCode.Y;
         else yKey = KeyCode.Alpha0;
+
+        #region Emotion & Feel Eff
+        //이모션 및 감정표현 왼쪽 Ctrl키
+        if (Input.GetKey(KeyCode.LeftControl)) emotionKey1 = KeyCode.LeftControl;
+        else emotionKey1 = KeyCode.Alpha0;
+        //감정표현 키 T
+        if (Input.GetKey(KeyCode.T)) emotionKey2 = KeyCode.T;
+        //else if () 로 이모션 추가 
+        else emotionKey2 = KeyCode.Alpha0;
+        #endregion
+
+
 
         if (Input.GetKey(KeyCode.Mouse1)) inputKey2 = KeyCode.Mouse1;
         else inputKey2 = KeyCode.Alpha0;
