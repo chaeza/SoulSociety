@@ -37,7 +37,7 @@ GameObject:
   - component: {fileID: 4135627709537468}
   - component: {fileID: 114923964089684178}
   m_Layer: 0
-  m_Name: (Opt)Effect_57_BluntBigMissile(ForEffectScene)
+  m_Name: (Opt)Effect_57_BluntBigMissile(ForEffectScene) 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
