@@ -64,22 +64,22 @@ public class HpBarInfo : MonoBehaviourPun
         // ´í½º
         if (GameMgr.Instance.playerInput.emotionKey1 == KeyCode.LeftControl && GameMgr.Instance.playerInput.emotionKey2 == KeyCode.Alpha1)
         {
-            bee[0].gameObject.SetActive(true);
+            gameObject.GetPhotonView().RPC("PlayerDance", RpcTarget.All, 1);
             StartCoroutine(DanceTimer());
         }
         else if (GameMgr.Instance.playerInput.emotionKey1 == KeyCode.LeftControl && GameMgr.Instance.playerInput.emotionKey2 == KeyCode.Alpha2)
         {
-            bee[0].gameObject.SetActive(true);
+            gameObject.GetPhotonView().RPC("PlayerDance", RpcTarget.All, 2);
             StartCoroutine(DanceTimer());
         }
         else if (GameMgr.Instance.playerInput.emotionKey1 == KeyCode.LeftControl && GameMgr.Instance.playerInput.emotionKey2 == KeyCode.Alpha3)
         {
-            bee[0].gameObject.SetActive(true);
+            gameObject.GetPhotonView().RPC("PlayerDance", RpcTarget.All, 3);
             StartCoroutine(DanceTimer());
         }
         else if (GameMgr.Instance.playerInput.emotionKey1 == KeyCode.LeftControl && GameMgr.Instance.playerInput.emotionKey2 == KeyCode.Alpha4)
         {
-            bee[0].gameObject.SetActive(true);
+            gameObject.GetPhotonView().RPC("PlayerDance", RpcTarget.All, 4);
             StartCoroutine(DanceTimer());
         }
 

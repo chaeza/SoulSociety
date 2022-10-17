@@ -369,7 +369,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nickname: {fileID: 1855960530647143020}
   Hpbar: {fileID: 1855960528812437318}
-  bee: {fileID: 296600137333505113}
+  bee:
+  - {fileID: 0}
 --- !u!114 &1855960530304883715
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -364,4 +364,22 @@ public class PlayerInfo : MonoBehaviourPun
         yield break;
     }
     #endregion
+
+    [PunRPC]
+    void PlayerDance(int num)
+    {
+        if (num == 1)
+            myAnimator.SetTrigger("Dance1");
+        else if (num == 2)
+            myAnimator.SetTrigger("Dance2");
+        else if (num == 3)
+            myAnimator.SetTrigger("Dance3");
+        else if (num == 4)
+            myAnimator.SetTrigger("Dance4");
+        else
+        {
+            Debug.Log("dance num has not exist");
+        }
+    }
+
 }
