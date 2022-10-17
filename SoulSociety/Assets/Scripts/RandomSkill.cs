@@ -20,7 +20,7 @@ public class RandomSkill : MonoBehaviour
         else if (skillRan == 7) player.AddComponent<DashAttack>();
         else if (skillRan == 8) player.AddComponent<ControlMissie>();
         else if (skillRan == 9) player.AddComponent<BloodAttack>();
-        //  else if (skillRan == 9) player.AddComponent<Skill_BasicMissile>();
+        //  else if (skillRan == 9) player.0AddComponent<Skill_BasicMissile>();
 
         else
             Debug.Log("Player didn't get any skil");
