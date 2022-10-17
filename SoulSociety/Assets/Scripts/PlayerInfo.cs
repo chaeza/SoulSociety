@@ -53,13 +53,13 @@ public class PlayerInfo : MonoBehaviourPun
     void SetUnbeatable(float time)
     {
         if (onUnbeatable != null) StopCoroutine(onUnbeatable);
-        onUnbeatable = StartCoroutine(OnUnbeatable(time));
+        onUnbeatable = photonView.StartCoroutine(OnUnbeatable(time));
 
     }
     [PunRPC]
     void SetDamageDecrpease(float value, float time)
     {
-        StartCoroutine(OnDamageDecrease(value, time));
+        photonView.StartCoroutine(OnDamageDecrease(value, time));
 
     }
 
@@ -132,12 +132,12 @@ public class PlayerInfo : MonoBehaviourPun
         {
             playerState = state.Stun;
             if (stunState != null) StopCoroutine(stunState);
-            stunState = StartCoroutine(MyStun(time));
+            stunState = photonView.StartCoroutine(MyStun(time));
         }
         if (st == state.Slow)
         {
             if (slowState != null) StopCoroutine(slowState);
-            slowState = StartCoroutine(MySlow(time, bAD));
+            slowState = photonView.StartCoroutine(MySlow(time, bAD));
         }
         if (st != state.Slow)
         {
@@ -154,6 +154,7 @@ public class PlayerInfo : MonoBehaviourPun
     {
         GameMgr.Instance.AliveNumCheck();
         if (playerState == state.Die) return;
+        GetComponent<CapsuleCollider>().enabled = false;
         navMeshAgent.isStopped = true;
         navMeshAgent.updateRotation = false;
         navMeshAgent.updatePosition = false;
@@ -341,7 +342,7 @@ public class PlayerInfo : MonoBehaviourPun
     void BackMove(Vector3 pos, float time, int speed)
     {
         if(photonView.IsMine)
-        StartCoroutine(backMove(pos, time, speed));
+            photonView.StartCoroutine(backMove(pos, time, speed));
     }
     IEnumerator backMove(Vector3 pos, float time, int speed)
     {

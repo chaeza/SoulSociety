@@ -86,7 +86,8 @@ public class HpBarInfo : MonoBehaviourPun
     [PunRPC]
     void EmotionStart(int emotionNum)
     {
-        StartCoroutine(EmotionTimer(emotionNum));
+        if(photonView.IsMine)
+        photonView.StartCoroutine(EmotionTimer(emotionNum));
     }
 
 
