@@ -38,6 +38,9 @@ public class HpBarInfo : MonoBehaviourPun
 
     private void Update()
     {
+        //카메라 보기
+        transform.LookAt(transform.position + cam.rotation * Vector3.forward, cam.rotation * Vector3.up);
+        if (!photonView.IsMine) return;
         // 이모션
         if (GameMgr.Instance.playerInput.emotionKey1 == KeyCode.LeftShift && GameMgr.Instance.playerInput.emotionKey2 == KeyCode.Alpha1)
         {
@@ -77,16 +80,11 @@ public class HpBarInfo : MonoBehaviourPun
             gameObject.GetPhotonView().RPC("PlayerDance", RpcTarget.All, 4);
            
         }
-
-        //카메라 보기
-        transform.LookAt(transform.position + cam.rotation * Vector3.forward, cam.rotation * Vector3.up);
-
     }
 
     [PunRPC]
     void EmotionStart(int emotionNum)
     {
-        if(photonView.IsMine)
         photonView.StartCoroutine(EmotionTimer(emotionNum));
     }
 
