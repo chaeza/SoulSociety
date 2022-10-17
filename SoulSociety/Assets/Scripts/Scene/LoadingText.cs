@@ -16,10 +16,8 @@ public class LoadingText : MonoBehaviour
         ran = Random.Range(0, text.Length);
         imageRan = Random.Range(0, image.Length);
 
-        Debug.Log(imageRan);
-
         text[ran].gameObject.SetActive(true);
-        image[ran].gameObject.SetActive(true);
+        image[imageRan].gameObject.SetActive(true);
 
 
     }

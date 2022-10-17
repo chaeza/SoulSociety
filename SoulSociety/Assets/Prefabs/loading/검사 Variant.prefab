@@ -17,7 +17,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7915826474010922724, guid: bdfd51e921ff9d24a93a18a6d11e8c44, type: 3}
       propertyPath: m_Name
-      value: "\uAC80\uC0AC"
+      value: Two
       objectReference: {fileID: 0}
     - target: {fileID: 7915826474010922726, guid: bdfd51e921ff9d24a93a18a6d11e8c44, type: 3}
       propertyPath: m_Texture

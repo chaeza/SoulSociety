@@ -324,7 +324,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
   
     IEnumerator broken()
     {
-        int ran = Random.Range(11, 17);
+        int ran = Random.Range(12, 22);
         yield return new WaitForSeconds(ran);
        
         brokenWindow.gameObject.SetActive(true);
