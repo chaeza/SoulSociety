@@ -9,16 +9,19 @@ public class HpBarInfo : MonoBehaviourPun
 {
     [SerializeField] TextMeshProUGUI nickname = null;
     [SerializeField] Slider Hpbar = null;
-    [SerializeField] Image bee = null;
+
+    [SerializeField] Image[] bee = null;
     Transform cam = null;
 
-
+    bool isEmotion = false;
+    bool isDance = false;
 
     private void Start()
     {
         //카메라
         cam = Camera.main.transform;
-        bee.gameObject.SetActive(false);
+        for (int i = 0; i < bee.Length; i++)
+            bee[i].gameObject.SetActive(false);
 
     }
     //이름을 출력
@@ -36,23 +39,73 @@ public class HpBarInfo : MonoBehaviourPun
 
     private void Update()
     {
-        // 감정표현, 이모션
-        if (GameMgr.Instance.playerInput.emotionKey1 == KeyCode.LeftControl && GameMgr.Instance.playerInput.emotionKey2 == KeyCode.T)
+        // 이모션
+        if (GameMgr.Instance.playerInput.emotionKey1 == KeyCode.LeftShift && GameMgr.Instance.playerInput.emotionKey2 == KeyCode.Alpha1)
         {
-            bee.gameObject.SetActive(true);
+            bee[0].gameObject.SetActive(true);
             StartCoroutine(EmotionTimer());
+        }
+        else if (GameMgr.Instance.playerInput.emotionKey1 == KeyCode.LeftShift && GameMgr.Instance.playerInput.emotionKey2 == KeyCode.Alpha2)
+        {
+            bee[1].gameObject.SetActive(true);
+            StartCoroutine(EmotionTimer());
+        }
+        else if (GameMgr.Instance.playerInput.emotionKey1 == KeyCode.LeftShift && GameMgr.Instance.playerInput.emotionKey2 == KeyCode.Alpha3)
+        {
+            bee[2].gameObject.SetActive(true);
+            StartCoroutine(EmotionTimer());
+        }
+        else if (GameMgr.Instance.playerInput.emotionKey1 == KeyCode.LeftShift && GameMgr.Instance.playerInput.emotionKey2 == KeyCode.Alpha4)
+        {
+            bee[3].gameObject.SetActive(true);
+            StartCoroutine(EmotionTimer());
+        }
+
+        // 댄스
+        if (GameMgr.Instance.playerInput.emotionKey1 == KeyCode.LeftControl && GameMgr.Instance.playerInput.emotionKey2 == KeyCode.Alpha1)
+        {
+            bee[0].gameObject.SetActive(true);
+            StartCoroutine(DanceTimer());
+        }
+        else if (GameMgr.Instance.playerInput.emotionKey1 == KeyCode.LeftControl && GameMgr.Instance.playerInput.emotionKey2 == KeyCode.Alpha2)
+        {
+            bee[0].gameObject.SetActive(true);
+            StartCoroutine(DanceTimer());
+        }
+        else if (GameMgr.Instance.playerInput.emotionKey1 == KeyCode.LeftControl && GameMgr.Instance.playerInput.emotionKey2 == KeyCode.Alpha3)
+        {
+            bee[0].gameObject.SetActive(true);
+            StartCoroutine(DanceTimer());
+        }
+        else if (GameMgr.Instance.playerInput.emotionKey1 == KeyCode.LeftControl && GameMgr.Instance.playerInput.emotionKey2 == KeyCode.Alpha4)
+        {
+            bee[0].gameObject.SetActive(true);
+            StartCoroutine(DanceTimer());
         }
 
         //카메라 보기
         transform.LookAt(transform.position + cam.rotation * Vector3.forward, cam.rotation * Vector3.up);
-        
+
     }
 
-    IEnumerator EmotionTimer()
+
+    IEnumerator EmotionTimer()  //이모션 타이머
     {
-        yield return new WaitForSeconds(2);
-        bee.gameObject.SetActive(false);
+        if (isEmotion) yield break;
 
+        isEmotion = true;
+        yield return new WaitForSeconds(2);
+        bee[0].gameObject.SetActive(false);
+        isEmotion = false;
     }
 
+    IEnumerator DanceTimer()  //이모션 타이머
+    {
+        if (isDance) yield break;
+
+        isDance = true;
+        yield return new WaitForSeconds(2);
+        bee[0].gameObject.SetActive(false);
+        isDance = false;
+    }
 }
