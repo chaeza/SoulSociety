@@ -54,17 +54,17 @@ public class PlayerMove : MonoBehaviourPun
         else GameMgr.Instance.uIMgr.OnExplantionItem(5, 0);
         if (Input.mousePosition.x > 1280 && Input.mousePosition.x < 1400 && Input.mousePosition.y > 25 && Input.mousePosition.y < 155) GameMgr.Instance.uIMgr.OnExplantionDash(true);
         else GameMgr.Instance.uIMgr.OnExplantionDash(false);
-      
-        if (GameMgr.Instance.playerInput.inputKey == KeyCode.Mouse0) SendMessage("SkillClick",Input.mousePosition,SendMessageOptions.DontRequireReceiver);
-      
+
+        if (GameMgr.Instance.playerInput.inputKey == KeyCode.Mouse0) SendMessage("SkillClick", Input.mousePosition, SendMessageOptions.DontRequireReceiver);
+
         if (GameMgr.Instance.playerInput.inputKey2 == KeyCode.Mouse1)
         {
             clickPos = Input.mousePosition;
             clickPos.z = 18f;
             //if(Input.mousePosition.x > 200 && Input.mousePosition.x < 1800&& Input.mousePosition.y < 1050&& Input.mousePosition.y >50)
-                if(donMove==false) Move(clickPos);
+            if (donMove == false) Move(clickPos);
         }
-      
+
         if (GameMgr.Instance.playerInput.inputKey == KeyCode.S)
         {
             MoveStop();
@@ -78,15 +78,15 @@ public class PlayerMove : MonoBehaviourPun
                 navMeshAgent.isStopped = false;
                 navMeshAgent.updateRotation = true;
                 navMeshAgent.updatePosition = true;
-                
+
                 navMeshAgent.SetDestination(desiredDir);
             }
             else
                 MoveStop();
         }
 
-        
-     
+
+
     }
     public void Move(Vector3 mousePos)
     {
@@ -101,14 +101,14 @@ public class PlayerMove : MonoBehaviourPun
         bool nullCheckHit2 = (nullCheck) ? hit.transform.gameObject.CompareTag("UnGround") : false;
 
 
-        if (nullCheckHit == true|| nullCheckHit2 == true)
+        if (nullCheckHit == true || nullCheckHit2 == true)
         {
             desiredDir = hit.point;
             desiredDir.y = transform.position.y;
             isMove = true;
         }
     }
-   
+
     public void MoveStop()
     {
         myAnimator.SetBool("isMove", false);
