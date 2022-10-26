@@ -20,14 +20,14 @@ public class BlackHole : MonoBehaviourPun
         if (PhotonNetwork.IsMasterClient)
         {
             MasterRan = Random.Range(0, 8);
-            twoRan = Random.Range(0, 1);
-            photonView.RPC("BlackHolePos", RpcTarget.MasterClient, MasterRan);
+            twoRan = Random.Range(0, 2);
+            photonView.RPC("BlackHolePos", RpcTarget.MasterClient, MasterRan,twoRan);
         }
     }
     [PunRPC]
-    public void BlackHolePos(int MasterRan)
+    public void BlackHolePos(int MasterRan,int TwoRan)
     {
-        photonView.RPC("RPC_BlackHolePos", RpcTarget.All, MasterRan,twoRan);
+        photonView.RPC("RPC_BlackHolePos", RpcTarget.All, MasterRan, TwoRan);
     }
     [PunRPC]
     public void RPC_BlackHolePos(int MasterRan, int TwoRan)
@@ -63,8 +63,8 @@ public class BlackHole : MonoBehaviourPun
             {
                 ran--;
 
-                if(ran == 1)
-                    ran = 8;
+                if(ran == -1)
+                    ran = 7;
             }
         }
     }

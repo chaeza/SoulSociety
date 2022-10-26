@@ -5360,11 +5360,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 7931040591623149949, guid: 0f1577cb95b705a46a9fc7c7eb2439f8, type: 3}
       propertyPath: m_Name
-      value: "\uAC80\uC0AC"
-      objectReference: {fileID: 0}
-    - target: {fileID: 7931040591623149949, guid: 0f1577cb95b705a46a9fc7c7eb2439f8, type: 3}
-      propertyPath: m_IsActive
-      value: 0
+      value: Two
       objectReference: {fileID: 0}
     - target: {fileID: 7931040591623149950, guid: 0f1577cb95b705a46a9fc7c7eb2439f8, type: 3}
       propertyPath: m_Pivot.x
@@ -6110,17 +6106,9 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3291220894888143343}
     m_Modifications:
-    - target: {fileID: 6910419320520836926, guid: bdfd51e921ff9d24a93a18a6d11e8c44, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 7915826474010922724, guid: bdfd51e921ff9d24a93a18a6d11e8c44, type: 3}
       propertyPath: m_Name
-      value: "\uC218\uB3C4\uC0AC"
-      objectReference: {fileID: 0}
-    - target: {fileID: 7915826474010922724, guid: bdfd51e921ff9d24a93a18a6d11e8c44, type: 3}
-      propertyPath: m_IsActive
-      value: 0
+      value: One
       objectReference: {fileID: 0}
     - target: {fileID: 7915826474010922727, guid: bdfd51e921ff9d24a93a18a6d11e8c44, type: 3}
       propertyPath: m_Pivot.x
