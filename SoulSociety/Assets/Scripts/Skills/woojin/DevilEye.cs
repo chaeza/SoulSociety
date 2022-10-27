@@ -33,7 +33,7 @@ public class DevilEye : MonoBehaviourPun, SkillMethod
             skillCool = true;//쿨타임 온 시켜 다시 사용 못하게함
                              // skillClick = false;
             Debug.Log("스킬사용");
-            GameMgr.Instance.uiMgr.SkillCooltime(gameObject, 20);//UI매니저에 쿨타임 10초를 보냄
+            GameMgr.Instance.uIMgr.SkillCooltime(gameObject, 20);//UI매니저에 쿨타임 10초를 보냄
         }
     }
 }

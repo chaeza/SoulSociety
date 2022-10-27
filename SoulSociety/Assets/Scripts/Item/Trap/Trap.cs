@@ -36,7 +36,7 @@ public class Trap : MonoBehaviourPun, ItemMethod
 
         a.GetComponent<TrapCh>().TrapEffInfo(TrapE);
 
-        GameMgr.Instance.uiMgr.UseItem(itemNum);
+        GameMgr.Instance.uIMgr.UseItem(itemNum);
         GameMgr.Instance.inventory.RemoveInventory(itemNum);
         Destroy(GetComponent<Trap>());
     }

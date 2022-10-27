@@ -124,7 +124,7 @@ public class Slash : MonoBehaviourPun, ItemMethod
             skill.transform.Translate(0, 0, 0.45f);
             yield return null;
         }
-        GameMgr.Instance.uiMgr.UseItem(itemNum);
+        GameMgr.Instance.uIMgr.UseItem(itemNum);
         GameMgr.Instance.inventory.RemoveInventory(itemNum);
         Destroy(GetComponent<Slash>());
         yield break;

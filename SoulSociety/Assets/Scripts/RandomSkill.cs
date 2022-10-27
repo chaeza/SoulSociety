@@ -24,7 +24,7 @@ public class RandomSkill : MonoBehaviour
 
         else
             Debug.Log("Player didn't get any skil");
-        GameMgr.Instance.uiMgr.SkillUI(skillRan);
+        GameMgr.Instance.uIMgr.SkillUI(skillRan);
     }
 
 

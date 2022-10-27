@@ -38,7 +38,7 @@ public class BasicAttackDamageUP : MonoBehaviourPun, ItemMethod
 
         GameMgr.Instance.DestroyTarget(a, 2f);
 
-        GameMgr.Instance.uiMgr.UseItem(itemNum);
+        GameMgr.Instance.uIMgr.UseItem(itemNum);
         GameMgr.Instance.inventory.RemoveInventory(itemNum);
         Destroy(GetComponent<BasicAttackDamageUP>());
     }

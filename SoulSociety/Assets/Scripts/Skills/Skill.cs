@@ -19,7 +19,6 @@ public class Skill : MonoBehaviourPun, SkillMethod
             if (skillClick == false) skillClick = true;
             else skillClick = false;
         }
-
     }
     public void SkillClick(Vector3 Pos)
     {
@@ -49,7 +48,7 @@ public class Skill : MonoBehaviourPun, SkillMethod
                 skillCool = true;//쿨타임 온 시켜 다시 사용 못하게함
                 skillClick = false;
                 Debug.Log("스킬사용");
-                GameMgr.Instance.uiMgr.SkillCooltime(gameObject, 10);//UI매니저에 쿨타임 10초를 보냄
+                GameMgr.Instance.uIMgr.SkillCooltime(gameObject, 10);//UI매니저에 쿨타임 10초를 보냄
             }
         }
     }

@@ -104,7 +104,7 @@ public class ControlMissie : MonoBehaviourPun
                 // StartCoroutine(Fire(a));//큐브 이동시키는 코루틴
                 skillCool = true;//쿨타임 온 시켜 다시 사용 못하게함
                 Debug.Log("스킬사용");
-                GameMgr.Instance.uiMgr.SkillCooltime(gameObject, 44);//UI매니저에 쿨타임 x초를 보냄
+                GameMgr.Instance.uIMgr.SkillCooltime(gameObject, 44);//UI매니저에 쿨타임 x초를 보냄
             }
         }
 

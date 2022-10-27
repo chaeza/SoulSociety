@@ -24,22 +24,22 @@ public class Inventory : MonoBehaviour
         if (inventory[1] == -1)
         {
             inventory[1] = Num;
-            GameMgr.Instance.uiMgr.ItemUI(1, Num);
+            GameMgr.Instance.uIMgr.ItemUI(1, Num);
         }
         else if (inventory[2] == -1)
         {
             inventory[2] = Num;
-            GameMgr.Instance.uiMgr.ItemUI(2, Num);
+            GameMgr.Instance.uIMgr.ItemUI(2, Num);
         }
         else if (inventory[3] == -1)
         {
             inventory[3] = Num;
-            GameMgr.Instance.uiMgr.ItemUI(3, Num);
+            GameMgr.Instance.uIMgr.ItemUI(3, Num);
         }
         else if (inventory[4] == -1)
         {
             inventory[4] = Num;
-            GameMgr.Instance.uiMgr.ItemUI(4, Num);
+            GameMgr.Instance.uIMgr.ItemUI(4, Num);
         }
     }
     public void RemoveInventory(int Num)//해당 배열의 값을 비어있음으로 만듬

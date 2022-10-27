@@ -100,7 +100,7 @@ public class Skill_BasicMissile : MonoBehaviourPun , SkillMethod
                 StartCoroutine(Stay(desiredDir, 0.2f));//스킬발동시간
                 skillCool = true;//쿨타임 온 시켜 다시 사용 못하게함
                 Debug.Log("스킬사용");
-                GameMgr.Instance.uiMgr.SkillCooltime(gameObject, 5);//UI매니저에 쿨타임 10초를 보냄
+                GameMgr.Instance.uIMgr.SkillCooltime(gameObject, 5);//UI매니저에 쿨타임 10초를 보냄
             }
         }
     }

@@ -7,48 +7,49 @@ using TMPro;
 
 public class MetaTrendAPI : MonoBehaviour
 {
+	[SerializeField] TMP_InputField txtInputField;
+	[SerializeField] string selectedBettingID;
+
 	[Header("[등록된 프로젝트에서 획득가능한 API 키]")]
-	[SerializeField] private string API_KEY = "";
+	[SerializeField] string API_KEY = "";
 
 	[Header("[Betting Backend Base URL]")]
-	[SerializeField] private string fullAppsProductionURL = "https://odin-api.browseosiris.com";
-	[SerializeField] private string fullAppsStagingURL = "https://odin-api-sat.browseosiris.com";
-	[SerializeField] private string selectedBettingID;
-	[SerializeField] private TMP_InputField txtInputField;
+	[SerializeField] string FullAppsProductionURL = "https://odin-api.browseosiris.com";
+	[SerializeField] string FullAppsStagingURL = "https://odin-api-sat.browseosiris.com";
 
-	private Res_BettingSetting resBettingSetting = null;
-	private Res_UserProfile resUserProfile = null;
-	private Res_UserSessionID resUserSessionID = null;
-
-	
-	private string GetBaseURL()
+	string getBaseURL()
 	{
-		//when you are on Production Level
+		// 프로덕션 단계라면
 		//return FullAppsProductionURL;
 
-		//when you are on Staging Level 스테이징 단계(개발)라면
-		return fullAppsStagingURL;
+		// 스테이징 단계(개발)라면
+		return FullAppsStagingURL;
 	}
 
+	Res_UserProfile res_UserProfile=null;
+	Res_UserSessionID res_UserSessionID=null;
+	Res_BettingSetting res_BettingSetting=null;
 	//---------------
-	// GetUserProfile 
-	public void OnClickGetUserProfile()
+	// 유저 정보
+	public void OnClick_GetUserProfile()
 	{
-		StartCoroutine(ProcessRequestGetUserInfo());
+		StartCoroutine(processRequestGetUserInfo());
 	}
-	IEnumerator ProcessRequestGetUserInfo()
+	IEnumerator processRequestGetUserInfo()
 	{
 		// 유저 정보
-		yield return RequestGetUserInfo((response) =>
+		yield return requestGetUserInfo((response) =>
 		{
 			if (response != null)
 			{
-				resUserProfile = response;
+				Debug.Log("## " + response.ToString());
+				res_UserProfile = response;
+				Debug.Log("동푸" +res_UserProfile.userProfile.username);
 			}
 		});
 	}
-	delegate void ResCallback_GetUserInfo(Res_UserProfile response);
-	IEnumerator RequestGetUserInfo(ResCallback_GetUserInfo callback)
+	delegate void resCallback_GetUserInfo(Res_UserProfile response);
+	IEnumerator requestGetUserInfo(resCallback_GetUserInfo callback)
     {
 		// get user profile
 		UnityWebRequest www = UnityWebRequest.Get("http://localhost:8546/api/getuserprofile");
@@ -60,12 +61,12 @@ public class MetaTrendAPI : MonoBehaviour
 	}
 
 	//---------------
-	// Get Session ID
+	// Session ID
 	public void OnClick_GetSessionID()
 	{
-		StartCoroutine(ProcessRequestGetSessionID());
+		StartCoroutine(processRequestGetSessionID());
 	}
-	IEnumerator ProcessRequestGetSessionID()
+	IEnumerator processRequestGetSessionID()
 	{
 		// 유저 정보
 		yield return requestGetSessionID((response) =>
@@ -73,12 +74,12 @@ public class MetaTrendAPI : MonoBehaviour
 			if (response != null)
 			{
 				Debug.Log("## " + response.ToString());
-				resUserSessionID = response;
+				res_UserSessionID = response;
 			}
 		});
 	}
-	delegate void ResCallback_GetSessionID(Res_UserSessionID response);
-	IEnumerator requestGetSessionID(ResCallback_GetSessionID callback)
+	delegate void resCallback_GetSessionID(Res_UserSessionID response);
+	IEnumerator requestGetSessionID(resCallback_GetSessionID callback)
 	{
 		// get session id
 		UnityWebRequest www = UnityWebRequest.Get("http://localhost:8546/api/getsessionid");
@@ -93,24 +94,24 @@ public class MetaTrendAPI : MonoBehaviour
 	// 베팅관련 셋팅 정보를 얻어오기
 	public void OnClick_Settings()
 	{
-		StartCoroutine(ProcessRequestSettings());
+		StartCoroutine(processRequestSettings());
 	}
-	IEnumerator ProcessRequestSettings()
+	IEnumerator processRequestSettings()
 	{
-		yield return RequestSettings((response) =>
+		yield return requestSettings((response) =>
 		{
 			if (response != null)
 			{
 				Debug.Log("## Settings : " + response.ToString());
-				resBettingSetting = response;
-				Debug.Log(resBettingSetting);
+				res_BettingSetting = response;
+				Debug.Log(res_BettingSetting);
 			}
 		});
 	}
-	delegate void ResCallback_Settings(Res_BettingSetting response);
-	IEnumerator RequestSettings(ResCallback_Settings callback)
+	delegate void resCallback_Settings(Res_BettingSetting response);
+	IEnumerator requestSettings(resCallback_Settings callback)
 	{
-		string url = GetBaseURL() + "/v1/betting/settings";
+		string url = getBaseURL() + "/v1/betting/settings";
 
 
 		UnityWebRequest www = UnityWebRequest.Get(url);
@@ -124,14 +125,14 @@ public class MetaTrendAPI : MonoBehaviour
 	}
 
 	//---------------
-	// Zera Check Balance
+	// Zera 잔고 확인
 	public void OnClick_ZeraBalance()
 	{
-		StartCoroutine(ProcessRequestZeraBalance());
+		StartCoroutine(processRequestZeraBalance());
 	}
-	IEnumerator ProcessRequestZeraBalance()
+	IEnumerator processRequestZeraBalance()
 	{
-		yield return RequestZeraBalance(resUserSessionID.sessionId, (response) =>
+		yield return requestZeraBalance(res_UserSessionID.sessionId, (response) =>
 		{
 			if (response != null)
 			{
@@ -139,10 +140,10 @@ public class MetaTrendAPI : MonoBehaviour
 			}
 		});
 	}
-	delegate void ResCallback_BalanceInfo(Res_ZeraBalance response);
-	IEnumerator RequestZeraBalance(string sessionID, ResCallback_BalanceInfo callback)
+	delegate void resCallback_BalanceInfo(Res_ZeraBalance response);
+	IEnumerator requestZeraBalance(string sessionID, resCallback_BalanceInfo callback)
 	{
-		string url = GetBaseURL() + ("/v1/betting/" + "zera" + "/balance/" + sessionID);
+		string url = getBaseURL() + ("/v1/betting/" + "zera" + "/balance/" + sessionID);
 
 		UnityWebRequest www = UnityWebRequest.Get(url);
 		www.SetRequestHeader("api-key", API_KEY);
@@ -158,15 +159,15 @@ public class MetaTrendAPI : MonoBehaviour
 	// ZERA 베팅
 	public void OnClick_Betting_Zera()
 	{
-		StartCoroutine(ProcessRequestBetting_Zera());
+		StartCoroutine(processRequestBetting_Zera());
 	}
-	IEnumerator ProcessRequestBetting_Zera()
+	IEnumerator processRequestBetting_Zera()
 	{
 		Res_Initialize resBettingPlaceBet = null;
 		Req_Initialize reqBettingPlaceBet = new Req_Initialize();
-		reqBettingPlaceBet.players_session_id = new string[] { resUserSessionID.sessionId };
+		reqBettingPlaceBet.players_session_id = new string[] { res_UserSessionID.sessionId };
 		reqBettingPlaceBet.bet_id = selectedBettingID;// resSettigns.data.bets[0]._id;
-		yield return RequestCoinPlaceBet(reqBettingPlaceBet, (response) =>
+		yield return requestCoinPlaceBet(reqBettingPlaceBet, (response) =>
 		{
 			if (response != null)
 			{
@@ -175,10 +176,10 @@ public class MetaTrendAPI : MonoBehaviour
 			}
 		});
 	}
-	delegate void ResCallback_BettingPlaceBet(Res_Initialize response);
-	IEnumerator RequestCoinPlaceBet(Req_Initialize req, ResCallback_BettingPlaceBet callback)
+	delegate void resCallback_BettingPlaceBet(Res_Initialize response);
+	IEnumerator requestCoinPlaceBet(Req_Initialize req, resCallback_BettingPlaceBet callback)
 	{
-		string url = GetBaseURL() + "/v1/betting/" + "zera" + "/place-bet";
+		string url = getBaseURL() + "/v1/betting/" + "zera" + "/place-bet";
 
 		string reqJsonData = JsonUtility.ToJson(req);
 		Debug.Log(reqJsonData);
@@ -201,15 +202,15 @@ public class MetaTrendAPI : MonoBehaviour
 	// ZERA 베팅-승자
 	public void OnClick_Betting_Zera_DeclareWinner()
 	{
-		StartCoroutine(ProcessRequestBetting_Zera_DeclareWinner());
+		StartCoroutine(processRequestBetting_Zera_DeclareWinner());
 	}
-	IEnumerator ProcessRequestBetting_Zera_DeclareWinner()
+	IEnumerator processRequestBetting_Zera_DeclareWinner()
 	{
 		Res_BettingWinner resBettingDeclareWinner = null;
 		Req_BettingWinner reqBettingDeclareWinner = new Req_BettingWinner();
 		reqBettingDeclareWinner.betting_id = selectedBettingID;// resSettigns.data.bets[0]._id;
-		reqBettingDeclareWinner.winner_player_id = resUserProfile.userProfile._id;
-		yield return RequestCoinDeclareWinner(reqBettingDeclareWinner, (response) =>
+		reqBettingDeclareWinner.winner_player_id = res_UserProfile.userProfile._id;
+		yield return requestCoinDeclareWinner(reqBettingDeclareWinner, (response) =>
 		{
 			if (response != null)
 			{
@@ -218,10 +219,10 @@ public class MetaTrendAPI : MonoBehaviour
 			}
 		});
 	}
-	delegate void ResCallback_BettingDeclareWinner(Res_BettingWinner response);
-	IEnumerator RequestCoinDeclareWinner(Req_BettingWinner req, ResCallback_BettingDeclareWinner callback)
+	delegate void resCallback_BettingDeclareWinner(Res_BettingWinner response);
+	IEnumerator requestCoinDeclareWinner(Req_BettingWinner req, resCallback_BettingDeclareWinner callback)
 	{
-		string url = GetBaseURL() + "/v1/betting/" + "zera" + "/declare-winner";
+		string url = getBaseURL() + "/v1/betting/" + "zera" + "/declare-winner";
 
 		string reqJsonData = JsonUtility.ToJson(req);
 		Debug.Log(reqJsonData);
@@ -244,14 +245,14 @@ public class MetaTrendAPI : MonoBehaviour
 	// 베팅금액 반환
 	public void OnClick_Betting_Zera_Disconnect()
 	{
-		StartCoroutine(ProcessRequestBetting_Zera_Disconnect());
+		StartCoroutine(processRequestBetting_Zera_Disconnect());
 	}
-	IEnumerator ProcessRequestBetting_Zera_Disconnect()
+	IEnumerator processRequestBetting_Zera_Disconnect()
 	{
 		Res_BettingDisconnect resBettingDisconnect = null;
 		Req_BettingDisconnect reqBettingDisconnect = new Req_BettingDisconnect();
 		reqBettingDisconnect.betting_id = selectedBettingID;// resSettigns.data.bets[1]._id;
-		yield return RequestCoinDisconnect(reqBettingDisconnect, (response) =>
+		yield return requestCoinDisconnect(reqBettingDisconnect, (response) =>
 		{
 			if (response != null)
 			{
@@ -260,10 +261,10 @@ public class MetaTrendAPI : MonoBehaviour
 			}
 		});
 	}
-	delegate void ResCallback_BettingDisconnect(Res_BettingDisconnect response);
-	IEnumerator RequestCoinDisconnect(Req_BettingDisconnect req, ResCallback_BettingDisconnect callback)
+	delegate void resCallback_BettingDisconnect(Res_BettingDisconnect response);
+	IEnumerator requestCoinDisconnect(Req_BettingDisconnect req, resCallback_BettingDisconnect callback)
 	{
-		string url = GetBaseURL() + "/v1/betting/" + "zera" + "/disconnect";
+		string url = getBaseURL() + "/v1/betting/" + "zera" + "/disconnect";
 
 		string reqJsonData = JsonUtility.ToJson(req);
 		Debug.Log(reqJsonData);
