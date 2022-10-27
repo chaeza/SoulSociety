@@ -47,7 +47,7 @@ public class PlayerInfo : MonoBehaviourPun
             curHP = maxHP;
         myHPbarInfo.SetHP(curHP, maxHP);
         if (photonView.IsMine)
-            GameMgr.Instance.uIMgr.SetHP(curHP, maxHP);
+            GameMgr.Instance.uiMgr.SetHP(curHP, maxHP);
     }
     [PunRPC]
     void SetUnbeatable(float time)
@@ -89,7 +89,7 @@ public class PlayerInfo : MonoBehaviourPun
         {
             gameObject.tag = "mainPlayer";
             GameMgr.Instance.randomSkill.GetRandomSkill(gameObject);
-            GameMgr.Instance.uIMgr.MyPlayerViewID(photonView.ViewID);
+            GameMgr.Instance.uiMgr.MyPlayerViewID(photonView.ViewID);
             myskillRangerect = GetComponentInChildren<SkillRange>().gameObject.GetComponent<RectTransform>();
             myskillRangerect.gameObject.SetActive(false);
 
@@ -144,7 +144,7 @@ public class PlayerInfo : MonoBehaviourPun
             curHP -= bAD * (1f - damageDecrease);// 1에 데미지감소를 빼줘서 받는 데미지감소
             myHPbarInfo.SetHP(curHP, maxHP);
             if (photonView.IsMine)
-                GameMgr.Instance.uIMgr.SetHP(curHP, maxHP);
+                GameMgr.Instance.uiMgr.SetHP(curHP, maxHP);
         }
         if (curHP <= 0)
             photonView.RPC("RPC_Die", RpcTarget.All, viewID1);
@@ -165,7 +165,7 @@ public class PlayerInfo : MonoBehaviourPun
             if (stunState != null) StopCoroutine(stunState);
             GameMgr.Instance.PunFindObject(viewID2).GetPhotonView().RPC("RPC_redSoul", RpcTarget.All, GameMgr.Instance.redCount);
 
-            GameMgr.Instance.uIMgr.MyRedSoul(0);
+            GameMgr.Instance.uiMgr.MyRedSoul(0);
         }
         playerState = state.Die;
         myAnimator.SetTrigger("isDie");
@@ -264,17 +264,17 @@ public class PlayerInfo : MonoBehaviourPun
         if (Num2 == 1)
         {
             if (photonView.IsMine)
-                GameMgr.Instance.uIMgr.TabNickName(myNum, playerState);
+                GameMgr.Instance.uiMgr.TabNickName(myNum, playerState);
             else
-                GameMgr.Instance.uIMgr.TabNickName(Num, pstate);
+                GameMgr.Instance.uiMgr.TabNickName(Num, pstate);
         }
         else if (Num2 == 2)//죽여서 레드 얻었을 때
         {
-            GameMgr.Instance.uIMgr.RedTabSoul(Num, Num3);
+            GameMgr.Instance.uiMgr.RedTabSoul(Num, Num3);
         }
         else if (Num2 == 3)
         {
-            GameMgr.Instance.uIMgr.BlueTabSoul(Num, Num3);
+            GameMgr.Instance.uiMgr.BlueTabSoul(Num, Num3);
         }
     }
     #region 플레이어 상태 코루틴

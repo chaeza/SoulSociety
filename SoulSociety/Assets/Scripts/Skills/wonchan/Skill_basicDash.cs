@@ -38,7 +38,7 @@ public class Skill_basicDash : MonoBehaviourPun
             a.transform.LookAt(GetComponent<PlayerMove>().desiredDir);
             sound = a.GetComponent<AudioSource>();
             sound.Play();
-            GameMgr.Instance.uIMgr.DashCooltime(gameObject, 5);//UI매니저에 쿨타임 10초를 보냄
+            GameMgr.Instance.uiMgr.DashCooltime(gameObject, 5);//UI매니저에 쿨타임 10초를 보냄
             StartCoroutine(DashTimer());
         } 
     }

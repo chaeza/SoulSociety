@@ -33,7 +33,7 @@ public class Skill_1chance : MonoBehaviourPun, ItemMethod
         }
         navMeshAgent.speed = dashSpeed / 4;
         navMeshAgent.isStopped = true;
-        GameMgr.Instance.uIMgr.UseItem(itemNum);
+        GameMgr.Instance.uiMgr.UseItem(itemNum);
         GameMgr.Instance.inventory.RemoveInventory(itemNum);
         Destroy(GetComponent<Skill_1chance>());
         yield break;

@@ -6,71 +6,49 @@ using Photon.Realtime;
 
 
 public class GameMgr : Singleton<GameMgr>
-
 {
-
     // public FollowCam followCam;
-    [field : Tooltip("Game MGR Player Input")]
-
-    [field: SerializeField]
-    public PlayerInput playerInput { get; private set; } = null;
-
     [Tooltip("Game MGR followCam")]
-    [field: SerializeField]
-    public FollowCam followCam { get; private set; } = null;
-
-    [Tooltip("Game MGR inventory")]
-    [field: SerializeField]
-    public Inventory inventory { get; private set; } = null;
-
-    [Tooltip("Game MGR randomSkill")]
-    [field: SerializeField]
-    public RandomSkill randomSkill { get; private set; } = null;
-
-    [Tooltip("Game MGR randomItem")]
-    [field: SerializeField]
-    public RandomItem randomItem { get; private set; } = null;
-
-    [Tooltip("Game MGR uIMgr")]
-    [field: SerializeField]
-    public UIMgr uIMgr { get; private set; } = null;
+    [field: SerializeField] public FollowCam followCam { get; private set; } = null;
 
     [Tooltip("Game MGR hpBarInfo")]
-    [field: SerializeField]
-    public HpBarInfo hpBarInfo { get; private set; } = null;
+    [field: SerializeField] public HpBarInfo hpBarInfo { get; private set; } = null;
 
-    [Tooltip("Game MGR spawnMgr")]
-    [field: SerializeField]
-    public SpawnMgr spawnMgr { get; private set; } = null;
+    [Tooltip("Game MGR inventory")]
+    [field: SerializeField] public Inventory inventory { get; private set; } = null;
 
+    [Tooltip("Game MGR Player Input")]
+    [field: SerializeField] public PlayerInput playerInput { get; private set; } = null;
+    [Tooltip("Game MGR randomItem")]
+    [field: SerializeField] public RandomItem randomItem { get; private set; } = null;
+    [Tooltip("Game MGR randomSkill")]
+    [field: SerializeField] public RandomSkill randomSkill { get; private set; } = null;
     [Tooltip("Game MGR resourceData")]
-    [field: SerializeField]
-    public ResourceData resourceData { get; private set; } = null;
+    [field: SerializeField] public ResourceData resourceData { get; private set; } = null;
+    [Tooltip("Game MGR spawnMgr")]
+    [field: SerializeField] public SpawnMgr spawnMgr { get; private set; } = null;
+    [Tooltip("Game MGR uIMgr")]
+    [field: SerializeField] public UIMgr uiMgr { get; private set; } = null;
+
     public bool endGame { get; private set; } = false;
     public int dieCount = 0;
     public int redCount = 0;
     public int blueCount = 0;
-  //  int playerNum = 3;
+    private int alivePlayerNum = 0;
 
-    
-
-    int alivePlayerNum = 0;
 
     private void Awake()
     {
-        //Instantiate(test, Vector3.zero, Quaternion.identity);
-
+        resourceData = Resources.Load<ResourceData>("ResourceData");
+        playerInput = gameObject.AddComponent<PlayerInput>();
         randomSkill = gameObject.AddComponent<RandomSkill>();
         randomItem = gameObject.AddComponent<RandomItem>();
-        playerInput = gameObject.AddComponent<PlayerInput>();
         inventory = gameObject.AddComponent<Inventory>();
-        //hpBarInfo = FindObjectOfType<HpBarInfo>();
-        uIMgr = FindObjectOfType<UIMgr>();
         followCam = FindObjectOfType<FollowCam>();
         spawnMgr = FindObjectOfType<SpawnMgr>();
-        resourceData = Resources.Load<ResourceData>("ResourceData");
+        uiMgr = FindObjectOfType<UIMgr>();
     }
-    public void GetRedSoul(int redsoul)
+    public void GetRedSoul(int redSoul)
     {
         int num = 0;
         PlayerInfo[] playerinfo = FindObjectsOfType<PlayerInfo>();
@@ -79,28 +57,20 @@ public class GameMgr : Singleton<GameMgr>
             if (playerinfo[i].playerState == state.Die) num++;
         }
 
-
-        if (redsoul == 0) redCount++;
-
-        else redCount += redsoul + 1;
-
-        /*       if (PhotonNetwork.PlayerList.Length - num == 1)
-               {
-                   uIMgr.photonView.RPC("EndGame", RpcTarget.All, 1, redCount);
-               }
-       */
+        if (redSoul == 0) redCount++;
+        else redCount += redSoul + 1;
         AliveNumCheck();
-
-        uIMgr.MyRedSoul(redCount);
+        uiMgr.MyRedSoul(redCount);
     }
+
+    //When get a BlueSoul, count & EndGame Check
     public void GetBuleSoul()
     {
         blueCount++;
-        uIMgr.MyBlueSoul(blueCount);
-        if (blueCount >= 5)
-        {
-            uIMgr.photonView.RPC("EndGame", RpcTarget.All, 2, blueCount);
-        }
+
+        uiMgr.MyBlueSoul(blueCount);
+
+        if (blueCount >= 5) uiMgr.photonView.RPC("EndGame", RpcTarget.All, 2, blueCount);
     }
     public GameObject PunFindObject(int viewID3)//뷰아이디를 넘겨받아 포톤상의 오브젝트를 찾는다.
     {
@@ -112,24 +82,31 @@ public class GameMgr : Singleton<GameMgr>
         }
         return find;
     }
-    public void DestroyTarget(GameObject desObject, float time)
+
+    /// <summary>
+    /// This Function will be used for destroy the object What you want.
+    /// This Function need two para,
+    /// </summary>
+    /// <param name="destroyObject">This Object that will be destroyed</param>
+    /// <param name="time">How much time do you need to Destroy</param>
+    public void DestroyTarget(GameObject destroyObject, float time)
     {
-        photonView.RPC("PunDestroyObject", RpcTarget.All, desObject.GetPhotonView().ViewID, time);
+        photonView.RPC("PunDestroyObject", RpcTarget.All, destroyObject.GetPhotonView().ViewID, time);
     }
     [PunRPC]
-    public void PunDestroyObject(int viewid, float time)
+    public void PunDestroyObject(int viewID, float time)
     {
-        Destroy(PunFindObject(viewid), time);
+        Destroy(PunFindObject(viewID), time);
     }
 
-  
+
     public void AliveNumCheck()
     {
         //생존 인원 카운트 숫자
         alivePlayerNum = 0;
         //플레이어 인포를 찾기위한 배열 
         PlayerInfo[] AliveNum;
-        int winner =0;
+        int winner = 0;
 
 
 
@@ -147,7 +124,7 @@ public class GameMgr : Singleton<GameMgr>
 
         if (alivePlayerNum == 1)
         {
-            uIMgr.photonView.RPC("EndGame", RpcTarget.All, 1, AliveNum[winner].gameObject.GetPhotonView().ViewID);
+            uiMgr.photonView.RPC("EndGame", RpcTarget.All, 1, AliveNum[winner].gameObject.GetPhotonView().ViewID);
         }
     }
 }

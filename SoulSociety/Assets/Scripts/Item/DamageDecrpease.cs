@@ -37,7 +37,7 @@ public class DamageDecrpease : MonoBehaviourPun, ItemMethod//아이템 인터페이스 �
         gameObject.GetPhotonView().RPC("SetDamageDecrpease", RpcTarget.All, 0.3f,5f);
         GameMgr.Instance.DestroyTarget(a, 5f);
         //
-        GameMgr.Instance.uIMgr.UseItem(itemNum);
+        GameMgr.Instance.uiMgr.UseItem(itemNum);
         GameMgr.Instance.inventory.RemoveInventory(itemNum);//인벤토리에서 이 스킬을 소유한 것을 초기화함
         Destroy(GetComponent<DamageDecrpease>());//해당 아이템을 사용후 컴포넌트 삭제
     }
