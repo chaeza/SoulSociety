@@ -139,7 +139,7 @@ public class DashAttack : MonoBehaviourPun, SkillMethod
         navMeshAgent.speed = 5f;
         yield break;
     }
-    IEnumerator Fire(GameObject skill)//큐브 이동시키기
+    IEnumerator Fire(GameObject skill)  //큐브 이동시키기
     {
         for (int i = 0; i < 30; i++)
         {
