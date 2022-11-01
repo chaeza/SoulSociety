@@ -6,6 +6,7 @@ public partial class FollowCam : MonoBehaviour
 {
     [SerializeField] float distanceFromPlayerZ = 3f;
     [SerializeField] float distanceFromPlayerY = 15f;
+    [SerializeField] float distanceFromPlayerX = 15f;
     [SerializeField] float cameraSpeed = 0.2f;
     Transform playerPos;
     bool followBool = false;
@@ -20,7 +21,7 @@ public partial class FollowCam : MonoBehaviour
     private void Start()
     {
         Cursor.lockState = CursorLockMode.Confined;
-        transform.position = playerPos.position - Vector3.forward * distanceFromPlayerZ + Vector3.up * distanceFromPlayerY;
+        transform.position = playerPos.position - Vector3.forward * distanceFromPlayerZ + Vector3.up * distanceFromPlayerY + Vector3.right * distanceFromPlayerX;
         transform.LookAt(playerPos.position + Vector3.up * 2);
 
     }
@@ -30,7 +31,8 @@ public partial class FollowCam : MonoBehaviour
         if (GameMgr.Instance.endGame == true) return;
         if (Input.GetKey(KeyCode.Space) || followBool == true)
         {
-            transform.position = playerPos.position - Vector3.forward * distanceFromPlayerZ + Vector3.up * distanceFromPlayerY;
+            transform.position = playerPos.position - Vector3.forward * distanceFromPlayerZ + Vector3.up * distanceFromPlayerY+Vector3.right*distanceFromPlayerX;
+
             transform.LookAt(playerPos.position + Vector3.up * 2);
         }
         if (GameMgr.Instance.playerInput.yKey == KeyCode.Y && followBool == false) followBool = true;

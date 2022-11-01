@@ -30,7 +30,7 @@ public class PotalSystem : MonoBehaviourPun
             launchPlayerList.Enqueue(other.gameObject);
 
             StartCoroutine(ReadyToTransfer(transferTimer));
-            gameObject.GetComponent<PlayerMove>();
+          
         }
         else
             Debug.Log("It is Not Player");
@@ -60,16 +60,16 @@ public class PotalSystem : MonoBehaviourPun
         if (launchPlayerList.Count > 0)
         {
             player = launchPlayerList.Dequeue();
-            Debug.Log(player.GetPhotonView().ViewID+"????d");
-           //  player.transform.position = player.transform.position + new Vector3(0, 0, 10);
-            player.GetComponent<Rigidbody>().position = player.GetComponent<Rigidbody>().position + new Vector3(0, 0, 10);
-
+            Debug.Log(player.GetPhotonView().ViewID + "????d");
+            player.GetComponent<PlayerMove>().navMeshAgent.updatePosition = true;
+            player.transform.position = player.transform.position + new Vector3(0, 0, 10);
+            //  player.GetComponent<Rigidbody>().position = player.GetComponent<Rigidbody>().position + new Vector3(0, 0, 10);
 
             viewIDList.Remove(player.gameObject.GetPhotonView().ViewID);
             playerList.Remove(player.gameObject);
         }
-       // player.GetComponent<PlayerMove>().MoveStop();
-      
+        // player.GetComponent<PlayerMove>().MoveStop();
+
     }
 
 }

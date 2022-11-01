@@ -11,7 +11,7 @@ public class PlayerMove : MonoBehaviourPun
     [SerializeField] public float moveSpeed { get; set; } = 5;
     PlayerInfo playerInfo;
     Animator myAnimator;
-    NavMeshAgent navMeshAgent;
+    public NavMeshAgent navMeshAgent;
 
 
 
