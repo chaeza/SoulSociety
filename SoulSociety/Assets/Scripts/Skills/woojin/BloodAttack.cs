@@ -9,13 +9,13 @@ public class BloodAttack : MonoBehaviourPun, SkillMethod
     bool skillCool = false;
     bool skillClick = false;
 
-    RectTransform myskillRangerect = null;
+    RectTransform mySkillRangeRect = null;
     GameObject skilla;
 
     Vector3 canSkill;
     private void Start()
     {
-        myskillRangerect = GetComponent<PlayerInfo>().myskillRangerect;
+        mySkillRangeRect = GetComponent<PlayerInfo>().myskillRangerect;
 
         skilla = GetComponent<PlayerInfo>().skilla;
     }
@@ -32,8 +32,8 @@ public class BloodAttack : MonoBehaviourPun, SkillMethod
             if (skillClick == false)
             {
                 skilla.SetActive(true);
-                myskillRangerect.gameObject.SetActive(true);
-                myskillRangerect.sizeDelta = new Vector2(skillRange, skillRange);
+                mySkillRangeRect.gameObject.SetActive(true);
+                mySkillRangeRect.sizeDelta = new Vector2(skillRange, skillRange);
 
                 skillClick = true;
             }
@@ -41,7 +41,7 @@ public class BloodAttack : MonoBehaviourPun, SkillMethod
             else
             {
                 skillClick = false;
-                myskillRangerect.gameObject.SetActive(false);
+                mySkillRangeRect.gameObject.SetActive(false);
                 skilla.SetActive(false);
             }
         }
@@ -74,7 +74,7 @@ public class BloodAttack : MonoBehaviourPun, SkillMethod
         if (skillClick == true)
         {
             skillClick = false;
-            myskillRangerect.gameObject.SetActive(false);
+            mySkillRangeRect.gameObject.SetActive(false);
             skilla.SetActive(false);
             if (Vector3.Distance(canSkill, transform.position) > skillRange / 2) return;
 

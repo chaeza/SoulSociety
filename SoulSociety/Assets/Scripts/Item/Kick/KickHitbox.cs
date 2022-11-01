@@ -6,9 +6,9 @@ using UnityEngine.AI;
 
 public class KickHitbox : MonoBehaviourPun
 {
-    int Attacker;//공격자 선언
-    Vector3 pos;
-    void AttackerName(int Name)//샌드메세지로 공격 뷰ID를 넘겨받는다.
+    private int Attacker;//공격자 선언
+    private Vector3 pos;
+    private void AttackerName(int Name)//샌드메세지로 공격 뷰ID를 넘겨받는다.
     {
         Attacker = Name;
     }
