@@ -4,33 +4,35 @@ using UnityEngine;
 using Photon.Pun;
 using UnityEngine.AI;
 
-
-public class DashAttack : MonoBehaviourPun, SkillMethod
+public class Dodrug : MonoBehaviourPun , SkillMethod
 {
-    int skillRange = 30;
-    bool skillCool = false;
-    bool skillClick = false;
-    bool dashAttack = false;
-
     AudioSource sound;
-
-    RectTransform myskillRangerect = null;
     GameObject skilla;
     NavMeshAgent navMeshAgent;
+    RectTransform myskillRangerect = null;
+    
     Vector3 canSkill;
+    Vector3 desiredDir;
+
+    bool dashAttack = false;
+    bool skillCool = false;
+    bool skillClick = false;  
+    int skillRange = 25;
+   
+
     private void Start()
     {
-        myskillRangerect = GetComponent<PlayerInfo>().myskillRangerect;
-
         skilla = GetComponent<PlayerInfo>().skilla;
-        navMeshAgent=GetComponent<NavMeshAgent>();
+        myskillRangerect = GetComponent<PlayerInfo>().myskillRangerect;
+        navMeshAgent = GetComponent<NavMeshAgent>();
     }
-    Vector3 desiredDir;
+   
     public void ResetCooltime()
     {
         skillCool = false;//스킬을 다시 사용 가능하게함
         Debug.Log("스킬쿨끝");
     }
+
     public void SkillFire()
     {
         if (skillCool == false)
@@ -57,10 +59,9 @@ public class DashAttack : MonoBehaviourPun, SkillMethod
     {
         if (skillClick == true)
         {
-
             Vector3 mousePos = Input.mousePosition;
-
             Vector3 target;
+
             target.x = mousePos.x;
             target.y = mousePos.y;
             target.z = 0;
@@ -68,13 +69,13 @@ public class DashAttack : MonoBehaviourPun, SkillMethod
             skilla.transform.position = target;
 
             RaycastHit hit;
-
             Ray ray = Camera.main.ScreenPointToRay(mousePos);
             Physics.Raycast(Camera.main.ScreenPointToRay(mousePos), out hit, 30f);
+
             canSkill = hit.point;
             canSkill.y = transform.position.y;
         }
-        if(dashAttack==true)
+        if (dashAttack == true)
         {
             navMeshAgent.isStopped = false;
             navMeshAgent.updateRotation = true;
@@ -122,32 +123,33 @@ public class DashAttack : MonoBehaviourPun, SkillMethod
         yield return new WaitForSeconds(time);
         navMeshAgent.speed = 40f;
         dashAttack = true;
-        GameObject a = PhotonNetwork.Instantiate("DashAttack", transform.position, Quaternion.identity);//이펙트를 포톤 인스턴스를 합니다.
-        GameObject b = PhotonNetwork.Instantiate("DashAttackHitbox", transform.position, Quaternion.identity);//이펙트를 포톤 인스턴스를 합니다.
-        b.AddComponent<DashAttackHitbox>();//이펙트에 히트 스크립트를 넣습니다.
+      //  GameObject a = PhotonNetwork.Instantiate("Dodrug", transform.position, Quaternion.identity);//이펙트를 포톤 인스턴스를 합니다.
+        GameObject b = PhotonNetwork.Instantiate("DodrugHitBox", transform.position, Quaternion.identity);//이펙트를 포톤 인스턴스를 합니다.
+        b.AddComponent<DodrugHit>();//이펙트에 히트 스크립트를 넣습니다.
         b.SendMessage("AttackerName", gameObject.GetPhotonView().ViewID, SendMessageOptions.DontRequireReceiver);//이펙트에 공격자를 지정합니다.
         b.transform.LookAt(desiredDir);
+        b.transform.Rotate(0, -180, 0);
+       
         StartCoroutine(Fire(b));
-        a.transform.LookAt(desiredDir);
-        sound = a.GetComponent<AudioSource>();
+      //  sound = a.GetComponent<AudioSource>();
+      //  sound.Play();
 
-        sound.Play();
-        GameMgr.Instance.DestroyTarget(a, 2f);
-        GameMgr.Instance.DestroyTarget(b, 2.5f);
+        GameMgr.Instance.DestroyTarget(b, 1f);
         yield return new WaitForSeconds(0.5f);
         dashAttack = false;
         navMeshAgent.speed = 5f;
+
         yield break;
     }
     IEnumerator Fire(GameObject skill)  //큐브 이동시키기
     {
-        for (int i = 0; i < 30; i++)
+        for (int i = 0; i < 20; i++)
         {
-            skill.transform.Translate(0, 0, 0.5f); 
+            skill.transform.Translate(0, 0, -0.5f);
             yield return null;
         }
         yield break;
     }
 
-   
+
 }

@@ -50,8 +50,8 @@ MonoBehaviour:
   m_makeObjs:
   - {fileID: 1356378541309022, guid: f9c223304b3a5fb448525f98d27e1cf5, type: 3}
   m_movePos: {fileID: 0}
-  m_interval: 10
-  m_makeCount: 12
+  m_interval: 7
+  m_makeCount: 10
   m_makeDelay: 0
   m_startDelay: 0
 --- !u!114 &114589487499374402
@@ -104,7 +104,8 @@ MonoBehaviour:
   Synchronization: 3
   OwnershipTransfer: 0
   observableSearch: 2
-  ObservedComponents: []
+  ObservedComponents:
+  - {fileID: 5482219977210288180}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0

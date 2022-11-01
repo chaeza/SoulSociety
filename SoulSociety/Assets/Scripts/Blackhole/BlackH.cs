@@ -16,12 +16,6 @@ public class BlackH : MonoBehaviourPun
     // 방향을 담당할 변수를 만든다.
     Vector3 dir;
 
-    private void Start()
-    {
-        //stars에 근처에있는 콜라이더들을 배열에 다 넣는다
-
-    }
-
     void Update()
     {
         // 시간을 흐르게 만든다.
