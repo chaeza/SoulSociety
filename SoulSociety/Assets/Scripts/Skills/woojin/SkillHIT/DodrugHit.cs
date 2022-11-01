@@ -5,18 +5,29 @@ using Photon.Pun;
 
 public class DodrugHit : MonoBehaviourPun
 {
-    int Attacker;//공격자 선언
-    void AttackerName(int Name)//샌드메세지로 공격 뷰ID를 넘겨받는다.
+    // Added list of attacked enemies.
+    List<GameObject> attackList = new List<GameObject>();
+    // Attacker declaration
+    int attacker;
+    // Receives the attack view ID as a sand message.
+    void AttackerName(int Name)
     {
-        Attacker = Name;
+        attacker = Name;
     }
-    List<GameObject> attackList = new List<GameObject>();//공격받은 적들을 넣을 리스트추가.
+   
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Player" && attackList.Contains(other.gameObject) == false)//리스트에 안들어있는 적만 맞음.
         {
-            other.gameObject.GetPhotonView().RPC("RPC_hit", RpcTarget.All, 20f, Attacker, state.None, 0f);
-            attackList.Add(other.gameObject);//공격 받은 적을 리스트에 넣어 콜라이더를 벗어났다가 다시맞는 경우를 방지함.
+            // shield effect
+            GameObject a = PhotonNetwork.Instantiate("WarofWall", transform.position, Quaternion.identity);
+            other.gameObject.GetPhotonView().RPC("RPC_hit", RpcTarget.All, 10f, attacker, state.Stun, 3f);
+            // Adds the attacked enemy to the list to avoid getting hit again after escaping the collider.
+            attackList.Add(other.gameObject);
+
+            
+           GameMgr.Instance.DestroyTarget(a, 6.2f);
+            GameMgr.Instance.DestroyTarget(gameObject, 6.2f);
         }
 
     }
