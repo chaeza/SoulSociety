@@ -10,7 +10,7 @@ public class GameMgr : Singleton<GameMgr>
 {
 
     // public FollowCam followCam;
-    [field: Tooltip("Game MGR Player Input")]
+    [field : Tooltip("Game MGR Player Input")]
 
     [field: SerializeField]
     public PlayerInput playerInput { get; private set; } = null;
@@ -50,9 +50,9 @@ public class GameMgr : Singleton<GameMgr>
     public int dieCount = 0;
     public int redCount = 0;
     public int blueCount = 0;
-    //  int playerNum = 3;
+  //  int playerNum = 3;
 
-
+    
 
     int alivePlayerNum = 0;
 
@@ -122,15 +122,14 @@ public class GameMgr : Singleton<GameMgr>
         Destroy(PunFindObject(viewid), time);
     }
 
-
+  
     public void AliveNumCheck()
     {
         //생존 인원 카운트 숫자
         alivePlayerNum = 0;
-        //플레이어 인포를 찾기위한 배열 k
-
+        //플레이어 인포를 찾기위한 배열 
         PlayerInfo[] AliveNum;
-        int winner = 0;
+        int winner =0;
 
 
 

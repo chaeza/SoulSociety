@@ -117,6 +117,6 @@ public class PlayerMove : MonoBehaviourPun
         navMeshAgent.updateRotation = false;
         navMeshAgent.updatePosition = false;
         isMove = false;
-        //Debug.Log(isMove.ToString());
+       // Debug.Log(isMove.ToString()+"???????");
     }
 }

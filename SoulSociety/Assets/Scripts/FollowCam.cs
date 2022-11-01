@@ -2,13 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FollowCam : MonoBehaviour
+public partial class FollowCam : MonoBehaviour
 {
     [SerializeField] float distanceFromPlayerZ = 3f;
     [SerializeField] float distanceFromPlayerY = 15f;
     [SerializeField] float cameraSpeed = 0.2f;
     Transform playerPos;
     bool followBool = false;
+    private int a;
 
 
     public void playerStart(Transform player)
