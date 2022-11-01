@@ -23,6 +23,7 @@ public class PlayerInfo : MonoBehaviourPun
     [SerializeField] int blueSoul;
     [SerializeField] int redSoul;
     [SerializeField] float maxHP = 100;
+    [SerializeField] GameObject disintergrate;
     public float curHP { get; set; } = 100;
     public float basicAttackDamage { get; set; } = 10;
     public float damageDecrease { get; set; } = 0; // 데미지 감소
@@ -78,9 +79,6 @@ public class PlayerInfo : MonoBehaviourPun
             GameMgr.Instance.gameObject.GetPhotonView().RPC("RPC_All_SessionID", RpcTarget.MasterClient, sessionID);
             GameMgr.Instance.gameObject.SendMessage("countSSS", SendMessageOptions.DontRequireReceiver);
         }
-
-
-
         myHPbarInfo = GetComponentInChildren<HpBarInfo>();
         navMeshAgent = GetComponent<NavMeshAgent>();
         myHPbarInfo.SetName(photonView.Controller.NickName);
@@ -92,7 +90,6 @@ public class PlayerInfo : MonoBehaviourPun
             GameMgr.Instance.uIMgr.MyPlayerViewID(photonView.ViewID);
             myskillRangerect = GetComponentInChildren<SkillRange>().gameObject.GetComponent<RectTransform>();
             myskillRangerect.gameObject.SetActive(false);
-
             skilla = GameObject.Find("Skilla");
             skilla.SetActive(false);
         }
@@ -121,7 +118,6 @@ public class PlayerInfo : MonoBehaviourPun
         stay = true;
         GetComponent<PlayerMove>().MoveStop();
         StartCoroutine(StayMe(time));
-
     }
     [PunRPC]
     void RPC_hit(float bAD, int viewID1, state st, float time)
@@ -278,6 +274,25 @@ public class PlayerInfo : MonoBehaviourPun
         }
     }
     #region 플레이어 상태 코루틴
+
+    [PunRPC]
+    void Disintergrate(float time)
+    {
+        if(photonView.IsMine==false)
+        {
+            StartCoroutine(Disintergrate_Duration(time));
+        }
+
+    }
+    IEnumerator Disintergrate_Duration(float time)
+    {
+        disintergrate.SetActive(false);
+        yield return new WaitForSeconds(time);
+        disintergrate.SetActive(true);
+        myHPbarInfo.SetHP(curHP, maxHP);
+        yield break;
+
+    }
     IEnumerator StayMe(float time)
     {
         yield return new WaitForSeconds(time);
@@ -341,8 +356,11 @@ public class PlayerInfo : MonoBehaviourPun
     [PunRPC]
     void BackMove(Vector3 pos, float time, int speed)
     {
-        if(photonView.IsMine)
+        if (photonView.IsMine)
+        {
+            if (playerState == state.Unbeatable) return;//무적일시 맞지 않음
             photonView.StartCoroutine(backMove(pos, time, speed));
+        }
     }
     IEnumerator backMove(Vector3 pos, float time, int speed)
     {

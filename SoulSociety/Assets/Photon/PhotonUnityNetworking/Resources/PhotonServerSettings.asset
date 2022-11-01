@@ -85,6 +85,8 @@ MonoBehaviour:
   - RPC_DieRed
   - PlayerDance
   - EmotionStart
+  - Disintegrate
+  - Disintergrate
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1
